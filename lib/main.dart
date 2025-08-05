@@ -1,9 +1,9 @@
+import 'package:coffee_app/core/utils/app_router.dart';
 import 'package:coffee_app/core/utils/color_palette.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'core/utils/text_styles.dart';
 import 'generated/l10n.dart';
 
 void main() {
@@ -15,7 +15,7 @@ class CoffeeApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       locale: Locale("en"),
       localizationsDelegates: [
@@ -29,21 +29,12 @@ class CoffeeApp extends StatelessWidget {
         scaffoldBackgroundColor: ColorPalette.eerieBlack,
         textTheme: GoogleFonts.poppinsTextTheme(ThemeData.dark().textTheme),
       ),
-      home: HomeScreen(),
+      routerConfig: AppRouter.router,
     );
   }
 }
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [Text(S.current.title, style: TextStyles.bold32)],
-      ),
-    );
-  }
+extension SizeDevice on BuildContext {
+  double get height => MediaQuery.of(this).size.height;
+  double get width => MediaQuery.of(this).size.width;
 }

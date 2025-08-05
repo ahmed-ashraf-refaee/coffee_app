@@ -34,6 +34,7 @@ dependencies:
   flutter_localization: ^0.3.3
   flutter_localizations:
     sdk: flutter
+  go_router: ^16.1.0
   google_fonts: ^6.3.0
 
 dev_dependencies:
