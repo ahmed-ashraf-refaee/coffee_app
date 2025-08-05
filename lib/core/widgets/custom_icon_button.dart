@@ -1,13 +1,14 @@
+import 'package:coffee_app/core/utils/color_palette.dart';
 import 'package:flutter/material.dart';
 
-class CustomElevatedButton extends StatelessWidget {
-  const CustomElevatedButton({
+class CustomIconButton extends StatelessWidget {
+  const CustomIconButton({
     super.key,
     required this.onPressed,
-    required this.width,
-    required this.hight,
-    required this.backgroundColor,
-    required this.foregroundColor,
+    this.width = 48,
+    this.hight = 48,
+    this.backgroundColor = ColorPalette.raisinBlack,
+    this.foregroundColor = ColorPalette.cadetGray,
     this.borderRadius,
     this.borderColor,
     required this.child,
@@ -23,18 +24,18 @@ class CustomElevatedButton extends StatelessWidget {
   final Widget child;
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
+    return IconButton(
       onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
+      style: IconButton.styleFrom(
         backgroundColor: backgroundColor,
         foregroundColor: foregroundColor,
         fixedSize: Size(width, hight),
         shape: RoundedRectangleBorder(
-          borderRadius: borderRadius ?? BorderRadius.circular(12),
+          borderRadius: borderRadius ?? BorderRadius.circular(16),
           side: BorderSide(color: borderColor ?? Colors.transparent, width: 2),
         ),
       ),
-      child: child,
+      icon: child,
     );
   }
 }
