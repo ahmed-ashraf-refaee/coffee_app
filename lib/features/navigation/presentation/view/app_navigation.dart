@@ -49,7 +49,7 @@ class _AppNavigationState extends State<AppNavigation> {
   }
 }
 
-class BottomNavItem extends StatelessWidget {
+class BottomNavItem extends StatefulWidget {
   const BottomNavItem({
     super.key,
     required this.icon,
@@ -62,33 +62,39 @@ class BottomNavItem extends StatelessWidget {
   final bool isSelected;
 
   @override
+  State<BottomNavItem> createState() => _BottomNavItemState();
+}
+
+class _BottomNavItemState extends State<BottomNavItem> {
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 40,
       child: Column(
         children: [
           GestureDetector(
-            onTap: onPressed,
+            onTap: widget.onPressed,
             child: Container(
               child: Icon(
-                icon,
+                widget.icon,
                 size: 24,
-                color: isSelected
+                color: widget.isSelected
                     ? ColorPalette.orangeCrayola
                     : ColorPalette.cadetGray,
               ),
             ),
           ),
-          if (isSelected)
-            Container(
-              margin: EdgeInsets.only(top: 4),
-              height: 4,
-              width: 4,
-              decoration: BoxDecoration(
-                color: ColorPalette.orangeCrayola,
-                borderRadius: BorderRadius.circular(3),
-              ),
+          const SizedBox(height: 4),
+          AnimatedContainer(
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.fastOutSlowIn,
+            height: 4,
+            width: widget.isSelected ? 8 : 0,
+            decoration: BoxDecoration(
+              color: ColorPalette.orangeCrayola,
+              borderRadius: BorderRadius.circular(2),
             ),
+          ),
         ],
       ),
     );
