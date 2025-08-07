@@ -29,9 +29,6 @@ class _AppNavigationState extends State<AppNavigation> {
     var widthWithoutPadding = context.width - 32;
     var halfGapWidthWithoutIconSizes =
         (widthWithoutPadding - (icons.length * 24)) / (5 * 2);
-
-    print(context.width);
-    print(halfGapWidthWithoutIconSizes);
     return halfGapWidthWithoutIconSizes;
   }
 
