@@ -1,4 +1,5 @@
 import 'package:coffee_app/core/utils/color_palette.dart';
+import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 
 class AppNavigation extends StatefulWidget {
@@ -24,25 +25,63 @@ class _AppNavigationState extends State<AppNavigation> {
     Icons.person,
   ];
 
+  double calcDotPositioned() {
+    var widthWithoutPadding = context.width - 32;
+    var halfGapWidthWithoutIconSizes =
+        (widthWithoutPadding - (icons.length * 24)) / (5 * 2);
+
+    print(context.width);
+    print(halfGapWidthWithoutIconSizes);
+    return halfGapWidthWithoutIconSizes;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: screens[currentIndex],
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: List.generate(icons.length, (index) {
-            return BottomNavItem(
-              icon: icons[index],
-              isSelected: currentIndex == index,
-              onPressed: () {
-                setState(() {
-                  currentIndex = index;
-                });
-              },
-            );
-          }),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: List.generate(icons.length, (index) {
+                return BottomNavItem(
+                  icon: icons[index],
+                  isSelected: currentIndex == index,
+                  onPressed: () {
+                    setState(() {
+                      currentIndex = index;
+                    });
+                  },
+                );
+              }),
+            ),
+            AnimatedSlide(
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeInOut,
+              offset: Offset(
+                currentIndex == 0
+                    ? -(calcDotPositioned() * 3 + 36) / 24
+                    : currentIndex == 1
+                    ? -(calcDotPositioned() + 12) / 24
+                    : currentIndex == 2
+                    ? (calcDotPositioned() + 12) / 24
+                    : (calcDotPositioned() * 3 + 36) / 24,
+                -2,
+              ),
+              child: Container(
+                width: 24,
+                height: 4,
+
+                decoration: BoxDecoration(
+                  color: ColorPalette.orangeCrayola,
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -53,8 +92,8 @@ class BottomNavItem extends StatefulWidget {
   const BottomNavItem({
     super.key,
     required this.icon,
-    required this.isSelected,
     required this.onPressed,
+    required this.isSelected,
   });
 
   final VoidCallback onPressed;
@@ -74,25 +113,12 @@ class _BottomNavItemState extends State<BottomNavItem> {
         children: [
           GestureDetector(
             onTap: widget.onPressed,
-            child: Container(
-              child: Icon(
-                widget.icon,
-                size: 24,
-                color: widget.isSelected
-                    ? ColorPalette.orangeCrayola
-                    : ColorPalette.cadetGray,
-              ),
-            ),
-          ),
-          const SizedBox(height: 4),
-          AnimatedContainer(
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.fastOutSlowIn,
-            height: 4,
-            width: widget.isSelected ? 8 : 0,
-            decoration: BoxDecoration(
-              color: ColorPalette.orangeCrayola,
-              borderRadius: BorderRadius.circular(2),
+            child: Icon(
+              widget.icon,
+              size: 24,
+              color: widget.isSelected
+                  ? ColorPalette.orangeCrayola
+                  : ColorPalette.cadetGray,
             ),
           ),
         ],
