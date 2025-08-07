@@ -1,4 +1,5 @@
 import 'package:coffee_app/core/utils/color_palette.dart';
+import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 
 class AppNavigation extends StatefulWidget {
@@ -24,37 +25,72 @@ class _AppNavigationState extends State<AppNavigation> {
     Icons.person,
   ];
 
+  double calcDotPositioned() {
+    var widthWithoutPadding = context.width - 32;
+    var halfGapWidthWithoutIconSizes =
+        (widthWithoutPadding - (icons.length * 24)) / (5 * 2);
+    return halfGapWidthWithoutIconSizes;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: screens[currentIndex],
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: List.generate(icons.length, (index) {
-            return BottomNavItem(
-              icon: icons[index],
-              isSelected: currentIndex == index,
-              onPressed: () {
-                setState(() {
-                  currentIndex = index;
-                });
-              },
-            );
-          }),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: List.generate(icons.length, (index) {
+                return BottomNavItem(
+                  icon: icons[index],
+                  isSelected: currentIndex == index,
+                  onPressed: () {
+                    setState(() {
+                      currentIndex = index;
+                    });
+                  },
+                );
+              }),
+            ),
+            AnimatedSlide(
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeInOut,
+              offset: Offset(
+                currentIndex == 0
+                    ? -(calcDotPositioned() * 3 + 36) / 24
+                    : currentIndex == 1
+                    ? -(calcDotPositioned() + 12) / 24
+                    : currentIndex == 2
+                    ? (calcDotPositioned() + 12) / 24
+                    : (calcDotPositioned() * 3 + 36) / 24,
+                -2,
+              ),
+              child: Container(
+                width: 24,
+                height: 4,
+
+                decoration: BoxDecoration(
+                  color: ColorPalette.orangeCrayola,
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
   }
 }
 
-class BottomNavItem extends StatelessWidget {
+class BottomNavItem extends StatefulWidget {
   const BottomNavItem({
     super.key,
     required this.icon,
-    required this.isSelected,
     required this.onPressed,
+    required this.isSelected,
   });
 
   final VoidCallback onPressed;
@@ -62,33 +98,26 @@ class BottomNavItem extends StatelessWidget {
   final bool isSelected;
 
   @override
+  State<BottomNavItem> createState() => _BottomNavItemState();
+}
+
+class _BottomNavItemState extends State<BottomNavItem> {
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 40,
       child: Column(
         children: [
           GestureDetector(
-            onTap: onPressed,
-            child: Container(
-              child: Icon(
-                icon,
-                size: 24,
-                color: isSelected
-                    ? ColorPalette.orangeCrayola
-                    : ColorPalette.cadetGray,
-              ),
+            onTap: widget.onPressed,
+            child: Icon(
+              widget.icon,
+              size: 24,
+              color: widget.isSelected
+                  ? ColorPalette.orangeCrayola
+                  : ColorPalette.cadetGray,
             ),
           ),
-          if (isSelected)
-            Container(
-              margin: EdgeInsets.only(top: 4),
-              height: 4,
-              width: 4,
-              decoration: BoxDecoration(
-                color: ColorPalette.orangeCrayola,
-                borderRadius: BorderRadius.circular(3),
-              ),
-            ),
         ],
       ),
     );
