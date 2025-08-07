@@ -57,19 +57,19 @@ class _AppNavigationState extends State<AppNavigation> {
             ),
             AnimatedSlide(
               duration: const Duration(milliseconds: 300),
-              curve: Curves.easeInOut,
+              curve: Curves.decelerate,
               offset: Offset(
                 currentIndex == 0
-                    ? -(calcDotPositioned() * 3 + 36) / 24
+                    ? -(calcDotPositioned() * 3 + 36) / 4
                     : currentIndex == 1
-                    ? -(calcDotPositioned() + 12) / 24
+                    ? -(calcDotPositioned() + 12) / 4
                     : currentIndex == 2
-                    ? (calcDotPositioned() + 12) / 24
-                    : (calcDotPositioned() * 3 + 36) / 24,
+                    ? (calcDotPositioned() + 12) / 4
+                    : (calcDotPositioned() * 3 + 36) / 4,
                 -2,
               ),
               child: Container(
-                width: 24,
+                width: 4,
                 height: 4,
 
                 decoration: BoxDecoration(
