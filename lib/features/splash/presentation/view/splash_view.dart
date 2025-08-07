@@ -1,3 +1,4 @@
+import 'package:coffee_app/core/widgets/custom_gradient_container.dart';
 import 'package:flutter/material.dart';
 
 class SplashView extends StatelessWidget {
@@ -5,8 +6,8 @@ class SplashView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+    return CustomGradientContainer(
+      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
          
         ],
       ),

@@ -34,7 +34,7 @@ class CoffeeApp extends StatelessWidget {
   }
 }
 
-extension SizeDevice on BuildContext {
+extension DeviceSize on BuildContext {
   double get height => MediaQuery.of(this).size.height;
   double get width => MediaQuery.of(this).size.width;
 }
