@@ -2,6 +2,7 @@ import 'package:coffee_app/features/splash/presentation/view/splash_view.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/home/presentation/view/home_view.dart';
+import '../../features/navigation/presentation/view/app_navigation.dart';
 
 abstract class AppRouter {
   static const kHomeView = "/homeView";
@@ -9,8 +10,9 @@ abstract class AppRouter {
   static const kDetailsView = "/detailsView";
   static final router = GoRouter(
     routes: [
-      GoRoute(path: '/', builder: (context, state) => SplashView()),
+      GoRoute(path: '/', builder: (context, state) => AppNavigation()),
 
+      // GoRoute(path: '/', builder: (context, state) => SplashView()),
       GoRoute(path: kHomeView, builder: (context, state) => const HomeView()),
     ],
   );
