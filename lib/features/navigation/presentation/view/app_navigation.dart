@@ -1,6 +1,7 @@
 import 'package:coffee_app/core/utils/color_palette.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
+import 'package:unicons/unicons.dart';
 
 class AppNavigation extends StatefulWidget {
   const AppNavigation({super.key});
@@ -19,10 +20,10 @@ class _AppNavigationState extends State<AppNavigation> {
   ];
 
   final List<IconData> icons = [
-    Icons.home_filled,
-    Icons.shopping_bag_outlined,
-    Icons.favorite_outline,
-    Icons.person,
+    UniconsLine.home_alt,
+    UniconsLine.shopping_bag,
+    UniconsLine.heart_alt,
+    Icons.person_outline_outlined,
   ];
 
   double calcDotPositioned() {
