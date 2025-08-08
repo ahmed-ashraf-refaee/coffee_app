@@ -1,4 +1,5 @@
 import 'package:coffee_app/core/utils/app_router.dart';
+import 'package:coffee_app/core/utils/app_theme.dart';
 import 'package:coffee_app/core/utils/color_palette.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -25,10 +26,8 @@ class CoffeeApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: S.delegate.supportedLocales,
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: ColorPalette.eerieBlack,
-        textTheme: GoogleFonts.poppinsTextTheme(ThemeData.dark().textTheme),
-      ),
+      theme: appTheme,
+
       routerConfig: AppRouter.router,
     );
   }
