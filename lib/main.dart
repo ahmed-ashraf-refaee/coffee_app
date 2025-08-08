@@ -1,9 +1,9 @@
+import 'package:coffee_app/core/utils/app_theme.dart';
 import 'package:coffee_app/core/utils/color_palette.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'core/utils/text_styles.dart';
 import 'generated/l10n.dart';
 
 void main() {
@@ -25,10 +25,8 @@ class CoffeeApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: S.delegate.supportedLocales,
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: ColorPalette.eerieBlack,
-        textTheme: GoogleFonts.poppinsTextTheme(ThemeData.dark().textTheme),
-      ),
+      theme: appTheme,
+
       home: HomeScreen(),
     );
   }
@@ -42,7 +40,16 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [Text(S.current.title, style: TextStyles.bold32)],
+        children: [
+          TextFormField(
+            decoration: InputDecoration(
+              hint: Text("hello"),
+              suffixIcon: Icon(Icons.abc_outlined),
+              prefixIcon: Icon(Icons.abc_outlined),
+            ),
+          ),
+          ElevatedButton(onPressed: () {}, child: Text("hi there nigga")),
+        ],
       ),
     );
   }
