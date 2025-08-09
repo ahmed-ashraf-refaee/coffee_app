@@ -4,22 +4,24 @@ import 'package:go_router/go_router.dart';
 
 import '../../features/home/presentation/view/home_view.dart';
 import '../../features/navigation/presentation/view/app_navigation.dart';
+import '../../features/splash/presentation/view/splash_view.dart';
 
 abstract class AppRouter {
   static const kHomeView = "/homeView";
+  static const kNavigationView = "/navigationView";
   static const kCartView = "/cartView";
   static const kDetailsView = "/detailsView";
   static final router = GoRouter(
     routes: [
+      GoRoute(path: '/', builder: (context, state) => SplashView()),
       GoRoute(
-        path: '/',
+        path: kNavigationView,
         builder: (context, state) => BlocProvider(
           create: (context) => AppNavigatorCubit(),
           child: AppNavigation(),
         ),
       ),
 
-      // GoRoute(path: '/', builder: (context, state) => SplashView()),
       GoRoute(path: kHomeView, builder: (context, state) => const HomeView()),
     ],
   );
