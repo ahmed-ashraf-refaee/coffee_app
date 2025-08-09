@@ -5,6 +5,7 @@ import 'package:coffee_app/features/wishlist/presentation/view/wishlist_view.dar
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/widgets/custom_scaffold_gradient.dart';
 import '../manager/navigator_cubit/navigator_cubit.dart';
 import 'widgets/custom_bottom_nav_bar.dart';
 
@@ -16,15 +17,17 @@ class AppNavigation extends StatelessWidget {
     return Scaffold(
       body: BlocBuilder<AppNavigatorCubit, AppNavigatorState>(
         builder: (context, state) {
-          return state is AppNavigatorToHomeView
-              ? HomeView()
-              : state is AppNavigatorToCartView
-              ? CartView()
-              : state is AppNavigatorToWishlistView
-              ? WishlistView()
-              : state is AppNavigatorToProfileView
-              ? ProfileView()
-              : Container();
+          return GradientContainer(
+            child: state is AppNavigatorToHomeView
+                ? HomeView()
+                : state is AppNavigatorToCartView
+                ? CartView()
+                : state is AppNavigatorToWishlistView
+                ? WishlistView()
+                : state is AppNavigatorToProfileView
+                ? ProfileView()
+                : Container(),
+          );
         },
       ),
       bottomNavigationBar: CustomButtomNavBar(),

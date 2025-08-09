@@ -5,11 +5,9 @@ class CartView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [Center(child: Text("Cart Screen"))],
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [Center(child: Text("Cart Screen"))],
     );
   }
 }

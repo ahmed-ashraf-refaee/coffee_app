@@ -5,11 +5,9 @@ class WishlistView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [Center(child: Text("Wishlist Screen"))],
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [Center(child: Text("Wishlist Screen"))],
     );
   }
 }

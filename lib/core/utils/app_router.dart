@@ -1,11 +1,9 @@
 import 'package:coffee_app/features/navigation/presentation/manager/navigator_cubit/navigator_cubit.dart';
-import 'package:coffee_app/features/profile/presentation/view/profile_view.dart';
+import 'package:coffee_app/features/splash/presentation/view/splash_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../features/home/presentation/view/home_view.dart';
 import '../../features/navigation/presentation/view/app_navigation.dart';
-import '../../features/splash/presentation/view/splash_view.dart';
 
 abstract class AppRouter {
   static const kHomeView = "/homeView";
@@ -14,7 +12,7 @@ abstract class AppRouter {
   static const kDetailsView = "/detailsView";
   static final router = GoRouter(
     routes: [
-      GoRoute(path: '/', builder: (context, state) => ProfileView()),
+      GoRoute(path: '/', builder: (context, state) => SplashView()),
       GoRoute(
         path: kNavigationView,
         builder: (context, state) => BlocProvider(
@@ -23,7 +21,7 @@ abstract class AppRouter {
         ),
       ),
 
-      GoRoute(path: kHomeView, builder: (context, state) => const HomeView()),
+      // GoRoute(path: kHomeView, builder: (context, state) => const HomeView()),
     ],
   );
 }

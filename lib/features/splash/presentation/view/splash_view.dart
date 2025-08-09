@@ -5,6 +5,7 @@ import 'package:lottie/lottie.dart';
 
 import '../../../../core/utils/app_router.dart';
 import '../../../../core/utils/text_styles.dart';
+import '../../../../core/widgets/custom_scaffold_gradient.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -85,46 +86,51 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Spacer(),
-          SizedBox(
-            width: context.width,
-            height: 250,
-            child: Lottie.asset('assets/icons/coffe_icon.json', repeat: false),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              FadeTransition(
-                opacity: _animation,
-
-                child: Text("Coffee ", style: TextStyles.bold48),
-              ),
-              RotationTransition(
-                alignment: Alignment.centerLeft,
-                turns: _rotatiomanimation,
-                child: FadeTransition(
-                  opacity: _animation,
-
-                  child: Text("Drop", style: TextStyles.bold48),
-                ),
-              ),
-            ],
-          ),
-
-          Padding(
-            padding: const EdgeInsets.only(top: 8.0),
-            child: FadeTransition(
-              opacity: _descriptionanimation,
-              child: Text(
-                "your perfect pour at your door",
-                style: TextStyles.bold14,
+      body: GradientContainer(
+        child: Column(
+          children: [
+            Spacer(),
+            SizedBox(
+              width: context.width,
+              height: 250,
+              child: Lottie.asset(
+                'assets/icons/coffe_icon.json',
+                repeat: false,
               ),
             ),
-          ),
-          Spacer(flex: 3),
-        ],
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                FadeTransition(
+                  opacity: _animation,
+
+                  child: Text("Coffee ", style: TextStyles.bold48),
+                ),
+                RotationTransition(
+                  alignment: Alignment.centerLeft,
+                  turns: _rotatiomanimation,
+                  child: FadeTransition(
+                    opacity: _animation,
+
+                    child: Text("Drop", style: TextStyles.bold48),
+                  ),
+                ),
+              ],
+            ),
+
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: FadeTransition(
+                opacity: _descriptionanimation,
+                child: Text(
+                  "your perfect pour at your door",
+                  style: TextStyles.bold14,
+                ),
+              ),
+            ),
+            Spacer(flex: 3),
+          ],
+        ),
       ),
     );
   }

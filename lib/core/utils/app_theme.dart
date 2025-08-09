@@ -5,6 +5,35 @@ import 'package:google_fonts/google_fonts.dart';
 import 'text_styles.dart';
 
 ThemeData appTheme = ThemeData().copyWith(
+  switchTheme: SwitchThemeData(
+    thumbColor: WidgetStateProperty.resolveWith<Color>((states) {
+      if (states.contains(WidgetState.selected)) {
+        return Colors.white;
+      }
+      return Colors.white;
+    }),
+    trackColor: WidgetStateProperty.resolveWith<Color>((states) {
+      if (states.contains(WidgetState.selected)) {
+        return ColorPalette.orangeCrayola;
+      }
+      return Colors.transparent;
+    }),
+
+    trackOutlineColor: WidgetStateProperty.resolveWith<Color>((states) {
+      if (states.contains(WidgetState.selected)) {
+        return Colors.transparent;
+      }
+      return ColorPalette.cadetGray.withAlpha(220);
+    }),
+
+    overlayColor: WidgetStateProperty.resolveWith<Color>((states) {
+      if (states.contains(WidgetState.pressed)) {
+        return ColorPalette.orangeCrayola.withAlpha(26);
+      }
+      return Colors.transparent;
+    }),
+  ),
+
   scaffoldBackgroundColor: ColorPalette.eerieBlack,
   textTheme: GoogleFonts.poppinsTextTheme(ThemeData.dark().textTheme).apply(
     bodyColor: ColorPalette.antiFlashWhite,
