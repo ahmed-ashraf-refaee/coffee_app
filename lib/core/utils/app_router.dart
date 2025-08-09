@@ -1,4 +1,5 @@
 import 'package:coffee_app/features/navigation/presentation/manager/navigator_cubit/navigator_cubit.dart';
+import 'package:coffee_app/features/profile/presentation/view/profile_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -13,7 +14,7 @@ abstract class AppRouter {
   static const kDetailsView = "/detailsView";
   static final router = GoRouter(
     routes: [
-      GoRoute(path: '/', builder: (context, state) => SplashView()),
+      GoRoute(path: '/', builder: (context, state) => ProfileView()),
       GoRoute(
         path: kNavigationView,
         builder: (context, state) => BlocProvider(

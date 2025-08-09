@@ -78,6 +78,7 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
   void dispose() {
     _animationController.dispose();
     _descriptionanimationController.dispose();
+    _rotationanimationController.dispose();
     super.dispose();
   }
 
