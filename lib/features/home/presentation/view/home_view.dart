@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/utils/color_palette.dart';
 import '../../../../core/widgets/custom_icon_button.dart';
-import '../../../../core/widgets/custom_scaffold_gradient.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
