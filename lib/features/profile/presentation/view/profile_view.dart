@@ -38,7 +38,8 @@ class ProfileView extends StatelessWidget {
                         right: 14,
                       ),
                       child: CustomRoundedImage(
-                        imageUrl: "",
+                        imageUrl:
+                            "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/1938_Portrait_of_Adolf_Hitler_Official_Nazi_Party_handbook_%28cropped%29.jpg/120px-1938_Portrait_of_Adolf_Hitler_Official_Nazi_Party_handbook_%28cropped%29.jpg",
                         aspectRatio: 1,
                         width: 80,
                       ),
