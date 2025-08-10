@@ -31,7 +31,7 @@ class CoffeeApp extends StatelessWidget {
       supportedLocales: S.delegate.supportedLocales,
       theme: lightTheme,
       darkTheme: darkTheme,
-      themeMode: ThemeMode.light,
+      themeMode: ThemeMode.system,
 
       routerConfig: AppRouter.router,
     );

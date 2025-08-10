@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:unicons/unicons.dart';
 
-import '../../../../../core/utils/color_palette.dart';
 import '../../manager/navigator_cubit/navigator_cubit.dart';
 import 'bottom_nav_bar_item.dart';
 
