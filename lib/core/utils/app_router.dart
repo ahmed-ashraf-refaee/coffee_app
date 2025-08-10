@@ -4,7 +4,6 @@ import 'package:coffee_app/features/splash/presentation/view/splash_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../features/home/presentation/view/home_view.dart';
 import '../../features/navigation/presentation/view/app_navigation.dart';
 
 abstract class AppRouter {
