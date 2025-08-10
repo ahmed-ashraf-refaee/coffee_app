@@ -1,4 +1,24 @@
 {
-        "title": "احححححححححمد اشرف"
-
+  "@@locale": "ar",
+  "first_name": "الاسم الأول",
+  "last_name": "اسم العائلة",
+  "username": "اسم المستخدم",
+  "email": "البريد الإلكتروني",
+  "password": "كلمة المرور",
+  "confirm_password": "تأكيد كلمة المرور",
+  "sign_up": "إنشاء حساب",
+  "log_in": "تسجيل الدخول",
+  "forgot_password": "هل نسيت كلمة المرور؟",
+  "already_have_account": "هل لديك حساب بالفعل؟",
+  "dont_have_account": "ليس لديك حساب؟",
+  "welcome_back": "مرحباً بعودتك",
+  "create_account": "إنشاء حساب جديد",
+  "remember_me": "تذكرني",
+  "or":"او",
+  "welcome_back_title": "مرحباً بعودتك!",
+  "welcome_back_subtitle": "سجّل الدخول للوصول إلى حسابك",
+  "get_started_title": "ابدأ الآن!",
+  "get_started_subtitle": "سجّل لتكتشف عالماً مليئاً بالقهوة",
+  "facebook":"فيسبوك",
+  "google":"جوجل"
 }

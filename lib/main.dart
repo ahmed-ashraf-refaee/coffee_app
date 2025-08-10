@@ -1,9 +1,8 @@
 import 'package:coffee_app/core/utils/app_router.dart';
-import 'package:coffee_app/core/utils/app_theme.dart';
-import 'package:coffee_app/core/utils/color_palette.dart';
+import 'package:coffee_app/core/utils/dark_theme.dart';
+import 'package:coffee_app/core/utils/light_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import 'generated/l10n.dart';
 
@@ -26,7 +25,9 @@ class CoffeeApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: S.delegate.supportedLocales,
-      theme: appTheme,
+      theme: lightTheme,
+      darkTheme: darkTheme,
+      themeMode: ThemeMode.light,
 
       routerConfig: AppRouter.router,
     );
@@ -36,4 +37,14 @@ class CoffeeApp extends StatelessWidget {
 extension SizeDevice on BuildContext {
   double get height => MediaQuery.of(this).size.height;
   double get width => MediaQuery.of(this).size.width;
+}
+
+extension LocaleExtension on BuildContext {
+  Locale get locale => Localizations.localeOf(this);
+  bool get isArabic =>
+      Localizations.localeOf(this).languageCode.toLowerCase() == 'ar';
+}
+
+extension ColorSchemeExtension on BuildContext {
+  ColorScheme get colors => Theme.of(this).colorScheme;
 }

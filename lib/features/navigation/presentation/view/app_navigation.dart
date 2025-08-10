@@ -1,4 +1,3 @@
-import 'package:coffee_app/core/utils/color_palette.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:unicons/unicons.dart';
@@ -15,7 +14,7 @@ class _AppNavigationState extends State<AppNavigation> {
   final List<Widget> screens = [
     Center(child: Text("Home Screen")),
     Center(child: Text("Cart Screen")),
-    Center(child: Text("Favourite Screen")),
+    Center(child: Text("Favorite Screen")),
     Center(child: Text("Profile Screen")),
   ];
 
@@ -74,7 +73,7 @@ class _AppNavigationState extends State<AppNavigation> {
                 height: 4,
 
                 decoration: BoxDecoration(
-                  color: ColorPalette.orangeCrayola,
+                  color: context.colors.primary,
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
@@ -115,8 +114,8 @@ class _BottomNavItemState extends State<BottomNavItem> {
               widget.icon,
               size: 24,
               color: widget.isSelected
-                  ? ColorPalette.orangeCrayola
-                  : ColorPalette.cadetGray,
+                  ? context.colors.primary
+                  : context.colors.onSecondary,
             ),
           ),
         ],

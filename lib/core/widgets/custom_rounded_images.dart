@@ -1,8 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
-
-import '../utils/color_palette.dart';
 
 class CustomRoundedImage extends StatelessWidget {
   const CustomRoundedImage({
@@ -11,15 +10,15 @@ class CustomRoundedImage extends StatelessWidget {
     required this.aspectRatio,
     required this.width,
     this.borderRadius,
-    this.shimmerBaseColor = ColorPalette.raisinBlack,
-    this.shimmerHighlightColor = ColorPalette.cadetGray,
+    this.shimmerBaseColor,
+    this.shimmerHighlightColor,
   });
   final String? imageUrl;
   final double aspectRatio;
   final double width;
   final BorderRadius? borderRadius;
-  final Color shimmerBaseColor;
-  final Color shimmerHighlightColor;
+  final Color? shimmerBaseColor;
+  final Color? shimmerHighlightColor;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -34,12 +33,14 @@ class CustomRoundedImage extends StatelessWidget {
                 'https://blocks.astratic.com/img/general-img-landscape.png',
             fit: BoxFit.cover,
             placeholder: (context, url) => Shimmer.fromColors(
-              baseColor: shimmerBaseColor,
-              highlightColor: shimmerHighlightColor.withAlpha(100),
+              baseColor: shimmerBaseColor ?? context.colors.secondary,
+              highlightColor:
+                  shimmerHighlightColor ??
+                  context.colors.onSecondary.withAlpha(102),
               child: Container(
                 width: width,
                 height: width / aspectRatio,
-                color: ColorPalette.raisinBlack,
+                color: context.colors.secondary,
               ),
             ),
             errorWidget: (context, url, error) =>
