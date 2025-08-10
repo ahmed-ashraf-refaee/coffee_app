@@ -7,8 +7,8 @@ import '../../../../../core/utils/color_palette.dart';
 import '../../manager/navigator_cubit/navigator_cubit.dart';
 import 'bottom_nav_bar_item.dart';
 
-class CustomButtomNavBar extends StatelessWidget {
-  CustomButtomNavBar({super.key});
+class CustomBottomNavBar extends StatelessWidget {
+  CustomBottomNavBar({super.key});
 
   final List<IconData> icons = [
     UniconsLine.home_alt,
@@ -71,7 +71,7 @@ class CustomButtomNavBar extends StatelessWidget {
                   height: 4,
 
                   decoration: BoxDecoration(
-                    color: ColorPalette.orangeCrayola,
+                    color: context.colors.primary,
                     borderRadius: BorderRadius.circular(2),
                   ),
                 ),

@@ -4,6 +4,7 @@ import 'package:coffee_app/features/splash/presentation/view/splash_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/home/presentation/view/home_view.dart';
 import '../../features/navigation/presentation/view/app_navigation.dart';
 
 abstract class AppRouter {
@@ -11,8 +12,7 @@ abstract class AppRouter {
   static const kNavigationView = "/navigationView";
   static const kCartView = "/cartView";
   static const kDetailsView = "/detailsView";
-  static const kSignupView = "/signupView";
-  static const kLoginView = "/loginView";
+  static const kAuthView = "/authView"; 
   static const kSplashView = "/splashView";
   static final router = GoRouter(
     routes: [
@@ -26,11 +26,11 @@ abstract class AppRouter {
       ),
 
       // GoRoute(path: kHomeView, builder: (context, state) => const HomeView()),
-      //GoRoute(path: '/', builder: (context, state) => AuthenticationView()),
+      GoRoute(path: kAuthView, builder: (context, state) => AuthenticationView()),
       //GoRoute(path: '/', builder: (context, state) => AppNavigation()),
 
       //GoRoute(path: kSplashView, builder: (context, state) => SplashView()),
-      GoRoute(path: kHomeView, builder: (context, state) => const HomeView()),
+      //GoRoute(path: kHomeView, builder: (context, state) => const HomeView()),
     ],
   );
 }

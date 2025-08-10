@@ -12,7 +12,7 @@ class ProfileGroupContainer extends StatelessWidget {
     return Container(
       width: context.width,
       decoration: BoxDecoration(
-        color: ColorPalette.raisinBlack,
+        color: context.colors.secondary,
         borderRadius: BorderRadius.circular(12),
       ),
       child: child,

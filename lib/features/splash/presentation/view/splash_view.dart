@@ -5,7 +5,7 @@ import 'package:lottie/lottie.dart';
 
 import '../../../../core/utils/app_router.dart';
 import '../../../../core/utils/text_styles.dart';
-import '../../../../core/widgets/custom_scaffold_gradient.dart';
+import '../../../../core/widgets/gradient_container.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});

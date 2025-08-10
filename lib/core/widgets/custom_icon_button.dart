@@ -31,7 +31,7 @@ class CustomIconButton extends StatelessWidget {
         foregroundColor: foregroundColor ?? context.colors.onSecondary,
         fixedSize: Size(width, hight),
         shape: RoundedRectangleBorder(
-          borderRadius: borderRadius ?? BorderRadius.circular(16),
+          borderRadius: borderRadius ?? BorderRadius.circular(12),
           side: BorderSide(color: borderColor ?? Colors.transparent, width: 2),
         ),
       ),

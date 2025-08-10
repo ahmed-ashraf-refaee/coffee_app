@@ -1,6 +1,6 @@
-import 'package:coffee_app/core/utils/color_palette.dart';
 import 'package:coffee_app/core/widgets/custom_icon_button.dart';
 import 'package:coffee_app/core/widgets/custom_rounded_images.dart';
+import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/utils/text_styles.dart';
@@ -56,7 +56,7 @@ class ProfileView extends StatelessWidget {
                         Text(
                           "sameh.eldegwy@gmail.com",
                           style: TextStyles.medium12.copyWith(
-                            color: ColorPalette.cadetGray,
+                            color: context.colors.onSecondary,
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
@@ -75,7 +75,7 @@ class ProfileView extends StatelessWidget {
                       suffixWidget: Image.asset(
                         "assets/icons/arrow_forward.png",
                         height: 24,
-                        color: ColorPalette.cadetGray,
+                        color: context.colors.onSecondary,
                       ),
                     ),
                     _profileTileDivider(),
@@ -85,7 +85,7 @@ class ProfileView extends StatelessWidget {
                       suffixWidget: Image.asset(
                         "assets/icons/arrow_forward.png",
                         height: 24,
-                        color: ColorPalette.cadetGray,
+                        color: context.colors.onSecondary,
                       ),
                     ),
                     _profileTileDivider(),
@@ -95,7 +95,7 @@ class ProfileView extends StatelessWidget {
                       suffixWidget: Image.asset(
                         "assets/icons/arrow_forward.png",
                         height: 24,
-                        color: ColorPalette.cadetGray,
+                        color: context.colors.onSecondary,
                       ),
                     ),
                     _profileTileDivider(),
@@ -143,7 +143,7 @@ class ProfileView extends StatelessWidget {
                       suffixWidget: Image.asset(
                         "assets/icons/arrow_forward.png",
                         height: 24,
-                        color: ColorPalette.cadetGray,
+                        color: context.colors.onSecondary,
                       ),
                     ),
                     _profileTileDivider(),
@@ -152,7 +152,7 @@ class ProfileView extends StatelessWidget {
                       suffixWidget: Image.asset(
                         "assets/icons/logout.png",
                         height: 24,
-                        color: ColorPalette.orangeCrayola,
+                        color: context.colors.primary,
                       ),
                       padding: EdgeInsets.fromLTRB(16, 12, 16, 22),
                     ),
