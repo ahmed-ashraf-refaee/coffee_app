@@ -1,6 +1,6 @@
+import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../core/utils/color_palette.dart';
 import '../../../../../core/utils/text_styles.dart';
 
 class ProfileTile extends StatelessWidget {
@@ -22,11 +22,17 @@ class ProfileTile extends StatelessWidget {
       child: Row(
         children: [
           if (prefixIcon != null)
-            Image.asset(prefixIcon!, height: 24, color: ColorPalette.cadetGray),
+            Image.asset(
+              prefixIcon!,
+              height: 24,
+              color: context.colors.onSecondary,
+            ),
           if (prefixIcon != null) SizedBox(width: 26),
           Text(
             title,
-            style: TextStyles.semi16.copyWith(color: ColorPalette.cadetGray),
+            style: TextStyles.semi16.copyWith(
+              color: context.colors.onSecondary,
+            ),
           ),
           Spacer(),
           suffixWidget,

@@ -5,7 +5,7 @@ import 'package:lottie/lottie.dart';
 
 import '../../../../core/utils/app_router.dart';
 import '../../../../core/utils/text_styles.dart';
-import '../../../../core/widgets/custom_scaffold_gradient.dart';
+import '../../../../core/widgets/gradient_container.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -18,11 +18,11 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
   late Animation<double> _animation;
   late AnimationController _animationController;
 
-  late Animation<double> _descriptionanimation;
-  late AnimationController _descriptionanimationController;
+  late Animation<double> _descriptionAnimation;
+  late AnimationController _descriptionAnimationController;
 
-  late Animation<double> _rotatiomanimation;
-  late AnimationController _rotationanimationController;
+  late Animation<double> _rotationAnimation;
+  late AnimationController _rotationAnimationController;
 
   @override
   void initState() {
@@ -36,16 +36,16 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
   }
 
   void rotationAnimation() {
-    _rotationanimationController = AnimationController(
+    _rotationAnimationController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 500),
     );
-    _rotatiomanimation = Tween<double>(
+    _rotationAnimation = Tween<double>(
       begin: 0,
       end: 0.025,
-    ).animate(_rotationanimationController);
+    ).animate(_rotationAnimationController);
     Future.delayed(Duration(milliseconds: 3500), () {
-      _rotationanimationController.forward();
+      _rotationAnimationController.forward();
     });
   }
 
@@ -62,24 +62,24 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
   }
 
   void secondTitleAnimation() {
-    _descriptionanimationController = AnimationController(
+    _descriptionAnimationController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 2500),
     );
-    _descriptionanimation = Tween<double>(
+    _descriptionAnimation = Tween<double>(
       begin: 0.00,
       end: 0.5,
-    ).animate(_descriptionanimationController);
+    ).animate(_descriptionAnimationController);
     Future.delayed(Duration(milliseconds: 1500), () {
-      _descriptionanimationController.forward();
+      _descriptionAnimationController.forward();
     });
   }
 
   @override
   void dispose() {
     _animationController.dispose();
-    _descriptionanimationController.dispose();
-    _rotationanimationController.dispose();
+    _descriptionAnimationController.dispose();
+    _rotationAnimationController.dispose();
     super.dispose();
   }
 
@@ -108,7 +108,7 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
                 ),
                 RotationTransition(
                   alignment: Alignment.centerLeft,
-                  turns: _rotatiomanimation,
+                  turns: _rotationAnimation,
                   child: FadeTransition(
                     opacity: _animation,
 
@@ -121,7 +121,7 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
             Padding(
               padding: const EdgeInsets.only(top: 8.0),
               child: FadeTransition(
-                opacity: _descriptionanimation,
+                opacity: _descriptionAnimation,
                 child: Text(
                   "your perfect pour at your door",
                   style: TextStyles.bold14,

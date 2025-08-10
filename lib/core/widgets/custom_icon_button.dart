@@ -1,4 +1,4 @@
-import 'package:coffee_app/core/utils/color_palette.dart';
+import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 
 class CustomIconButton extends StatelessWidget {
@@ -7,8 +7,8 @@ class CustomIconButton extends StatelessWidget {
     required this.onPressed,
     this.width = 48,
     this.hight = 48,
-    this.backgroundColor = ColorPalette.raisinBlack,
-    this.foregroundColor = ColorPalette.cadetGray,
+    this.backgroundColor,
+    this.foregroundColor,
     this.borderRadius,
     this.borderColor,
     required this.child,
@@ -17,8 +17,8 @@ class CustomIconButton extends StatelessWidget {
   final VoidCallback onPressed;
   final double width;
   final double hight;
-  final Color backgroundColor;
-  final Color foregroundColor;
+  final Color? backgroundColor;
+  final Color? foregroundColor;
   final BorderRadius? borderRadius;
   final Color? borderColor;
   final Widget child;
@@ -27,11 +27,11 @@ class CustomIconButton extends StatelessWidget {
     return IconButton(
       onPressed: onPressed,
       style: IconButton.styleFrom(
-        backgroundColor: backgroundColor,
-        foregroundColor: foregroundColor,
+        backgroundColor: backgroundColor ?? context.colors.secondary,
+        foregroundColor: foregroundColor ?? context.colors.onSecondary,
         fixedSize: Size(width, hight),
         shape: RoundedRectangleBorder(
-          borderRadius: borderRadius ?? BorderRadius.circular(16),
+          borderRadius: borderRadius ?? BorderRadius.circular(12),
           side: BorderSide(color: borderColor ?? Colors.transparent, width: 2),
         ),
       ),

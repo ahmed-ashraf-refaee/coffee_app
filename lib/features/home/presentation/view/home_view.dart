@@ -1,7 +1,7 @@
-import 'package:coffee_app/features/home/presentation/view/widgets/clipped_background_item_home_list.dart';
+import 'package:coffee_app/features/home/presentation/view/widgets/custom_home_list_item_clipper.dart';
+import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../core/utils/color_palette.dart';
 import '../../../../core/widgets/custom_icon_button.dart';
 
 class HomeView extends StatelessWidget {
@@ -15,12 +15,16 @@ class HomeView extends StatelessWidget {
         Stack(
           children: [
             ClipPath(
-              clipper: ContainerClipper(),
+              clipper: CustomHomeListItemClipper(
+                clipHeight: 56,
+                clipWidth: 56,
+                radius: 12,
+              ),
               child: Container(
                 width: 182,
                 height: 244,
                 decoration: BoxDecoration(
-                  color: ColorPalette.cadetGray,
+                  color: context.colors.secondary,
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
@@ -32,8 +36,8 @@ class HomeView extends StatelessWidget {
                 onPressed: () {},
                 width: 34,
                 hight: 34,
-                backgroundColor: ColorPalette.orangeCrayola,
-                foregroundColor: ColorPalette.antiFlashWhite,
+                backgroundColor: context.colors.primary,
+                foregroundColor: context.colors.onSurface,
                 child: Icon(Icons.arrow_forward_ios_rounded),
               ),
             ),

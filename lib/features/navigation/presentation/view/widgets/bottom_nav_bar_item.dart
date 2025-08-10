@@ -1,6 +1,6 @@
+import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../core/utils/color_palette.dart';
 
 class BottomNavBarItem extends StatelessWidget {
   const BottomNavBarItem({
@@ -26,8 +26,8 @@ class BottomNavBarItem extends StatelessWidget {
               icon,
               size: 24,
               color: isSelected
-                  ? ColorPalette.orangeCrayola
-                  : ColorPalette.cadetGray,
+                  ? context.colors.primary
+                  : context.colors.onSecondary,
             ),
           ),
         ],

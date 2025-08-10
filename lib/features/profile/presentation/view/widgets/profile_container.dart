@@ -1,7 +1,6 @@
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../core/utils/color_palette.dart';
 
 class ProfileGroupContainer extends StatelessWidget {
   const ProfileGroupContainer({super.key, required this.child});
@@ -12,7 +11,7 @@ class ProfileGroupContainer extends StatelessWidget {
     return Container(
       width: context.width,
       decoration: BoxDecoration(
-        color: ColorPalette.raisinBlack,
+        color: context.colors.secondary,
         borderRadius: BorderRadius.circular(12),
       ),
       child: child,
