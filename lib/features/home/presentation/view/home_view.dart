@@ -1,7 +1,7 @@
 import 'package:coffee_app/features/home/presentation/view/widgets/clipped_background_item_home_list.dart';
+import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../core/utils/color_palette.dart';
 import '../../../../core/widgets/custom_icon_button.dart';
 
 class HomeView extends StatelessWidget {

@@ -2,6 +2,7 @@ import 'package:coffee_app/features/cart/presentation/view/cart_view.dart';
 import 'package:coffee_app/features/home/presentation/view/home_view.dart';
 import 'package:coffee_app/features/profile/presentation/view/profile_view.dart';
 import 'package:coffee_app/features/wishlist/presentation/view/wishlist_view.dart';
+import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
