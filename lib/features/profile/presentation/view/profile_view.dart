@@ -22,8 +22,13 @@ class ProfileView extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: CustomIconButton(
+                  localeAware: true,
                   onPressed: () {},
-                  child: Image.asset("assets/icons/arrow.png", height: 24),
+                  child: Image.asset(
+                    "assets/icons/arrow.png",
+                    height: 16,
+                    width: 16,
+                  ),
                 ),
               ),
 

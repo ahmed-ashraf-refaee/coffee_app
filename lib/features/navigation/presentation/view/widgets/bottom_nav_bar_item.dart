@@ -1,6 +1,6 @@
+import 'package:coffee_app/core/widgets/prettier_tap.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
-
 
 class BottomNavBarItem extends StatelessWidget {
   const BottomNavBarItem({
@@ -20,8 +20,9 @@ class BottomNavBarItem extends StatelessWidget {
       height: 40,
       child: Column(
         children: [
-          GestureDetector(
-            onTap: onPressed,
+          PrettierTap(
+            shrink: 4,
+            onPressed: onPressed,
             child: Icon(
               icon,
               size: 24,

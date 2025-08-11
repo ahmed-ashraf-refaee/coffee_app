@@ -1,3 +1,5 @@
+import 'package:coffee_app/core/widgets/prettier_tap.dart';
+
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 
@@ -8,9 +10,9 @@ class CustomIconButton extends StatelessWidget {
     this.width = 48,
     this.hight = 48,
     this.backgroundColor,
-    this.foregroundColor,
     this.borderRadius,
-    this.borderColor,
+    this.localeAware = true,
+    this.padding = 12,
     required this.child,
   });
 
@@ -18,24 +20,34 @@ class CustomIconButton extends StatelessWidget {
   final double width;
   final double hight;
   final Color? backgroundColor;
-  final Color? foregroundColor;
   final BorderRadius? borderRadius;
-  final Color? borderColor;
+  final bool localeAware;
   final Widget child;
+  final double padding;
+
   @override
   Widget build(BuildContext context) {
-    return IconButton(
+    return PrettierTap(
       onPressed: onPressed,
-      style: IconButton.styleFrom(
-        backgroundColor: backgroundColor ?? context.colors.secondary,
-        foregroundColor: foregroundColor ?? context.colors.onSecondary,
-        fixedSize: Size(width, hight),
-        shape: RoundedRectangleBorder(
+      child: Container(
+        width: width,
+        height: hight,
+        decoration: BoxDecoration(
+          color: backgroundColor ?? context.colors.secondary,
           borderRadius: borderRadius ?? BorderRadius.circular(12),
-          side: BorderSide(color: borderColor ?? Colors.transparent, width: 2),
+        ),
+        child: Transform.scale(
+          scaleX: localeAware
+              ? context.isArabic
+                    ? -1
+                    : 1
+              : 1,
+          child: Padding(
+            padding: EdgeInsets.all(padding),
+            child: FittedBox(child: child),
+          ),
         ),
       ),
-      icon: child,
     );
   }
 }

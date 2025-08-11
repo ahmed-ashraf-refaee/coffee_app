@@ -16,8 +16,8 @@ class HomeView extends StatelessWidget {
           children: [
             ClipPath(
               clipper: CustomHomeListItemClipper(
-                clipHeight: 56,
-                clipWidth: 56,
+                clipHeight: 48,
+                clipWidth: 48,
                 radius: 12,
               ),
               child: Container(
@@ -37,8 +37,11 @@ class HomeView extends StatelessWidget {
                 width: 34,
                 hight: 34,
                 backgroundColor: context.colors.primary,
-                foregroundColor: context.colors.onSurface,
-                child: Icon(Icons.arrow_forward_ios_rounded),
+                padding: 8,
+                child: Icon(
+                  Icons.arrow_forward_ios_rounded,
+                  color: context.colors.onSurface,
+                ),
               ),
             ),
           ],
