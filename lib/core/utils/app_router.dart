@@ -1,3 +1,4 @@
+import 'package:coffee_app/features/home/presentation/view/details_view.dart';
 import 'package:coffee_app/features/navigation/presentation/manager/navigator_cubit/navigator_cubit.dart';
 import 'package:coffee_app/features/authentication/presentation/view/authentication_view.dart';
 import 'package:coffee_app/features/splash/presentation/view/splash_view.dart';
@@ -16,18 +17,25 @@ abstract class AppRouter {
   static const kSplashView = "/splashView";
   static final router = GoRouter(
     routes: [
-      GoRoute(path: '/', builder: (context, state) => SplashView()),
+      GoRoute(path: '/', builder: (context, state) => const SplashView()),
+      GoRoute(
+        path: "$kDetailsView/:tag",
+        builder: (context, state) {
+          final String tag = state.pathParameters['tag']!;
+          return DetailsView(tag: tag);
+        },
+      ),
       GoRoute(
         path: kNavigationView,
         builder: (context, state) => BlocProvider(
           create: (context) => AppNavigatorCubit(),
-          child: AppNavigation(),
+          child: const AppNavigation(),
         ),
       ),
 
       // GoRoute(path: kHomeView, builder: (context, state) => const HomeView()),
       GoRoute(
-        path: kAuthView,
+        path: 'kAuthView',
         builder: (context, state) => AuthenticationView(),
       ),
       //GoRoute(path: '/', builder: (context, state) => AppNavigation()),

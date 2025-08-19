@@ -32,6 +32,10 @@ abstract class TextStyles {
     fontSize: 15,
     fontWeight: FontWeight.normal,
   );
+  static const regular12 = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.normal,
+  );
 
   static const medium32 = TextStyle(fontSize: 32, fontWeight: FontWeight.w500);
 

@@ -179,6 +179,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_sticky_header:
+    dependency: "direct main"
+    description:
+      name: flutter_sticky_header
+      sha256: fb4fda6164ef3e5fc7ab73aba34aad253c17b7c6ecf738fa26f1a905b7d2d1e2
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.8.0"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -237,6 +245,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.20.2"
+  ionicons:
+    dependency: "direct main"
+    description:
+      name: ionicons
+      sha256: "5496bc65a16115ecf05b15b78f494ee4a8869504357668f0a11d689e970523cf"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.2"
   leak_tracker:
     dependency: transitive
     description:
@@ -618,14 +634,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.0"
-  unicons:
-    dependency: "direct main"
-    description:
-      name: unicons
-      sha256: f3eab9d87c226415ef857cfd2167e1d12ad81ea1f5783b46cf644224fea4eab7
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.0.0"
   universal_io:
     dependency: transitive
     description:
@@ -642,6 +650,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.5.1"
+  value_layout_builder:
+    dependency: transitive
+    description:
+      name: value_layout_builder
+      sha256: ab4b7d98bac8cefeb9713154d43ee0477490183f5aa23bb4ffa5103d9bbf6275
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.5.0"
   vector_graphics:
     dependency: transitive
     description:
@@ -716,4 +732,4 @@ packages:
     version: "3.1.3"
 sdks:
   dart: ">=3.8.1 <4.0.0"
-  flutter: ">=3.27.0"
+  flutter: ">=3.32.0"

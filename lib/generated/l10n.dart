@@ -209,6 +209,16 @@ class S {
   String get google {
     return Intl.message('Google', name: 'google', desc: '', args: []);
   }
+
+  /// `Find your favorite coffee`
+  String get search {
+    return Intl.message(
+      'Find your favorite coffee',
+      name: 'search',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

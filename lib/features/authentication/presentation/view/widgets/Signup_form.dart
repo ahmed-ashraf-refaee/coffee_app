@@ -88,7 +88,7 @@ class _SignupFormState extends State<SignupForm> {
               suffixIcon: buildSuffixIconWithDivider(
                 context,
                 IconAnimatedSwitch(
-                  icons: [
+                  children: [
                     const Icon(Icons.visibility_off),
                     const Icon(Icons.visibility),
                   ],

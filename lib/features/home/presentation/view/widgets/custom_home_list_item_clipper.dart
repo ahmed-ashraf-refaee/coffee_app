@@ -7,10 +7,12 @@ class CustomHomeListItemClipper extends CustomClipper<Path> {
     required this.radius,
     required this.clipHeight,
     required this.clipWidth,
+    this.innerRadius = 16,
   });
   final double radius;
   final double clipHeight;
   final double clipWidth;
+  final double innerRadius;
 
   @override
   Path getClip(Size size) {
@@ -24,7 +26,7 @@ class CustomHomeListItemClipper extends CustomClipper<Path> {
     path.lineTo(size.width - clipWidth + radius, size.height - clipHeight);
     path.arcToPoint(
       Offset(size.width - clipWidth, size.height - clipHeight + radius),
-      radius: Radius.circular(radius),
+      radius: Radius.circular(innerRadius),
       clockwise: false,
     );
     path.lineTo(size.width - clipWidth, size.height - radius);
@@ -40,6 +42,6 @@ class CustomHomeListItemClipper extends CustomClipper<Path> {
 
   @override
   bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
-    return true;
+    return false;
   }
 }

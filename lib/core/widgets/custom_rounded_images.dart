@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:shimmer/shimmer.dart';
 
 class CustomRoundedImage extends StatelessWidget {
@@ -44,7 +45,7 @@ class CustomRoundedImage extends StatelessWidget {
               ),
             ),
             errorWidget: (context, url, error) =>
-                Icon(Icons.error_outline_rounded, size: 30),
+                Icon(Ionicons.alert_circle, size: 30),
           ),
         ),
       ),

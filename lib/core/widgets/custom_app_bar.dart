@@ -1,28 +1,27 @@
-import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 
-class MyWidget extends StatelessWidget {
-  const MyWidget({super.key, this.left, this.right})
+class CustomAppBar extends StatelessWidget {
+  const CustomAppBar({super.key, this.leading, this.trailing, this.padding = 0})
     : assert(
-        left != null || right != null,
+        leading != null || trailing != null,
         'Either left or right must be provided',
       );
-  final Widget? left;
-  final Widget? right;
+  final Widget? leading;
+  final Widget? trailing;
+  final double padding;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: context.width,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Row(
-          children: [
-            if (left != null) left!,
-            const Spacer(),
-            if (right != null) right!,
-          ],
-        ),
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: padding),
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+
+        children: [
+          if (leading != null) leading!,
+          const Spacer(),
+          if (trailing != null) trailing!,
+        ],
       ),
     );
   }

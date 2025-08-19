@@ -22,12 +22,11 @@ class ProfileView extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: CustomIconButton(
-                  localeAware: true,
+                  padding: 8,
                   onPressed: () {},
-                  child: Image.asset(
-                    "assets/icons/arrow.png",
-                    height: 16,
-                    width: 16,
+                  child: Icon(
+                    Icons.keyboard_arrow_left_rounded,
+                    color: context.colors.onSecondary,
                   ),
                 ),
               ),

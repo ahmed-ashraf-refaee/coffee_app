@@ -49,7 +49,7 @@ class _LoginFormState extends State<LoginForm> {
               suffixIcon: buildSuffixIconWithDivider(
                 context,
                 IconAnimatedSwitch(
-                  icons: [
+                  children: [
                     const Icon(Icons.visibility_off),
                     const Icon(Icons.visibility),
                   ],
