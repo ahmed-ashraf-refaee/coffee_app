@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'prettier_tap.dart';
 
-class IconAnimatedSwitch extends StatefulWidget {
-  const IconAnimatedSwitch({
+class AnimatedIconSwitch extends StatefulWidget {
+  const AnimatedIconSwitch({
     super.key,
     required this.children,
     this.initialState = false,
@@ -16,10 +16,10 @@ class IconAnimatedSwitch extends StatefulWidget {
   final ValueChanged<bool>? onChanged;
 
   @override
-  State<IconAnimatedSwitch> createState() => _IconAnimatedSwitchState();
+  State<AnimatedIconSwitch> createState() => _AnimatedIconSwitchState();
 }
 
-class _IconAnimatedSwitchState extends State<IconAnimatedSwitch> {
+class _AnimatedIconSwitchState extends State<AnimatedIconSwitch> {
   late bool isToggled;
 
   @override

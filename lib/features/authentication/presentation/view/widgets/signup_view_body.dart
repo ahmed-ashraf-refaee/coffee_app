@@ -26,13 +26,13 @@ class _SignupViewBodyState extends State<SignupViewBody> {
           subtitle: S.current.get_started_subtitle,
         ),
         const SizedBox(height: 48),
-        SignupForm(),
+        const SignupForm(),
         const SizedBox(height: 48),
         CustomElevatedButton(
           onPressed: () {},
           child: Text(S.current.sign_up, style: TextStyles.medium20),
         ),
-        Spacer(),
+        const Spacer(),
         AuthSuggestion(
           toggleAuthMode: widget.toggleAuthMode,
           suggestionText: S.current.already_have_account,

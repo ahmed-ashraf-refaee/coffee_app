@@ -31,7 +31,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
           subtitle: S.current.welcome_back_subtitle,
         ),
         const SizedBox(height: 48),
-        LoginForm(),
+        const LoginForm(),
         const SizedBox(height: 16),
         Row(
           children: [
@@ -52,7 +52,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                 color: context.colors.onSecondary,
               ),
             ),
-            Spacer(),
+            const Spacer(),
             PrettierTap(
               shrink: 2,
               onPressed: () {},
@@ -76,14 +76,14 @@ class _LoginViewBodyState extends State<LoginViewBody> {
         Row(
           spacing: 16,
           children: [
-            Expanded(child: Divider()),
+            const Expanded(child: Divider()),
             Text(
               S.current.or,
               style: TextStyles.bold16.copyWith(
                 color: context.colors.onSecondary.withAlpha(153),
               ),
             ),
-            Expanded(child: Divider()),
+            const Expanded(child: Divider()),
           ],
         ),
         const SizedBox(height: 58),
@@ -104,7 +104,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
             ),
           ],
         ),
-        Spacer(),
+        const Spacer(),
         AuthSuggestion(
           toggleAuthMode: widget.toggleAuthMode,
           suggestionText: S.current.dont_have_account,

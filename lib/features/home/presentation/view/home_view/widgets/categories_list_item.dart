@@ -1,9 +1,8 @@
 import 'package:coffee_app/core/widgets/prettier_tap.dart';
 import 'package:coffee_app/main.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../core/utils/text_styles.dart';
+import '../../../../../../core/utils/text_styles.dart';
 
 class CategoriesListItem extends StatefulWidget {
   const CategoriesListItem({
@@ -46,7 +45,7 @@ class _CategoriesListItemState extends State<CategoriesListItem> {
 
             if (widget.selected)
               AnimatedOpacity(
-                duration: Duration(milliseconds: 300),
+                duration: const Duration(milliseconds: 300),
                 opacity: widget.selected ? 1 : 0,
                 child: Container(
                   width: 4,

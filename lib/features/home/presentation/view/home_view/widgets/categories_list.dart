@@ -1,4 +1,4 @@
-import 'package:coffee_app/features/home/presentation/view/widgets/categories_list_item.dart';
+import 'package:coffee_app/features/home/presentation/view/home_view/widgets/categories_list_item.dart';
 import 'package:flutter/material.dart';
 
 class CategoriesList extends StatefulWidget {

@@ -1,7 +1,7 @@
 import 'package:coffee_app/core/utils/color_palette.dart';
 import 'package:flutter/material.dart';
 
-ColorScheme dark = ColorScheme(
+const ColorScheme dark = ColorScheme(
   brightness: Brightness.dark,
   primary: ColorPalette.orangeCrayola,
   onPrimary: ColorPalette.antiFlashWhite,
@@ -12,7 +12,7 @@ ColorScheme dark = ColorScheme(
   surface: ColorPalette.eerieBlack,
   onSurface: ColorPalette.antiFlashWhite,
 );
-ColorScheme light = ColorScheme(
+const ColorScheme light = ColorScheme(
   brightness: Brightness.light,
   primary: ColorPalette.orangeCrayola,
   onPrimary: ColorPalette.platinum,

@@ -1,12 +1,12 @@
 import 'package:coffee_app/core/widgets/custom_icon_button.dart';
-import 'package:coffee_app/features/home/presentation/view/widgets/carousel_list.dart';
-import 'package:coffee_app/features/home/presentation/view/widgets/categories_list.dart';
-import 'package:coffee_app/features/home/presentation/view/widgets/home_list_item.dart';
+import 'package:coffee_app/features/home/presentation/view/home_view/widgets/carousel_list.dart';
+import 'package:coffee_app/features/home/presentation/view/home_view/widgets/categories_list.dart';
+import 'package:coffee_app/features/home/presentation/view/home_view/widgets/home_list_item.dart';
 import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
-import '../../../../../core/utils/text_styles.dart';
+import '../../../../../../core/utils/text_styles.dart';
 
 class HomeViewBody extends StatefulWidget {
   const HomeViewBody({super.key});
@@ -43,10 +43,10 @@ class _HomeViewBodyState extends State<HomeViewBody> {
             forceMaterialTransparency: true,
             pinned: false,
             backgroundColor: Colors.transparent,
-            leadingWidth: 48 + 16,
-            actionsPadding: const EdgeInsets.only(right: 16),
+            leadingWidth: 48 + 32,
+            actionsPadding: const EdgeInsets.symmetric(horizontal: 16),
             leading: Padding(
-              padding: const EdgeInsets.only(left: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: CustomIconButton(
                 padding: 8,
                 onPressed: () {},
@@ -79,44 +79,47 @@ class _HomeViewBodyState extends State<HomeViewBody> {
             maxHeight: 128,
             minHeight: 128,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+              padding: const EdgeInsets.symmetric(vertical: 16),
               child: Column(
                 children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: SizedBox(
-                          height: 48,
-                          child: TextField(
-                            onSubmitted: (value) {},
-                            textInputAction: TextInputAction.search,
-                            keyboardType: TextInputType.text,
-                            controller: searchController,
-                            decoration: InputDecoration(
-                              prefixIcon: CustomIconButton(
-                                onPressed: () {},
-                                child: const Icon(Ionicons.search_outline),
-                              ),
-                              hintText: S.current.search,
-                              prefixIconColor: context.colors.onSecondary,
-                              hintStyle: TextStyles.medium16.copyWith(
-                                color: context.colors.onSecondary,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: SizedBox(
+                            height: 48,
+                            child: TextField(
+                              onSubmitted: (value) {},
+                              textInputAction: TextInputAction.search,
+                              keyboardType: TextInputType.text,
+                              controller: searchController,
+                              decoration: InputDecoration(
+                                prefixIcon: CustomIconButton(
+                                  onPressed: () {},
+                                  child: const Icon(Ionicons.search_outline),
+                                ),
+                                hintText: S.current.search,
+                                prefixIconColor: context.colors.onSecondary,
+                                hintStyle: TextStyles.medium16.copyWith(
+                                  color: context.colors.onSecondary,
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                      const SizedBox(width: 8),
-                      CustomIconButton(
-                        onPressed: () {},
-                        hight: 48,
-                        width: 48,
-                        child: Icon(
-                          Ionicons.filter,
-                          color: context.colors.onSecondary,
+                        const SizedBox(width: 8),
+                        CustomIconButton(
+                          onPressed: () {},
+                          hight: 48,
+                          width: 48,
+                          child: Icon(
+                            Ionicons.filter,
+                            color: context.colors.onSecondary,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   const SizedBox(height: 16),
                   const CategoriesList(),
@@ -129,8 +132,8 @@ class _HomeViewBodyState extends State<HomeViewBody> {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           sliver: SliverGrid.builder(
             itemCount: 8,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: context.width > 500 ? 4 : 2,
               childAspectRatio: 3 / 4,
               crossAxisSpacing: 16,
               mainAxisSpacing: 16,

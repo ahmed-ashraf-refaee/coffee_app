@@ -61,8 +61,4 @@ ThemeData darkTheme = ThemeData(
     ),
     contentPadding: const EdgeInsets.symmetric(vertical: 16),
   ),
-  chipTheme: ChipThemeData(
-    backgroundColor: dark.primary,
-    color: WidgetStateProperty.all(dark.primary),
-  ),
 );

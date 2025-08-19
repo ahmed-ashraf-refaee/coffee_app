@@ -34,8 +34,8 @@ class ProfileView extends StatelessWidget {
               ProfileGroupContainer(
                 child: Row(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(
+                    const Padding(
+                      padding: EdgeInsets.only(
                         left: 6,
                         top: 6,
                         bottom: 6,
@@ -69,7 +69,7 @@ class ProfileView extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 48),
+              const SizedBox(height: 48),
               ProfileGroupContainer(
                 child: Column(
                   children: [
@@ -113,7 +113,7 @@ class ProfileView extends StatelessWidget {
                           child: Switch(value: false, onChanged: (value) {}),
                         ),
                       ),
-                      padding: EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                         horizontal: 16,
                         vertical: 8,
                       ),
@@ -129,7 +129,7 @@ class ProfileView extends StatelessWidget {
                           child: Switch(value: true, onChanged: (value) {}),
                         ),
                       ),
-                      padding: EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                         horizontal: 16,
                         vertical: 8,
                       ),
@@ -137,7 +137,7 @@ class ProfileView extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               ProfileGroupContainer(
                 child: Column(
                   children: [
@@ -158,7 +158,7 @@ class ProfileView extends StatelessWidget {
                         height: 24,
                         color: context.colors.primary,
                       ),
-                      padding: EdgeInsets.fromLTRB(16, 12, 16, 22),
+                      padding: const EdgeInsets.fromLTRB(16, 12, 16, 22),
                     ),
                   ],
                 ),
@@ -172,7 +172,7 @@ class ProfileView extends StatelessWidget {
 
   Divider _profileTileDivider() {
     return Divider(
-      color: Color(0xff5D6165).withAlpha((85 * 255 / 100).toInt()),
+      color: const Color(0xff5D6165).withAlpha((85 * 255 / 100).toInt()),
       indent: 16,
       endIndent: 16,
       thickness: 1,

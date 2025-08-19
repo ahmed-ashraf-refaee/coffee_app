@@ -45,7 +45,7 @@ class CustomRoundedImage extends StatelessWidget {
               ),
             ),
             errorWidget: (context, url, error) =>
-                Icon(Ionicons.alert_circle, size: 30),
+                const Icon(Ionicons.alert_circle, size: 30),
           ),
         ),
       ),
