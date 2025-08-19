@@ -1,0 +1,189 @@
+import 'package:coffee_app/core/widgets/custom_icon_button.dart';
+import 'package:coffee_app/features/home/presentation/view/home_view/widgets/carousel_list.dart';
+import 'package:coffee_app/features/home/presentation/view/home_view/widgets/categories_list.dart';
+import 'package:coffee_app/features/home/presentation/view/home_view/widgets/home_list_item.dart';
+import 'package:coffee_app/generated/l10n.dart';
+import 'package:coffee_app/main.dart';
+import 'package:flutter/material.dart';
+import 'package:ionicons/ionicons.dart';
+import '../../../../../../core/utils/text_styles.dart';
+
+class HomeViewBody extends StatefulWidget {
+  const HomeViewBody({super.key});
+
+  @override
+  State<HomeViewBody> createState() => _HomeViewBodyState();
+}
+
+class _HomeViewBodyState extends State<HomeViewBody> {
+  late TextEditingController searchController;
+
+  @override
+  void initState() {
+    super.initState();
+    searchController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomScrollView(
+      slivers: [
+        SliverPadding(
+          padding: const EdgeInsets.only(top: 16),
+          sliver: SliverAppBar(
+            collapsedHeight: 48,
+            expandedHeight: 224,
+            toolbarHeight: 48,
+            forceMaterialTransparency: true,
+            pinned: false,
+            backgroundColor: Colors.transparent,
+            leadingWidth: 48 + 32,
+            actionsPadding: const EdgeInsets.symmetric(horizontal: 16),
+            leading: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: CustomIconButton(
+                padding: 8,
+                onPressed: () {},
+                child: Icon(Ionicons.menu, color: context.colors.onSecondary),
+              ),
+            ),
+            actions: [
+              CustomIconButton(
+                width: 48,
+                padding: 8,
+                onPressed: () {},
+                child: Icon(
+                  Ionicons.notifications_outline,
+                  color: context.colors.primary,
+                ),
+              ),
+            ],
+            flexibleSpace: const FlexibleSpaceBar(
+              background: Padding(
+                padding: EdgeInsets.only(top: 64),
+                child: CarouselList(),
+              ),
+            ),
+            forceElevated: false,
+          ),
+        ),
+        SliverPersistentHeader(
+          pinned: true,
+          delegate: SearchDelegate(
+            maxHeight: 128,
+            minHeight: 128,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: SizedBox(
+                            height: 48,
+                            child: TextField(
+                              onSubmitted: (value) {},
+                              textInputAction: TextInputAction.search,
+                              keyboardType: TextInputType.text,
+                              controller: searchController,
+                              decoration: InputDecoration(
+                                prefixIcon: CustomIconButton(
+                                  onPressed: () {},
+                                  child: const Icon(Ionicons.search_outline),
+                                ),
+                                hintText: S.current.search,
+                                prefixIconColor: context.colors.onSecondary,
+                                hintStyle: TextStyles.medium16.copyWith(
+                                  color: context.colors.onSecondary,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        CustomIconButton(
+                          onPressed: () {},
+                          hight: 48,
+                          width: 48,
+                          child: Icon(
+                            Ionicons.filter,
+                            color: context.colors.onSecondary,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  const CategoriesList(),
+                ],
+              ),
+            ),
+          ),
+        ),
+        SliverPadding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          sliver: SliverGrid.builder(
+            itemCount: 8,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: context.width > 500 ? 4 : 2,
+              childAspectRatio: 3 / 4,
+              crossAxisSpacing: 16,
+              mainAxisSpacing: 16,
+            ),
+            itemBuilder: (context, index) => HomeListItem(tag: "Hero$index "),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class SearchDelegate extends SliverPersistentHeaderDelegate {
+  SearchDelegate({
+    required this.maxHeight,
+    required this.minHeight,
+    required this.child,
+  });
+
+  final double maxHeight;
+  final double minHeight;
+  final Widget child;
+
+  @override
+  Widget build(
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
+    return // Background that matches your app's gradient
+    Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [context.colors.surface, context.colors.surface.withAlpha(0)],
+          end: Alignment.bottomCenter,
+          begin: Alignment.topCenter,
+          stops: const [0.9, 1],
+        ),
+      ),
+      child: SizedBox.expand(child: child),
+    );
+  }
+
+  @override
+  double get maxExtent => maxHeight;
+  @override
+  double get minExtent => minHeight;
+
+  @override
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
+    return true;
+  }
+}

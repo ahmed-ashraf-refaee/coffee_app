@@ -25,7 +25,7 @@ class _AuthenticationViewState extends State<AuthenticationView> {
       body: GradientContainer(
         child: SafeArea(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 32),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
             child: AnimatedSwitcher(
               duration: const Duration(milliseconds: 300),
               child: login

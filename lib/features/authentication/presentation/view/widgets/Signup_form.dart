@@ -1,7 +1,8 @@
-import 'package:coffee_app/core/widgets/Icon_animated_switch.dart';
 import 'package:coffee_app/features/authentication/presentation/view/widgets/build_suffix_icon_with_divider.dart';
 import 'package:coffee_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../../core/widgets/animated_icon_switch.dart';
 
 class SignupForm extends StatefulWidget {
   const SignupForm({super.key});
@@ -87,10 +88,10 @@ class _SignupFormState extends State<SignupForm> {
               prefixIcon: const Icon(Icons.password),
               suffixIcon: buildSuffixIconWithDivider(
                 context,
-                IconAnimatedSwitch(
-                  icons: [
-                    const Icon(Icons.visibility_off),
-                    const Icon(Icons.visibility),
+                AnimatedIconSwitch(
+                  children: const [
+                    Icon(Icons.visibility_off),
+                    Icon(Icons.visibility),
                   ],
                   onChanged: (value) {
                     setState(() {

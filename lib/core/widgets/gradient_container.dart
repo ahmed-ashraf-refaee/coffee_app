@@ -12,7 +12,7 @@ class GradientContainer extends StatelessWidget {
       height: context.height,
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [context.colors.surface, context.colors.secondary],
+          colors: [context.colors.surface, context.colors.surface],
           end: Alignment.topRight,
           begin: Alignment.centerLeft,
           stops: const [0.6, 1.0],

@@ -2,23 +2,24 @@ import 'package:flutter/material.dart';
 
 import 'prettier_tap.dart';
 
-class IconAnimatedSwitch extends StatefulWidget {
-  const IconAnimatedSwitch({
+class AnimatedIconSwitch extends StatefulWidget {
+  const AnimatedIconSwitch({
     super.key,
-    required this.icons,
+    required this.children,
     this.initialState = false,
     this.onChanged,
-  }) : assert(icons.length == 2);
+  }) : assert(children.length == 2);
 
-  final List<Icon> icons;
+  final List<Icon> children;
+
   final bool initialState;
   final ValueChanged<bool>? onChanged;
 
   @override
-  State<IconAnimatedSwitch> createState() => _IconAnimatedSwitchState();
+  State<AnimatedIconSwitch> createState() => _AnimatedIconSwitchState();
 }
 
-class _IconAnimatedSwitchState extends State<IconAnimatedSwitch> {
+class _AnimatedIconSwitchState extends State<AnimatedIconSwitch> {
   late bool isToggled;
 
   @override
@@ -42,7 +43,7 @@ class _IconAnimatedSwitchState extends State<IconAnimatedSwitch> {
       child: SizedBox(
         width: 48,
         height: 48,
-        child: isToggled ? widget.icons[1] : widget.icons[0],
+        child: isToggled ? widget.children[1] : widget.children[0],
       ),
     );
   }

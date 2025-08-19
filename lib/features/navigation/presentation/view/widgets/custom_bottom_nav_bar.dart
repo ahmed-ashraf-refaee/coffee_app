@@ -1,35 +1,56 @@
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:unicons/unicons.dart';
-
+import 'package:ionicons/ionicons.dart';
 import '../../manager/navigator_cubit/navigator_cubit.dart';
 import 'bottom_nav_bar_item.dart';
+
+class Pair<T1, T2> {
+  final T1 a;
+  final T2 b;
+
+  Pair(this.a, this.b);
+}
 
 class CustomBottomNavBar extends StatelessWidget {
   CustomBottomNavBar({super.key});
 
-  final List<IconData> icons = [
-    UniconsLine.home_alt,
-    UniconsLine.shopping_bag,
-    UniconsLine.heart_alt,
-    Icons.person_outline_outlined,
+  final List<Pair<IconData, IconData>> icons = [
+    Pair(Ionicons.home_outline, Ionicons.home),
+    Pair(Ionicons.bag_outline, Ionicons.bag),
+    Pair(Ionicons.heart_outline, Ionicons.heart),
+    Pair(Ionicons.person_outline, Ionicons.person),
   ];
+  final double horizontalPadding = 16;
+  final double verticalPadding = 16;
 
   @override
   Widget build(BuildContext context) {
-    double calcDotPositioned() {
-      var widthWithoutPadding = context.width - 32;
-      var halfGapWidthWithoutIconSizes =
-          (widthWithoutPadding - (icons.length * 24)) / (5 * 2);
-      return halfGapWidthWithoutIconSizes;
+    double calcDotOffset({
+      required int index,
+      required double iconSize,
+      required double dotSize,
+    }) {
+      index++;
+      double totalWidth = context.width - (horizontalPadding * 2);
+      double spaceWidth = totalWidth - (icons.length * iconSize);
+      double step = (spaceWidth / (icons.length + 1)) + iconSize;
+      double offsetX =
+          ((((step * index)) - (iconSize / 2)) - (dotSize / 2)) / dotSize;
+      return context.isArabic ? -offsetX : offsetX;
     }
 
     return BlocBuilder<AppNavigatorCubit, AppNavigatorState>(
       builder: (context, state) {
         return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+          padding: EdgeInsets.only(
+            top: verticalPadding,
+            bottom: verticalPadding,
+            left: horizontalPadding,
+            right: horizontalPadding,
+          ),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
               Row(
@@ -54,24 +75,19 @@ class CustomBottomNavBar extends StatelessWidget {
                 duration: const Duration(milliseconds: 300),
                 curve: Curves.decelerate,
                 offset: Offset(
-                  state is AppNavigatorToHomeView
-                      ? -(calcDotPositioned() * 3 + 36) / 4
-                      : state is AppNavigatorToCartView
-                      ? -(calcDotPositioned() + 12) / 4
-                      : state is AppNavigatorToWishlistView
-                      ? (calcDotPositioned() + 12) / 4
-                      : state is AppNavigatorToProfileView
-                      ? (calcDotPositioned() * 3 + 36) / 4
-                      : -(calcDotPositioned() * 3 + 36) / 4,
+                  calcDotOffset(
+                    index: context.read<AppNavigatorCubit>().currentIndex,
+                    iconSize: 48,
+                    dotSize: 4,
+                  ),
                   -2,
                 ),
                 child: Container(
                   width: 4,
                   height: 4,
-
                   decoration: BoxDecoration(
                     color: context.colors.primary,
-                    borderRadius: BorderRadius.circular(2),
+                    shape: BoxShape.circle,
                   ),
                 ),
               ),

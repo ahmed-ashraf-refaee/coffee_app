@@ -30,7 +30,7 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
     titleAnimation();
     rotationAnimation();
     secondTitleAnimation();
-    Future.delayed(Duration(milliseconds: 5000), () {
+    Future.delayed(const Duration(milliseconds: 5000), () {
       GoRouter.of(context).pushReplacement(AppRouter.kNavigationView);
     });
   }
@@ -38,13 +38,13 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
   void rotationAnimation() {
     _rotationAnimationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 500),
     );
     _rotationAnimation = Tween<double>(
       begin: 0,
       end: 0.025,
     ).animate(_rotationAnimationController);
-    Future.delayed(Duration(milliseconds: 3500), () {
+    Future.delayed(const Duration(milliseconds: 3500), () {
       _rotationAnimationController.forward();
     });
   }
@@ -52,7 +52,7 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
   void titleAnimation() {
     _animationController = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 3),
+      duration: const Duration(seconds: 3),
     );
     _animation = Tween<double>(
       begin: 0.04,
@@ -64,13 +64,13 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
   void secondTitleAnimation() {
     _descriptionAnimationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 2500),
+      duration: const Duration(milliseconds: 2500),
     );
     _descriptionAnimation = Tween<double>(
       begin: 0.00,
       end: 0.5,
     ).animate(_descriptionAnimationController);
-    Future.delayed(Duration(milliseconds: 1500), () {
+    Future.delayed(const Duration(milliseconds: 1500), () {
       _descriptionAnimationController.forward();
     });
   }
@@ -89,7 +89,7 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
       body: GradientContainer(
         child: Column(
           children: [
-            Spacer(),
+            const Spacer(),
             SizedBox(
               width: context.width,
               height: 250,
@@ -104,7 +104,7 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
                 FadeTransition(
                   opacity: _animation,
 
-                  child: Text("Coffee ", style: TextStyles.bold48),
+                  child: const Text("Coffee ", style: TextStyles.bold48),
                 ),
                 RotationTransition(
                   alignment: Alignment.centerLeft,
@@ -112,7 +112,7 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
                   child: FadeTransition(
                     opacity: _animation,
 
-                    child: Text("Drop", style: TextStyles.bold48),
+                    child: const Text("Drop", style: TextStyles.bold48),
                   ),
                 ),
               ],
@@ -122,13 +122,13 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
               padding: const EdgeInsets.only(top: 8.0),
               child: FadeTransition(
                 opacity: _descriptionAnimation,
-                child: Text(
+                child: const Text(
                   "your perfect pour at your door",
                   style: TextStyles.bold14,
                 ),
               ),
             ),
-            Spacer(flex: 3),
+            const Spacer(flex: 3),
           ],
         ),
       ),

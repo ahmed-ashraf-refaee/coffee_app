@@ -48,6 +48,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "or": MessageLookupByLibrary.simpleMessage("or"),
     "password": MessageLookupByLibrary.simpleMessage("Password"),
     "remember_me": MessageLookupByLibrary.simpleMessage("Remember me"),
+    "search": MessageLookupByLibrary.simpleMessage("Find your favorite coffee"),
     "sign_up": MessageLookupByLibrary.simpleMessage("Sign Up"),
     "username": MessageLookupByLibrary.simpleMessage("Username"),
     "welcome_back": MessageLookupByLibrary.simpleMessage("Welcome Back"),
