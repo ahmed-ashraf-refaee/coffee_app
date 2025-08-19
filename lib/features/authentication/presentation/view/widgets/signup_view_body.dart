@@ -1,4 +1,4 @@
-import 'package:coffee_app/features/authentication/presentation/view/widgets/Signup_form.dart';
+import 'package:coffee_app/features/authentication/presentation/view/widgets/signup_form.dart';
 import 'package:coffee_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import '../../../../../core/utils/text_styles.dart';

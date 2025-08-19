@@ -1,7 +1,7 @@
 import 'package:coffee_app/core/utils/text_styles.dart';
 import 'package:coffee_app/core/widgets/custom_elevated_button.dart';
 import 'package:coffee_app/core/widgets/prettier_tap.dart';
-import 'package:coffee_app/features/authentication/presentation/view/widgets/Login_form.dart';
+import 'package:coffee_app/features/authentication/presentation/view/widgets/login_form.dart';
 import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
