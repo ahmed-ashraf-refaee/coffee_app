@@ -25,6 +25,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "already_have_account": MessageLookupByLibrary.simpleMessage(
       "Already have an account?",
     ),
+    "app_name_first": MessageLookupByLibrary.simpleMessage("Coffee"),
+    "app_name_second": MessageLookupByLibrary.simpleMessage("Drop"),
     "confirm_password": MessageLookupByLibrary.simpleMessage(
       "Confirm Password",
     ),
@@ -47,6 +49,19 @@ class MessageLookup extends MessageLookupByLibrary {
     "log_in": MessageLookupByLibrary.simpleMessage("Log In"),
     "or": MessageLookupByLibrary.simpleMessage("or"),
     "password": MessageLookupByLibrary.simpleMessage("Password"),
+    "profile_dark_mode": MessageLookupByLibrary.simpleMessage("Dark Mode"),
+    "profile_edit_profile": MessageLookupByLibrary.simpleMessage(
+      "Edit Profile",
+    ),
+    "profile_languages": MessageLookupByLibrary.simpleMessage("Languages"),
+    "profile_logout": MessageLookupByLibrary.simpleMessage("Logout"),
+    "profile_notification": MessageLookupByLibrary.simpleMessage(
+      "Notification",
+    ),
+    "profile_payment_details": MessageLookupByLibrary.simpleMessage(
+      "Payment Details",
+    ),
+    "profile_support": MessageLookupByLibrary.simpleMessage("Support"),
     "remember_me": MessageLookupByLibrary.simpleMessage("Remember me"),
     "search": MessageLookupByLibrary.simpleMessage("Find your favorite coffee"),
     "sign_up": MessageLookupByLibrary.simpleMessage("Sign Up"),

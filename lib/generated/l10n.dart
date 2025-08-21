@@ -55,6 +55,16 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `Coffee`
+  String get app_name_first {
+    return Intl.message('Coffee', name: 'app_name_first', desc: '', args: []);
+  }
+
+  /// `Drop`
+  String get app_name_second {
+    return Intl.message('Drop', name: 'app_name_second', desc: '', args: []);
+  }
+
   /// `First Name`
   String get first_name {
     return Intl.message('First Name', name: 'first_name', desc: '', args: []);
@@ -218,6 +228,66 @@ class S {
       desc: '',
       args: [],
     );
+  }
+
+  /// `Edit Profile`
+  String get profile_edit_profile {
+    return Intl.message(
+      'Edit Profile',
+      name: 'profile_edit_profile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Payment Details`
+  String get profile_payment_details {
+    return Intl.message(
+      'Payment Details',
+      name: 'profile_payment_details',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Languages`
+  String get profile_languages {
+    return Intl.message(
+      'Languages',
+      name: 'profile_languages',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Notification`
+  String get profile_notification {
+    return Intl.message(
+      'Notification',
+      name: 'profile_notification',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dark Mode`
+  String get profile_dark_mode {
+    return Intl.message(
+      'Dark Mode',
+      name: 'profile_dark_mode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Support`
+  String get profile_support {
+    return Intl.message('Support', name: 'profile_support', desc: '', args: []);
+  }
+
+  /// `Logout`
+  String get profile_logout {
+    return Intl.message('Logout', name: 'profile_logout', desc: '', args: []);
   }
 }
 

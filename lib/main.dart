@@ -21,7 +21,7 @@ class CoffeeApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      locale: const Locale("en"),
+      locale: const Locale("ar"),
       localizationsDelegates: const [
         S.delegate,
         GlobalMaterialLocalizations.delegate,

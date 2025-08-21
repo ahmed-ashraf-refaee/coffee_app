@@ -70,7 +70,10 @@ class _DetailsViewBodyState extends State<DetailsViewBody> {
           Text.rich(
             TextSpan(
               children: [
-                const TextSpan(text: "Cappucino Latte\n", style: TextStyles.medium32),
+                const TextSpan(
+                  text: "Cappuccino Latte\n",
+                  style: TextStyles.medium32,
+                ),
                 const WidgetSpan(child: SizedBox(height: 48)),
                 const TextSpan(text: "Description\n", style: TextStyles.semi16),
                 TextSpan(

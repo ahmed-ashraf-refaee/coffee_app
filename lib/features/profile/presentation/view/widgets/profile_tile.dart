@@ -24,7 +24,7 @@ class ProfileTile extends StatelessWidget {
           if (prefixIcon != null)
             Image.asset(
               prefixIcon!,
-              height: 24,
+              height: 26,
               color: context.colors.onSecondary,
             ),
           if (prefixIcon != null) const SizedBox(width: 26),

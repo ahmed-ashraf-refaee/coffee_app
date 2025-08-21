@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../../core/utils/text_styles.dart';
 
-class CategoriesListItem extends StatefulWidget {
+class CategoriesListItem extends StatelessWidget {
   const CategoriesListItem({
     super.key,
     required this.category,
@@ -15,14 +15,9 @@ class CategoriesListItem extends StatefulWidget {
   final bool selected;
   final VoidCallback onSelected;
   @override
-  State<CategoriesListItem> createState() => _CategoriesListItemState();
-}
-
-class _CategoriesListItemState extends State<CategoriesListItem> {
-  @override
   Widget build(BuildContext context) {
     return PrettierTap(
-      onPressed: widget.onSelected,
+      onPressed: onSelected,
       child: SizedBox(
         height: 32,
         child: Column(
@@ -33,9 +28,9 @@ class _CategoriesListItemState extends State<CategoriesListItem> {
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
                 child: Text(
-                  widget.category,
+                  category,
                   style: TextStyles.regular16.copyWith(
-                    color: widget.selected
+                    color: selected
                         ? context.colors.onSurface
                         : context.colors.onSecondary.withAlpha(153),
                   ),
@@ -43,10 +38,10 @@ class _CategoriesListItemState extends State<CategoriesListItem> {
               ),
             ),
 
-            if (widget.selected)
+            if (selected)
               AnimatedOpacity(
                 duration: const Duration(milliseconds: 300),
-                opacity: widget.selected ? 1 : 0,
+                opacity: selected ? 1 : 0,
                 child: Container(
                   width: 4,
                   height: 4,
