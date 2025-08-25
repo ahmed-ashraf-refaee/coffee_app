@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/utils/color_palette.dart';
-import 'widgets/profile_container.dart';
-import 'widgets/profile_tile.dart';
-import 'widgets/profile_tile_divider.dart';
+import '../../../../../core/utils/color_palette.dart';
+import 'profile_container.dart';
+import 'profile_tile.dart';
+import 'profile_tile_divider.dart';
 
 class ProfileSettingSection extends StatelessWidget {
   const ProfileSettingSection({super.key});
