@@ -30,6 +30,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "confirm_password": MessageLookupByLibrary.simpleMessage(
       "Confirm Password",
     ),
+    "continue_with_payment": MessageLookupByLibrary.simpleMessage(
+      "Continue with payment",
+    ),
     "create_account": MessageLookupByLibrary.simpleMessage("Create an Account"),
     "dont_have_account": MessageLookupByLibrary.simpleMessage(
       "Don\'t have an account?",
@@ -64,7 +67,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "profile_support": MessageLookupByLibrary.simpleMessage("Support"),
     "remember_me": MessageLookupByLibrary.simpleMessage("Remember me"),
     "search": MessageLookupByLibrary.simpleMessage("Find your favorite coffee"),
+    "shipping": MessageLookupByLibrary.simpleMessage("Shipping:"),
     "sign_up": MessageLookupByLibrary.simpleMessage("Sign Up"),
+    "sub_total": MessageLookupByLibrary.simpleMessage("Sub Total:"),
+    "total_price": MessageLookupByLibrary.simpleMessage("Total Price:"),
     "username": MessageLookupByLibrary.simpleMessage("Username"),
     "welcome_back": MessageLookupByLibrary.simpleMessage("Welcome Back"),
     "welcome_back_subtitle": MessageLookupByLibrary.simpleMessage(

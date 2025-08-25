@@ -1,5 +1,6 @@
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
+import 'package:ionicons/ionicons.dart';
 
 import '../../../../../core/widgets/prettier_tap.dart';
 import '../../../../../generated/l10n.dart';
@@ -11,39 +12,45 @@ class ProfileViewBodySettings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Icon arrowIcon = Icon(
-      Icons.arrow_forward_ios_rounded,
-      color: context.colors.onSecondary.withAlpha(220),
-    );
+    Icon arrowIcon() {
+      if (context.isArabic) {
+        return Icon(Ionicons.chevron_back, color: context.colors.onSecondary);
+      }
+      return Icon(Ionicons.chevron_forward, color: context.colors.onSecondary);
+    }
+
     return Column(
       children: [
         ProfileGroupContainer(
           child: Column(
             children: [
               PrettierTap(
+                shrink: 1,
                 onPressed: () {},
                 child: ProfileTile(
                   prefixIcon: "assets/icons/user_icon.png",
                   title: S.current.profile_edit_profile,
-                  suffixWidget: arrowIcon,
+                  suffixWidget: arrowIcon(),
                 ),
               ),
               _profileTileDivider(),
               PrettierTap(
+                shrink: 1,
                 onPressed: () {},
                 child: ProfileTile(
                   prefixIcon: "assets/icons/credit_card.png",
                   title: S.current.profile_payment_details,
-                  suffixWidget: arrowIcon,
+                  suffixWidget: arrowIcon(),
                 ),
               ),
               _profileTileDivider(),
               PrettierTap(
+                shrink: 1,
                 onPressed: () {},
                 child: ProfileTile(
                   prefixIcon: "assets/icons/arabic.png",
                   title: S.current.profile_languages,
-                  suffixWidget: arrowIcon,
+                  suffixWidget: arrowIcon(),
                 ),
               ),
               _profileTileDivider(),
@@ -86,22 +93,24 @@ class ProfileViewBodySettings extends StatelessWidget {
           child: Column(
             children: [
               PrettierTap(
+                shrink: 1,
                 onPressed: () {},
                 child: ProfileTile(
                   prefixIcon: "assets/icons/help.png",
                   title: S.current.profile_support,
-                  suffixWidget: arrowIcon,
+                  suffixWidget: arrowIcon(),
                 ),
               ),
               _profileTileDivider(),
               PrettierTap(
+                shrink: 1,
                 onPressed: () {},
                 child: ProfileTile(
                   title: S.current.profile_logout,
-                  suffixWidget: Image.asset(
-                    "assets/icons/logout.png",
-                    height: 24,
-                    color: context.colors.primary,
+                  suffixWidget: Icon(
+                    Ionicons.log_out_outline,
+                    color: context.colors.onSecondary,
+                    size: 32,
                   ),
                   padding: const EdgeInsets.fromLTRB(16, 12, 16, 22),
                 ),

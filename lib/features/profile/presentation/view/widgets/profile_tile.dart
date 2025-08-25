@@ -19,24 +19,27 @@ class ProfileTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: padding ?? const EdgeInsets.all(16.0),
-      child: Row(
-        children: [
-          if (prefixIcon != null)
-            Image.asset(
-              prefixIcon!,
-              height: 26,
-              color: context.colors.onSecondary,
+      child: Container(
+        color: Colors.transparent,
+        child: Row(
+          children: [
+            if (prefixIcon != null)
+              Image.asset(
+                prefixIcon!,
+                height: 26,
+                color: context.colors.onSecondary,
+              ),
+            if (prefixIcon != null) const SizedBox(width: 26),
+            Text(
+              title,
+              style: TextStyles.semi16.copyWith(
+                color: context.colors.onSecondary,
+              ),
             ),
-          if (prefixIcon != null) const SizedBox(width: 26),
-          Text(
-            title,
-            style: TextStyles.semi16.copyWith(
-              color: context.colors.onSecondary,
-            ),
-          ),
-          const Spacer(),
-          suffixWidget,
-        ],
+            const Spacer(),
+            suffixWidget,
+          ],
+        ),
       ),
     );
   }

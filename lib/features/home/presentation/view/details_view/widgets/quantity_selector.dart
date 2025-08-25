@@ -45,7 +45,7 @@ class QuantitySelector extends StatelessWidget {
             child: Icon(Ionicons.remove, color: context.colors.onSurface),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 4),
             child: SizedBox(
               width: 24,
               child: Text(
@@ -53,6 +53,7 @@ class QuantitySelector extends StatelessWidget {
                 style: TextStyles.medium16.copyWith(
                   color: context.colors.primary,
                 ),
+                textAlign: TextAlign.center,
               ),
             ),
           ),

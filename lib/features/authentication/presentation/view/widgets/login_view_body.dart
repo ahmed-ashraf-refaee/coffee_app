@@ -69,7 +69,12 @@ class _LoginViewBodyState extends State<LoginViewBody> {
 
         CustomElevatedButton(
           onPressed: () {},
-          child: Text(S.current.log_in, style: TextStyles.medium20),
+          child: Text(
+            S.current.log_in,
+            style: TextStyles.medium20.copyWith(
+              color: context.colors.onPrimary,
+            ),
+          ),
         ),
 
         const SizedBox(height: 58),

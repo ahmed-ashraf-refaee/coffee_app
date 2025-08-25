@@ -289,6 +289,36 @@ class S {
   String get profile_logout {
     return Intl.message('Logout', name: 'profile_logout', desc: '', args: []);
   }
+
+  /// `Total Price:`
+  String get total_price {
+    return Intl.message(
+      'Total Price:',
+      name: 'total_price',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sub Total:`
+  String get sub_total {
+    return Intl.message('Sub Total:', name: 'sub_total', desc: '', args: []);
+  }
+
+  /// `Shipping:`
+  String get shipping {
+    return Intl.message('Shipping:', name: 'shipping', desc: '', args: []);
+  }
+
+  /// `Continue with payment`
+  String get continue_with_payment {
+    return Intl.message(
+      'Continue with payment',
+      name: 'continue_with_payment',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
