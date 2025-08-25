@@ -94,28 +94,32 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
               width: context.width,
               height: 250,
               child: Lottie.asset(
-                'assets/icons/coffe_icon.json',
+                'assets/icons/coffee_icon.json',
                 repeat: false,
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                FadeTransition(
-                  opacity: _animation,
-
-                  child: const Text("Coffee ", style: TextStyles.bold48),
-                ),
-                RotationTransition(
-                  alignment: Alignment.centerLeft,
-                  turns: _rotationAnimation,
-                  child: FadeTransition(
+            Localizations.override(
+              context: context,
+              locale: const Locale("en"),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  FadeTransition(
                     opacity: _animation,
 
-                    child: const Text("Drop", style: TextStyles.bold48),
+                    child: const Text("Coffee ", style: TextStyles.bold48),
                   ),
-                ),
-              ],
+                  RotationTransition(
+                    alignment: Alignment.centerLeft,
+                    turns: _rotationAnimation,
+                    child: FadeTransition(
+                      opacity: _animation,
+
+                      child: const Text("Drop", style: TextStyles.bold48),
+                    ),
+                  ),
+                ],
+              ),
             ),
 
             Padding(

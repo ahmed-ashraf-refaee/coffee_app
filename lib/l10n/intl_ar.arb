@@ -1,5 +1,7 @@
 {
   "@@locale": "ar",
+  "app_name_first": "Coffee",
+  "app_name_second": "Drop",
   "first_name": "الاسم الأول",
   "last_name": "اسم العائلة",
   "username": "اسم المستخدم",
@@ -14,11 +16,18 @@
   "welcome_back": "مرحباً بعودتك",
   "create_account": "إنشاء حساب جديد",
   "remember_me": "تذكرني",
-  "or":"او",
+  "or": "او",
   "welcome_back_title": "مرحباً بعودتك!",
   "welcome_back_subtitle": "سجّل الدخول للوصول إلى حسابك",
   "get_started_title": "ابدأ الآن!",
   "get_started_subtitle": "سجّل لتكتشف عالماً مليئاً بالقهوة",
-  "facebook":"فيسبوك",
-  "google":"جوجل"
+  "facebook": "فيسبوك",
+  "google": "جوجل",
+  "profile_edit_profile": "تعديل الملف الشخصي",
+  "profile_payment_details": "تفاصيل الدفع",
+  "profile_languages": "اللغات",
+  "profile_notification": "الإشعارات",
+  "profile_dark_mode": "الوضع الداكن",
+  "profile_support": "الدعم",
+  "profile_logout": "تسجيل الخروج"
 }

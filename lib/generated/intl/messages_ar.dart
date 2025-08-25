@@ -25,6 +25,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "already_have_account": MessageLookupByLibrary.simpleMessage(
       "هل لديك حساب بالفعل؟",
     ),
+    "app_name_first": MessageLookupByLibrary.simpleMessage("Coffee"),
+    "app_name_second": MessageLookupByLibrary.simpleMessage("Drop"),
     "confirm_password": MessageLookupByLibrary.simpleMessage(
       "تأكيد كلمة المرور",
     ),
@@ -45,6 +47,17 @@ class MessageLookup extends MessageLookupByLibrary {
     "log_in": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
     "or": MessageLookupByLibrary.simpleMessage("او"),
     "password": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
+    "profile_dark_mode": MessageLookupByLibrary.simpleMessage("الوضع الداكن"),
+    "profile_edit_profile": MessageLookupByLibrary.simpleMessage(
+      "تعديل الملف الشخصي",
+    ),
+    "profile_languages": MessageLookupByLibrary.simpleMessage("اللغات"),
+    "profile_logout": MessageLookupByLibrary.simpleMessage("تسجيل الخروج"),
+    "profile_notification": MessageLookupByLibrary.simpleMessage("الإشعارات"),
+    "profile_payment_details": MessageLookupByLibrary.simpleMessage(
+      "تفاصيل الدفع",
+    ),
+    "profile_support": MessageLookupByLibrary.simpleMessage("الدعم"),
     "remember_me": MessageLookupByLibrary.simpleMessage("تذكرني"),
     "sign_up": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
     "username": MessageLookupByLibrary.simpleMessage("اسم المستخدم"),

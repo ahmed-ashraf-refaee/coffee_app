@@ -1,4 +1,3 @@
-
 import 'package:coffee_app/core/widgets/animated_icon_switch.dart';
 import 'package:coffee_app/features/authentication/presentation/view/widgets/build_suffix_icon_with_divider.dart';
 import 'package:coffee_app/generated/l10n.dart';
