@@ -1,5 +1,6 @@
 import 'package:coffee_app/features/authentication/presentation/view/widgets/signup_form.dart';
 import 'package:coffee_app/generated/l10n.dart';
+import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 import '../../../../../core/utils/text_styles.dart';
 import '../../../../../core/widgets/custom_elevated_button.dart';
@@ -30,7 +31,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
         const SizedBox(height: 48),
         CustomElevatedButton(
           onPressed: () {},
-          child: Text(S.current.sign_up, style: TextStyles.medium20),
+          child: Text(S.current.sign_up, style: TextStyles.medium20.copyWith(color: context.colors.onPrimary)),
         ),
         const Spacer(),
         AuthSuggestion(

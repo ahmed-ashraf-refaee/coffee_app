@@ -10,7 +10,10 @@ class DetailsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: GradientContainer(
-        child: SafeArea(child: DetailsViewBody(tag: tag)),
+        child: SafeArea(child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: DetailsViewBody(tag: tag),
+        )),
       ),
     );
   }

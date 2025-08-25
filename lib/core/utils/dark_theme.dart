@@ -61,4 +61,30 @@ ThemeData darkTheme = ThemeData(
     ),
     contentPadding: const EdgeInsets.symmetric(vertical: 16),
   ),
+  switchTheme: SwitchThemeData(
+    thumbColor: WidgetStateProperty.resolveWith<Color>((
+      Set<WidgetState> states,
+    ) {
+      if (states.contains(WidgetState.selected)) {
+        return dark.onPrimary;
+      }
+      return dark.onSecondary;
+    }),
+    trackColor: WidgetStateProperty.resolveWith<Color>((
+      Set<WidgetState> states,
+    ) {
+      if (states.contains(WidgetState.selected)) {
+        return dark.primary;
+      }
+      return dark.secondary;
+    }),
+    trackOutlineColor: WidgetStateProperty.resolveWith<Color>((
+      Set<WidgetState> states,
+    ) {
+      if (states.contains(WidgetState.selected)) {
+        return dark.primary;
+      }
+      return dark.onSecondary;
+    }),
+  ),
 );

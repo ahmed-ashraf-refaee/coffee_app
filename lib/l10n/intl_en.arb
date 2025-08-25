@@ -30,5 +30,9 @@
   "profile_notification": "Notification",
   "profile_dark_mode": "Dark Mode",
   "profile_support": "Support",
-  "profile_logout": "Logout"
+  "profile_logout": "Logout",
+  "total_price": "Total Price:",
+  "sub_total": "Sub Total:",
+  "shipping": "Shipping:",
+  "continue_with_payment": "Continue with payment"
 }

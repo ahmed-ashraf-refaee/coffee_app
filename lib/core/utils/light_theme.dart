@@ -61,4 +61,30 @@ ThemeData lightTheme = ThemeData(
     ),
     contentPadding: const EdgeInsets.symmetric(vertical: 16),
   ),
+  switchTheme: SwitchThemeData(
+    thumbColor: WidgetStateProperty.resolveWith<Color>((
+      Set<WidgetState> states,
+    ) {
+      if (states.contains(WidgetState.selected)) {
+        return light.onPrimary;
+      }
+      return light.onSecondary;
+    }),
+    trackColor: WidgetStateProperty.resolveWith<Color>((
+      Set<WidgetState> states,
+    ) {
+      if (states.contains(WidgetState.selected)) {
+        return light.primary;
+      }
+      return light.secondary;
+    }),
+    trackOutlineColor: WidgetStateProperty.resolveWith<Color>((
+      Set<WidgetState> states,
+    ) {
+      if (states.contains(WidgetState.selected)) {
+        return light.primary;
+      }
+      return light.onSecondary;
+    }),
+  ),
 );

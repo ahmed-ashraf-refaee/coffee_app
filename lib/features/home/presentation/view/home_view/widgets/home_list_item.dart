@@ -102,10 +102,7 @@ class HomeListItem extends StatelessWidget {
               width: 36,
               backgroundColor: context.colors.primary,
               onPressed: onPressed,
-              child: Icon(
-                Ionicons.chevron_forward,
-                color: context.colors.onPrimary,
-              ),
+              child: Icon(Ionicons.add, color: context.colors.onPrimary),
             ),
           ),
         ],

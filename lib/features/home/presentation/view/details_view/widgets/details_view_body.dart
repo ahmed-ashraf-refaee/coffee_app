@@ -32,126 +32,122 @@ class _DetailsViewBodyState extends State<DetailsViewBody> {
     // stores the index of the selected chip
 
     final List<String> options = ["180ml", "240ml", "320ml"];
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          CustomAppBar(
-            leading: CustomIconButton(
-              padding: 8,
-              onPressed: GoRouter.of(context).pop,
-              child: Icon(
-                Ionicons.chevron_back,
-                color: context.colors.onSecondary,
-              ),
-            ),
-            trailing: CustomIconButton(
-              padding: 8,
-              onPressed: () {},
-              child: Icon(
-                Ionicons.heart_outline,
-                color: context.colors.primary,
-              ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        CustomAppBar(
+          leading: CustomIconButton(
+            padding: 8,
+            onPressed: GoRouter.of(context).pop,
+            child: Icon(
+              Ionicons.chevron_back,
+              color: context.colors.onSecondary,
             ),
           ),
-          const SizedBox(height: 16),
-          Hero(
-            tag: widget.tag,
-            child: CustomRoundedImage(
-              imageUrl:
-                  "https://img.buzzfeed.com/video-api-prod/assets/6ccf991f920e4effa2e4272e52d31f1e/BFV17568_Frozen_Irish_Coffee-Thumb.jpg",
-              aspectRatio: 6 / 4,
-              width: context.width,
+          trailing: CustomIconButton(
+            padding: 8,
+            onPressed: () {},
+            child: Icon(
+              Ionicons.heart_outline,
+              color: context.colors.primary,
             ),
           ),
-          const SizedBox(height: 24),
-          Text.rich(
-            TextSpan(
-              children: [
-                const TextSpan(
-                  text: "Cappuccino Latte\n",
-                  style: TextStyles.medium32,
-                ),
-                const WidgetSpan(child: SizedBox(height: 48)),
-                const TextSpan(text: "Description\n", style: TextStyles.semi16),
-                TextSpan(
-                  text:
-                      "A cappuccino is an espresso-based coffee drink that originated in Austria with later development taking place in Italy, and is prepared with steamed milk foam",
-                  style: TextStyles.regular16.copyWith(
-                    height: 1.2,
-                    color: context.colors.onSecondary,
-                  ),
-                ),
-              ],
-            ),
+        ),
+        const SizedBox(height: 16),
+        Hero(
+          tag: widget.tag,
+          child: CustomRoundedImage(
+            imageUrl:
+                "https://img.buzzfeed.com/video-api-prod/assets/6ccf991f920e4effa2e4272e52d31f1e/BFV17568_Frozen_Irish_Coffee-Thumb.jpg",
+            aspectRatio: 6 / 4,
+            width: context.width,
           ),
-          const Spacer(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            spacing: 16,
-            children: List.generate(options.length, (index) {
-              return Expanded(
-                child: CustomChip(
-                  label: options[index],
-                  onSelected: () => onSelected(index),
-                  selected: selectedIndex == index,
-                ),
-              );
-            }),
-          ),
-          const SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.end,
+        ),
+        const SizedBox(height: 24),
+        Text.rich(
+          TextSpan(
             children: [
-              Column(
-                spacing: 12,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text("quantity", style: TextStyles.semi16),
-
-                  QuantitySelector(
-                    value: quantity,
-                    onChanged: (value) {
-                      setState(() {
-                        quantity = value;
-                      });
-                    },
-                    contentPadding: const EdgeInsets.all(8),
-                  ),
-                ],
+              const TextSpan(
+                text: "Cappuccino Latte\n",
+                style: TextStyles.medium32,
               ),
-              RichText(
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                text: TextSpan(
-                  children: <TextSpan>[
-                    TextSpan(
-                      text: "\$",
-                      style: TextStyles.regular20.copyWith(
-                        color: context.colors.primary,
-                      ),
-                    ),
-                    TextSpan(
-                      text: "20",
-                      style: TextStyles.regular36.copyWith(
-                        color: context.colors.primary,
-                      ),
-                    ),
-                  ],
+              const WidgetSpan(child: SizedBox(height: 48)),
+              const TextSpan(text: "Description\n", style: TextStyles.semi16),
+              TextSpan(
+                text:
+                    "A cappuccino is an espresso-based coffee drink that originated in Austria with later development taking place in Italy, and is prepared with steamed milk foam",
+                style: TextStyles.regular16.copyWith(
+                  height: 1.2,
+                  color: context.colors.onSecondary,
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 24),
-          CustomElevatedButton(
-            onPressed: () {},
-            child: const Text("Add to Cart", style: TextStyles.medium20),
-          ),
-        ],
-      ),
+        ),
+        const Spacer(),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          spacing: 16,
+          children: List.generate(options.length, (index) {
+            return Expanded(
+              child: CustomChip(
+                label: options[index],
+                onSelected: () => onSelected(index),
+                selected: selectedIndex == index,
+              ),
+            );
+          }),
+        ),
+        const SizedBox(height: 16),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Column(
+              spacing: 12,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text("quantity", style: TextStyles.semi16),
+    
+                QuantitySelector(
+                  value: quantity,
+                  onChanged: (value) {
+                    setState(() {
+                      quantity = value;
+                    });
+                  },
+                  contentPadding: const EdgeInsets.all(8),
+                ),
+              ],
+            ),
+            RichText(
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              text: TextSpan(
+                children: <TextSpan>[
+                  TextSpan(
+                    text: "\$",
+                    style: TextStyles.regular20.copyWith(
+                      color: context.colors.primary,
+                    ),
+                  ),
+                  TextSpan(
+                    text: "20",
+                    style: TextStyles.regular36.copyWith(
+                      color: context.colors.primary,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 24),
+        CustomElevatedButton(
+          onPressed: () {},
+          child:  Text("Add to Cart", style: TextStyles.medium20.copyWith(color: context.colors.onPrimary)),
+        ),
+      ],
     );
   }
 }

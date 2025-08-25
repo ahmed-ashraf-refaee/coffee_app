@@ -1,3 +1,4 @@
+import 'package:coffee_app/features/wishlist/presentation/view/widgets/wishlist_view_body.dart';
 import 'package:flutter/material.dart';
 
 class WishlistView extends StatelessWidget {
@@ -5,9 +6,11 @@ class WishlistView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [Center(child: Text("Wishlist Screen"))],
+    return const  SafeArea(
+      child: Padding(
+        padding: EdgeInsets.only(top: 16, left: 16, right: 16),
+        child: WishListViewBody(),
+      ),
     );
   }
 }
