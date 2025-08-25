@@ -1,5 +1,7 @@
+import 'package:coffee_app/features/profile/presentation/manager/toggle_to_darkmode/toggle_to_darkmode_cubit.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '../../../../../core/widgets/prettier_tap.dart';
@@ -66,20 +68,31 @@ class ProfileViewBodySettings extends StatelessWidget {
                 ),
               ),
               _profileTileDivider(),
-              ProfileTile(
-                prefixIcon: "assets/icons/night_mode.png",
-                title: S.current.profile_dark_mode,
-                suffixWidget: SizedBox(
-                  height: 42,
-                  child: FittedBox(
-                    fit: BoxFit.fitHeight,
-                    child: Switch(value: true, onChanged: (value) {}),
-                  ),
-                ),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 8,
-                ),
+              BlocBuilder<ThemeCubit, ThemeMode>(
+                builder: (context, themeMode) {
+                  final isDark = themeMode == ThemeMode.dark;
+
+                  return ProfileTile(
+                    prefixIcon: "assets/icons/night_mode.png",
+                    title: S.current.profile_dark_mode,
+                    suffixWidget: SizedBox(
+                      height: 42,
+                      child: FittedBox(
+                        fit: BoxFit.fitHeight,
+                        child: Switch(
+                          value: isDark,
+                          onChanged: (value) {
+                            context.read<ThemeCubit>().toggleTheme();
+                          },
+                        ),
+                      ),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
+                  );
+                },
               ),
             ],
           ),
