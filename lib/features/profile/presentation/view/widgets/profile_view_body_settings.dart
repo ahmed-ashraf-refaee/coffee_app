@@ -1,5 +1,6 @@
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
+import 'package:ionicons/ionicons.dart';
 
 import '../../../../../core/widgets/prettier_tap.dart';
 import '../../../../../generated/l10n.dart';
@@ -12,7 +13,9 @@ class ProfileViewBodySettings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Icon arrowIcon = Icon(
-      Icons.arrow_forward_ios_rounded,
+      context.isArabic
+          ? Ionicons.chevron_back_outline
+          : Ionicons.chevron_forward_outline,
       color: context.colors.onSecondary.withAlpha(220),
     );
     return Column(
