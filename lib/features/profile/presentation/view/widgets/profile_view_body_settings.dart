@@ -1,5 +1,7 @@
+import 'package:coffee_app/features/profile/presentation/manager/toggle_to_darkmode/toggle_to_darkmode_cubit.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '../../../../../core/widgets/prettier_tap.dart';
@@ -70,20 +72,36 @@ class ProfileViewBodySettings extends StatelessWidget {
                 ),
               ),
               _profileTileDivider(),
-              ProfileTile(
-                prefixIcon: "assets/icons/night_mode.png",
-                title: S.current.profile_dark_mode,
-                suffixWidget: SizedBox(
-                  height: 42,
-                  child: FittedBox(
-                    fit: BoxFit.fitHeight,
-                    child: Switch(value: true, onChanged: (value) {}),
-                  ),
-                ),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 8,
-                ),
+              BlocBuilder<ThemeCubit, ThemeMode>(
+                builder: (context, themeMode) {
+                  var isDark = themeMode == ThemeMode.dark;
+                  return PrettierTap(
+                    onPressed: () {
+                      context.read<ThemeCubit>().toggleTheme();
+                    },
+                    shrink: 1,
+                    child: ProfileTile(
+                      prefixIcon: "assets/icons/night_mode.png",
+                      title: S.current.profile_dark_mode,
+                      suffixWidget: SizedBox(
+                        height: 42,
+                        child: FittedBox(
+                          fit: BoxFit.fitHeight,
+                          child: Switch(
+                            value: isDark,
+                            onChanged: (value) {
+                              context.read<ThemeCubit>().toggleTheme();
+                            },
+                          ),
+                        ),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 8,
+                      ),
+                    ),
+                  );
+                },
               ),
             ],
           ),
@@ -107,10 +125,13 @@ class ProfileViewBodySettings extends StatelessWidget {
                 onPressed: () {},
                 child: ProfileTile(
                   title: S.current.profile_logout,
-                  suffixWidget: Icon(
-                    Ionicons.log_out_outline,
-                    color: context.colors.onSecondary,
-                    size: 32,
+                  suffixWidget: Transform.scale(
+                    scaleX: context.isArabic ? -1 : 1,
+                    child: Icon(
+                      Ionicons.log_out_outline,
+                      color: context.colors.primary,
+                      size: 32,
+                    ),
                   ),
                   padding: const EdgeInsets.fromLTRB(16, 12, 16, 22),
                 ),
