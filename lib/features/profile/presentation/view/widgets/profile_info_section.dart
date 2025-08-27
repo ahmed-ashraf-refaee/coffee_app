@@ -14,13 +14,8 @@ class ProfileInfoSection extends StatelessWidget {
       child: ProfileGroupContainer(
         child: Row(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                left: 6,
-                top: 6,
-                bottom: 6,
-                right: 14,
-              ),
+            const Padding(
+              padding: EdgeInsets.only(left: 6, top: 6, bottom: 6, right: 14),
               child: CustomRoundedImage(
                 imageUrl:
                     "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/1938_Portrait_of_Adolf_Hitler_Official_Nazi_Party_handbook_%28cropped%29.jpg/120px-1938_Portrait_of_Adolf_Hitler_Official_Nazi_Party_handbook_%28cropped%29.jpg",
