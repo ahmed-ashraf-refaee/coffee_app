@@ -1,16 +1,25 @@
 import 'package:coffee_app/core/utils/app_router.dart';
 import 'package:coffee_app/core/utils/dark_theme.dart';
 import 'package:coffee_app/core/utils/light_theme.dart';
+import 'package:coffee_app/features/authentication/repo/auth_repo.dart';
+import 'package:coffee_app/features/authentication/repo/auth_repo_impl.dart';
 import 'package:coffee_app/features/profile/presentation/manager/toggle_to_darkmode/toggle_to_darkmode_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'generated/l10n.dart';
 
-void main() {
+final String url = "https://fxwpkhftzlintbdkujze.supabase.co";
+final String anonKey =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ4d3BraGZ0emxpbnRiZGt1anplIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYzNzY0ODQsImV4cCI6MjA3MTk1MjQ4NH0.oAgu9Jlsdem3A6Rk9AmCf76IkYux_fTj21qDU_kml2U";
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Supabase.initialize(url: url, anonKey: anonKey);
+
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
   );
