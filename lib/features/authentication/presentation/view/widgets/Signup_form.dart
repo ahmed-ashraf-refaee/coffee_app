@@ -5,22 +5,24 @@ import 'package:ionicons/ionicons.dart';
 
 import '../../../../../core/widgets/animated_icon_switch.dart';
 
-class SignupForm extends StatefulWidget {
+class SignupForm extends StatelessWidget {
   final GlobalKey<FormState> formKey;
-  const SignupForm({super.key, required this.formKey});
-
-  @override
-  State<SignupForm> createState() => _SignupFormState();
-}
-
-class _SignupFormState extends State<SignupForm> {
-  final TextEditingController firstNameController = TextEditingController();
-  final TextEditingController lastNameController = TextEditingController();
-  final TextEditingController usernameController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController =
-      TextEditingController();
+  final TextEditingController firstNameController;
+  final TextEditingController lastNameController;
+  final TextEditingController usernameController;
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
+  final TextEditingController confirmPasswordController;
+  SignupForm({
+    super.key,
+    required this.formKey,
+    required this.firstNameController,
+    required this.lastNameController,
+    required this.usernameController,
+    required this.emailController,
+    required this.passwordController,
+    required this.confirmPasswordController,
+  });
   final ValueNotifier<bool> _isPasswordVisible = ValueNotifier(false);
 
   static final RegExp _nameRegExp = RegExp(r"^[a-zA-Z\s'-.]+$");
@@ -28,20 +30,9 @@ class _SignupFormState extends State<SignupForm> {
   final RegExp _passwordRegExp = RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$');
 
   @override
-  void dispose() {
-    firstNameController.dispose();
-    lastNameController.dispose();
-    usernameController.dispose();
-    emailController.dispose();
-    passwordController.dispose();
-    confirmPasswordController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Form(
-      key: widget.formKey,
+      key: formKey,
       child: Column(
         spacing: 16,
         mainAxisAlignment: MainAxisAlignment.center,

@@ -17,6 +17,24 @@ class SignupViewBody extends StatefulWidget {
 
 class _SignupViewBodyState extends State<SignupViewBody> {
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
+  @override
+  void dispose() {
+    firstNameController.dispose();
+    lastNameController.dispose();
+    usernameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -28,13 +46,19 @@ class _SignupViewBodyState extends State<SignupViewBody> {
           subtitle: S.current.get_started_subtitle,
         ),
         const SizedBox(height: 48),
-        SignupForm(formKey: _formKey),
+        SignupForm(
+          formKey: _formKey,
+          firstNameController: firstNameController,
+          lastNameController: lastNameController,
+          usernameController: usernameController,
+          emailController: emailController,
+          passwordController: passwordController,
+          confirmPasswordController: confirmPasswordController,
+        ),
         const SizedBox(height: 48),
         CustomElevatedButton(
           onPressed: () {
-            if (_formKey.currentState!.validate()) {
-              print("oppa");
-            }
+            if (_formKey.currentState!.validate()) {}
           },
           child: Text(
             S.current.sign_up,

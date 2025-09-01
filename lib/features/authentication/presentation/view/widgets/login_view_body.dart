@@ -21,6 +21,15 @@ class LoginViewBody extends StatefulWidget {
 class _LoginViewBodyState extends State<LoginViewBody> {
   final _formKey = GlobalKey<FormState>();
   bool rememberMe = false;
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -32,7 +41,11 @@ class _LoginViewBodyState extends State<LoginViewBody> {
           subtitle: S.current.welcome_back_subtitle,
         ),
         const SizedBox(height: 48),
-        LoginForm(formKey: _formKey),
+        LoginForm(
+          formKey: _formKey,
+          emailController: emailController,
+          passwordController: passwordController,
+        ),
         const SizedBox(height: 16),
         Row(
           children: [
@@ -70,9 +83,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
 
         CustomElevatedButton(
           onPressed: () {
-            if (_formKey.currentState!.validate()) {
-              print("oppa");
-            }
+            if (_formKey.currentState!.validate()) {}
           },
           child: Text(
             S.current.log_in,

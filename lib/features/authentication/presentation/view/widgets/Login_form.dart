@@ -4,30 +4,24 @@ import 'package:coffee_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
-class LoginForm extends StatefulWidget {
+class LoginForm extends StatelessWidget {
   final GlobalKey<FormState> formKey;
-
-  const LoginForm({super.key, required this.formKey});
-  @override
-  State<LoginForm> createState() => _LoginFormState();
-}
-
-class _LoginFormState extends State<LoginForm> {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
+  LoginForm({
+    super.key,
+    required this.formKey,
+    required this.emailController,
+    required this.passwordController,
+  });
   final RegExp _emailRegExp = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+
   final ValueNotifier<bool> _isPasswordVisible = ValueNotifier(false);
-  @override
-  void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: widget.formKey,
+      key: formKey,
       child: Column(
         spacing: 16,
         mainAxisAlignment: MainAxisAlignment.center,
