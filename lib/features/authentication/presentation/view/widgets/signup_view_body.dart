@@ -1,7 +1,9 @@
+import 'package:coffee_app/features/authentication/presentation/manager/bloc/auth_bloc.dart';
 import 'package:coffee_app/features/authentication/presentation/view/widgets/signup_form.dart';
 import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/utils/text_styles.dart';
 import '../../../../../core/widgets/custom_elevated_button.dart';
 import 'auth_suggestion.dart';
@@ -24,6 +26,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
       TextEditingController();
+
   @override
   void dispose() {
     firstNameController.dispose();
@@ -58,7 +61,17 @@ class _SignupViewBodyState extends State<SignupViewBody> {
         const SizedBox(height: 48),
         CustomElevatedButton(
           onPressed: () {
-            if (_formKey.currentState!.validate()) {}
+            if (_formKey.currentState!.validate()) {
+              BlocProvider.of<AuthBloc>(context).add(
+                SignupEvent(
+                  email: emailController.text.trim(),
+                  password: passwordController.text.trim(),
+                  username: usernameController.text.trim(),
+                  firstName: firstNameController.text.trim(),
+                  lastName: lastNameController.text.trim(),
+                ),
+              );
+            }
           },
           child: Text(
             S.current.sign_up,
