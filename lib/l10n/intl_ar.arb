@@ -34,5 +34,20 @@
   "total_price": "إجمالي السعر:",
   "sub_total": "المجموع الفرعي:",
   "shipping": "الشحن:",
-  "continue_with_payment": "متابعة للدفع"
+  "continue_with_payment": "متابعة للدفع",
+  "enterEmail": "أدخل البريد الإلكتروني",
+  "invalidEmail": "بريد إلكتروني غير صالح",
+  "enterPassword": "أدخل كلمة المرور",
+  "minPassword": "على الأقل ٨ أحرف",
+  "passwordRequirement": "استخدم أحرف كبيرة وصغيرة وأرقام",
+  "confirmPassword": "أكد كلمة المرور",
+  "passwordsDontMatch": "كلمتا المرور غير متطابقتين",
+  "enterFirstName": "أدخل الاسم الأول",
+  "enterLastName": "أدخل اسم العائلة",
+  "nameTooShort": "الاسم قصير جدًا",
+  "nameTooLong": "الاسم طويل جدًا",
+  "invalidCharacters": "أحرف غير صالحة",
+  "enterUsername": "أدخل اسم المستخدم",
+  "tooShort": "قصير جدًا",
+  "tooLong": "طويل جدًا"
 }

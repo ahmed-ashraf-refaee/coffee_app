@@ -19,6 +19,7 @@ class LoginViewBody extends StatefulWidget {
 }
 
 class _LoginViewBodyState extends State<LoginViewBody> {
+  final _formKey = GlobalKey<FormState>();
   bool rememberMe = false;
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
           subtitle: S.current.welcome_back_subtitle,
         ),
         const SizedBox(height: 48),
-        const LoginForm(),
+        LoginForm(formKey: _formKey),
         const SizedBox(height: 16),
         Row(
           children: [
@@ -68,7 +69,11 @@ class _LoginViewBodyState extends State<LoginViewBody> {
         const SizedBox(height: 48),
 
         CustomElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            if (_formKey.currentState!.validate()) {
+              print("oppa");
+            }
+          },
           child: Text(
             S.current.log_in,
             style: TextStyles.medium20.copyWith(

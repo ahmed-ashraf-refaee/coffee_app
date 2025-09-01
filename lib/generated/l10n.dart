@@ -319,6 +319,141 @@ class S {
       args: [],
     );
   }
+
+  /// `Enter email`
+  String get enterEmail {
+    return Intl.message('Enter email', name: 'enterEmail', desc: '', args: []);
+  }
+
+  /// `Invalid email`
+  String get invalidEmail {
+    return Intl.message(
+      'Invalid email',
+      name: 'invalidEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter password`
+  String get enterPassword {
+    return Intl.message(
+      'Enter password',
+      name: 'enterPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `At least 8 characters`
+  String get minPassword {
+    return Intl.message(
+      'At least 8 characters',
+      name: 'minPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Use upper, lower & number`
+  String get passwordRequirement {
+    return Intl.message(
+      'Use upper, lower & number',
+      name: 'passwordRequirement',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm password`
+  String get confirmPassword {
+    return Intl.message(
+      'Confirm password',
+      name: 'confirmPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Passwords don't match`
+  String get passwordsDontMatch {
+    return Intl.message(
+      'Passwords don\'t match',
+      name: 'passwordsDontMatch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter first name`
+  String get enterFirstName {
+    return Intl.message(
+      'Enter first name',
+      name: 'enterFirstName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter last name`
+  String get enterLastName {
+    return Intl.message(
+      'Enter last name',
+      name: 'enterLastName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Name too short`
+  String get nameTooShort {
+    return Intl.message(
+      'Name too short',
+      name: 'nameTooShort',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Name too long`
+  String get nameTooLong {
+    return Intl.message(
+      'Name too long',
+      name: 'nameTooLong',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid characters`
+  String get invalidCharacters {
+    return Intl.message(
+      'Invalid characters',
+      name: 'invalidCharacters',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter username`
+  String get enterUsername {
+    return Intl.message(
+      'Enter username',
+      name: 'enterUsername',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Too short`
+  String get tooShort {
+    return Intl.message('Too short', name: 'tooShort', desc: '', args: []);
+  }
+
+  /// `Too long`
+  String get tooLong {
+    return Intl.message('Too long', name: 'tooLong', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

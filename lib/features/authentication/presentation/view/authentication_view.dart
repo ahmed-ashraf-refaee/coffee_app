@@ -22,15 +22,17 @@ class _AuthenticationViewState extends State<AuthenticationView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GradientContainer(
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
-            child: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 300),
-              child: login
-                  ? LoginViewBody(toggleAuthMode: toggleAuthMode)
-                  : SignupViewBody(toggleAuthMode: toggleAuthMode),
+      body: SingleChildScrollView(
+        child: GradientContainer(
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
+              child: AnimatedSwitcher(
+                duration: const Duration(milliseconds: 300),
+                child: login
+                    ? LoginViewBody(toggleAuthMode: toggleAuthMode)
+                    : SignupViewBody(toggleAuthMode: toggleAuthMode),
+              ),
             ),
           ),
         ),

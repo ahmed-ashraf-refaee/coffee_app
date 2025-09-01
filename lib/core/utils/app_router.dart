@@ -16,7 +16,7 @@ abstract class AppRouter {
   static const kSplashView = "/splashView";
   static final router = GoRouter(
     routes: [
-      GoRoute(path: '/', builder: (context, state) => const SplashView()),
+      //GoRoute(path: '/', builder: (context, state) => const SplashView()),
       GoRoute(
         path: "$kDetailsView/:tag",
         builder: (context, state) {
@@ -34,7 +34,7 @@ abstract class AppRouter {
 
       // GoRoute(path: kHomeView, builder: (context, state) => const HomeView()),
       GoRoute(
-        path: 'kAuthView',
+        path: '/',
         builder: (context, state) => const AuthenticationView(),
       ),
       //GoRoute(path: '/', builder: (context, state) => AppNavigation()),

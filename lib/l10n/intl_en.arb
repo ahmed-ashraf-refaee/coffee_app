@@ -34,5 +34,20 @@
   "total_price": "Total Price:",
   "sub_total": "Sub Total:",
   "shipping": "Shipping:",
-  "continue_with_payment": "Continue with payment"
+  "continue_with_payment": "Continue with payment",
+  "enterEmail": "Enter email",
+  "invalidEmail": "Invalid email",
+  "enterPassword": "Enter password",
+  "minPassword": "At least 8 characters",
+  "passwordRequirement": "Use upper, lower & number",
+  "confirmPassword": "Confirm password",
+  "passwordsDontMatch": "Passwords don't match",
+  "enterFirstName": "Enter first name",
+  "enterLastName": "Enter last name",
+  "nameTooShort": "Name too short",
+  "nameTooLong": "Name too long",
+  "invalidCharacters": "Invalid characters",
+  "enterUsername": "Enter username",
+  "tooShort": "Too short",
+  "tooLong": "Too long"
 }

@@ -1,8 +1,6 @@
 import 'package:coffee_app/core/utils/app_router.dart';
 import 'package:coffee_app/core/utils/dark_theme.dart';
 import 'package:coffee_app/core/utils/light_theme.dart';
-import 'package:coffee_app/features/authentication/repo/auth_repo.dart';
-import 'package:coffee_app/features/authentication/repo/auth_repo_impl.dart';
 import 'package:coffee_app/features/profile/presentation/manager/toggle_to_darkmode/toggle_to_darkmode_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

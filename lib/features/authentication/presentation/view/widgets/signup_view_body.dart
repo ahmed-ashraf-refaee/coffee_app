@@ -16,6 +16,7 @@ class SignupViewBody extends StatefulWidget {
 }
 
 class _SignupViewBodyState extends State<SignupViewBody> {
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -27,11 +28,20 @@ class _SignupViewBodyState extends State<SignupViewBody> {
           subtitle: S.current.get_started_subtitle,
         ),
         const SizedBox(height: 48),
-        const SignupForm(),
+        SignupForm(formKey: _formKey),
         const SizedBox(height: 48),
         CustomElevatedButton(
-          onPressed: () {},
-          child: Text(S.current.sign_up, style: TextStyles.medium20.copyWith(color: context.colors.onPrimary)),
+          onPressed: () {
+            if (_formKey.currentState!.validate()) {
+              print("oppa");
+            }
+          },
+          child: Text(
+            S.current.sign_up,
+            style: TextStyles.medium20.copyWith(
+              color: context.colors.onPrimary,
+            ),
+          ),
         ),
         const Spacer(),
         AuthSuggestion(

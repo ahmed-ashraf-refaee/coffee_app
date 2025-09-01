@@ -7,13 +7,13 @@ class AuthRepoImpl extends AuthRepo {
   final AuthService _authService = AuthService();
 
   @override
-  Future<Either<String, AuthResponse>> signupUser(
-    String email,
-    String password,
-    String username,
-    String firstName,
-    String lastName,
-  ) async {
+  Future<Either<String, AuthResponse>> signupUser({
+    required String email,
+    required String password,
+    required String username,
+    required String firstName,
+    required String lastName,
+  }) async {
     try {
       final AuthResponse authResponse = await _authService.signup(
         email,
@@ -29,10 +29,10 @@ class AuthRepoImpl extends AuthRepo {
   }
 
   @override
-  Future<Either<String, AuthResponse>> loginUser(
-    String email,
-    String password,
-  ) async {
+  Future<Either<String, AuthResponse>> loginUser({
+    required String email,
+    required String password,
+  }) async {
     try {
       final AuthResponse authResponse = await _authService.login(
         email,

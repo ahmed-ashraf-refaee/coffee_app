@@ -27,6 +27,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "app_name_first": MessageLookupByLibrary.simpleMessage("قهوة"),
     "app_name_second": MessageLookupByLibrary.simpleMessage("دروب"),
+    "confirmPassword": MessageLookupByLibrary.simpleMessage("أكد كلمة المرور"),
     "confirm_password": MessageLookupByLibrary.simpleMessage(
       "تأكيد كلمة المرور",
     ),
@@ -36,6 +37,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "create_account": MessageLookupByLibrary.simpleMessage("إنشاء حساب جديد"),
     "dont_have_account": MessageLookupByLibrary.simpleMessage("ليس لديك حساب؟"),
     "email": MessageLookupByLibrary.simpleMessage("البريد الإلكتروني"),
+    "enterEmail": MessageLookupByLibrary.simpleMessage(
+      "أدخل البريد الإلكتروني",
+    ),
+    "enterFirstName": MessageLookupByLibrary.simpleMessage("أدخل الاسم الأول"),
+    "enterLastName": MessageLookupByLibrary.simpleMessage("أدخل اسم العائلة"),
+    "enterPassword": MessageLookupByLibrary.simpleMessage("أدخل كلمة المرور"),
+    "enterUsername": MessageLookupByLibrary.simpleMessage("أدخل اسم المستخدم"),
     "facebook": MessageLookupByLibrary.simpleMessage("فيسبوك"),
     "first_name": MessageLookupByLibrary.simpleMessage("الاسم الأول"),
     "forgot_password": MessageLookupByLibrary.simpleMessage(
@@ -46,10 +54,23 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "get_started_title": MessageLookupByLibrary.simpleMessage("ابدأ الآن!"),
     "google": MessageLookupByLibrary.simpleMessage("جوجل"),
+    "invalidCharacters": MessageLookupByLibrary.simpleMessage("أحرف غير صالحة"),
+    "invalidEmail": MessageLookupByLibrary.simpleMessage(
+      "بريد إلكتروني غير صالح",
+    ),
     "last_name": MessageLookupByLibrary.simpleMessage("اسم العائلة"),
     "log_in": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
+    "minPassword": MessageLookupByLibrary.simpleMessage("على الأقل ٨ أحرف"),
+    "nameTooLong": MessageLookupByLibrary.simpleMessage("الاسم طويل جدًا"),
+    "nameTooShort": MessageLookupByLibrary.simpleMessage("الاسم قصير جدًا"),
     "or": MessageLookupByLibrary.simpleMessage("أو"),
     "password": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
+    "passwordRequirement": MessageLookupByLibrary.simpleMessage(
+      "استخدم أحرف كبيرة وصغيرة وأرقام",
+    ),
+    "passwordsDontMatch": MessageLookupByLibrary.simpleMessage(
+      "كلمتا المرور غير متطابقتين",
+    ),
     "profile_dark_mode": MessageLookupByLibrary.simpleMessage("الوضع الداكن"),
     "profile_edit_profile": MessageLookupByLibrary.simpleMessage(
       "تعديل الملف الشخصي",
@@ -66,6 +87,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "shipping": MessageLookupByLibrary.simpleMessage("الشحن:"),
     "sign_up": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
     "sub_total": MessageLookupByLibrary.simpleMessage("المجموع الفرعي:"),
+    "tooLong": MessageLookupByLibrary.simpleMessage("طويل جدًا"),
+    "tooShort": MessageLookupByLibrary.simpleMessage("قصير جدًا"),
     "total_price": MessageLookupByLibrary.simpleMessage("إجمالي السعر:"),
     "username": MessageLookupByLibrary.simpleMessage("اسم المستخدم"),
     "welcome_back": MessageLookupByLibrary.simpleMessage("مرحباً بعودتك"),
