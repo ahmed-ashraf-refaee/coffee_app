@@ -1,7 +1,6 @@
 import 'package:coffee_app/features/home/presentation/view/details_view/details_view.dart';
 import 'package:coffee_app/features/navigation/presentation/manager/navigator_cubit/navigator_cubit.dart';
 import 'package:coffee_app/features/authentication/presentation/view/authentication_view.dart';
-import 'package:coffee_app/features/splash/presentation/view/splash_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -33,10 +32,7 @@ abstract class AppRouter {
       ),
 
       // GoRoute(path: kHomeView, builder: (context, state) => const HomeView()),
-      GoRoute(
-        path: '/',
-        builder: (context, state) => const AuthenticationView(),
-      ),
+      GoRoute(path: '/', builder: (context, state) => AuthenticationView()),
       //GoRoute(path: '/', builder: (context, state) => AppNavigation()),
 
       //GoRoute(path: kSplashView, builder: (context, state) => SplashView()),

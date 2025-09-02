@@ -6,19 +6,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../manager/bloc/auth_bloc.dart';
 import 'widgets/signup_view_body.dart';
 
-class AuthenticationView extends StatefulWidget {
-  const AuthenticationView({super.key});
+class AuthenticationView extends StatelessWidget {
+  AuthenticationView({super.key});
 
-  @override
-  State<AuthenticationView> createState() => _AuthenticationViewState();
-}
+  final ValueNotifier<bool> login = ValueNotifier(false);
 
-class _AuthenticationViewState extends State<AuthenticationView> {
-  bool login = true;
   void toggleAuthMode() {
-    setState(() {
-      login = !login;
-    });
+    login.value = !login.value;
   }
 
   @override
@@ -31,11 +25,16 @@ class _AuthenticationViewState extends State<AuthenticationView> {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
               child: BlocProvider(
                 create: (context) => AuthBloc(),
-                child: AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 300),
-                  child: login
-                      ? LoginViewBody(toggleAuthMode: toggleAuthMode)
-                      : SignupViewBody(toggleAuthMode: toggleAuthMode),
+                child: ValueListenableBuilder(
+                  valueListenable: login,
+                  builder: (context, value, child) {
+                    return AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 300),
+                      child: login.value
+                          ? LoginViewBody(toggleAuthMode: toggleAuthMode)
+                          : SignupViewBody(toggleAuthMode: toggleAuthMode),
+                    );
+                  },
                 ),
               ),
             ),

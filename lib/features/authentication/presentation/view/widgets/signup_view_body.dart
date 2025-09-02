@@ -1,4 +1,3 @@
-import 'package:coffee_app/core/errors/failures.dart';
 import 'package:coffee_app/core/helper/ui_helpers.dart';
 import 'package:coffee_app/features/authentication/presentation/manager/bloc/auth_bloc.dart';
 import 'package:coffee_app/features/authentication/presentation/view/widgets/signup_form.dart';
@@ -66,9 +65,21 @@ class _SignupViewBodyState extends State<SignupViewBody> {
             if (state is AuthFailure) {
               UiHelpers.showSnackBar(context: context, message: state.error);
             }
+            if (state is AuthSuccess) {
+              UiHelpers.showSnackBar(
+                context: context,
+                message: "Registered Successfully",
+              );
+            }
           },
           child: CustomElevatedButton(
             onPressed: () {
+              if (usernameController.text.trim().isNotEmpty &&
+                  usernameController.text.trim().length >= 2) {
+                BlocProvider.of<AuthBloc>(context).add(
+                  UsernameCheckEvent(username: usernameController.text.trim()),
+                );
+              }
               if (_formKey.currentState!.validate()) {
                 BlocProvider.of<AuthBloc>(context).add(
                   SignupEvent(

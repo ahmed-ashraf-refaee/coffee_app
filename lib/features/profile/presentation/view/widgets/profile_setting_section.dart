@@ -23,7 +23,7 @@ class ProfileSettingSection extends StatelessWidget {
                 color: ColorPalette.cadetGray,
               ),
             ),
-            ProfileTileDivider(),
+            const ProfileTileDivider(),
             ProfileTile(
               prefixIcon: "assets/icons/credit_card.png",
               title: 'Payment Details',
@@ -33,7 +33,7 @@ class ProfileSettingSection extends StatelessWidget {
                 color: ColorPalette.cadetGray,
               ),
             ),
-            ProfileTileDivider(),
+            const ProfileTileDivider(),
             ProfileTile(
               prefixIcon: "assets/icons/arabic.png",
               title: 'Languages',
@@ -43,7 +43,7 @@ class ProfileSettingSection extends StatelessWidget {
                 color: ColorPalette.cadetGray,
               ),
             ),
-            ProfileTileDivider(),
+            const ProfileTileDivider(),
             ProfileTile(
               prefixIcon: "assets/icons/bell.png",
               title: 'Notification',
@@ -54,9 +54,9 @@ class ProfileSettingSection extends StatelessWidget {
                   child: Switch(value: false, onChanged: (value) {}),
                 ),
               ),
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             ),
-            ProfileTileDivider(),
+            const ProfileTileDivider(),
             ProfileTile(
               prefixIcon: "assets/icons/night_mode.png",
               title: 'Dark Mode',
@@ -67,7 +67,7 @@ class ProfileSettingSection extends StatelessWidget {
                   child: Switch(value: true, onChanged: (value) {}),
                 ),
               ),
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             ),
           ],
         ),

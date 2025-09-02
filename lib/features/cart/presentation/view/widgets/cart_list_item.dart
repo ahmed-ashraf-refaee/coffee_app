@@ -24,7 +24,7 @@ class _CartListItemState extends State<CartListItem> {
       child: Slidable(
         endActionPane: ActionPane(
           extentRatio: 0.3,
-          motion: DrawerMotion(),
+          motion: const DrawerMotion(),
           children: [
             CustomSlidableAction(
               backgroundColor: context.colors.primary,
@@ -44,7 +44,7 @@ class _CartListItemState extends State<CartListItem> {
             ),
           ],
         ),
-        key: Key("hi"),
+        key: const Key("hi"),
 
         child: PrettierTap(
           shrink: 1,

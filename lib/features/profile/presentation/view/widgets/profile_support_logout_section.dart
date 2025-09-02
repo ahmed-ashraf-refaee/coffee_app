@@ -23,7 +23,7 @@ class ProfileSupportLogoutSection extends StatelessWidget {
                 color: ColorPalette.cadetGray,
               ),
             ),
-            ProfileTileDivider(),
+            const ProfileTileDivider(),
             ProfileTile(
               title: "Logout",
               suffixWidget: Image.asset(
@@ -31,7 +31,7 @@ class ProfileSupportLogoutSection extends StatelessWidget {
                 height: 24,
                 color: ColorPalette.orangeCrayola,
               ),
-              padding: EdgeInsets.fromLTRB(16, 12, 16, 22),
+              padding: const EdgeInsets.fromLTRB(16, 12, 16, 22),
             ),
           ],
         ),

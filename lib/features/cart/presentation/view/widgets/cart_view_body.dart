@@ -46,8 +46,8 @@ class CartViewBody extends StatelessWidget {
                 ],
               ),
               SliverList.builder(
-                itemBuilder: (context, index) => Padding(
-                  padding: const EdgeInsets.only(bottom: 16),
+                itemBuilder: (context, index) => const Padding(
+                  padding: EdgeInsets.only(bottom: 16),
                   child: CartListItem(),
                 ),
                 itemCount: 20,

@@ -8,7 +8,6 @@ import '../../../../../core/utils/text_styles.dart';
 import '../../../../../core/widgets/custom_rounded_images.dart';
 import '../../../../../core/widgets/prettier_tap.dart';
 
-
 class WishlistListItem extends StatefulWidget {
   const WishlistListItem({super.key});
 
@@ -24,7 +23,7 @@ class _WishlistListItemState extends State<WishlistListItem> {
       child: Slidable(
         endActionPane: ActionPane(
           extentRatio: 0.3,
-          motion: DrawerMotion(),
+          motion: const DrawerMotion(),
           children: [
             CustomSlidableAction(
               backgroundColor: context.colors.primary,
@@ -44,7 +43,7 @@ class _WishlistListItemState extends State<WishlistListItem> {
             ),
           ],
         ),
-        key: Key("hi"),
+        key: const Key("hi"),
 
         child: PrettierTap(
           shrink: 1,

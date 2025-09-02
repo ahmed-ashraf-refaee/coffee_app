@@ -1,4 +1,3 @@
-
 import 'package:coffee_app/features/wishlist/presentation/view/widgets/wishlist_list_item.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
@@ -38,8 +37,8 @@ class WishListViewBody extends StatelessWidget {
           ],
         ),
         SliverList.builder(
-          itemBuilder: (context, index) => Padding(
-            padding: const EdgeInsets.only(bottom: 16),
+          itemBuilder: (context, index) => const Padding(
+            padding: EdgeInsets.only(bottom: 16),
             child: WishlistListItem(),
           ),
           itemCount: 20,

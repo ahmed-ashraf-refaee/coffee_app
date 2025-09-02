@@ -58,7 +58,7 @@ class SignupForm extends StatelessWidget {
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
                       return S.current.enterFirstName;
-                    } else if (value.trim().length < 2) {
+                    } else if (value.trim().length < 3) {
                       return S.current.tooShort;
                     } else if (value.trim().length > 20) {
                       return S.current.tooLong;
@@ -80,7 +80,7 @@ class SignupForm extends StatelessWidget {
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
                       return S.current.enterLastName;
-                    } else if (value.trim().length < 2) {
+                    } else if (value.trim().length < 3) {
                       return S.current.tooShort;
                     } else if (value.trim().length > 20) {
                       return S.current.tooLong;
@@ -93,22 +93,50 @@ class SignupForm extends StatelessWidget {
               ),
             ],
           ),
-          TextFormField(
-            controller: usernameController,
-            decoration: InputDecoration(
-              hintText: S.current.username,
-              prefixIcon: const Icon(Ionicons.person_outline),
-            ),
-            autovalidateMode: AutovalidateMode.onUnfocus,
-            validator: (value) {
-              if (value == null || value.trim().isEmpty) {
-                return S.current.enterUsername;
-              } else if (value.trim().length < 2) {
-                return S.current.tooShort;
-              } else if (value.trim().length > 30) {
-                return S.current.tooLong;
+          BlocBuilder<AuthBloc, AuthState>(
+            builder: (context, state) {
+              bool isUsernameTaken = false;
+              if (state is AuthUsernameSuccess) {
+                isUsernameTaken = state.usernameCheck;
               }
-              return null;
+
+              return TextFormField(
+                controller: usernameController,
+                decoration: InputDecoration(
+                  hintText: S.current.username,
+                  prefixIcon: const Icon(Ionicons.person_outline),
+                  suffixIcon: state is AuthLoading
+                      ? const Padding(
+                          padding: EdgeInsets.all(12.0),
+                          child: SizedBox(
+                            width: 20,
+                            height: 20,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          ),
+                        )
+                      : null,
+                ),
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                validator: (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return S.current.enterUsername;
+                  } else if (value.trim().length < 3) {
+                    return S.current.tooShort;
+                  } else if (value.trim().length > 30) {
+                    return S.current.tooLong;
+                  } else if (isUsernameTaken) {
+                    return S.current.usernameTaken;
+                  }
+                  return null;
+                },
+                onChanged: (value) {
+                  if (value.trim().isNotEmpty && value.trim().length >= 2) {
+                    BlocProvider.of<AuthBloc>(
+                      context,
+                    ).add(UsernameCheckEvent(username: value.trim()));
+                  }
+                },
+              );
             },
           ),
           TextFormField(
