@@ -31,7 +31,9 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
     rotationAnimation();
     secondTitleAnimation();
     Future.delayed(const Duration(milliseconds: 5000), () {
-      GoRouter.of(context).pushReplacement(AppRouter.kNavigationView);
+      if (mounted) {
+        GoRouter.of(context).pushReplacement(AppRouter.kNavigationView);
+      }
     });
   }
 
