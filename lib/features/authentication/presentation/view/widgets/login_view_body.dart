@@ -5,7 +5,11 @@ import 'package:coffee_app/features/authentication/presentation/view/widgets/log
 import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
+import '../../../../../core/helper/ui_helpers.dart';
+import '../../manager/bloc/auth_bloc.dart';
 import 'auth_suggestion.dart';
 import 'auth_title.dart';
 import 'social_button.dart';
@@ -20,7 +24,7 @@ class LoginViewBody extends StatefulWidget {
 
 class _LoginViewBodyState extends State<LoginViewBody> {
   final _formKey = GlobalKey<FormState>();
-  bool rememberMe = false;
+  final ValueNotifier<bool> rememberMe = ValueNotifier(false);
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   @override
@@ -49,16 +53,21 @@ class _LoginViewBodyState extends State<LoginViewBody> {
         const SizedBox(height: 16),
         Row(
           children: [
-            Transform.scale(
-              scale: 20 / 24,
-              child: Checkbox(
-                value: rememberMe,
-                onChanged: (value) {
-                  setState(() {
-                    rememberMe = value!;
-                  });
-                },
-              ),
+            ValueListenableBuilder(
+              valueListenable: rememberMe,
+              builder: (context, value, child) {
+                return Transform.scale(
+                  scale: 20 / 24,
+                  child: Checkbox(
+                    value: rememberMe.value,
+                    onChanged: (value) {
+                      setState(() {
+                        rememberMe.value = value!;
+                      });
+                    },
+                  ),
+                );
+              },
             ),
             Text(
               S.current.remember_me,
@@ -81,16 +90,43 @@ class _LoginViewBodyState extends State<LoginViewBody> {
         ),
         const SizedBox(height: 48),
 
-        CustomElevatedButton(
-          onPressed: () {
-            if (_formKey.currentState!.validate()) {}
+        BlocConsumer<AuthBloc, AuthState>(
+          listener: (context, state) {
+            if (state is AuthFailure) {
+              UiHelpers.showSnackBar(context: context, message: state.error);
+            }
+            if (state is AuthSuccess) {
+              UiHelpers.showSnackBar(
+                context: context,
+                message: "Registered Successfully",
+              );
+            }
           },
-          child: Text(
-            S.current.log_in,
-            style: TextStyles.medium20.copyWith(
-              color: context.colors.onPrimary,
-            ),
-          ),
+          builder: (context, state) {
+            return CustomElevatedButton(
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  BlocProvider.of<AuthBloc>(context).add(
+                    LoginEvent(
+                      email: emailController.text.trim(),
+                      password: passwordController.text.trim(),
+                    ),
+                  );
+                }
+              },
+              child: state is AuthLoading
+                  ? SpinKitThreeBounce(
+                      color: context.colors.onPrimary,
+                      size: 26,
+                    )
+                  : Text(
+                      S.current.log_in,
+                      style: TextStyles.medium20.copyWith(
+                        color: context.colors.onPrimary,
+                      ),
+                    ),
+            );
+          },
         ),
 
         const SizedBox(height: 58),

@@ -101,7 +101,6 @@ class SignupForm extends StatelessWidget {
               if (state is AuthUsernameSuccess) {
                 isUsernameTaken = state.usernameCheck;
               }
-
               return TextFormField(
                 controller: usernameController,
                 decoration: InputDecoration(

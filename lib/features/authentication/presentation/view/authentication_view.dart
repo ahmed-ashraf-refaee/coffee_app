@@ -9,7 +9,7 @@ import 'widgets/signup_view_body.dart';
 class AuthenticationView extends StatelessWidget {
   AuthenticationView({super.key});
 
-  final ValueNotifier<bool> login = ValueNotifier(false);
+  final ValueNotifier<bool> login = ValueNotifier(true);
 
   void toggleAuthMode() {
     login.value = !login.value;

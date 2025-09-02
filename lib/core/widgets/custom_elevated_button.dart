@@ -6,7 +6,7 @@ class CustomElevatedButton extends StatelessWidget {
   const CustomElevatedButton({
     super.key,
     this.width,
-    this.height,
+    this.height = 32,
     required this.onPressed,
     required this.child,
     this.contentPadding,
@@ -33,10 +33,9 @@ class CustomElevatedButton extends StatelessWidget {
           color: backgroundColor ?? context.colors.primary,
         ),
         width: context.width,
-        height: height,
         child: Padding(
           padding: contentPadding ?? const EdgeInsets.all(20.0),
-          child: child,
+          child: SizedBox(height: height, child: child),
         ),
       ),
     );
