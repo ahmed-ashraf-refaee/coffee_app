@@ -17,9 +17,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         firstName: event.firstName,
         lastName: event.lastName,
       );
-
       result.fold(
-        (failure) => emit(AuthFailure(error: failure)),
+        (failure) => emit(AuthFailure(error: failure.error)),
         (response) => emit(AuthSuccess()),
       );
     });
@@ -30,7 +29,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         password: event.password,
       );
       result.fold(
-        (failure) => emit(AuthFailure(error: failure)),
+        (failure) => emit(AuthFailure(error: failure.error)),
         (response) => emit(AuthSuccess()),
       );
     });
@@ -38,10 +37,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<LogoutEvent>((event, emit) async {
       emit(AuthLoading());
       var result = await _authRepoImpl.logoutUser();
-      emit(AuthSuccess());
       result.fold(
-        (failure) => emit(AuthFailure(error: failure)),
+        (failure) => emit(AuthFailure(error: failure.error)),
         (response) => emit(AuthSuccess()),
+      );
+    });
+    on<UsernameCheckEvent>((event, emit) async {
+      emit(AuthLoading());
+      var result = await _authRepoImpl.checkUsername(username: event.username);
+      result.fold(
+        (failure) => emit(AuthFailure(error: failure.error)),
+        (response) => emit(AuthUsernameSuccess(usernameCheck: response)),
       );
     });
   }

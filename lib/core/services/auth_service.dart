@@ -39,4 +39,13 @@ class AuthService {
   Future<void> logout() async {
     await _supabaseClient.auth.signOut();
   }
+
+  Future<bool> usernameTaken(String username) async {
+    final list = await _supabaseClient
+        .from('users')
+        .select('username')
+        .eq('username', username)
+        .maybeSingle();
+    return list != null;
+  }
 }

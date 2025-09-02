@@ -9,6 +9,12 @@ final class AuthLoading extends AuthState {}
 
 final class AuthSuccess extends AuthState {}
 
+final class AuthUsernameSuccess extends AuthState {
+  final bool usernameCheck;
+
+  AuthUsernameSuccess({required this.usernameCheck});
+}
+
 final class AuthFailure extends AuthState {
   final String error;
   AuthFailure({required this.error});

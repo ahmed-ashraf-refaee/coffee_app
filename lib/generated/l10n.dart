@@ -454,6 +454,236 @@ class S {
   String get tooLong {
     return Intl.message('Too long', name: 'tooLong', desc: '', args: []);
   }
+
+  /// `Connection timeout with server.`
+  String get connectionTimeout {
+    return Intl.message(
+      'Connection timeout with server.',
+      name: 'connectionTimeout',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Send timeout with server.`
+  String get sendTimeout {
+    return Intl.message(
+      'Send timeout with server.',
+      name: 'sendTimeout',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Receive timeout with server.`
+  String get receiveTimeout {
+    return Intl.message(
+      'Receive timeout with server.',
+      name: 'receiveTimeout',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Bad certificate (incorrect certificate).`
+  String get badCertificate {
+    return Intl.message(
+      'Bad certificate (incorrect certificate).',
+      name: 'badCertificate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Request was canceled.`
+  String get requestCanceled {
+    return Intl.message(
+      'Request was canceled.',
+      name: 'requestCanceled',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No internet connection.`
+  String get noInternetConnection {
+    return Intl.message(
+      'No internet connection.',
+      name: 'noInternetConnection',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unexpected error. Please try again.`
+  String get unexpectedError {
+    return Intl.message(
+      'Unexpected error. Please try again.',
+      name: 'unexpectedError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unexpected server error.`
+  String get unexpectedServerError {
+    return Intl.message(
+      'Unexpected server error.',
+      name: 'unexpectedServerError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unauthorized request.`
+  String get unauthorizedRequest {
+    return Intl.message(
+      'Unauthorized request.',
+      name: 'unauthorizedRequest',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your request was not found.`
+  String get notFound {
+    return Intl.message(
+      'Your request was not found.',
+      name: 'notFound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Internal server error. Please try again.`
+  String get internalServerError {
+    return Intl.message(
+      'Internal server error. Please try again.',
+      name: 'internalServerError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Oops, something went wrong. Please try again.`
+  String get genericError {
+    return Intl.message(
+      'Oops, something went wrong. Please try again.',
+      name: 'genericError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid email or password.`
+  String get invalidCredentials {
+    return Intl.message(
+      'Invalid email or password.',
+      name: 'invalidCredentials',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please confirm your email before logging in.`
+  String get emailNotConfirmed {
+    return Intl.message(
+      'Please confirm your email before logging in.',
+      name: 'emailNotConfirmed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This email is already registered.`
+  String get emailAlreadyRegistered {
+    return Intl.message(
+      'This email is already registered.',
+      name: 'emailAlreadyRegistered',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your password is too weak or incorrect.`
+  String get weakOrWrongPassword {
+    return Intl.message(
+      'Your password is too weak or incorrect.',
+      name: 'weakOrWrongPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Authentication failed. Please try again.`
+  String get authFailed {
+    return Intl.message(
+      'Authentication failed. Please try again.',
+      name: 'authFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This record already exists.`
+  String get duplicateRecord {
+    return Intl.message(
+      'This record already exists.',
+      name: 'duplicateRecord',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This record is linked and cannot be removed.`
+  String get foreignKeyError {
+    return Intl.message(
+      'This record is linked and cannot be removed.',
+      name: 'foreignKeyError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `A required field was left empty.`
+  String get nullValueError {
+    return Intl.message(
+      'A required field was left empty.',
+      name: 'nullValueError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `There is a problem with the database query.`
+  String get syntaxError {
+    return Intl.message(
+      'There is a problem with the database query.',
+      name: 'syntaxError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `A database error occurred. Please try again.`
+  String get databaseError {
+    return Intl.message(
+      'A database error occurred. Please try again.',
+      name: 'databaseError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `That username isn't available. Choose a different one.`
+  String get usernameTaken {
+    return Intl.message(
+      'That username isn\'t available. Choose a different one.',
+      name: 'usernameTaken',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

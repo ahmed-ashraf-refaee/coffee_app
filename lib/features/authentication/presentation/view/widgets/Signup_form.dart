@@ -1,6 +1,8 @@
+import 'package:coffee_app/features/authentication/presentation/manager/bloc/auth_bloc.dart';
 import 'package:coffee_app/features/authentication/presentation/view/widgets/build_suffix_icon_with_divider.dart';
 import 'package:coffee_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '../../../../../core/widgets/animated_icon_switch.dart';
@@ -24,10 +26,14 @@ class SignupForm extends StatelessWidget {
     required this.confirmPasswordController,
   });
   final ValueNotifier<bool> _isPasswordVisible = ValueNotifier(false);
+  static final RegExp _nameRegExp = RegExp(r"^[\p{L}'-.]+$", unicode: true);
 
-  static final RegExp _nameRegExp = RegExp(r"^[a-zA-Z\s'-.]+$");
-  final RegExp _emailRegExp = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-  final RegExp _passwordRegExp = RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$');
+  static final RegExp _emailRegExp = RegExp(
+    r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+  );
+  static final RegExp _passwordRegExp = RegExp(
+    r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$',
+  );
 
   @override
   Widget build(BuildContext context) {

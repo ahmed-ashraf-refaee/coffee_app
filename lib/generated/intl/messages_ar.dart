@@ -27,16 +27,37 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "app_name_first": MessageLookupByLibrary.simpleMessage("قهوة"),
     "app_name_second": MessageLookupByLibrary.simpleMessage("دروب"),
+    "authFailed": MessageLookupByLibrary.simpleMessage(
+      "فشل في المصادقة. حاول مرة أخرى.",
+    ),
+    "badCertificate": MessageLookupByLibrary.simpleMessage(
+      "شهادة غير صالحة (شهادة غير صحيحة).",
+    ),
     "confirmPassword": MessageLookupByLibrary.simpleMessage("أكد كلمة المرور"),
     "confirm_password": MessageLookupByLibrary.simpleMessage(
       "تأكيد كلمة المرور",
+    ),
+    "connectionTimeout": MessageLookupByLibrary.simpleMessage(
+      "انتهت مهلة الاتصال بالخادم.",
     ),
     "continue_with_payment": MessageLookupByLibrary.simpleMessage(
       "متابعة للدفع",
     ),
     "create_account": MessageLookupByLibrary.simpleMessage("إنشاء حساب جديد"),
+    "databaseError": MessageLookupByLibrary.simpleMessage(
+      "حدث خطأ في قاعدة البيانات. حاول مرة أخرى.",
+    ),
     "dont_have_account": MessageLookupByLibrary.simpleMessage("ليس لديك حساب؟"),
+    "duplicateRecord": MessageLookupByLibrary.simpleMessage(
+      "هذا السجل موجود بالفعل.",
+    ),
     "email": MessageLookupByLibrary.simpleMessage("البريد الإلكتروني"),
+    "emailAlreadyRegistered": MessageLookupByLibrary.simpleMessage(
+      "هذا البريد الإلكتروني مسجل بالفعل.",
+    ),
+    "emailNotConfirmed": MessageLookupByLibrary.simpleMessage(
+      "يرجى تأكيد بريدك الإلكتروني قبل تسجيل الدخول.",
+    ),
     "enterEmail": MessageLookupByLibrary.simpleMessage(
       "أدخل البريد الإلكتروني",
     ),
@@ -46,15 +67,27 @@ class MessageLookup extends MessageLookupByLibrary {
     "enterUsername": MessageLookupByLibrary.simpleMessage("أدخل اسم المستخدم"),
     "facebook": MessageLookupByLibrary.simpleMessage("فيسبوك"),
     "first_name": MessageLookupByLibrary.simpleMessage("الاسم الأول"),
+    "foreignKeyError": MessageLookupByLibrary.simpleMessage(
+      "هذا السجل مرتبط ولا يمكن حذفه.",
+    ),
     "forgot_password": MessageLookupByLibrary.simpleMessage(
       "هل نسيت كلمة المرور؟",
+    ),
+    "genericError": MessageLookupByLibrary.simpleMessage(
+      "عذرًا، حدث خطأ ما. حاول مرة أخرى.",
     ),
     "get_started_subtitle": MessageLookupByLibrary.simpleMessage(
       "سجّل لاكتشاف عالم مليء بالقهوة",
     ),
     "get_started_title": MessageLookupByLibrary.simpleMessage("ابدأ الآن!"),
     "google": MessageLookupByLibrary.simpleMessage("جوجل"),
+    "internalServerError": MessageLookupByLibrary.simpleMessage(
+      "خطأ داخلي في الخادم. حاول مرة أخرى.",
+    ),
     "invalidCharacters": MessageLookupByLibrary.simpleMessage("أحرف غير صالحة"),
+    "invalidCredentials": MessageLookupByLibrary.simpleMessage(
+      "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
+    ),
     "invalidEmail": MessageLookupByLibrary.simpleMessage(
       "بريد إلكتروني غير صالح",
     ),
@@ -63,6 +96,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "minPassword": MessageLookupByLibrary.simpleMessage("على الأقل ٨ أحرف"),
     "nameTooLong": MessageLookupByLibrary.simpleMessage("الاسم طويل جدًا"),
     "nameTooShort": MessageLookupByLibrary.simpleMessage("الاسم قصير جدًا"),
+    "noInternetConnection": MessageLookupByLibrary.simpleMessage(
+      "لا يوجد اتصال بالإنترنت.",
+    ),
+    "notFound": MessageLookupByLibrary.simpleMessage("لم يتم العثور على طلبك."),
+    "nullValueError": MessageLookupByLibrary.simpleMessage(
+      "تم ترك حقل مطلوب فارغًا.",
+    ),
     "or": MessageLookupByLibrary.simpleMessage("أو"),
     "password": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
     "passwordRequirement": MessageLookupByLibrary.simpleMessage(
@@ -82,15 +122,40 @@ class MessageLookup extends MessageLookupByLibrary {
       "بيانات الدفع",
     ),
     "profile_support": MessageLookupByLibrary.simpleMessage("الدعم"),
+    "receiveTimeout": MessageLookupByLibrary.simpleMessage(
+      "انتهت مهلة الاستقبال من الخادم.",
+    ),
     "remember_me": MessageLookupByLibrary.simpleMessage("تذكرني"),
+    "requestCanceled": MessageLookupByLibrary.simpleMessage("تم إلغاء الطلب."),
     "search": MessageLookupByLibrary.simpleMessage("ابحث عن قهوتك المفضلة"),
+    "sendTimeout": MessageLookupByLibrary.simpleMessage(
+      "انتهت مهلة الإرسال للخادم.",
+    ),
     "shipping": MessageLookupByLibrary.simpleMessage("الشحن:"),
     "sign_up": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
     "sub_total": MessageLookupByLibrary.simpleMessage("المجموع الفرعي:"),
+    "syntaxError": MessageLookupByLibrary.simpleMessage(
+      "هناك مشكلة في استعلام قاعدة البيانات.",
+    ),
     "tooLong": MessageLookupByLibrary.simpleMessage("طويل جدًا"),
     "tooShort": MessageLookupByLibrary.simpleMessage("قصير جدًا"),
     "total_price": MessageLookupByLibrary.simpleMessage("إجمالي السعر:"),
+    "unauthorizedRequest": MessageLookupByLibrary.simpleMessage(
+      "طلب غير مصرح به.",
+    ),
+    "unexpectedError": MessageLookupByLibrary.simpleMessage(
+      "حدث خطأ غير متوقع. حاول مرة أخرى.",
+    ),
+    "unexpectedServerError": MessageLookupByLibrary.simpleMessage(
+      "حدث خطأ غير متوقع في الخادم.",
+    ),
     "username": MessageLookupByLibrary.simpleMessage("اسم المستخدم"),
+    "usernameTaken": MessageLookupByLibrary.simpleMessage(
+      "هذا الاسم غير متوفر، من فضلك اختر اسمًا آخر.",
+    ),
+    "weakOrWrongPassword": MessageLookupByLibrary.simpleMessage(
+      "كلمة المرور ضعيفة جدًا أو غير صحيحة.",
+    ),
     "welcome_back": MessageLookupByLibrary.simpleMessage("مرحباً بعودتك"),
     "welcome_back_subtitle": MessageLookupByLibrary.simpleMessage(
       "سجّل الدخول للوصول إلى حسابك",

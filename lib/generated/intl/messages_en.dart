@@ -27,18 +27,39 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "app_name_first": MessageLookupByLibrary.simpleMessage("Coffee"),
     "app_name_second": MessageLookupByLibrary.simpleMessage("Drop"),
+    "authFailed": MessageLookupByLibrary.simpleMessage(
+      "Authentication failed. Please try again.",
+    ),
+    "badCertificate": MessageLookupByLibrary.simpleMessage(
+      "Bad certificate (incorrect certificate).",
+    ),
     "confirmPassword": MessageLookupByLibrary.simpleMessage("Confirm password"),
     "confirm_password": MessageLookupByLibrary.simpleMessage(
       "Confirm Password",
+    ),
+    "connectionTimeout": MessageLookupByLibrary.simpleMessage(
+      "Connection timeout with server.",
     ),
     "continue_with_payment": MessageLookupByLibrary.simpleMessage(
       "Continue with payment",
     ),
     "create_account": MessageLookupByLibrary.simpleMessage("Create an Account"),
+    "databaseError": MessageLookupByLibrary.simpleMessage(
+      "A database error occurred. Please try again.",
+    ),
     "dont_have_account": MessageLookupByLibrary.simpleMessage(
       "Don\'t have an account?",
     ),
+    "duplicateRecord": MessageLookupByLibrary.simpleMessage(
+      "This record already exists.",
+    ),
     "email": MessageLookupByLibrary.simpleMessage("Email"),
+    "emailAlreadyRegistered": MessageLookupByLibrary.simpleMessage(
+      "This email is already registered.",
+    ),
+    "emailNotConfirmed": MessageLookupByLibrary.simpleMessage(
+      "Please confirm your email before logging in.",
+    ),
     "enterEmail": MessageLookupByLibrary.simpleMessage("Enter email"),
     "enterFirstName": MessageLookupByLibrary.simpleMessage("Enter first name"),
     "enterLastName": MessageLookupByLibrary.simpleMessage("Enter last name"),
@@ -46,7 +67,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "enterUsername": MessageLookupByLibrary.simpleMessage("Enter username"),
     "facebook": MessageLookupByLibrary.simpleMessage("Facebook"),
     "first_name": MessageLookupByLibrary.simpleMessage("First Name"),
+    "foreignKeyError": MessageLookupByLibrary.simpleMessage(
+      "This record is linked and cannot be removed.",
+    ),
     "forgot_password": MessageLookupByLibrary.simpleMessage("Forgot Password?"),
+    "genericError": MessageLookupByLibrary.simpleMessage(
+      "Oops, something went wrong. Please try again.",
+    ),
     "get_started_subtitle": MessageLookupByLibrary.simpleMessage(
       "Sign up to discover a world full of coffee",
     ),
@@ -54,8 +81,14 @@ class MessageLookup extends MessageLookupByLibrary {
       "Get Started Now!",
     ),
     "google": MessageLookupByLibrary.simpleMessage("Google"),
+    "internalServerError": MessageLookupByLibrary.simpleMessage(
+      "Internal server error. Please try again.",
+    ),
     "invalidCharacters": MessageLookupByLibrary.simpleMessage(
       "Invalid characters",
+    ),
+    "invalidCredentials": MessageLookupByLibrary.simpleMessage(
+      "Invalid email or password.",
     ),
     "invalidEmail": MessageLookupByLibrary.simpleMessage("Invalid email"),
     "last_name": MessageLookupByLibrary.simpleMessage("Last Name"),
@@ -65,6 +98,15 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "nameTooLong": MessageLookupByLibrary.simpleMessage("Name too long"),
     "nameTooShort": MessageLookupByLibrary.simpleMessage("Name too short"),
+    "noInternetConnection": MessageLookupByLibrary.simpleMessage(
+      "No internet connection.",
+    ),
+    "notFound": MessageLookupByLibrary.simpleMessage(
+      "Your request was not found.",
+    ),
+    "nullValueError": MessageLookupByLibrary.simpleMessage(
+      "A required field was left empty.",
+    ),
     "or": MessageLookupByLibrary.simpleMessage("or"),
     "password": MessageLookupByLibrary.simpleMessage("Password"),
     "passwordRequirement": MessageLookupByLibrary.simpleMessage(
@@ -86,15 +128,42 @@ class MessageLookup extends MessageLookupByLibrary {
       "Payment Details",
     ),
     "profile_support": MessageLookupByLibrary.simpleMessage("Support"),
+    "receiveTimeout": MessageLookupByLibrary.simpleMessage(
+      "Receive timeout with server.",
+    ),
     "remember_me": MessageLookupByLibrary.simpleMessage("Remember me"),
+    "requestCanceled": MessageLookupByLibrary.simpleMessage(
+      "Request was canceled.",
+    ),
     "search": MessageLookupByLibrary.simpleMessage("Find your favorite coffee"),
+    "sendTimeout": MessageLookupByLibrary.simpleMessage(
+      "Send timeout with server.",
+    ),
     "shipping": MessageLookupByLibrary.simpleMessage("Shipping:"),
     "sign_up": MessageLookupByLibrary.simpleMessage("Sign Up"),
     "sub_total": MessageLookupByLibrary.simpleMessage("Sub Total:"),
+    "syntaxError": MessageLookupByLibrary.simpleMessage(
+      "There is a problem with the database query.",
+    ),
     "tooLong": MessageLookupByLibrary.simpleMessage("Too long"),
     "tooShort": MessageLookupByLibrary.simpleMessage("Too short"),
     "total_price": MessageLookupByLibrary.simpleMessage("Total Price:"),
+    "unauthorizedRequest": MessageLookupByLibrary.simpleMessage(
+      "Unauthorized request.",
+    ),
+    "unexpectedError": MessageLookupByLibrary.simpleMessage(
+      "Unexpected error. Please try again.",
+    ),
+    "unexpectedServerError": MessageLookupByLibrary.simpleMessage(
+      "Unexpected server error.",
+    ),
     "username": MessageLookupByLibrary.simpleMessage("Username"),
+    "usernameTaken": MessageLookupByLibrary.simpleMessage(
+      "That username isn\'t available. Choose a different one.",
+    ),
+    "weakOrWrongPassword": MessageLookupByLibrary.simpleMessage(
+      "Your password is too weak or incorrect.",
+    ),
     "welcome_back": MessageLookupByLibrary.simpleMessage("Welcome Back"),
     "welcome_back_subtitle": MessageLookupByLibrary.simpleMessage(
       "Log in to access your account",

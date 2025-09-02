@@ -1,3 +1,5 @@
+import 'package:coffee_app/core/errors/failures.dart';
+import 'package:coffee_app/core/helper/ui_helpers.dart';
 import 'package:coffee_app/features/authentication/presentation/manager/bloc/auth_bloc.dart';
 import 'package:coffee_app/features/authentication/presentation/view/widgets/signup_form.dart';
 import 'package:coffee_app/generated/l10n.dart';
@@ -59,24 +61,31 @@ class _SignupViewBodyState extends State<SignupViewBody> {
           confirmPasswordController: confirmPasswordController,
         ),
         const SizedBox(height: 48),
-        CustomElevatedButton(
-          onPressed: () {
-            if (_formKey.currentState!.validate()) {
-              BlocProvider.of<AuthBloc>(context).add(
-                SignupEvent(
-                  email: emailController.text.trim(),
-                  password: passwordController.text.trim(),
-                  username: usernameController.text.trim(),
-                  firstName: firstNameController.text.trim(),
-                  lastName: lastNameController.text.trim(),
-                ),
-              );
+        BlocListener<AuthBloc, AuthState>(
+          listener: (context, state) {
+            if (state is AuthFailure) {
+              UiHelpers.showSnackBar(context: context, message: state.error);
             }
           },
-          child: Text(
-            S.current.sign_up,
-            style: TextStyles.medium20.copyWith(
-              color: context.colors.onPrimary,
+          child: CustomElevatedButton(
+            onPressed: () {
+              if (_formKey.currentState!.validate()) {
+                BlocProvider.of<AuthBloc>(context).add(
+                  SignupEvent(
+                    email: emailController.text.trim(),
+                    password: passwordController.text.trim(),
+                    username: usernameController.text.trim(),
+                    firstName: firstNameController.text.trim(),
+                    lastName: lastNameController.text.trim(),
+                  ),
+                );
+              }
+            },
+            child: Text(
+              S.current.sign_up,
+              style: TextStyles.medium20.copyWith(
+                color: context.colors.onPrimary,
+              ),
             ),
           ),
         ),

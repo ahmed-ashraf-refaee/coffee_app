@@ -25,3 +25,9 @@ class LoginEvent extends AuthEvent {
 }
 
 class LogoutEvent extends AuthEvent {}
+
+class UsernameCheckEvent extends AuthEvent {
+  final String username;
+
+  UsernameCheckEvent({required this.username});
+}
