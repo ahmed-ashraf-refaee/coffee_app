@@ -1,0 +1,46 @@
+import 'dart:ffi';
+
+import 'package:coffee_app/features/home/data/model/categories_model.dart';
+import 'package:coffee_app/features/home/data/model/product_variants_model.dart';
+
+class ProductModel {
+  final Long id;
+  final String name;
+  final String description;
+  final double discount;
+  final double rating;
+  final Long categoryId;
+  final String imageUrl;
+  final List<ProductVariantsModel> productVariants;
+  final CategoriesModel categories;
+
+  ProductModel({
+    required this.id,
+    required this.name,
+    required this.description,
+    required this.discount,
+    required this.rating,
+    required this.categoryId,
+    required this.imageUrl,
+    required this.productVariants,
+    required this.categories,
+  });
+  factory ProductModel.fromJson(Map<String, dynamic> json) {
+    var variantsList = json['product_variants'] as List;
+    List<ProductVariantsModel> productVariantsList = variantsList
+        .map((variant) => ProductVariantsModel.fromJson(variant))
+        .toList();
+
+    return ProductModel(
+      id: json['id'],
+      name: json['name'],
+      description: json['description'],
+      discount: (json['discount'] as num).toDouble(),
+      rating: (json['rating'] as num).toDouble(),
+      categoryId: json['category_id'],
+      imageUrl: json['image_url'],
+      productVariants: productVariantsList,
+      categories: CategoriesModel.fromJson(json['categories']),
+    );
+  }
+}

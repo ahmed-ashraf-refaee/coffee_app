@@ -1,5 +1,5 @@
 import 'package:coffee_app/core/helper/ui_helpers.dart';
-import 'package:coffee_app/features/authentication/presentation/manager/bloc/auth_bloc.dart';
+import 'package:coffee_app/features/authentication/presentation/manager/auth_bloc/auth_bloc.dart';
 import 'package:coffee_app/features/authentication/presentation/view/widgets/signup_form.dart';
 import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';

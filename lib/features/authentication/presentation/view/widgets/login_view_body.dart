@@ -9,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../../../../../core/helper/ui_helpers.dart';
-import '../../manager/bloc/auth_bloc.dart';
+import '../../manager/auth_bloc/auth_bloc.dart';
 import 'auth_suggestion.dart';
 import 'auth_title.dart';
 import 'social_button.dart';

@@ -1,6 +1,5 @@
 // ignore_for_file: file_names
 
-import 'package:coffee_app/features/authentication/presentation/manager/bloc/auth_bloc.dart';
 import 'package:coffee_app/features/authentication/presentation/view/widgets/build_suffix_icon_with_divider.dart';
 import 'package:coffee_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '../../../../../core/widgets/animated_icon_switch.dart';
+import '../../manager/auth_bloc/auth_bloc.dart';
 
 class SignupForm extends StatelessWidget {
   final GlobalKey<FormState> formKey;

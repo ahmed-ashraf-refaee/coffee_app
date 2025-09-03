@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:coffee_app/features/authentication/repo/auth_repo_impl.dart';
+import 'package:coffee_app/features/authentication/data/repo/auth_repo_impl.dart';
 import 'package:meta/meta.dart';
 
 part 'auth_event.dart';

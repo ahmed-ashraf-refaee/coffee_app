@@ -3,7 +3,7 @@ import 'package:coffee_app/features/authentication/presentation/view/widgets/log
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../manager/bloc/auth_bloc.dart';
+import '../manager/auth_bloc/auth_bloc.dart';
 import 'widgets/signup_view_body.dart';
 
 class AuthenticationView extends StatelessWidget {

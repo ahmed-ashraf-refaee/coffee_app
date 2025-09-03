@@ -1,6 +1,6 @@
 import 'package:coffee_app/core/errors/failures.dart';
-import 'package:coffee_app/core/services/auth_service.dart';
-import 'package:coffee_app/features/authentication/repo/auth_repo.dart';
+import 'package:coffee_app/features/authentication/data/services/auth_service.dart';
+import 'package:coffee_app/features/authentication/data/repo/auth_repo.dart';
 import 'package:dartz/dartz.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
