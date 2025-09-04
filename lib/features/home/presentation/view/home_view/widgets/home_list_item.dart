@@ -3,6 +3,7 @@ import 'package:coffee_app/core/utils/text_styles.dart';
 import 'package:coffee_app/core/widgets/custom_icon_button.dart';
 import 'package:coffee_app/core/widgets/custom_rounded_images.dart';
 import 'package:coffee_app/core/widgets/prettier_tap.dart';
+import 'package:coffee_app/features/home/data/model/product_model.dart';
 import 'package:coffee_app/features/home/presentation/view/home_view/widgets/custom_home_list_item_clipper.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
@@ -10,12 +11,13 @@ import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
 
 class HomeListItem extends StatelessWidget {
-  const HomeListItem({super.key, required this.tag});
-  final String tag;
+  final ProductModel product;
+
+  const HomeListItem({super.key, required this.product});
   @override
   Widget build(BuildContext context) {
     void onPressed() {
-      GoRouter.of(context).push("${AppRouter.kDetailsView}/$tag");
+      GoRouter.of(context).push(AppRouter.kDetailsView, extra: product);
     }
 
     return PrettierTap(
@@ -44,23 +46,22 @@ class HomeListItem extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Hero(
-                      tag: tag,
+                      tag: product.id,
                       child: CustomRoundedImage(
-                        imageUrl:
-                            "https://img.buzzfeed.com/video-api-prod/assets/6ccf991f920e4effa2e4272e52d31f1e/BFV17568_Frozen_Irish_Coffee-Thumb.jpg",
+                        imageUrl: product.imageUrl,
                         aspectRatio: 4 / 3,
                         width: context.width,
                         borderRadius: BorderRadius.circular(8),
                       ),
                     ),
-                    const Text(
-                      "Cappucino Latte",
+                    Text(
+                      product.name,
                       style: TextStyles.bold16,
-                      maxLines: 2,
+                      maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
                     Text(
-                      "180ml",
+                      product.productVariants[0].size,
                       style: TextStyles.regular12.copyWith(
                         color: context.colors.onSecondary.withAlpha(153),
                       ),
@@ -80,7 +81,8 @@ class HomeListItem extends StatelessWidget {
                             ),
                           ),
                           TextSpan(
-                            text: "20",
+                            text: product.productVariants[0].price
+                                .toStringAsFixed(2),
                             style: TextStyles.regular22.copyWith(
                               color: context.colors.primary,
                             ),

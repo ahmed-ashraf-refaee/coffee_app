@@ -1,15 +1,13 @@
-import 'dart:ffi';
-
 import 'package:coffee_app/features/home/data/model/categories_model.dart';
 import 'package:coffee_app/features/home/data/model/product_variants_model.dart';
 
 class ProductModel {
-  final Long id;
+  final int id;
   final String name;
   final String description;
   final double discount;
   final double rating;
-  final Long categoryId;
+  final int categoryId;
   final String imageUrl;
   final List<ProductVariantsModel> productVariants;
   final CategoriesModel categories;

@@ -10,9 +10,12 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
 
+import '../../../../data/model/product_model.dart';
+
 class DetailsViewBody extends StatefulWidget {
-  const DetailsViewBody({super.key, required this.tag});
-  final String tag;
+  final ProductModel product;
+
+  const DetailsViewBody({super.key, required this.product});
 
   @override
   State<DetailsViewBody> createState() => _DetailsViewBodyState();
@@ -20,7 +23,7 @@ class DetailsViewBody extends StatefulWidget {
 
 class _DetailsViewBodyState extends State<DetailsViewBody> {
   int selectedIndex = 0;
-  int quantity = 99;
+  int quantity = 1;
   void onSelected(index) {
     setState(() {
       selectedIndex = index;
@@ -29,9 +32,6 @@ class _DetailsViewBodyState extends State<DetailsViewBody> {
 
   @override
   Widget build(BuildContext context) {
-    // stores the index of the selected chip
-
-    final List<String> options = ["180ml", "240ml", "320ml"];
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -47,18 +47,14 @@ class _DetailsViewBodyState extends State<DetailsViewBody> {
           trailing: CustomIconButton(
             padding: 8,
             onPressed: () {},
-            child: Icon(
-              Ionicons.heart_outline,
-              color: context.colors.primary,
-            ),
+            child: Icon(Ionicons.heart_outline, color: context.colors.primary),
           ),
         ),
         const SizedBox(height: 16),
         Hero(
-          tag: widget.tag,
+          tag: widget.product.id,
           child: CustomRoundedImage(
-            imageUrl:
-                "https://img.buzzfeed.com/video-api-prod/assets/6ccf991f920e4effa2e4272e52d31f1e/BFV17568_Frozen_Irish_Coffee-Thumb.jpg",
+            imageUrl: widget.product.imageUrl,
             aspectRatio: 6 / 4,
             width: context.width,
           ),
@@ -67,15 +63,14 @@ class _DetailsViewBodyState extends State<DetailsViewBody> {
         Text.rich(
           TextSpan(
             children: [
-              const TextSpan(
-                text: "Cappuccino Latte\n",
+              TextSpan(
+                text: "${widget.product.name}\n",
                 style: TextStyles.medium32,
               ),
               const WidgetSpan(child: SizedBox(height: 48)),
               const TextSpan(text: "Description\n", style: TextStyles.semi16),
               TextSpan(
-                text:
-                    "A cappuccino is an espresso-based coffee drink that originated in Austria with later development taking place in Italy, and is prepared with steamed milk foam",
+                text: widget.product.description,
                 style: TextStyles.regular16.copyWith(
                   height: 1.2,
                   color: context.colors.onSecondary,
@@ -88,11 +83,16 @@ class _DetailsViewBodyState extends State<DetailsViewBody> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           spacing: 16,
-          children: List.generate(options.length, (index) {
+          children: List.generate(widget.product.productVariants.length, (
+            index,
+          ) {
             return Expanded(
               child: CustomChip(
-                label: options[index],
-                onSelected: () => onSelected(index),
+                label: widget.product.productVariants[index].size,
+                onSelected: () {
+                  onSelected(index);
+                  quantity = 1;
+                },
                 selected: selectedIndex == index,
               ),
             );
@@ -108,9 +108,12 @@ class _DetailsViewBodyState extends State<DetailsViewBody> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text("quantity", style: TextStyles.semi16),
-    
+
                 QuantitySelector(
                   value: quantity,
+                  maxValue:
+                      widget.product.productVariants[selectedIndex].quantity,
+                  minValue: 1,
                   onChanged: (value) {
                     setState(() {
                       quantity = value;
@@ -120,24 +123,30 @@ class _DetailsViewBodyState extends State<DetailsViewBody> {
                 ),
               ],
             ),
-            RichText(
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              text: TextSpan(
-                children: <TextSpan>[
-                  TextSpan(
-                    text: "\$",
-                    style: TextStyles.regular20.copyWith(
-                      color: context.colors.primary,
+            AnimatedContainer(
+              duration: Duration(seconds: 3),
+              child: RichText(
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                text: TextSpan(
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: "\$",
+                      style: TextStyles.regular20.copyWith(
+                        color: context.colors.primary,
+                      ),
                     ),
-                  ),
-                  TextSpan(
-                    text: "20",
-                    style: TextStyles.regular36.copyWith(
-                      color: context.colors.primary,
+                    TextSpan(
+                      text:
+                          (widget.product.productVariants[selectedIndex].price *
+                                  quantity)
+                              .toStringAsFixed(2),
+                      style: TextStyles.regular36.copyWith(
+                        color: context.colors.primary,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ],
@@ -145,7 +154,12 @@ class _DetailsViewBodyState extends State<DetailsViewBody> {
         const SizedBox(height: 24),
         CustomElevatedButton(
           onPressed: () {},
-          child:  Text("Add to Cart", style: TextStyles.medium20.copyWith(color: context.colors.onPrimary)),
+          child: Text(
+            "Add to Cart",
+            style: TextStyles.medium20.copyWith(
+              color: context.colors.onPrimary,
+            ),
+          ),
         ),
       ],
     );

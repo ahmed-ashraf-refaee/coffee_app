@@ -1,7 +1,6 @@
 import 'package:coffee_app/core/utils/app_router.dart';
 import 'package:coffee_app/core/utils/dark_theme.dart';
 import 'package:coffee_app/core/utils/light_theme.dart';
-import 'package:coffee_app/features/home/data/service/home_service.dart';
 import 'package:coffee_app/features/profile/presentation/manager/toggle_to_darkmode/toggle_to_darkmode_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -18,7 +17,6 @@ final String anonKey =
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Supabase.initialize(url: url, anonKey: anonKey);
-  print(await HomeService().getProductWithVariants(1));
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
   );
@@ -36,7 +34,7 @@ class CoffeeApp extends StatelessWidget {
         builder: (context, themeMode) {
           return MaterialApp.router(
             debugShowCheckedModeBanner: false,
-            locale: const Locale("ar"),
+            locale: const Locale("en"),
             localizationsDelegates: const [
               S.delegate,
               GlobalMaterialLocalizations.delegate,

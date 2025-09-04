@@ -17,6 +17,7 @@ class CustomChip extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomElevatedButton(
       shrink: 3,
+      height: 24,
       contentPadding: const EdgeInsets.all(12),
       backgroundColor: selected
           ? context.colors.primary

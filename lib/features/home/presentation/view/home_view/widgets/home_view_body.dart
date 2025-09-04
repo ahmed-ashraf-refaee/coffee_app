@@ -5,8 +5,10 @@ import 'package:coffee_app/features/home/presentation/view/home_view/widgets/hom
 import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
 import '../../../../../../core/utils/text_styles.dart';
+import '../../../manager/cubit/home_data_cubit.dart';
 
 class HomeViewBody extends StatefulWidget {
   const HomeViewBody({super.key});
@@ -128,18 +130,49 @@ class _HomeViewBodyState extends State<HomeViewBody> {
             ),
           ),
         ),
-        SliverPadding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          sliver: SliverGrid.builder(
-            itemCount: 8,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: context.width > 500 ? 4 : 2,
-              childAspectRatio: 3 / 4,
-              crossAxisSpacing: 16,
-              mainAxisSpacing: 16,
-            ),
-            itemBuilder: (context, index) => HomeListItem(tag: "Hero$index "),
-          ),
+        ValueListenableBuilder<TextEditingValue>(
+          valueListenable: searchController,
+          builder: (context, value, child) {
+            return BlocBuilder<HomeDataCubit, HomeDataState>(
+              builder: (context, state) {
+                if (state is HomeProductsDataSuccess) {
+                  final searchQuery = searchController.text.toLowerCase();
+                  final filteredProducts = searchQuery.isEmpty
+                      ? state.products
+                      : state.products.where((product) {
+                          return product.name.toLowerCase().contains(
+                            searchQuery,
+                          );
+                        }).toList();
+                  return SliverPadding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    sliver: SliverGrid.builder(
+                      itemCount: filteredProducts.length,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: context.width > 500 ? 4 : 2,
+                        childAspectRatio: 3 / 4,
+                        crossAxisSpacing: 16,
+                        mainAxisSpacing: 16,
+                      ),
+                      itemBuilder: (context, index) =>
+                          HomeListItem(product: filteredProducts[index]),
+                    ),
+                  );
+                } else if (state is HomeProductsDataLoading) {
+                  return const SliverToBoxAdapter(
+                    child: Center(child: CircularProgressIndicator()),
+                  );
+                } else if (state is HomeProductsDataFailure) {
+                  return SliverToBoxAdapter(
+                    child: Center(child: Text(state.error)),
+                  );
+                }
+                return const SliverToBoxAdapter(
+                  child: Center(child: SizedBox()),
+                );
+              },
+            );
+          },
         ),
       ],
     );

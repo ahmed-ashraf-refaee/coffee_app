@@ -1,4 +1,5 @@
 import 'package:coffee_app/features/cart/presentation/view/cart_view.dart';
+import 'package:coffee_app/features/home/presentation/manager/cubit/home_data_cubit.dart';
 import 'package:coffee_app/features/home/presentation/view/home_view/home_view.dart';
 import 'package:coffee_app/features/profile/presentation/view/profile_view.dart';
 import 'package:coffee_app/features/wishlist/presentation/view/wishlist_view.dart';
@@ -17,16 +18,22 @@ class AppNavigation extends StatelessWidget {
     return Scaffold(
       body: BlocBuilder<AppNavigatorCubit, AppNavigatorState>(
         builder: (context, state) {
-          return GradientContainer(
-            child: state is AppNavigatorToHomeView
-                ? const HomeView()
-                : state is AppNavigatorToCartView
-                ? const CartView()
-                : state is AppNavigatorToWishlistView
-                ? const WishlistView()
-                : state is AppNavigatorToProfileView
-                ? const ProfileView()
-                : Container(),
+          return BlocProvider(
+            create: (context) => HomeDataCubit()
+              ..getTopProducts()
+              ..getProducts()
+              ..getCategories(),
+            child: GradientContainer(
+              child: state is AppNavigatorToHomeView
+                  ? const HomeView()
+                  : state is AppNavigatorToCartView
+                  ? const CartView()
+                  : state is AppNavigatorToWishlistView
+                  ? const WishlistView()
+                  : state is AppNavigatorToProfileView
+                  ? const ProfileView()
+                  : Container(),
+            ),
           );
         },
       ),

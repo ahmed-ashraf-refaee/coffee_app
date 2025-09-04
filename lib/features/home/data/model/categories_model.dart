@@ -1,7 +1,5 @@
-import 'dart:ffi';
-
 class CategoriesModel {
-  final Long id;
+  final int id;
   final String name;
 
   CategoriesModel({required this.id, required this.name});

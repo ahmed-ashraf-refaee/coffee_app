@@ -1,11 +1,9 @@
-import 'dart:ffi';
-
 class ProductVariantsModel {
-  final Long id;
+  final int id;
   final String size;
   final double price;
-  final double quantity;
-  final Long productId;
+  final int quantity;
+  final int productId;
 
   ProductVariantsModel({
     required this.id,
@@ -19,7 +17,7 @@ class ProductVariantsModel {
       id: json['id'],
       size: json['size'],
       price: (json['price'] as num).toDouble(),
-      quantity: (json['quantity'] as num).toDouble(),
+      quantity: (json['quantity'] as num).toInt(),
       productId: json['product_id'],
     );
   }
