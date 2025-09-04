@@ -16,14 +16,11 @@ class AppNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<AppNavigatorCubit, AppNavigatorState>(
-        builder: (context, state) {
-          return BlocProvider(
-            create: (context) => HomeDataCubit()
-              ..getTopProducts()
-              ..getProducts()
-              ..getCategories(),
-            child: GradientContainer(
+      body: BlocProvider(
+        create: (context) => HomeDataCubit()..loadHomeData(),
+        child: BlocBuilder<AppNavigatorCubit, AppNavigatorState>(
+          builder: (context, state) {
+            return GradientContainer(
               child: state is AppNavigatorToHomeView
                   ? const HomeView()
                   : state is AppNavigatorToCartView
@@ -33,9 +30,9 @@ class AppNavigation extends StatelessWidget {
                   : state is AppNavigatorToProfileView
                   ? const ProfileView()
                   : Container(),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
       bottomNavigationBar: CustomBottomNavBar(),
     );

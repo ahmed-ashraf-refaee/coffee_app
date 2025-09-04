@@ -1,4 +1,5 @@
 import 'package:coffee_app/core/widgets/prettier_tap.dart';
+import 'package:coffee_app/features/home/data/model/categories_model.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +12,8 @@ class CategoriesListItem extends StatelessWidget {
     required this.selected,
     required this.onSelected,
   });
-  final String category;
+
+  final CategoriesModel category;
   final bool selected;
   final VoidCallback onSelected;
   @override
@@ -28,7 +30,7 @@ class CategoriesListItem extends StatelessWidget {
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
                 child: Text(
-                  category,
+                  category.name,
                   style: TextStyles.regular16.copyWith(
                     color: selected
                         ? context.colors.onSurface

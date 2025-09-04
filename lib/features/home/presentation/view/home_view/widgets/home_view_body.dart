@@ -22,7 +22,10 @@ class _HomeViewBodyState extends State<HomeViewBody> {
 
   @override
   void initState() {
+    // var cubit = context.read<HomeDataCubit>();
     super.initState();
+    // cubit.getTopProducts();
+    // cubit.getCategories();
     searchController = TextEditingController();
   }
 
@@ -124,7 +127,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  const CategoriesList(),
+                  CategoriesList(),
                 ],
               ),
             ),
@@ -135,11 +138,12 @@ class _HomeViewBodyState extends State<HomeViewBody> {
           builder: (context, value, child) {
             return BlocBuilder<HomeDataCubit, HomeDataState>(
               builder: (context, state) {
+                var products = context.read<HomeDataCubit>().products;
                 if (state is HomeProductsDataSuccess) {
                   final searchQuery = searchController.text.toLowerCase();
                   final filteredProducts = searchQuery.isEmpty
-                      ? state.products
-                      : state.products.where((product) {
+                      ? products
+                      : products.where((product) {
                           return product.name.toLowerCase().contains(
                             searchQuery,
                           );

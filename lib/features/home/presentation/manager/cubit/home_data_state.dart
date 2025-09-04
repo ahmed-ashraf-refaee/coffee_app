@@ -6,10 +6,7 @@ sealed class HomeDataState {}
 final class HomeDataInitial extends HomeDataState {}
 
 //fetch_products states
-final class HomeProductsDataSuccess extends HomeDataState {
-  final List<ProductModel> products;
-  HomeProductsDataSuccess({required this.products});
-}
+final class HomeProductsDataSuccess extends HomeDataState {}
 
 final class HomeProductsDataLoading extends HomeDataState {}
 
@@ -29,12 +26,6 @@ final class HomeTopProductsDataLoading extends HomeDataState {}
 final class HomeTopProductsDataFailure extends HomeDataState {
   final String error;
   HomeTopProductsDataFailure({required this.error});
-}
-
-//fetch_categories states
-final class HomeProductCategoriesSuccess extends HomeDataState {
-  final List<CategoriesModel> catigories;
-  HomeProductCategoriesSuccess({required this.catigories});
 }
 
 final class HomeProductCategoriesLoading extends HomeDataState {}

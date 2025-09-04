@@ -56,7 +56,10 @@ class HomeService {
   }
 
   Future<List<Map<String, dynamic>>> getCategories() async {
-    final response = await _supabaseClient.from("categories").select();
+    final response = await _supabaseClient
+        .from("categories")
+        .select()
+        .order("id", ascending: true);
     return List<Map<String, dynamic>>.from(response);
   }
 }

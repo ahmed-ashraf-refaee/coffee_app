@@ -3,19 +3,13 @@ import 'package:coffee_app/features/home/presentation/view/home_view/widgets/cat
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CategoriesList extends StatefulWidget {
-  const CategoriesList({super.key});
+class CategoriesList extends StatelessWidget {
+  CategoriesList({super.key});
 
-  @override
-  State<CategoriesList> createState() => _CategoriesListState();
-}
+  final ValueNotifier<int> selectedIndex = ValueNotifier(0);
 
-class _CategoriesListState extends State<CategoriesList> {
-  int selectedIndex = 0;
   void onSelected(index) {
-    setState(() {
-      selectedIndex = index;
-    });
+    selectedIndex.value = index;
   }
 
   @override
@@ -24,16 +18,28 @@ class _CategoriesListState extends State<CategoriesList> {
       height: 32,
       child: BlocBuilder<HomeDataCubit, HomeDataState>(
         builder: (context, state) {
-          if (state is HomeProductCategoriesSuccess) {
+          if (state is HomeProductsDataSuccess) {
+            var catigories = context.read<HomeDataCubit>().categories;
             return ListView.builder(
-              itemCount: 16,
+              itemCount: catigories.length,
               padding: const EdgeInsets.symmetric(horizontal: 8),
               scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) => CategoriesListItem(
-                category: state.catigories[index].name,
-                selected: index == selectedIndex,
-                onSelected: () => onSelected(index),
-              ),
+              itemBuilder: (context, index) {
+                final category = catigories[index];
+                return Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: ValueListenableBuilder(
+                    valueListenable: selectedIndex,
+                    builder: (context, value, child) {
+                      return CategoriesListItem(
+                        category: category,
+                        selected: selectedIndex.value == index,
+                        onSelected: () => onSelected(index),
+                      );
+                    },
+                  ),
+                );
+              },
             );
           } else if (state is HomeProductCategoriesLoading) {
             return const Center(child: CircularProgressIndicator());

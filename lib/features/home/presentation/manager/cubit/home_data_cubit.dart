@@ -10,16 +10,27 @@ class HomeDataCubit extends Cubit<HomeDataState> {
   HomeDataCubit() : super(HomeDataInitial());
 
   final HomeRepoImpl _homeRepoImpl = HomeRepoImpl();
-  getProducts() async {
+  List<ProductModel> products = [];
+  List<CategoriesModel> categories = [];
+
+  Future<void> getProducts() async {
     emit(HomeProductsDataLoading());
     final result = await _homeRepoImpl.fetchProducts();
     result.fold(
       (failure) => emit(HomeProductsDataFailure(error: failure.error)),
-      (response) => emit(HomeProductsDataSuccess(products: response)),
+      (response) {
+        products = response;
+      },
     );
   }
 
-  getTopProducts() async {
+  loadHomeData() async {
+    await getProducts();
+    await getCategories();
+    emit(HomeProductsDataSuccess());
+  }
+
+  Future<void> getTopProducts() async {
     emit(HomeTopProductsDataLoading());
     final result = await _homeRepoImpl.fetchTopPicks();
     result.fold(
@@ -28,13 +39,14 @@ class HomeDataCubit extends Cubit<HomeDataState> {
     );
   }
 
-  getCategories() async {
+  Future<void> getCategories() async {
     emit(HomeProductCategoriesLoading());
     final result = await _homeRepoImpl.fetchCategories();
     result.fold(
       (failure) => emit(HomeProductCategoriesFailure(error: failure.error)),
-      (catigoryList) =>
-          emit(HomeProductCategoriesSuccess(catigories: catigoryList)),
+      (catigoryList) {
+        categories = catigoryList;
+      },
     );
   }
 
