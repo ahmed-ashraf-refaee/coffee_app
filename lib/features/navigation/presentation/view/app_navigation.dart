@@ -6,7 +6,7 @@ import 'package:coffee_app/features/wishlist/presentation/view/wishlist_view.dar
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/widgets/gradient_container.dart';
+import '../../../../core/widgets/custom_container.dart';
 import '../manager/navigator_cubit/navigator_cubit.dart';
 import 'widgets/custom_bottom_nav_bar.dart';
 
@@ -20,7 +20,7 @@ class AppNavigation extends StatelessWidget {
         create: (context) => HomeDataCubit()..loadHomeData(),
         child: BlocBuilder<AppNavigatorCubit, AppNavigatorState>(
           builder: (context, state) {
-            return GradientContainer(
+            return CustomContainer(
               child: state is AppNavigatorToHomeView
                   ? const HomeView()
                   : state is AppNavigatorToCartView

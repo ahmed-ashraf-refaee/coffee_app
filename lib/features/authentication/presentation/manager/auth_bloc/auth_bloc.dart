@@ -27,6 +27,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       var result = await _authRepoImpl.loginUser(
         email: event.email,
         password: event.password,
+        rememberMe: event.rememberMe,
       );
       result.fold(
         (failure) => emit(AuthFailure(error: failure.error)),
@@ -48,6 +49,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       result.fold(
         (failure) => emit(AuthFailure(error: failure.error)),
         (response) => emit(AuthUsernameSuccess(usernameCheck: response)),
+      );
+    });
+    on<ResetPasswordEvent>((event, emit) async {
+      emit(AuthLoading());
+      var result = await _authRepoImpl.resetPassword(email: event.email);
+      result.fold(
+        (failure) => emit(AuthFailure(error: failure.error)),
+        (response) => emit(AuthSuccess()),
       );
     });
   }

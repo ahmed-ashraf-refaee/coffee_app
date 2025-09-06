@@ -68,7 +68,12 @@ class _SignupViewBodyState extends State<SignupViewBody> {
             if (state is AuthSuccess) {
               UiHelpers.showSnackBar(
                 context: context,
-                message: "Registered Successfully",
+                message: S.current.registrationSuccess,
+                action: SnackBarAction(
+                  label: S.current.log_in,
+                  onPressed: widget.toggleAuthMode,
+                  textColor: context.colors.primary,
+                ),
               );
             }
           },

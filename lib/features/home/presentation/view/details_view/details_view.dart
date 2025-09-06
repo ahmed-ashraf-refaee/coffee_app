@@ -1,4 +1,4 @@
-import 'package:coffee_app/core/widgets/gradient_container.dart';
+import 'package:coffee_app/core/widgets/custom_container.dart';
 import 'package:coffee_app/features/home/presentation/view/details_view/widgets/details_view_body.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +12,7 @@ class DetailsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GradientContainer(
+      body: CustomContainer(
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(16),

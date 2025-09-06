@@ -34,7 +34,10 @@ abstract class AppRouter {
       ),
 
       // GoRoute(path: kHomeView, builder: (context, state) => const HomeView()),
-      // GoRoute(path: '/', builder: (context, state) => AuthenticationView()),
+      GoRoute(
+        path: kAuthView,
+        builder: (context, state) => AuthenticationView(),
+      ),
       //GoRoute(path: '/', builder: (context, state) => AppNavigation()),
 
       //GoRoute(path: kSplashView, builder: (context, state) => SplashView()),

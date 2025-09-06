@@ -1,3 +1,4 @@
+import 'package:coffee_app/core/utils/app_router.dart';
 import 'package:coffee_app/core/utils/text_styles.dart';
 import 'package:coffee_app/core/widgets/custom_elevated_button.dart';
 import 'package:coffee_app/core/widgets/prettier_tap.dart';
@@ -7,6 +8,7 @@ import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../../core/helper/ui_helpers.dart';
 import '../../manager/auth_bloc/auth_bloc.dart';
@@ -24,7 +26,7 @@ class LoginViewBody extends StatefulWidget {
 
 class _LoginViewBodyState extends State<LoginViewBody> {
   final _formKey = GlobalKey<FormState>();
-  final ValueNotifier<bool> rememberMe = ValueNotifier(false);
+  final ValueNotifier<bool> rememberMe = ValueNotifier(true);
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   @override
@@ -96,10 +98,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
               UiHelpers.showSnackBar(context: context, message: state.error);
             }
             if (state is AuthSuccess) {
-              UiHelpers.showSnackBar(
-                context: context,
-                message: "Registered Successfully",
-              );
+              GoRouter.of(context).pushReplacement(AppRouter.kNavigationView);
             }
           },
           builder: (context, state) {
@@ -110,6 +109,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                     LoginEvent(
                       email: emailController.text.trim(),
                       password: passwordController.text.trim(),
+                      rememberMe: rememberMe.value,
                     ),
                   );
                 }

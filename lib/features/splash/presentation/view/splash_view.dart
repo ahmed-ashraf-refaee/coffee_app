@@ -2,10 +2,11 @@ import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../../core/utils/app_router.dart';
 import '../../../../core/utils/text_styles.dart';
-import '../../../../core/widgets/gradient_container.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -30,9 +31,25 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
     titleAnimation();
     rotationAnimation();
     secondTitleAnimation();
-    Future.delayed(const Duration(milliseconds: 5000), () {
-      if (mounted) {
-        GoRouter.of(context).pushReplacement(AppRouter.kNavigationView);
+    Future.delayed(const Duration(milliseconds: 5000), () async {
+      final prefs = await SharedPreferences.getInstance();
+      final remember = prefs.getBool("remember_me") ?? true;
+
+      if (remember) {
+        final session = Supabase.instance.client.auth.currentSession;
+        if (session != null) {
+          if (mounted) {
+            GoRouter.of(context).pushReplacement(AppRouter.kNavigationView);
+          }
+        } else {
+          if (mounted) {
+            GoRouter.of(context).pushReplacement(AppRouter.kAuthView);
+          }
+        }
+      } else {
+        if (mounted) {
+          GoRouter.of(context).pushReplacement(AppRouter.kAuthView);
+        }
       }
     });
   }
@@ -88,8 +105,7 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GradientContainer(
-        child: Column(
+      body:Column(
           children: [
             const Spacer(),
             SizedBox(
@@ -137,7 +153,7 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
             const Spacer(flex: 3),
           ],
         ),
-      ),
+      
     );
   }
 }

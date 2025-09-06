@@ -125,6 +125,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "receiveTimeout": MessageLookupByLibrary.simpleMessage(
       "انتهت مهلة الاستقبال من الخادم.",
     ),
+    "registrationSuccess": MessageLookupByLibrary.simpleMessage(
+      "تم إنشاء حسابك بنجاح.",
+    ),
     "remember_me": MessageLookupByLibrary.simpleMessage("تذكرني"),
     "requestCanceled": MessageLookupByLibrary.simpleMessage("تم إلغاء الطلب."),
     "search": MessageLookupByLibrary.simpleMessage("ابحث عن قهوتك المفضلة"),

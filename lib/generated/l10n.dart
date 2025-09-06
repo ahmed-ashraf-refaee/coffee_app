@@ -684,6 +684,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Your account has been created successfully.`
+  String get registrationSuccess {
+    return Intl.message(
+      'Your account has been created successfully.',
+      name: 'registrationSuccess',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

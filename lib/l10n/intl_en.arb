@@ -72,5 +72,6 @@
   "nullValueError": "A required field was left empty.",
   "syntaxError": "There is a problem with the database query.",
   "databaseError": "A database error occurred. Please try again.",
-  "usernameTaken": "That username isn't available. Choose a different one."
+  "usernameTaken": "That username isn't available. Choose a different one.",
+  "registrationSuccess": "Your account has been created successfully."
 }

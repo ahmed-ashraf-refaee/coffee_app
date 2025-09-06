@@ -21,7 +21,12 @@ class SignupEvent extends AuthEvent {
 class LoginEvent extends AuthEvent {
   final String email;
   final String password;
-  LoginEvent({required this.email, required this.password});
+  final bool rememberMe;
+  LoginEvent({
+    required this.email,
+    required this.password,
+    required this.rememberMe,
+  });
 }
 
 class LogoutEvent extends AuthEvent {}
@@ -30,4 +35,10 @@ class UsernameCheckEvent extends AuthEvent {
   final String username;
 
   UsernameCheckEvent({required this.username});
+}
+
+class ResetPasswordEvent extends AuthEvent {
+  final String email;
+
+  ResetPasswordEvent({required this.email});
 }

@@ -1,16 +1,15 @@
+import 'package:coffee_app/core/helper/ui_helpers.dart';
+import 'package:coffee_app/features/home/data/model/categories_model.dart';
 import 'package:coffee_app/features/home/presentation/manager/cubit/home_data_cubit.dart';
 import 'package:coffee_app/features/home/presentation/view/home_view/widgets/categories_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class CategoriesList extends StatelessWidget {
   CategoriesList({super.key});
 
   final ValueNotifier<int> selectedIndex = ValueNotifier(0);
-
-  void onSelected(index) {
-    selectedIndex.value = index;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,22 +18,25 @@ class CategoriesList extends StatelessWidget {
       child: BlocBuilder<HomeDataCubit, HomeDataState>(
         builder: (context, state) {
           if (state is HomeProductsDataSuccess) {
-            var catigories = context.read<HomeDataCubit>().categories;
+            var categories = context.read<HomeDataCubit>().categories;
             return ListView.builder(
-              itemCount: catigories.length,
+              itemCount: categories.length,
               padding: const EdgeInsets.symmetric(horizontal: 8),
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
-                final category = catigories[index];
                 return Padding(
                   padding: const EdgeInsets.only(right: 8.0),
                   child: ValueListenableBuilder(
                     valueListenable: selectedIndex,
                     builder: (context, value, child) {
                       return CategoriesListItem(
-                        category: category,
+                        category: categories[index],
                         selected: selectedIndex.value == index,
-                        onSelected: () => onSelected(index),
+                        onSelected: () {
+                          selectedIndex.value = index;
+                          context.read<HomeDataCubit>().selectedCategoryName =
+                              categories[index].name;
+                        },
                       );
                     },
                   ),
@@ -42,11 +44,76 @@ class CategoriesList extends StatelessWidget {
               },
             );
           } else if (state is HomeProductCategoriesLoading) {
-            return const Center(child: CircularProgressIndicator());
+            return Skeletonizer(
+              enabled: true,
+              effect: UiHelpers.customShimmer(context),
+              child: ListView.builder(
+                itemCount: 6,
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: ValueListenableBuilder(
+                      valueListenable: selectedIndex,
+                      builder: (context, value, child) {
+                        return CategoriesListItem(
+                          category: CategoriesModel(id: 1, name: "Category"),
+                          selected: selectedIndex.value == index,
+                          onSelected: () {},
+                        );
+                      },
+                    ),
+                  );
+                },
+              ),
+            );
           } else if (state is HomeProductCategoriesFailure) {
-            return Center(child: Text(state.error));
+            return ListView.builder(
+              itemCount: 1,
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: ValueListenableBuilder(
+                    valueListenable: selectedIndex,
+                    builder: (context, value, child) {
+                      return CategoriesListItem(
+                        category: CategoriesModel(id: 0, name: "All"),
+                        selected: selectedIndex.value == index,
+                        onSelected: () {},
+                      );
+                    },
+                  ),
+                );
+              },
+            );
           } else {
-            return const SizedBox();
+            return Skeletonizer(
+              enabled: true,
+              effect: UiHelpers.customShimmer(context),
+              child: ListView.builder(
+                itemCount: 6,
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: ValueListenableBuilder(
+                      valueListenable: selectedIndex,
+                      builder: (context, value, child) {
+                        return CategoriesListItem(
+                          category: CategoriesModel(id: 1, name: "Category"),
+                          selected: selectedIndex.value == index,
+                          onSelected: () {},
+                        );
+                      },
+                    ),
+                  );
+                },
+              ),
+            );
           }
         },
       ),

@@ -1,8 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:coffee_app/core/helper/ui_helpers.dart';
 import 'package:coffee_app/core/utils/text_styles.dart';
 import 'package:coffee_app/core/widgets/custom_app_bar.dart';
 import 'package:coffee_app/core/widgets/custom_elevated_button.dart';
 import 'package:coffee_app/core/widgets/custom_icon_button.dart';
 import 'package:coffee_app/core/widgets/custom_rounded_images.dart';
+import 'package:coffee_app/core/widgets/prettier_tap.dart';
 import 'package:coffee_app/features/home/presentation/view/details_view/widgets/custom_chip.dart';
 import 'package:coffee_app/features/home/presentation/view/details_view/widgets/quantity_selector.dart';
 import 'package:coffee_app/main.dart';
@@ -51,12 +54,27 @@ class _DetailsViewBodyState extends State<DetailsViewBody> {
           ),
         ),
         const SizedBox(height: 16),
-        Hero(
-          tag: widget.product.id,
-          child: CustomRoundedImage(
-            imageUrl: widget.product.imageUrl,
-            aspectRatio: 6 / 4,
-            width: context.width,
+        PrettierTap(
+          shrink: 1,
+          onPressed: () => UiHelpers.showOverlay(
+            context: context,
+            child: Hero(
+              tag: widget.product.id,
+              child: CachedNetworkImage(
+                imageUrl: widget.product.imageUrl,
+                fit: BoxFit.contain,
+                errorWidget: (context, url, error) =>
+                    const Icon(Ionicons.warning_outline, size: 30),
+              ),
+            ),
+          ),
+          child: Hero(
+            tag: widget.product.id,
+            child: CustomRoundedImage(
+              imageUrl: widget.product.imageUrl,
+              aspectRatio: 6 / 4,
+              width: context.width,
+            ),
           ),
         ),
         const SizedBox(height: 24),
@@ -123,30 +141,27 @@ class _DetailsViewBodyState extends State<DetailsViewBody> {
                 ),
               ],
             ),
-            AnimatedContainer(
-              duration: Duration(seconds: 3),
-              child: RichText(
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                text: TextSpan(
-                  children: <TextSpan>[
-                    TextSpan(
-                      text: "\$",
-                      style: TextStyles.regular20.copyWith(
-                        color: context.colors.primary,
-                      ),
+            RichText(
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              text: TextSpan(
+                children: <TextSpan>[
+                  TextSpan(
+                    text: "\$",
+                    style: TextStyles.regular20.copyWith(
+                      color: context.colors.primary,
                     ),
-                    TextSpan(
-                      text:
-                          (widget.product.productVariants[selectedIndex].price *
-                                  quantity)
-                              .toStringAsFixed(2),
-                      style: TextStyles.regular36.copyWith(
-                        color: context.colors.primary,
-                      ),
+                  ),
+                  TextSpan(
+                    text:
+                        (widget.product.productVariants[selectedIndex].price *
+                                quantity)
+                            .toStringAsFixed(2),
+                    style: TextStyles.regular36.copyWith(
+                      color: context.colors.primary,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ],

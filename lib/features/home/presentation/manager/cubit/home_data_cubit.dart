@@ -12,6 +12,7 @@ class HomeDataCubit extends Cubit<HomeDataState> {
   final HomeRepoImpl _homeRepoImpl = HomeRepoImpl();
   List<ProductModel> products = [];
   List<CategoriesModel> categories = [];
+  String selectedCategoryName = "All";
 
   Future<void> getProducts() async {
     emit(HomeProductsDataLoading());
@@ -25,8 +26,8 @@ class HomeDataCubit extends Cubit<HomeDataState> {
   }
 
   loadHomeData() async {
-    await getProducts();
     await getCategories();
+    await getProducts();
     emit(HomeProductsDataSuccess());
   }
 
@@ -44,16 +45,9 @@ class HomeDataCubit extends Cubit<HomeDataState> {
     final result = await _homeRepoImpl.fetchCategories();
     result.fold(
       (failure) => emit(HomeProductCategoriesFailure(error: failure.error)),
-      (catigoryList) {
-        categories = catigoryList;
+      (categoryList) {
+        categories = categoryList;
       },
     );
-  }
-
-  @override
-  void onChange(Change<HomeDataState> change) {
-    // TODO: implement onChange
-    super.onChange(change);
-    print(change);
   }
 }

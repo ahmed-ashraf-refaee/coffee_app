@@ -42,7 +42,9 @@ class _PrettierTapState extends State<PrettierTap>
 
   Future<void> _handleTap() async {
     await controller.forward();
-    widget.onPressed!.call();
+    if (widget.onPressed != null) {
+      widget.onPressed!.call();
+    }
     await controller.reverse();
   }
 

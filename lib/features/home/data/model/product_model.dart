@@ -10,7 +10,7 @@ class ProductModel {
   final int categoryId;
   final String imageUrl;
   final List<ProductVariantsModel> productVariants;
-  final CategoriesModel categories;
+  final CategoriesModel category;
 
   ProductModel({
     required this.id,
@@ -21,7 +21,7 @@ class ProductModel {
     required this.categoryId,
     required this.imageUrl,
     required this.productVariants,
-    required this.categories,
+    required this.category,
   });
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     var variantsList = json['product_variants'] as List;
@@ -38,7 +38,7 @@ class ProductModel {
       categoryId: json['category_id'],
       imageUrl: json['image_url'],
       productVariants: productVariantsList,
-      categories: CategoriesModel.fromJson(json['categories']),
+      category: CategoriesModel.fromJson(json['categories']),
     );
   }
 }

@@ -1,7 +1,11 @@
 import 'package:coffee_app/core/widgets/custom_icon_button.dart';
+import 'package:coffee_app/features/home/data/model/product_model.dart';
+import 'package:coffee_app/features/home/data/service/filters/filter_products.dart';
+import 'package:coffee_app/features/home/data/service/filters/filter_strategy.dart';
 import 'package:coffee_app/features/home/presentation/view/home_view/widgets/carousel_list.dart';
 import 'package:coffee_app/features/home/presentation/view/home_view/widgets/categories_list.dart';
 import 'package:coffee_app/features/home/presentation/view/home_view/widgets/home_list_item.dart';
+import 'package:coffee_app/features/home/presentation/view/home_view/widgets/loading_home_list_item.dart';
 import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
@@ -140,14 +144,26 @@ class _HomeViewBodyState extends State<HomeViewBody> {
               builder: (context, state) {
                 var products = context.read<HomeDataCubit>().products;
                 if (state is HomeProductsDataSuccess) {
-                  final searchQuery = searchController.text.toLowerCase();
-                  final filteredProducts = searchQuery.isEmpty
-                      ? products
-                      : products.where((product) {
-                          return product.name.toLowerCase().contains(
-                            searchQuery,
-                          );
-                        }).toList();
+                  List<ProductModel> filteredProducts;
+                  final filter = FilterProducts(
+                    strategies: [
+                      SearchFilter(
+                        enabled: searchController.text.isNotEmpty,
+                        searchQuery: searchController.text,
+                      ),
+                      CategoryFilter(
+                        enabled:
+                            context
+                                .read<HomeDataCubit>()
+                                .selectedCategoryName !=
+                            "All",
+                        categoryName: context
+                            .read<HomeDataCubit>()
+                            .selectedCategoryName,
+                      ),
+                    ],
+                  );
+                  filteredProducts = filter.apply(products);
                   return SliverPadding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     sliver: SliverGrid.builder(
@@ -163,8 +179,19 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                     ),
                   );
                 } else if (state is HomeProductsDataLoading) {
-                  return const SliverToBoxAdapter(
-                    child: Center(child: CircularProgressIndicator()),
+                  return SliverPadding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    sliver: SliverGrid.builder(
+                      itemCount: 8,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: context.width > 500 ? 4 : 2,
+                        childAspectRatio: 3 / 4,
+                        crossAxisSpacing: 16,
+                        mainAxisSpacing: 16,
+                      ),
+                      itemBuilder: (context, index) =>
+                          const LoadingHomeListItem(),
+                    ),
                   );
                 } else if (state is HomeProductsDataFailure) {
                   return SliverToBoxAdapter(

@@ -1,4 +1,5 @@
 import 'package:coffee_app/core/errors/failures.dart';
+import 'package:meta/meta.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:dartz/dartz.dart';
 
@@ -6,6 +7,7 @@ abstract class AuthRepo {
   Future<Either<Failure, AuthResponse>> loginUser({
     required String email,
     required String password,
+    required bool rememberMe,
   });
   Future<Either<Failure, AuthResponse>> signupUser({
     required String email,
@@ -16,4 +18,5 @@ abstract class AuthRepo {
   });
   Future<Either<Failure, void>> logoutUser();
   Future<Either<Failure, bool>> checkUsername({required String username});
+  Future<Either<Failure, void>> resetPassword({required String email});
 }

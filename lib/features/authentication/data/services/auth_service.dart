@@ -1,13 +1,21 @@
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthService {
   final SupabaseClient _supabaseClient = Supabase.instance.client;
 
-  Future<AuthResponse> login(String email, String password) async {
-    return await _supabaseClient.auth.signInWithPassword(
+  Future<AuthResponse> login(
+    String email,
+    String password,
+    bool rememberMe,
+  ) async {
+    var response = await _supabaseClient.auth.signInWithPassword(
       email: email,
       password: password,
     );
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool("remember_me", rememberMe);
+    return response;
   }
 
   Future<AuthResponse> signup(
@@ -47,5 +55,9 @@ class AuthService {
         .eq('username', username)
         .maybeSingle();
     return list != null;
+  }
+
+  Future<void> resetPassword(String email) async {
+    return await _supabaseClient.auth.resetPasswordForEmail(email);
   }
 }

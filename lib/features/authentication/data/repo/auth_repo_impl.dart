@@ -39,11 +39,13 @@ class AuthRepoImpl extends AuthRepo {
   Future<Either<Failure, AuthResponse>> loginUser({
     required String email,
     required String password,
+    required bool rememberMe,
   }) async {
     try {
       final AuthResponse authResponse = await _authService.login(
         email,
         password,
+        rememberMe,
       );
       return right(authResponse);
     } catch (e) {
@@ -80,6 +82,22 @@ class AuthRepoImpl extends AuthRepo {
     try {
       final bool usernameTaken = await _authService.usernameTaken(username);
       return right(usernameTaken);
+    } catch (e) {
+      if (e is AuthApiException) {
+        return left(Failure.fromAuthException(e));
+      } else if (e is PostgrestException) {
+        return left(Failure.fromSqlException(e));
+      } else {
+        return left(Failure(error: e.toString()));
+      }
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> resetPassword({required String email}) async {
+    try {
+      final response = await _authService.resetPassword(email);
+      return right(response);
     } catch (e) {
       if (e is AuthApiException) {
         return left(Failure.fromAuthException(e));

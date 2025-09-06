@@ -131,6 +131,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "receiveTimeout": MessageLookupByLibrary.simpleMessage(
       "Receive timeout with server.",
     ),
+    "registrationSuccess": MessageLookupByLibrary.simpleMessage(
+      "Your account has been created successfully.",
+    ),
     "remember_me": MessageLookupByLibrary.simpleMessage("Remember me"),
     "requestCanceled": MessageLookupByLibrary.simpleMessage(
       "Request was canceled.",
