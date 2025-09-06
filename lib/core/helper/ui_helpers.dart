@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:coffee_app/core/utils/text_styles.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +35,7 @@ class UiHelpers {
   static Future<void> showOverlay({
     required BuildContext context,
     required Widget child,
-    Color backgroundColor = const Color.fromRGBO(0, 0, 0, 0.9),
+    double blurSigma = 3.0,
   }) {
     return Navigator.of(context).push(
       PageRouteBuilder(
@@ -41,11 +43,24 @@ class UiHelpers {
         barrierColor: Colors.transparent,
         pageBuilder: (_, __, ___) {
           return Scaffold(
-            backgroundColor: backgroundColor,
+            backgroundColor: Colors.transparent,
             body: GestureDetector(
               behavior: HitTestBehavior.opaque,
               onTap: () => Navigator.of(context).pop(),
-              child: Center(child: child),
+              child: Stack(
+                children: [
+                  BackdropFilter(
+                    filter: ImageFilter.blur(
+                      sigmaX: blurSigma,
+                      sigmaY: blurSigma,
+                    ),
+                    child: Container(
+                      color: context.colors.surface.withAlpha(216),
+                    ),
+                  ),
+                  Center(child: child),
+                ],
+              ),
             ),
           );
         },

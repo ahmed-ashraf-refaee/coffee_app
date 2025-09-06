@@ -1,5 +1,4 @@
 import 'package:coffee_app/core/errors/failures.dart';
-import 'package:meta/meta.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:dartz/dartz.dart';
 

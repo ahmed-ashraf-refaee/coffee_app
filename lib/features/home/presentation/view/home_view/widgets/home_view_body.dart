@@ -1,18 +1,16 @@
 import 'package:coffee_app/core/widgets/custom_icon_button.dart';
-import 'package:coffee_app/features/home/data/model/product_model.dart';
-import 'package:coffee_app/features/home/data/service/filters/filter_products.dart';
-import 'package:coffee_app/features/home/data/service/filters/filter_strategy.dart';
-import 'package:coffee_app/features/home/presentation/view/home_view/widgets/carousel_list.dart';
-import 'package:coffee_app/features/home/presentation/view/home_view/widgets/categories_list.dart';
-import 'package:coffee_app/features/home/presentation/view/home_view/widgets/home_list_item.dart';
-import 'package:coffee_app/features/home/presentation/view/home_view/widgets/loading_home_list_item.dart';
+
 import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
 import '../../../../../../core/utils/text_styles.dart';
-import '../../../manager/cubit/home_data_cubit.dart';
+import '../../../manager/home_products_cubit/home_product_cubit.dart';
+import 'carousel_list.dart';
+import 'categories_list.dart';
+import 'home_list_item.dart';
+import 'loading_home_list_item.dart';
 
 class HomeViewBody extends StatefulWidget {
   const HomeViewBody({super.key});
@@ -26,11 +24,14 @@ class _HomeViewBodyState extends State<HomeViewBody> {
 
   @override
   void initState() {
-    // var cubit = context.read<HomeDataCubit>();
     super.initState();
-    // cubit.getTopProducts();
-    // cubit.getCategories();
     searchController = TextEditingController();
+
+    searchController.addListener(() {
+      context.read<HomeProductCubit>().updateFilters(
+        query: searchController.text,
+      );
+    });
   }
 
   @override
@@ -137,72 +138,44 @@ class _HomeViewBodyState extends State<HomeViewBody> {
             ),
           ),
         ),
-        ValueListenableBuilder<TextEditingValue>(
-          valueListenable: searchController,
-          builder: (context, value, child) {
-            return BlocBuilder<HomeDataCubit, HomeDataState>(
-              builder: (context, state) {
-                var products = context.read<HomeDataCubit>().products;
-                if (state is HomeProductsDataSuccess) {
-                  List<ProductModel> filteredProducts;
-                  final filter = FilterProducts(
-                    strategies: [
-                      SearchFilter(
-                        enabled: searchController.text.isNotEmpty,
-                        searchQuery: searchController.text,
-                      ),
-                      CategoryFilter(
-                        enabled:
-                            context
-                                .read<HomeDataCubit>()
-                                .selectedCategoryName !=
-                            "All",
-                        categoryName: context
-                            .read<HomeDataCubit>()
-                            .selectedCategoryName,
-                      ),
-                    ],
-                  );
-                  filteredProducts = filter.apply(products);
-                  return SliverPadding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    sliver: SliverGrid.builder(
-                      itemCount: filteredProducts.length,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: context.width > 500 ? 4 : 2,
-                        childAspectRatio: 3 / 4,
-                        crossAxisSpacing: 16,
-                        mainAxisSpacing: 16,
-                      ),
-                      itemBuilder: (context, index) =>
-                          HomeListItem(product: filteredProducts[index]),
-                    ),
-                  );
-                } else if (state is HomeProductsDataLoading) {
-                  return SliverPadding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    sliver: SliverGrid.builder(
-                      itemCount: 8,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: context.width > 500 ? 4 : 2,
-                        childAspectRatio: 3 / 4,
-                        crossAxisSpacing: 16,
-                        mainAxisSpacing: 16,
-                      ),
-                      itemBuilder: (context, index) =>
-                          const LoadingHomeListItem(),
-                    ),
-                  );
-                } else if (state is HomeProductsDataFailure) {
-                  return SliverToBoxAdapter(
-                    child: Center(child: Text(state.error)),
-                  );
-                }
-                return const SliverToBoxAdapter(
-                  child: Center(child: SizedBox()),
-                );
-              },
-            );
+
+        BlocBuilder<HomeProductCubit, HomeProductState>(
+          builder: (context, state) {
+            if (state is HomeProductsDataSuccess) {
+              return SliverPadding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                sliver: SliverGrid.builder(
+                  itemCount: state.products.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: context.width > 500 ? 4 : 2,
+                    childAspectRatio: 3 / 4,
+                    crossAxisSpacing: 16,
+                    mainAxisSpacing: 16,
+                  ),
+                  itemBuilder: (context, index) =>
+                      HomeListItem(product: state.products[index]),
+                ),
+              );
+            } else if (state is HomeProductsDataLoading) {
+              return SliverPadding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                sliver: SliverGrid.builder(
+                  itemCount: 8,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: context.width > 500 ? 4 : 2,
+                    childAspectRatio: 3 / 4,
+                    crossAxisSpacing: 16,
+                    mainAxisSpacing: 16,
+                  ),
+                  itemBuilder: (context, index) => const LoadingHomeListItem(),
+                ),
+              );
+            } else if (state is HomeProductsDataFailure) {
+              return SliverToBoxAdapter(
+                child: Center(child: Text(state.error)),
+              );
+            }
+            return const SliverToBoxAdapter(child: Center(child: SizedBox()));
           },
         ),
       ],
@@ -227,8 +200,7 @@ class SearchDelegate extends SliverPersistentHeaderDelegate {
     double shrinkOffset,
     bool overlapsContent,
   ) {
-    return // Background that matches your app's gradient
-    Container(
+    return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [context.colors.surface, context.colors.surface.withAlpha(0)],

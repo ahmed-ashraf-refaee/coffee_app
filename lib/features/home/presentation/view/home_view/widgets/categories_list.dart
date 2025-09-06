@@ -1,6 +1,7 @@
 import 'package:coffee_app/core/helper/ui_helpers.dart';
 import 'package:coffee_app/features/home/data/model/categories_model.dart';
-import 'package:coffee_app/features/home/presentation/manager/cubit/home_data_cubit.dart';
+import 'package:coffee_app/features/home/presentation/manager/home_category_cubit/home_category_cubit.dart';
+import 'package:coffee_app/features/home/presentation/manager/home_products_cubit/home_product_cubit.dart';
 import 'package:coffee_app/features/home/presentation/view/home_view/widgets/categories_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,12 +16,11 @@ class CategoriesList extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 32,
-      child: BlocBuilder<HomeDataCubit, HomeDataState>(
+      child: BlocBuilder<HomeCategoryCubit, HomeCategoryState>(
         builder: (context, state) {
-          if (state is HomeProductsDataSuccess) {
-            var categories = context.read<HomeDataCubit>().categories;
+          if (state is ProductCategoriesSuccess) {
             return ListView.builder(
-              itemCount: categories.length,
+              itemCount: state.category.length,
               padding: const EdgeInsets.symmetric(horizontal: 8),
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
@@ -30,12 +30,13 @@ class CategoriesList extends StatelessWidget {
                     valueListenable: selectedIndex,
                     builder: (context, value, child) {
                       return CategoriesListItem(
-                        category: categories[index],
+                        category: state.category[index],
                         selected: selectedIndex.value == index,
                         onSelected: () {
                           selectedIndex.value = index;
-                          context.read<HomeDataCubit>().selectedCategoryName =
-                              categories[index].name;
+                          context.read<HomeProductCubit>().updateFilters(
+                            category: state.category[index].name,
+                          );
                         },
                       );
                     },
@@ -43,7 +44,7 @@ class CategoriesList extends StatelessWidget {
                 );
               },
             );
-          } else if (state is HomeProductCategoriesLoading) {
+          } else if (state is ProductCategoriesLoading) {
             return Skeletonizer(
               enabled: true,
               effect: UiHelpers.customShimmer(context),
@@ -68,7 +69,7 @@ class CategoriesList extends StatelessWidget {
                 },
               ),
             );
-          } else if (state is HomeProductCategoriesFailure) {
+          } else if (state is ProductCategoriesFailure) {
             return ListView.builder(
               itemCount: 1,
               padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -90,30 +91,7 @@ class CategoriesList extends StatelessWidget {
               },
             );
           } else {
-            return Skeletonizer(
-              enabled: true,
-              effect: UiHelpers.customShimmer(context),
-              child: ListView.builder(
-                itemCount: 6,
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(right: 8.0),
-                    child: ValueListenableBuilder(
-                      valueListenable: selectedIndex,
-                      builder: (context, value, child) {
-                        return CategoriesListItem(
-                          category: CategoriesModel(id: 1, name: "Category"),
-                          selected: selectedIndex.value == index,
-                          onSelected: () {},
-                        );
-                      },
-                    ),
-                  );
-                },
-              ),
-            );
+            return const SizedBox();
           }
         },
       ),
