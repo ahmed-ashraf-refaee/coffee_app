@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
 
-import '../../../../data/model/product_model.dart';
+import '../../../../../../core/model/product_model.dart';
 
 class DetailsViewBody extends StatefulWidget {
   final ProductModel product;

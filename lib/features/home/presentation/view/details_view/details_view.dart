@@ -2,7 +2,7 @@ import 'package:coffee_app/core/widgets/custom_container.dart';
 import 'package:coffee_app/features/home/presentation/view/details_view/widgets/details_view_body.dart';
 import 'package:flutter/material.dart';
 
-import '../../../data/model/product_model.dart';
+import '../../../../../core/model/product_model.dart';
 
 class DetailsView extends StatelessWidget {
   final ProductModel product;

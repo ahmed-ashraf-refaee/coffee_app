@@ -1,5 +1,5 @@
-import 'package:coffee_app/features/home/data/model/categories_model.dart';
-import 'package:coffee_app/features/home/data/model/product_variants_model.dart';
+import 'package:coffee_app/core/model/categories_model.dart';
+import 'package:coffee_app/core/model/product_variants_model.dart';
 
 class ProductModel {
   final int id;

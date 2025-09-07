@@ -1,4 +1,4 @@
-import 'package:coffee_app/features/home/data/model/product_model.dart';
+import 'package:coffee_app/core/model/product_model.dart';
 import 'package:coffee_app/features/home/presentation/view/details_view/details_view.dart';
 import 'package:coffee_app/features/navigation/presentation/manager/navigator_cubit/navigator_cubit.dart';
 import 'package:coffee_app/features/authentication/presentation/view/authentication_view.dart';

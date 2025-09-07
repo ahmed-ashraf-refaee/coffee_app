@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:coffee_app/features/home/data/model/product_model.dart';
+import 'package:coffee_app/core/model/product_model.dart';
 import 'package:coffee_app/features/home/data/repo/home_repo_impl.dart';
 import 'package:meta/meta.dart';
 

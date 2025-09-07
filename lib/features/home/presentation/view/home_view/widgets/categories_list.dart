@@ -1,5 +1,5 @@
 import 'package:coffee_app/core/helper/ui_helpers.dart';
-import 'package:coffee_app/features/home/data/model/categories_model.dart';
+import 'package:coffee_app/core/model/categories_model.dart';
 import 'package:coffee_app/features/home/presentation/manager/home_category_cubit/home_category_cubit.dart';
 import 'package:coffee_app/features/home/presentation/manager/home_products_cubit/home_product_cubit.dart';
 import 'package:coffee_app/features/home/presentation/view/home_view/widgets/categories_list_item.dart';
