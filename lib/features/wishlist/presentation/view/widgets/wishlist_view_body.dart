@@ -1,9 +1,13 @@
+import 'package:coffee_app/core/utils/text_styles.dart';
+import 'package:coffee_app/features/wishlist/presentation/manager/wishlist/wishlist_cubit.dart';
 import 'package:coffee_app/features/wishlist/presentation/view/widgets/wishlist_list_item.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
 import '../../../../../core/widgets/custom_icon_button.dart';
+import 'wishlist_loading_list_item.dart';
 
 class WishListViewBody extends StatelessWidget {
   const WishListViewBody({super.key});
@@ -19,7 +23,9 @@ class WishListViewBody extends StatelessWidget {
           leadingWidth: 48,
           leading: CustomIconButton(
             padding: 8,
-            onPressed: GoRouter.of(context).pop,
+            onPressed: () {
+              //  GoRouter.of(context).pop
+            },
             child: Icon(
               Ionicons.chevron_back,
               color: context.colors.onSecondary,
@@ -28,7 +34,9 @@ class WishListViewBody extends StatelessWidget {
           actions: [
             CustomIconButton(
               padding: 8,
-              onPressed: () {},
+              onPressed: () {
+                context.read<WishlistCubit>().removeAllWishlist();
+              },
               child: Icon(
                 Ionicons.heart_dislike_outline,
                 color: context.colors.primary,
@@ -36,12 +44,64 @@ class WishListViewBody extends StatelessWidget {
             ),
           ],
         ),
-        SliverList.builder(
-          itemBuilder: (context, index) => const Padding(
-            padding: EdgeInsets.only(bottom: 16),
-            child: WishlistListItem(),
-          ),
-          itemCount: 20,
+        BlocBuilder<WishlistCubit, WishlistState>(
+          builder: (context, state) {
+            if (state is WishlistLoading) {
+              return SliverList.builder(
+                itemCount: 7,
+                itemBuilder: (context, index) {
+                  return const Padding(
+                    padding: EdgeInsets.only(bottom: 16),
+                    child: WishlistLoadingListItem(),
+                  );
+                },
+              );
+            } else if (state is WishlistSuccess) {
+              if (state.products.isEmpty) {
+                return SliverFillRemaining(
+                  child: Center(
+                    child: Text(
+                      'Your wishlist is empty',
+                      textAlign: TextAlign.center,
+
+                      style: TextStyles.medium20.copyWith(fontSize: 26),
+                    ),
+                  ),
+                );
+              }
+              return SliverList.builder(
+                itemCount: state.products.length,
+                itemBuilder: (context, index) {
+                  final product = state.products[index];
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 16),
+                    child: WishlistListItem(product: product),
+                  );
+                },
+              );
+            } else if (state is WishlistFailure) {
+              return SliverFillRemaining(
+                child: Center(
+                  child: Text(
+                    state.error,
+                    textAlign: TextAlign.center,
+                    style: TextStyles.medium20.copyWith(fontSize: 26),
+                  ),
+                ),
+              );
+            } else {
+              return SliverFillRemaining(
+                child: Center(
+                  child: Text(
+                    'Something went wrong!',
+                    textAlign: TextAlign.center,
+
+                    style: TextStyles.medium20.copyWith(fontSize: 26),
+                  ),
+                ),
+              );
+            }
+          },
         ),
       ],
     );

@@ -1,6 +1,9 @@
+import 'package:coffee_app/core/model/product_model.dart';
 import 'package:coffee_app/core/widgets/custom_icon_button.dart';
+import 'package:coffee_app/features/wishlist/presentation/manager/wishlist/wishlist_cubit.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:ionicons/ionicons.dart';
 
@@ -8,14 +11,9 @@ import '../../../../../core/utils/text_styles.dart';
 import '../../../../../core/widgets/custom_rounded_images.dart';
 import '../../../../../core/widgets/prettier_tap.dart';
 
-class WishlistListItem extends StatefulWidget {
-  const WishlistListItem({super.key});
-
-  @override
-  State<WishlistListItem> createState() => _WishlistListItemState();
-}
-
-class _WishlistListItemState extends State<WishlistListItem> {
+class WishlistListItem extends StatelessWidget {
+  const WishlistListItem({super.key, required this.product});
+  final ProductModel product;
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -34,6 +32,9 @@ class _WishlistListItemState extends State<WishlistListItem> {
                 width: 56,
                 onPressed: () {
                   Slidable.of(context)?.close();
+                  context.read<WishlistCubit>().toggleFavourite(
+                    product: product,
+                  );
                 },
                 child: Icon(
                   Ionicons.heart_dislike_outline,
@@ -62,8 +63,7 @@ class _WishlistListItemState extends State<WishlistListItem> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CustomRoundedImage(
-                    imageUrl:
-                        "https://img.buzzfeed.com/video-api-prod/assets/6ccf991f920e4effa2e4272e52d31f1e/BFV17568_Frozen_Irish_Coffee-Thumb.jpg",
+                    imageUrl: product.imageUrl,
                     aspectRatio: 3 / 4,
                     width: 124,
                     borderRadius: BorderRadius.circular(8),
@@ -73,14 +73,14 @@ class _WishlistListItemState extends State<WishlistListItem> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        const Text(
-                          "Cappucino Latte",
+                        Text(
+                          product.name,
                           style: TextStyles.regular20,
-                          maxLines: 2,
+                          maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
                         Text(
-                          "180ml",
+                          product.productVariants[0].size,
                           style: TextStyles.regular12.copyWith(
                             color: context.colors.onSecondary.withAlpha(153),
                           ),
@@ -101,7 +101,8 @@ class _WishlistListItemState extends State<WishlistListItem> {
                                 ),
                               ),
                               TextSpan(
-                                text: "20",
+                                text: product.productVariants[0].price
+                                    .toStringAsFixed(2),
                                 style: TextStyles.regular22.copyWith(
                                   color: context.colors.primary,
                                 ),

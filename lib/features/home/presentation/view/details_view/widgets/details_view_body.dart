@@ -10,10 +10,12 @@ import 'package:coffee_app/features/home/presentation/view/details_view/widgets/
 import 'package:coffee_app/features/home/presentation/view/details_view/widgets/quantity_selector.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '../../../../../../core/model/product_model.dart';
+import '../../../../../wishlist/presentation/manager/wishlist/wishlist_cubit.dart';
 
 class DetailsViewBody extends StatefulWidget {
   final ProductModel product;
@@ -49,8 +51,15 @@ class _DetailsViewBodyState extends State<DetailsViewBody> {
           ),
           trailing: CustomIconButton(
             padding: 8,
-            onPressed: () {},
-            child: Icon(Ionicons.heart_outline, color: context.colors.primary),
+            onPressed: () {
+              context.read<WishlistCubit>().toggleFavourite(
+                product: widget.product,
+              );
+            },
+            child: Icon(
+              false ? Ionicons.heart : Ionicons.heart_outline,
+              color: context.colors.primary,
+            ),
           ),
         ),
         const SizedBox(height: 16),

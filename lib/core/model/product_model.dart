@@ -11,7 +11,6 @@ class ProductModel {
   final String imageUrl;
   final List<ProductVariantsModel> productVariants;
   final CategoriesModel category;
-
   ProductModel({
     required this.id,
     required this.name,
