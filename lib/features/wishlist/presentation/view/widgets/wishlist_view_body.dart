@@ -1,10 +1,10 @@
 import 'package:coffee_app/core/utils/text_styles.dart';
+import 'package:coffee_app/features/navigation/presentation/manager/navigator_cubit/navigator_cubit.dart';
 import 'package:coffee_app/features/wishlist/presentation/manager/wishlist/wishlist_cubit.dart';
 import 'package:coffee_app/features/wishlist/presentation/view/widgets/wishlist_list_item.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
 import '../../../../../core/widgets/custom_icon_button.dart';
 import 'wishlist_loading_list_item.dart';
@@ -24,7 +24,7 @@ class WishListViewBody extends StatelessWidget {
           leading: CustomIconButton(
             padding: 8,
             onPressed: () {
-              //  GoRouter.of(context).pop
+              BlocProvider.of<AppNavigatorCubit>(context).setCurrentIndex(0);
             },
             child: Icon(
               Ionicons.chevron_back,

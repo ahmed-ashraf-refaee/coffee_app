@@ -10,6 +10,7 @@ class WishlistCubit extends Cubit<WishlistState> {
   WishlistCubit() : super(WishlistInitial());
 
   final WishlistRepoImpl _wishlistRepoImpl = WishlistRepoImpl();
+
   getWishlist() async {
     emit(WishlistLoading());
     final result = await _wishlistRepoImpl.getWishlist();
@@ -20,27 +21,48 @@ class WishlistCubit extends Cubit<WishlistState> {
   }
 
   removeAllWishlist() async {
+    final currentProducts = _wishlistRepoImpl.getCachedWishlist();
+    emit(WishlistSuccess(products: const []));
     final result = await _wishlistRepoImpl.removeAllWishlist();
     result.fold(
-      (failure) => emit(WishlistFailure(error: failure.error)),
-      (response) => emit(WishlistSuccess(products: const [])),
+      (failure) {
+        emit(WishlistSuccess(products: currentProducts));
+        emit(WishlistFailure(error: failure.error));
+      },
+      (response) {
+        emit(WishlistSuccess(products: const []));
+      },
     );
   }
 
+  bool isFavourite({required int productId}) {
+    return _wishlistRepoImpl.isProductInWishlistSync(productId: productId);
+  }
+
   toggleFavourite({required ProductModel product}) async {
-    bool currentStatus = await _wishlistRepoImpl.isProductInWishlist(
+    final currentProducts = _wishlistRepoImpl.getCachedWishlist();
+    final isCurrentlyFavorite = isFavourite(productId: product.id);
+    List<ProductModel> optimisticProducts;
+    if (isCurrentlyFavorite) {
+      optimisticProducts = currentProducts
+          .where((p) => p.id != product.id)
+          .toList();
+    } else {
+      optimisticProducts = [product, ...currentProducts];
+    }
+    emit(WishlistSuccess(products: optimisticProducts));
+    final result = await _wishlistRepoImpl.toggleFavourite(
       productId: product.id,
     );
-    print("===========currentStatus=========$currentStatus");
-    if (!currentStatus) {
-      _wishlistRepoImpl.addToWishlist(productId: product.id);
-    } else {
-      _wishlistRepoImpl.removeFromWishlist(productId: product.id);
-    }
-    final result = await _wishlistRepoImpl.getWishlist();
+
     result.fold(
-      (failure) => emit(WishlistFailure(error: failure.error)),
-      (response) => emit(WishlistSuccess(products: response)),
+      (failure) {
+        emit(WishlistSuccess(products: currentProducts));
+        emit(WishlistFailure(error: failure.error));
+      },
+      (serverProducts) {
+        emit(WishlistSuccess(products: serverProducts));
+      },
     );
   }
 }

@@ -26,7 +26,6 @@ class WishlistService {
     required int productId,
     required String userId,
   }) async {
-    print("==========addToWishlist=========");
     await _supabaseClient.from("favorites").insert({
       'product_id': productId,
       'user_id': userId,
@@ -35,7 +34,6 @@ class WishlistService {
   }
 
   isProductInWishlist({required int productId}) {
-    print("==========isProductInWishlist=========");
     return _supabaseClient
         .from("favorites")
         .select()
@@ -43,12 +41,10 @@ class WishlistService {
   }
 
   Future<void> removeByProductId({required int productId}) async {
-    print("==========removeByProductId=========");
     await _supabaseClient
         .from("favorites")
         .delete()
         .eq('product_id', productId);
-    print("==========removeByProductId done=========");
   }
 
   Future removeAll() async {

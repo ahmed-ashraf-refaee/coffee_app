@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:coffee_app/core/helper/ui_helpers.dart';
 import 'package:coffee_app/core/utils/text_styles.dart';
+import 'package:coffee_app/core/widgets/animated_icon_switch.dart';
 import 'package:coffee_app/core/widgets/custom_app_bar.dart';
 import 'package:coffee_app/core/widgets/custom_elevated_button.dart';
 import 'package:coffee_app/core/widgets/custom_icon_button.dart';
@@ -36,6 +37,11 @@ class _DetailsViewBodyState extends State<DetailsViewBody> {
   }
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -49,17 +55,37 @@ class _DetailsViewBodyState extends State<DetailsViewBody> {
               color: context.colors.onSecondary,
             ),
           ),
-          trailing: CustomIconButton(
-            padding: 8,
-            onPressed: () {
-              context.read<WishlistCubit>().toggleFavourite(
-                product: widget.product,
+          trailing: BlocBuilder<WishlistCubit, WishlistState>(
+            buildWhen: (previous, current) {
+              if (previous is WishlistSuccess && current is WishlistSuccess) {
+                final wasInPrevious = previous.products.any(
+                  (p) => p.id == widget.product.id,
+                );
+                final isInCurrent = current.products.any(
+                  (p) => p.id == widget.product.id,
+                );
+                return wasInPrevious != isInCurrent;
+              }
+              return true;
+            },
+            builder: (context, state) {
+              final isFavorite = context.read<WishlistCubit>().isFavourite(
+                productId: widget.product.id,
+              );
+              return AnimatedIconSwitch(
+                onChanged: (value) {
+                  context.read<WishlistCubit>().toggleFavourite(
+                    product: widget.product,
+                  );
+                },
+                initialState: isFavorite,
+                isFilled: true,
+                children: [
+                  Icon(Ionicons.heart_outline, color: context.colors.primary),
+                  Icon(Ionicons.heart, color: context.colors.primary),
+                ],
               );
             },
-            child: Icon(
-              false ? Ionicons.heart : Ionicons.heart_outline,
-              color: context.colors.primary,
-            ),
           ),
         ),
         const SizedBox(height: 16),

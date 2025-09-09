@@ -7,10 +7,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-class CategoriesList extends StatelessWidget {
-  CategoriesList({super.key});
+class CategoriesList extends StatefulWidget {
+  const CategoriesList({super.key});
 
-  final ValueNotifier<int> selectedIndex = ValueNotifier(0);
+  @override
+  State<CategoriesList> createState() => _CategoriesListState();
+}
+
+class _CategoriesListState extends State<CategoriesList> {
+  late ScrollController scrollController;
+  late HomeCategoryCubit categoryCubit;
+
+  @override
+  void initState() {
+    categoryCubit = context.read<HomeCategoryCubit>();
+    scrollController = ScrollController(
+      initialScrollOffset: categoryCubit.categoryListScrollOffset,
+    );
+
+    scrollController.addListener(() {
+      categoryCubit.saveScrollOffset(scrollController.offset);
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,24 +45,20 @@ class CategoriesList extends StatelessWidget {
         builder: (context, state) {
           if (state is ProductCategoriesSuccess) {
             return ListView.builder(
+              controller: scrollController,
               itemCount: state.category.length,
               padding: const EdgeInsets.symmetric(horizontal: 8),
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.only(right: 8.0),
-                  child: ValueListenableBuilder(
-                    valueListenable: selectedIndex,
-                    builder: (context, value, child) {
-                      return CategoriesListItem(
-                        category: state.category[index],
-                        selected: selectedIndex.value == index,
-                        onSelected: () {
-                          selectedIndex.value = index;
-                          context.read<HomeProductCubit>().updateFilters(
-                            category: state.category[index].name,
-                          );
-                        },
+                  child: CategoriesListItem(
+                    category: state.category[index],
+                    selected: categoryCubit.selectedCategoryIndex == index,
+                    onSelected: () {
+                      categoryCubit.updateSelectedIndex(index);
+                      context.read<HomeProductCubit>().updateFilters(
+                        category: state.category[index].name,
                       );
                     },
                   ),
@@ -55,15 +76,10 @@ class CategoriesList extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.only(right: 8.0),
-                    child: ValueListenableBuilder(
-                      valueListenable: selectedIndex,
-                      builder: (context, value, child) {
-                        return CategoriesListItem(
-                          category: CategoriesModel(id: 1, name: "Category"),
-                          selected: selectedIndex.value == index,
-                          onSelected: () {},
-                        );
-                      },
+                    child: CategoriesListItem(
+                      category: CategoriesModel(id: 1, name: "Category"),
+                      selected: categoryCubit.selectedCategoryIndex == index,
+                      onSelected: () {},
                     ),
                   );
                 },
@@ -77,15 +93,10 @@ class CategoriesList extends StatelessWidget {
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.only(right: 8.0),
-                  child: ValueListenableBuilder(
-                    valueListenable: selectedIndex,
-                    builder: (context, value, child) {
-                      return CategoriesListItem(
-                        category: CategoriesModel(id: 0, name: "All"),
-                        selected: selectedIndex.value == index,
-                        onSelected: () {},
-                      );
-                    },
+                  child: CategoriesListItem(
+                    category: CategoriesModel(id: 0, name: "All"),
+                    selected: categoryCubit.selectedCategoryIndex == index,
+                    onSelected: () {},
                   ),
                 );
               },

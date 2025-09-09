@@ -132,7 +132,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  CategoriesList(),
+                  const CategoriesList(),
                 ],
               ),
             ),

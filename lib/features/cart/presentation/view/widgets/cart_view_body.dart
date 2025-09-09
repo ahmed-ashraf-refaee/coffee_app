@@ -3,12 +3,13 @@ import 'package:coffee_app/features/cart/presentation/view/widgets/cart_list_ite
 import 'package:coffee_app/features/cart/presentation/view/widgets/summary_line.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '../../../../../core/utils/text_styles.dart';
 import '../../../../../core/widgets/custom_icon_button.dart';
 import '../../../../../generated/l10n.dart';
+import '../../../../navigation/presentation/manager/navigator_cubit/navigator_cubit.dart';
 
 class CartViewBody extends StatelessWidget {
   const CartViewBody({super.key});
@@ -17,7 +18,6 @@ class CartViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // This Expanded widget makes the CustomScrollView fill the available space
         Expanded(
           child: CustomScrollView(
             slivers: [
@@ -28,7 +28,9 @@ class CartViewBody extends StatelessWidget {
                 leadingWidth: 48,
                 leading: CustomIconButton(
                   padding: 8,
-                  onPressed: GoRouter.of(context).pop,
+                  onPressed: () => BlocProvider.of<AppNavigatorCubit>(
+                    context,
+                  ).setCurrentIndex(0),
                   child: Icon(
                     Ionicons.chevron_back,
                     color: context.colors.onSecondary,
