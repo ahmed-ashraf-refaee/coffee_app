@@ -3,6 +3,7 @@ import 'package:coffee_app/core/utils/text_styles.dart';
 import 'package:coffee_app/core/widgets/custom_elevated_button.dart';
 import 'package:coffee_app/core/widgets/prettier_tap.dart';
 import 'package:coffee_app/features/authentication/presentation/view/widgets/login_form.dart';
+import 'package:coffee_app/features/authentication/presentation/view/widgets/reset_password_overlay.dart';
 import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
@@ -80,7 +81,9 @@ class _LoginViewBodyState extends State<LoginViewBody> {
             const Spacer(),
             PrettierTap(
               shrink: 2,
-              onPressed: () {},
+              onPressed: () {
+                resetPasswordOverlay(context);
+              },
               child: Text(
                 S.current.forgot_password,
                 style: TextStyles.bold14.copyWith(

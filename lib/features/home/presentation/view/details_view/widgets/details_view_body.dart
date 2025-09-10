@@ -78,26 +78,28 @@ class _DetailsViewBodyState extends State<DetailsViewBody> {
           ),
         ),
         const SizedBox(height: 24),
-        Text.rich(
-          TextSpan(
-            children: [
-              TextSpan(
-                text: "${widget.product.name}\n",
-                style: TextStyles.medium32,
-              ),
-              const WidgetSpan(child: SizedBox(height: 48)),
-              const TextSpan(text: "Description\n", style: TextStyles.semi16),
-              TextSpan(
-                text: widget.product.description,
-                style: TextStyles.regular16.copyWith(
-                  height: 1.2,
-                  color: context.colors.onSecondary,
+
+        Text(widget.product.name, style: TextStyles.medium32),
+        Expanded(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  child: Text(
+                    widget.product.description,
+                    style: TextStyles.regular16.copyWith(
+                      height: 1.2,
+                      color: context.colors.onSecondary,
+                    ),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
-        const Spacer(),
+
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           spacing: 16,

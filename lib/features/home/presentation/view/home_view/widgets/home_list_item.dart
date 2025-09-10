@@ -3,6 +3,7 @@ import 'package:coffee_app/core/utils/text_styles.dart';
 import 'package:coffee_app/core/widgets/custom_icon_button.dart';
 import 'package:coffee_app/core/widgets/custom_rounded_images.dart';
 import 'package:coffee_app/core/widgets/prettier_tap.dart';
+import 'package:coffee_app/core/widgets/translatable_text.dart';
 import 'package:coffee_app/features/home/data/model/product_model.dart';
 import 'package:coffee_app/features/home/presentation/view/home_view/widgets/custom_home_list_item_clipper.dart';
 import 'package:coffee_app/main.dart';
@@ -27,6 +28,7 @@ class HomeListItem extends StatelessWidget {
         children: [
           ClipPath(
             clipper: CustomHomeListItemClipper(
+              isArabic: context.isArabic,
               radius: 12,
               clipHeight: 48,
               clipWidth: 48,
@@ -54,13 +56,13 @@ class HomeListItem extends StatelessWidget {
                         borderRadius: BorderRadius.circular(8),
                       ),
                     ),
-                    Text(
+                    TranslatableText(
                       product.name,
                       style: TextStyles.bold16,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    Text(
+                    TranslatableText(
                       product.productVariants[0].size,
                       style: TextStyles.regular12.copyWith(
                         color: context.colors.onSecondary.withAlpha(153),
@@ -95,9 +97,10 @@ class HomeListItem extends StatelessWidget {
               ),
             ),
           ),
-          Positioned(
-            bottom: 0,
-            right: 0,
+          Align(
+            alignment: context.isArabic
+                ? Alignment.bottomLeft
+                : Alignment.bottomRight,
             child: CustomIconButton(
               padding: 8,
               hight: 36,

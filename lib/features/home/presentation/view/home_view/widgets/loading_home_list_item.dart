@@ -21,6 +21,7 @@ class LoadingHomeListItem extends StatelessWidget {
           children: [
             ClipPath(
               clipper: CustomHomeListItemClipper(
+                isArabic: context.isArabic,
                 radius: 12,
                 clipHeight: 48,
                 clipWidth: 48,

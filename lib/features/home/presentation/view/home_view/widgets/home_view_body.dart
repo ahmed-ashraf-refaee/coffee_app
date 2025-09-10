@@ -1,4 +1,6 @@
+import 'package:coffee_app/core/helper/ui_helpers.dart';
 import 'package:coffee_app/core/widgets/custom_icon_button.dart';
+import 'package:coffee_app/features/home/presentation/view/home_view/widgets/filter_overlay.dart';
 
 import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';
@@ -120,7 +122,9 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                         ),
                         const SizedBox(width: 8),
                         CustomIconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            filterOverlay(context, () {});
+                          },
                           hight: 48,
                           width: 48,
                           child: Icon(

@@ -1,9 +1,11 @@
+
 import 'package:flutter/material.dart';
 
 class CustomHomeListItemClipper extends CustomClipper<Path> {
   Path path = Path();
 
   CustomHomeListItemClipper({
+    required this.isArabic,
     required this.radius,
     required this.clipHeight,
     required this.clipWidth,
@@ -13,6 +15,7 @@ class CustomHomeListItemClipper extends CustomClipper<Path> {
   final double clipHeight;
   final double clipWidth;
   final double innerRadius;
+  final bool isArabic;
 
   @override
   Path getClip(Size size) {
@@ -36,12 +39,19 @@ class CustomHomeListItemClipper extends CustomClipper<Path> {
       clockwise: true,
     );
     path.lineTo(0, size.height);
+    if (isArabic) {
+      final Matrix4 matrix4 = Matrix4.identity()
+        ..scale(-1.0, 1.0)
+        ..translate(-size.width.toDouble(), 0.0);
+
+      return path.transform(matrix4.storage);
+    }
 
     return path;
   }
 
   @override
-  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
-    return false;
+  bool shouldReclip(covariant CustomHomeListItemClipper oldClipper) {
+    return oldClipper.isArabic != isArabic;
   }
 }

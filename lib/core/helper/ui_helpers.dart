@@ -44,23 +44,27 @@ class UiHelpers {
         pageBuilder: (_, __, ___) {
           return Scaffold(
             backgroundColor: Colors.transparent,
-            body: GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onTap: () => Navigator.of(context).pop(),
-              child: Stack(
-                children: [
-                  BackdropFilter(
+            body: Stack(
+              children: [
+                GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () => Navigator.of(context).pop(),
+                  child: BackdropFilter(
                     filter: ImageFilter.blur(
                       sigmaX: blurSigma,
                       sigmaY: blurSigma,
                     ),
                     child: Container(
-                      color: context.colors.surface.withAlpha(216),
+                      color: context.colors.surface
+                          .withAlpha(150)
+                          .withValues(blue: 0.1, green: 0.1, red: 0.1),
                     ),
                   ),
-                  Center(child: child),
-                ],
-              ),
+                ),
+                Center(
+                  child: GestureDetector(onTap: () {}, child: child),
+                ),
+              ],
             ),
           );
         },

@@ -1,4 +1,5 @@
 import 'package:coffee_app/core/widgets/prettier_tap.dart';
+import 'package:coffee_app/core/widgets/translatable_text.dart';
 import 'package:coffee_app/features/home/data/model/categories_model.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,7 @@ class CategoriesListItem extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
-                child: Text(
+                child: TranslatableText(
                   category.name,
                   style: TextStyles.regular16.copyWith(
                     color: selected
