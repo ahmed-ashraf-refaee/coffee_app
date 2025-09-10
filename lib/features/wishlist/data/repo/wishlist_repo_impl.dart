@@ -105,13 +105,11 @@ class WishlistRepoImpl extends WishlistRepo {
       final isCurrentlyInWishlist = isProductInWishlistSync(
         productId: productId,
       );
-
       if (isCurrentlyInWishlist) {
         await removeFromWishlist(productId: productId);
       } else {
         await addToWishlist(productId: productId);
       }
-
       final result = await getWishlist();
       return result;
     } catch (e) {
