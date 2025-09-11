@@ -5,6 +5,8 @@ import 'package:coffee_app/features/wishlist/data/service/wishlist_service.dart'
 import 'package:dartz/dartz.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../../../core/errors/error_handler.dart';
+
 class WishlistRepoImpl extends WishlistRepo {
   final WishlistService _wishlistService = WishlistService();
   final String userId = Supabase.instance.client.auth.currentUser!.id;
@@ -15,82 +17,50 @@ class WishlistRepoImpl extends WishlistRepo {
   List<ProductModel> getCachedWishlist() => _cachedWishlist;
 
   @override
-  Future<Either<Failure, List<ProductModel>>> getWishlist() async {
-    try {
+  Future<Either<Failure, List<ProductModel>>> getWishlist() {
+    return guard(() async {
       final List<Map<String, dynamic>> productList = await _wishlistService
-          .getFavouriteProducts(userId: userId);
+          .getFavoriteProducts(userId: userId);
       List<ProductModel> products = productList
           .map((product) => ProductModel.fromJson(product))
           .toList();
 
       _updateCache(products);
 
-      return right(products);
-    } catch (e) {
-      if (e is PostgrestException) {
-        return left(Failure.fromSqlException(e));
-      } else {
-        return left(Failure(error: e.toString()));
-      }
-    }
+      return products;
+    });
   }
 
   @override
-  Future<Either<Failure, void>> removeAllWishlist() async {
-    try {
+  Future<Either<Failure, void>> removeAllWishlist() {
+    return guard(() async {
       await _wishlistService.removeAll();
 
       _updateCache([]);
-
-      return right(null);
-    } catch (e) {
-      if (e is PostgrestException) {
-        return left(Failure.fromSqlException(e));
-      } else {
-        return left(Failure(error: e.toString()));
-      }
-    }
+    });
   }
 
   @override
-  Future<Either<Failure, void>> addToWishlist({required int productId}) async {
-    try {
+  Future<Either<Failure, void>> addToWishlist({required int productId}) {
+    return guard(() async {
       _wishlistProductIds.add(productId);
       await _wishlistService.addToWishlist(
         userId: userId,
         productId: productId,
       );
-
-      return right(null);
-    } catch (e) {
-      if (e is PostgrestException) {
-        return left(Failure.fromSqlException(e));
-      } else {
-        return left(Failure(error: e.toString()));
-      }
-    }
+    });
   }
 
   @override
-  Future<Either<Failure, void>> removeFromWishlist({
-    required int productId,
-  }) async {
-    try {
+  Future<Either<Failure, void>> removeFromWishlist({required int productId}) {
+    return guard(() async {
       _wishlistProductIds.remove(productId);
       _cachedWishlist = _cachedWishlist
           .where((p) => p.id != productId)
           .toList();
 
       await _wishlistService.removeByProductId(productId: productId);
-
-      return right(null);
-    } catch (e) {
-      if (e is PostgrestException) {
-        return left(Failure.fromSqlException(e));
-      } else {
-        return left(Failure(error: e.toString()));
-      }
-    }
+    });
   }
 
   bool isProductInWishlistSync({required int productId}) {
@@ -98,10 +68,10 @@ class WishlistRepoImpl extends WishlistRepo {
   }
 
   @override
-  Future<Either<Failure, List<ProductModel>>> toggleFavourite({
+  Future<Either<Failure, List<ProductModel>>> toggleFavorite({
     required int productId,
-  }) async {
-    try {
+  }) {
+    return guard(() async {
       final isCurrentlyInWishlist = isProductInWishlistSync(
         productId: productId,
       );
@@ -111,14 +81,8 @@ class WishlistRepoImpl extends WishlistRepo {
         await addToWishlist(productId: productId);
       }
       final result = await getWishlist();
-      return result;
-    } catch (e) {
-      if (e is PostgrestException) {
-        return left(Failure.fromSqlException(e));
-      } else {
-        return left(Failure(error: e.toString()));
-      }
-    }
+      return result.getOrElse(() => []);
+    });
   }
 
   void _updateCache(List<ProductModel> products) {
