@@ -1,5 +1,6 @@
 import 'package:coffee_app/core/errors/failures.dart';
 import 'package:coffee_app/core/model/product_model.dart';
+import 'package:coffee_app/features/cart/data/model/cart_item_model.dart';
 import 'package:coffee_app/features/cart/data/repo/cart_repo.dart';
 import 'package:coffee_app/features/cart/data/service/cart_service.dart';
 import 'package:dartz/dartz.dart';
@@ -31,19 +32,11 @@ class CartRepoImpl extends CartRepo {
   }
 
   @override
-  Future<Either<Failure, List<ProductModel>>> getCartItem() async {
+  Future<Either<Failure, List<CartItemModel>>> getCartItem() async {
     try {
       final result = await _cartService.getCartItems(userId: userId);
 
-      final items = result
-          .map(
-            (json) => ProductModel.fromJson({
-              ...json['product_variants']['products'],
-              'product_variants': json['product_variants'],
-            }),
-          )
-          .toList();
-
+      final items = result.map((json) => CartItemModel.fromJson(json)).toList();
       return right(items);
     } catch (e) {
       if (e is PostgrestException) {

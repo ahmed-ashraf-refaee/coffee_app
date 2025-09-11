@@ -35,7 +35,7 @@ class CategoryFilter extends FilterStrategy {
   List<ProductModel> filter(List<ProductModel> products) {
     if (enabled) {
       return products.where((product) {
-        return product.category.name.toLowerCase().contains(
+        return product.category!.name.toLowerCase().contains(
           categoryName.toLowerCase().trim(),
         );
       }).toList();

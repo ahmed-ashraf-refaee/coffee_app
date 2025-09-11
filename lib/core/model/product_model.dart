@@ -10,7 +10,7 @@ class ProductModel {
   final int categoryId;
   final String imageUrl;
   final List<ProductVariantsModel> productVariants;
-  final CategoriesModel category;
+  final CategoriesModel? category;
   ProductModel({
     required this.id,
     required this.name,
@@ -37,7 +37,9 @@ class ProductModel {
       categoryId: json['category_id'],
       imageUrl: json['image_url'],
       productVariants: productVariantsList,
-      category: CategoriesModel.fromJson(json['categories']),
+      category: json['categories'] != null
+          ? CategoriesModel.fromJson(json['categories'])
+          : null,
     );
   }
 }

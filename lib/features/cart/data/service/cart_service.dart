@@ -31,7 +31,7 @@ class CartService {
         .from('cart_item')
         .select('''
           *,
-          product_variants(*, products(*, categories(*)))
+          product_variants(*, products(*))
         ''')
         .eq('cart_id', cart['id'])
         .order('created_at', ascending: false);
