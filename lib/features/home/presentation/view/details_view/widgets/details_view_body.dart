@@ -7,6 +7,7 @@ import 'package:coffee_app/core/widgets/custom_elevated_button.dart';
 import 'package:coffee_app/core/widgets/custom_icon_button.dart';
 import 'package:coffee_app/core/widgets/custom_rounded_images.dart';
 import 'package:coffee_app/core/widgets/prettier_tap.dart';
+import 'package:coffee_app/features/cart/presentation/manager/cart_cubit/cart_cubit.dart';
 import 'package:coffee_app/features/home/presentation/view/details_view/widgets/custom_chip.dart';
 import 'package:coffee_app/features/home/presentation/view/details_view/widgets/quantity_selector.dart';
 import 'package:coffee_app/main.dart';
@@ -69,12 +70,12 @@ class _DetailsViewBodyState extends State<DetailsViewBody> {
               return true;
             },
             builder: (context, state) {
-              final isFavorite = context.read<WishlistCubit>().isFavourite(
+              final isFavorite = context.read<WishlistCubit>().isFavorite(
                 productId: widget.product.id,
               );
               return AnimatedIconSwitch(
                 onChanged: (value) {
-                  context.read<WishlistCubit>().toggleFavourite(
+                  context.read<WishlistCubit>().toggleFavorite(
                     product: widget.product,
                   );
                 },
@@ -203,7 +204,14 @@ class _DetailsViewBodyState extends State<DetailsViewBody> {
         ),
         const SizedBox(height: 24),
         CustomElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            BlocProvider.of<CartCubit>(context).addItem(
+              productVariantId:
+                  widget.product.productVariants[selectedIndex].id,
+              quantity: quantity,
+              productId: widget.product.id,
+            );
+          },
           child: Text(
             "Add to Cart",
             style: TextStyles.medium20.copyWith(

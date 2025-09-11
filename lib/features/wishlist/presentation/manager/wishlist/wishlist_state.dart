@@ -7,7 +7,7 @@ final class WishlistInitial extends WishlistState {}
 
 final class WishlistLoading extends WishlistState {}
 
-final class FavouriteCheckedState extends WishlistState {}
+final class FavoriteCheckedState extends WishlistState {}
 
 final class WishlistSuccess extends WishlistState {
   final List<ProductModel> products;

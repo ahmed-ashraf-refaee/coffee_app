@@ -2,11 +2,11 @@ import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-import '../../../../../core/helper/ui_helpers.dart';
-import '../../../../../core/utils/text_styles.dart';
+import '../helper/ui_helpers.dart';
+import '../utils/text_styles.dart';
 
-class WishlistLoadingListItem extends StatelessWidget {
-  const WishlistLoadingListItem({super.key});
+class LoadingListTile extends StatelessWidget {
+  const LoadingListTile({super.key});
 
   @override
   Widget build(BuildContext context) {

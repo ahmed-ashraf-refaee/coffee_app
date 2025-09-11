@@ -32,7 +32,7 @@ class WishlistListItem extends StatelessWidget {
                 width: 56,
                 onPressed: () {
                   Slidable.of(context)?.close();
-                  context.read<WishlistCubit>().toggleFavourite(
+                  context.read<WishlistCubit>().toggleFavorite(
                     product: product,
                   );
                 },

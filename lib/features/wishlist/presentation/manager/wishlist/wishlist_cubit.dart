@@ -29,19 +29,19 @@ class WishlistCubit extends Cubit<WishlistState> {
         emit(WishlistSuccess(products: currentProducts));
         emit(WishlistFailure(error: failure.error));
       },
-      (response) {
+      (_) {
         emit(WishlistSuccess(products: const []));
       },
     );
   }
 
-  bool isFavourite({required int productId}) {
+  bool isFavorite({required int productId}) {
     return _wishlistRepoImpl.isProductInWishlistSync(productId: productId);
   }
 
-  toggleFavourite({required ProductModel product}) async {
+  toggleFavorite({required ProductModel product}) async {
     final currentProducts = _wishlistRepoImpl.getCachedWishlist();
-    final isCurrentlyFavorite = isFavourite(productId: product.id);
+    final isCurrentlyFavorite = isFavorite(productId: product.id);
     List<ProductModel> optimisticProducts;
     if (isCurrentlyFavorite) {
       optimisticProducts = currentProducts
@@ -51,7 +51,7 @@ class WishlistCubit extends Cubit<WishlistState> {
       optimisticProducts = [product, ...currentProducts];
     }
     emit(WishlistSuccess(products: optimisticProducts));
-    final result = await _wishlistRepoImpl.toggleFavourite(
+    final result = await _wishlistRepoImpl.toggleFavorite(
       productId: product.id,
     );
 

@@ -2,7 +2,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 class WishlistService {
   final SupabaseClient _supabaseClient = Supabase.instance.client;
-  Future<List<Map<String, dynamic>>> getFavouriteProducts({
+  Future<List<Map<String, dynamic>>> getFavoriteProducts({
     required String userId,
   }) async {
     final response = await _supabaseClient

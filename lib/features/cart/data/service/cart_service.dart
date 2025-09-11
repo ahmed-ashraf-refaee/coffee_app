@@ -29,18 +29,17 @@ class CartService {
 
     final response = await _supabaseClient
         .from('cart_item')
-        .select('''
-          *,
-          product_variants(*, products(*))
-        ''')
+        .select(''' *, product_variants(*, products(*)) ''')
         .eq('cart_id', cart['id'])
         .order('created_at', ascending: false);
+
     return response;
   }
 
-  Future<void> addToCart({
+  Future<Map<String, dynamic>> addToCart({
     required String userId,
     required int productVariantId,
+    required int productId,
     int quantity = 1,
   }) async {
     final cart = await getOrCreateCart(userId: userId);
@@ -54,32 +53,44 @@ class CartService {
 
     if (existing != null) {
       final newQty = (existing['quantity'] as int) + quantity;
-      await updateQuantity(
+      return await updateQuantity(
         userId: userId,
         productVariantId: productVariantId,
         newQuantity: newQty,
       );
     } else {
-      await _supabaseClient.from('cart_item').insert({
-        'cart_id': cart['id'],
-        'product_variant_id': productVariantId,
-        'quantity': quantity,
-        'created_at': DateTime.now().toIso8601String(),
-      });
+      final inserted = await _supabaseClient
+          .from('cart_item')
+          .insert({
+            'cart_id': cart['id'],
+            'product_variant_id': productVariantId,
+            'quantity': quantity,
+            'created_at': DateTime.now().toIso8601String(),
+            'product_id': productId,
+          })
+          .select(''' *, product_variants(*, products(*)) ''')
+          .single();
+
+      return inserted;
     }
   }
 
-  Future<void> updateQuantity({
+  Future<Map<String, dynamic>> updateQuantity({
     required String userId,
     required int productVariantId,
     required int newQuantity,
   }) async {
     final cart = await getOrCreateCart(userId: userId);
-    await _supabaseClient
+
+    final updated = await _supabaseClient
         .from('cart_item')
         .update({'quantity': newQuantity})
         .eq('cart_id', cart['id'])
-        .eq('product_variant_id', productVariantId);
+        .eq('product_variant_id', productVariantId)
+        .select(''' *, product_variants(*, products(*)) ''')
+        .single();
+
+    return updated;
   }
 
   Future<void> removeItemByVariant({

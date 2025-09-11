@@ -19,7 +19,7 @@ class CartItemModel {
   });
 
   factory CartItemModel.fromJson(Map<String, dynamic> json) {
-    final productJson = json['product_variants']?['products'];
+    final productJson = json['product_variants']['products'];
     final variantJson = json['product_variants'];
 
     final Map<String, dynamic> fullProductJson = {
@@ -47,6 +47,8 @@ class CartItemModel {
       'cart_id': cartId,
       'product_variant_id': productVariantId,
       'quantity': quantity,
+      "product_variants": productVariant!.size,
+      "product": product!.imageUrl,
     };
   }
 

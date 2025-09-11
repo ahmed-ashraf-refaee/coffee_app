@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
 import '../../../../../core/widgets/custom_icon_button.dart';
-import 'wishlist_loading_list_item.dart';
+import '../../../../../core/widgets/loading_list_tile.dart';
 
 class WishListViewBody extends StatelessWidget {
   const WishListViewBody({super.key});
@@ -52,7 +52,7 @@ class WishListViewBody extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return const Padding(
                     padding: EdgeInsets.only(bottom: 16),
-                    child: WishlistLoadingListItem(),
+                    child: LoadingListTile(),
                   );
                 },
               );
