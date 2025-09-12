@@ -6,7 +6,7 @@ class WishlistView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const  SafeArea(
+    return const SafeArea(
       child: Padding(
         padding: EdgeInsets.only(top: 16, left: 16, right: 16),
         child: WishListViewBody(),

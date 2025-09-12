@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'prettier_tap.dart';
+import 'custom_icon_button.dart';
 
 class AnimatedIconSwitch extends StatefulWidget {
   const AnimatedIconSwitch({
@@ -8,12 +8,13 @@ class AnimatedIconSwitch extends StatefulWidget {
     required this.children,
     this.initialState = false,
     this.onChanged,
+    this.isFilled = false,
   }) : assert(children.length == 2);
 
-  final List<Icon> children;
-
+  final List<Widget> children;
   final bool initialState;
   final ValueChanged<bool>? onChanged;
+  final bool isFilled;
 
   @override
   State<AnimatedIconSwitch> createState() => _AnimatedIconSwitchState();
@@ -37,14 +38,16 @@ class _AnimatedIconSwitchState extends State<AnimatedIconSwitch> {
 
   @override
   Widget build(BuildContext context) {
+    final currentChild = isToggled ? widget.children[1] : widget.children[0];
+
+    if (widget.isFilled) {
+      return CustomIconButton(onPressed: _onPressed, child: currentChild);
+    }
+
     return PrettierTap(
       shrink: 3,
       onPressed: _onPressed,
-      child: SizedBox(
-        width: 48,
-        height: 48,
-        child: isToggled ? widget.children[1] : widget.children[0],
-      ),
+      child: SizedBox(width: 48, height: 48, child: currentChild),
     );
   }
 }

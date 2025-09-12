@@ -16,7 +16,7 @@ class CustomIconButton extends StatelessWidget {
     required this.child,
   });
 
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final double width;
   final double hight;
   final Color? backgroundColor;

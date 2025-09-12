@@ -1,4 +1,4 @@
-import 'package:coffee_app/features/profile/presentation/manager/toggle_to_darkmode/toggle_to_darkmode_cubit.dart';
+import 'package:coffee_app/features/profile/presentation/manager/toggle_to_dark_mode/toggle_to_dark_mode_cubit.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

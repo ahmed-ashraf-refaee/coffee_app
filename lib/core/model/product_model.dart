@@ -1,5 +1,5 @@
-import 'package:coffee_app/features/home/data/model/categories_model.dart';
-import 'package:coffee_app/features/home/data/model/product_variants_model.dart';
+import 'package:coffee_app/core/model/categories_model.dart';
+import 'package:coffee_app/core/model/product_variants_model.dart';
 
 class ProductModel {
   final int id;
@@ -10,8 +10,7 @@ class ProductModel {
   final int categoryId;
   final String imageUrl;
   final List<ProductVariantsModel> productVariants;
-  final CategoriesModel category;
-
+  final CategoriesModel? category;
   ProductModel({
     required this.id,
     required this.name,
@@ -38,7 +37,9 @@ class ProductModel {
       categoryId: json['category_id'],
       imageUrl: json['image_url'],
       productVariants: productVariantsList,
-      category: CategoriesModel.fromJson(json['categories']),
+      category: json['categories'] != null
+          ? CategoriesModel.fromJson(json['categories'])
+          : null,
     );
   }
 }

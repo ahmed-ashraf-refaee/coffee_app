@@ -1,19 +1,23 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:coffee_app/core/helper/ui_helpers.dart';
 import 'package:coffee_app/core/utils/text_styles.dart';
+import 'package:coffee_app/core/widgets/animated_icon_switch.dart';
 import 'package:coffee_app/core/widgets/custom_app_bar.dart';
 import 'package:coffee_app/core/widgets/custom_elevated_button.dart';
 import 'package:coffee_app/core/widgets/custom_icon_button.dart';
 import 'package:coffee_app/core/widgets/custom_rounded_images.dart';
 import 'package:coffee_app/core/widgets/prettier_tap.dart';
+import 'package:coffee_app/features/cart/presentation/manager/cart_cubit/cart_cubit.dart';
 import 'package:coffee_app/features/home/presentation/view/details_view/widgets/custom_chip.dart';
 import 'package:coffee_app/features/home/presentation/view/details_view/widgets/quantity_selector.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
 
-import '../../../../data/model/product_model.dart';
+import '../../../../../../core/model/product_model.dart';
+import '../../../../../wishlist/presentation/manager/wishlist/wishlist_cubit.dart';
 
 class DetailsViewBody extends StatefulWidget {
   final ProductModel product;
@@ -34,6 +38,11 @@ class _DetailsViewBodyState extends State<DetailsViewBody> {
   }
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -47,10 +56,37 @@ class _DetailsViewBodyState extends State<DetailsViewBody> {
               color: context.colors.onSecondary,
             ),
           ),
-          trailing: CustomIconButton(
-            padding: 8,
-            onPressed: () {},
-            child: Icon(Ionicons.heart_outline, color: context.colors.primary),
+          trailing: BlocBuilder<WishlistCubit, WishlistState>(
+            buildWhen: (previous, current) {
+              if (previous is WishlistSuccess && current is WishlistSuccess) {
+                final wasInPrevious = previous.products.any(
+                  (p) => p.id == widget.product.id,
+                );
+                final isInCurrent = current.products.any(
+                  (p) => p.id == widget.product.id,
+                );
+                return wasInPrevious != isInCurrent;
+              }
+              return true;
+            },
+            builder: (context, state) {
+              final isFavorite = context.read<WishlistCubit>().isFavorite(
+                productId: widget.product.id,
+              );
+              return AnimatedIconSwitch(
+                onChanged: (value) {
+                  context.read<WishlistCubit>().toggleFavorite(
+                    product: widget.product,
+                  );
+                },
+                initialState: isFavorite,
+                isFilled: true,
+                children: [
+                  Icon(Ionicons.heart_outline, color: context.colors.primary),
+                  Icon(Ionicons.heart, color: context.colors.primary),
+                ],
+              );
+            },
           ),
         ),
         const SizedBox(height: 16),
@@ -170,7 +206,14 @@ class _DetailsViewBodyState extends State<DetailsViewBody> {
         ),
         const SizedBox(height: 24),
         CustomElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            BlocProvider.of<CartCubit>(context).addItem(
+              productVariantId:
+                  widget.product.productVariants[selectedIndex].id,
+              quantity: quantity,
+              productId: widget.product.id,
+            );
+          },
           child: Text(
             "Add to Cart",
             style: TextStyles.medium20.copyWith(

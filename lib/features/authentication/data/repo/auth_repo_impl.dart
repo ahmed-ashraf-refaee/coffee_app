@@ -4,6 +4,8 @@ import 'package:coffee_app/features/authentication/data/repo/auth_repo.dart';
 import 'package:dartz/dartz.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../../../core/errors/error_handler.dart';
+
 class AuthRepoImpl extends AuthRepo {
   final AuthService _authService = AuthService();
 
@@ -14,8 +16,8 @@ class AuthRepoImpl extends AuthRepo {
     required String username,
     required String firstName,
     required String lastName,
-  }) async {
-    try {
+  }) {
+    return guard(() async {
       final AuthResponse authResponse = await _authService.signup(
         email,
         password,
@@ -23,16 +25,8 @@ class AuthRepoImpl extends AuthRepo {
         firstName,
         lastName,
       );
-      return right(authResponse);
-    } catch (e) {
-      if (e is AuthApiException) {
-        return left(Failure.fromAuthException(e));
-      } else if (e is PostgrestException) {
-        return left(Failure.fromSqlException(e));
-      } else {
-        return left(Failure(error: e.toString()));
-      }
-    }
+      return authResponse;
+    });
   }
 
   @override
@@ -40,72 +34,38 @@ class AuthRepoImpl extends AuthRepo {
     required String email,
     required String password,
     required bool rememberMe,
-  }) async {
-    try {
+  }) {
+    return guard(() async {
       final AuthResponse authResponse = await _authService.login(
         email,
         password,
         rememberMe,
       );
-      return right(authResponse);
-    } catch (e) {
-      if (e is AuthApiException) {
-        return left(Failure.fromAuthException(e));
-      } else if (e is PostgrestException) {
-        return left(Failure.fromSqlException(e));
-      } else {
-        return left(Failure(error: e.toString()));
-      }
-    }
+      return authResponse;
+    });
   }
 
   @override
-  Future<Either<Failure, void>> logoutUser() async {
-    try {
-      final authResponse = _authService.logout();
-      return right(authResponse);
-    } catch (e) {
-      if (e is AuthApiException) {
-        return left(Failure.fromAuthException(e));
-      } else if (e is PostgrestException) {
-        return left(Failure.fromSqlException(e));
-      } else {
-        return left(Failure(error: e.toString()));
-      }
-    }
+  Future<Either<Failure, void>> logoutUser() {
+    return guard(() async {
+      final authResponse = await _authService.logout();
+      return authResponse;
+    });
   }
 
   @override
-  Future<Either<Failure, bool>> checkUsername({
-    required String username,
-  }) async {
-    try {
+  Future<Either<Failure, bool>> checkUsername({required String username}) {
+    return guard(() async {
       final bool usernameTaken = await _authService.usernameTaken(username);
-      return right(usernameTaken);
-    } catch (e) {
-      if (e is AuthApiException) {
-        return left(Failure.fromAuthException(e));
-      } else if (e is PostgrestException) {
-        return left(Failure.fromSqlException(e));
-      } else {
-        return left(Failure(error: e.toString()));
-      }
-    }
+      return usernameTaken;
+    });
   }
 
   @override
-  Future<Either<Failure, void>> resetPassword({required String email}) async {
-    try {
+  Future<Either<Failure, void>> resetPassword({required String email}) {
+    return guard(() async {
       final response = await _authService.resetPassword(email);
-      return right(response);
-    } catch (e) {
-      if (e is AuthApiException) {
-        return left(Failure.fromAuthException(e));
-      } else if (e is PostgrestException) {
-        return left(Failure.fromSqlException(e));
-      } else {
-        return left(Failure(error: e.toString()));
-      }
-    }
+      return response;
+    });
   }
 }

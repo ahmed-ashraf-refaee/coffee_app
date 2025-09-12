@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
-import 'package:coffee_app/features/home/data/model/product_model.dart';
+import 'package:coffee_app/core/model/product_model.dart';
 import 'package:coffee_app/features/home/data/repo/home_repo_impl.dart';
 import 'package:coffee_app/features/home/data/service/filters/filter_service.dart';
 import 'package:coffee_app/features/home/presentation/manager/home_filter_cubit/home_filter_cubit.dart';

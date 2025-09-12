@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
-import '../../../data/model/product_model.dart';
+import '../../../../../core/model/product_model.dart';
 import '../../../data/repo/home_repo_impl.dart';
 
 part 'home_top_products_state.dart';

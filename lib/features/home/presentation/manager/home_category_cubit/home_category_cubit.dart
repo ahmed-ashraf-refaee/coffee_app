@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:coffee_app/features/home/data/model/categories_model.dart';
+import 'package:coffee_app/core/model/categories_model.dart';
 import 'package:meta/meta.dart';
 
 import '../../../data/repo/home_repo_impl.dart';
@@ -9,6 +9,23 @@ part 'home_category_state.dart';
 class HomeCategoryCubit extends Cubit<HomeCategoryState> {
   HomeCategoryCubit() : super(HomeCategoryInitial());
   final HomeRepoImpl _homeRepoImpl = HomeRepoImpl();
+  int selectedCategoryIndex = 0;
+  double categoryListScrollOffset = 0.0;
+
+  void updateSelectedIndex(int index) {
+    selectedCategoryIndex = index;
+    if (state is ProductCategoriesSuccess) {
+      emit(
+        ProductCategoriesSuccess(
+          category: (state as ProductCategoriesSuccess).category,
+        ),
+      );
+    }
+  }
+
+  void saveScrollOffset(double offset) {
+    categoryListScrollOffset = offset;
+  }
 
   Future<void> getCategories() async {
     emit(ProductCategoriesLoading());
