@@ -8,7 +8,6 @@ import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../../../core/constants/filter_constants.dart';
 import '../../../../../../core/helper/ui_helpers.dart';
 

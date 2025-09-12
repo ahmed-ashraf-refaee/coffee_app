@@ -57,8 +57,8 @@ class UiHelpers {
                     child: Container(
                       color: Color.lerp(
                         context.colors.surface,
-                        context.colors.onSurface,
-                        0.03,
+                        Colors.black,
+                        0.4,
                       )!.withValues(alpha: 0.7),
                     ),
                   ),
