@@ -1,5 +1,6 @@
 import 'package:coffee_app/features/cart/presentation/view/cart_view.dart';
 import 'package:coffee_app/features/home/presentation/manager/home_category_cubit/home_category_cubit.dart';
+import 'package:coffee_app/features/home/presentation/manager/home_filter_cubit/home_filter_cubit.dart';
 import 'package:coffee_app/features/home/presentation/manager/home_products_cubit/home_product_cubit.dart';
 import 'package:coffee_app/features/home/presentation/view/home_view/home_view.dart';
 import 'package:coffee_app/features/profile/presentation/view/profile_view.dart';
@@ -19,7 +20,12 @@ class AppNavigation extends StatelessWidget {
     return Scaffold(
       body: MultiBlocProvider(
         providers: [
-          BlocProvider(create: (context) => HomeProductCubit()..getProducts()),
+          BlocProvider(create: (context) => HomeFilterCubit()),
+          BlocProvider(
+            create: (context) =>
+                HomeProductCubit(context.read<HomeFilterCubit>())
+                  ..getProducts(),
+          ),
           BlocProvider(
             create: (context) => HomeCategoryCubit()..getCategories(),
           ),

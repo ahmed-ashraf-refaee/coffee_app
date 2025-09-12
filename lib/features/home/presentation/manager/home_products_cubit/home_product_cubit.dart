@@ -1,51 +1,50 @@
+import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:coffee_app/features/home/data/model/product_model.dart';
 import 'package:coffee_app/features/home/data/repo/home_repo_impl.dart';
+import 'package:coffee_app/features/home/data/service/filters/filter_service.dart';
+import 'package:coffee_app/features/home/presentation/manager/home_filter_cubit/home_filter_cubit.dart';
 import 'package:meta/meta.dart';
-
-import '../../../data/service/filters/filter_products.dart';
-import '../../../data/service/filters/filter_strategy.dart';
 
 part 'home_product_state.dart';
 
 class HomeProductCubit extends Cubit<HomeProductState> {
-  HomeProductCubit() : super(HomeProductInitial());
-
   final HomeRepoImpl _homeRepoImpl = HomeRepoImpl();
-  String selectedCategoryName = 'All';
-  String searchQuery = '';
-  List<ProductModel> products = [];
+  final HomeFilterCubit filterCubit;
+  late final FilterService _filterService;
+  late final StreamSubscription _filterSub;
+
+  List<ProductModel> _allProducts = [];
+
+  HomeProductCubit(this.filterCubit) : super(HomeProductInitial()) {
+    _filterService = FilterService(filterCubit: filterCubit);
+
+    // listen for filter changes
+    _filterSub = filterCubit.stream.listen((_) {
+      _emitFiltered();
+    });
+  }
+
   Future<void> getProducts() async {
     emit(HomeProductsDataLoading());
     final result = await _homeRepoImpl.fetchProducts();
     result.fold(
       (failure) => emit(HomeProductsDataFailure(error: failure.error)),
       (response) {
-        products = response;
-        emit(HomeProductsDataSuccess(products: products));
+        _allProducts = response;
+        _emitFiltered();
       },
     );
   }
 
-  void updateFilters({
-    String? category,
-    String? query,
-    List<FilterStrategy> strategies = const [],
-  }) {
-    if (category != null) selectedCategoryName = category;
-    if (query != null) searchQuery = query;
+  void _emitFiltered() {
+    final filtered = _filterService.applyFilters(_allProducts);
+    emit(HomeProductsDataSuccess(products: filtered));
+  }
 
-    final filteredProducts = FilterProducts(
-      strategies: [
-        SearchFilter(enabled: searchQuery.isNotEmpty, searchQuery: searchQuery),
-        CategoryFilter(
-          enabled: selectedCategoryName != "All",
-          categoryName: selectedCategoryName,
-        ),
-        ...strategies,
-      ],
-    ).apply(products);
-
-    emit(HomeProductsDataSuccess(products: filteredProducts));
+  @override
+  Future<void> close() {
+    _filterSub.cancel();
+    return super.close();
   }
 }

@@ -115,6 +115,7 @@ class _CartListItemState extends State<CartListItem> {
                             ),
 
                             QuantitySelector(
+                              backgroundColor: context.colors.surface,
                               value: 3,
                               onChanged: (v) {},
                               contentPadding: const EdgeInsets.symmetric(

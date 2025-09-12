@@ -1,37 +1,326 @@
+import 'package:coffee_app/core/utils/text_styles.dart';
 import 'package:coffee_app/core/widgets/custom_elevated_button.dart';
 import 'package:coffee_app/core/widgets/overlay_container.dart';
+import 'package:coffee_app/core/widgets/prettier_tap.dart';
+import 'package:coffee_app/features/home/presentation/manager/home_filter_cubit/home_filter_cubit.dart';
+import 'package:coffee_app/features/home/presentation/view/details_view/widgets/custom_chip.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../../core/constants/filter_constants.dart';
 import '../../../../../../core/helper/ui_helpers.dart';
 
+RangeValues currentPriceRange = const RangeValues(
+  FilterConstants.minPrice,
+  FilterConstants.maxPrice,
+);
+TextEditingController minPriceController = TextEditingController();
+TextEditingController maxPriceController = TextEditingController();
+String selectedSort = '';
+String selectedRating = '';
+
+void filterOverlay(BuildContext context) => UiHelpers.showOverlay(
+  context: context,
+  child: BlocProvider.value(
+    value: context.read<HomeFilterCubit>(),
+    child: const FilterOverlay(),
+  ),
+);
+
 class FilterOverlay extends StatefulWidget {
-  const FilterOverlay({super.key, required this.onFilter});
-  final VoidCallback onFilter;
+  const FilterOverlay({super.key});
+
   @override
   State<FilterOverlay> createState() => _FilterOverlayState();
 }
 
 class _FilterOverlayState extends State<FilterOverlay> {
   @override
+  void initState() {
+    super.initState();
+    minPriceController.text = currentPriceRange.start.toStringAsFixed(0);
+    maxPriceController.text = currentPriceRange.end.toStringAsFixed(0);
+  }
+
+  @override
   Widget build(BuildContext context) {
+    void onApplyFilters() {
+      context.read<HomeFilterCubit>().setFilters(
+        range: currentPriceRange,
+        rating: selectedRating,
+        sorting: selectedSort,
+      );
+      Navigator.of(context).pop();
+    }
+
+    void onResetFilters() {
+      selectedSort = '';
+      selectedRating = '';
+      currentPriceRange = const RangeValues(
+        FilterConstants.minPrice,
+        FilterConstants.maxPrice,
+      );
+      minPriceController.text = FilterConstants.minPrice.toStringAsFixed(0);
+      maxPriceController.text = FilterConstants.maxPrice.toStringAsFixed(0);
+
+      context.read<HomeFilterCubit>().resetFilters();
+    }
+
     return OverlayContainer(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          const Text("filters!!"),
-          CustomElevatedButton(
-            onPressed: widget.onFilter,
-            child: const Text("apply filters"),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: ConstrainedBox(
+          constraints: const BoxConstraints.tightFor(height: 604),
+          child: Column(
+            spacing: 16,
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "     ",
+                    style: TextStyles.regular15.copyWith(
+                      color: context.colors.onSecondary,
+                    ),
+                  ),
+
+                  const Text("Filters", style: TextStyles.bold20),
+
+                  PrettierTap(
+                    shrink: 1,
+                    onPressed: onResetFilters,
+                    child: Text(
+                      "reset",
+                      style: TextStyles.regular15.copyWith(
+                        color: context.colors.onSecondary,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+
+              const Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    spacing: 16,
+                    children: [SortFilter(), PriceFilter(), RatingFilter()],
+                  ),
+                ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 48),
+                child: CustomElevatedButton(
+                  height: 56,
+                  contentPadding: const EdgeInsets.all(8),
+                  onPressed: onApplyFilters,
+                  child: Text(
+                    "apply",
+                    style: TextStyles.bold16.copyWith(
+                      color: context.colors.onPrimary,
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
 }
 
-void filterOverlay(BuildContext context, VoidCallback onFilter) =>
-    UiHelpers.showOverlay(
-      context: context,
-      child: FilterOverlay(onFilter: onFilter),
+class SortFilter extends StatefulWidget {
+  const SortFilter({super.key});
+
+  @override
+  State<SortFilter> createState() => _SortFilterState();
+}
+
+class _SortFilterState extends State<SortFilter> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      spacing: 16,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text(
+          "Sort by",
+          style: TextStyles.regular15.copyWith(color: context.colors.onSurface),
+        ),
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          direction: Axis.horizontal,
+          children: FilterConstants.sortOptions
+              .map(
+                (label) => CustomChip(
+                  label: label,
+                  selected: selectedSort == label,
+                  onSelected: () {
+                    setState(() {
+                      if (selectedSort == label) {
+                        selectedSort = '';
+                      } else {
+                        selectedSort = label;
+                      }
+                    });
+                  },
+                ),
+              )
+              .toList(),
+        ),
+      ],
     );
+  }
+}
+
+class PriceFilter extends StatefulWidget {
+  const PriceFilter({super.key});
+
+  @override
+  State<PriceFilter> createState() => _PriceFilterState();
+}
+
+class _PriceFilterState extends State<PriceFilter> {
+  void _updateRange(RangeValues range) {
+    setState(() {
+      double start = range.start.clamp(
+        FilterConstants.minPrice,
+        FilterConstants.maxPrice,
+      );
+      double end = range.end.clamp(
+        FilterConstants.minPrice,
+        FilterConstants.maxPrice,
+      );
+
+      if (start > end) start = end;
+
+      currentPriceRange = RangeValues(start, end);
+      minPriceController.text = start.toStringAsFixed(0);
+      maxPriceController.text = end.toStringAsFixed(0);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text(
+          "Price range",
+          style: TextStyles.regular15.copyWith(color: context.colors.onSurface),
+        ),
+        RangeSlider(
+          min: FilterConstants.minPrice,
+          max: FilterConstants.maxPrice,
+          values: currentPriceRange,
+          inactiveColor: context.colors.secondary,
+          onChanged: (rangeValues) => _updateRange(rangeValues),
+        ),
+        Row(
+          spacing: 16,
+          children: [
+            Expanded(
+              child: TextField(
+                textAlign: TextAlign.center,
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(
+                  contentPadding: EdgeInsets.all(10),
+                ),
+                controller: minPriceController,
+                onChanged: (value) {
+                  double min = safeDoubleParse(
+                    value,
+                  ).clamp(FilterConstants.minPrice, currentPriceRange.end);
+                  _updateRange(RangeValues(min, currentPriceRange.end));
+                },
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              ),
+            ),
+            SizedBox(
+              width: 32,
+              child: Divider(color: context.colors.secondary, thickness: 4),
+            ),
+            Expanded(
+              child: SizedBox(
+                height: 48,
+                child: TextField(
+                  textAlign: TextAlign.center,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    contentPadding: EdgeInsets.all(10),
+                  ),
+                  controller: maxPriceController,
+                  onChanged: (value) {
+                    double max = safeDoubleParse(
+                      value,
+                    ).clamp(currentPriceRange.start, FilterConstants.maxPrice);
+                    _updateRange(RangeValues(currentPriceRange.start, max));
+                  },
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class RatingFilter extends StatefulWidget {
+  const RatingFilter({super.key});
+
+  @override
+  State<RatingFilter> createState() => _RatingFilterState();
+}
+
+class _RatingFilterState extends State<RatingFilter> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      spacing: 16,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text(
+          "rating",
+          style: TextStyles.regular15.copyWith(color: context.colors.onSurface),
+        ),
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          direction: Axis.horizontal,
+          children: FilterConstants.ratingOptions
+              .map(
+                (label) => CustomChip(
+                  label: label,
+                  selected: selectedRating == label,
+                  onSelected: () {
+                    setState(() {
+                      if (selectedRating == label) {
+                        selectedRating = '';
+                      } else {
+                        selectedRating = label;
+                      }
+                    });
+                  },
+                ),
+              )
+              .toList(),
+        ),
+      ],
+    );
+  }
+}
+
+double safeDoubleParse(String value) {
+  final double? parsedValue = double.tryParse(value);
+  return parsedValue ?? 0;
+}

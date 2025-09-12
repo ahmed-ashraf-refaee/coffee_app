@@ -10,12 +10,14 @@ class QuantitySelector extends StatelessWidget {
     required this.value,
     required this.onChanged,
     required this.contentPadding,
+    this.backgroundColor,
     this.maxValue = 99,
     this.minValue = 0,
   });
   final int value;
   final EdgeInsets contentPadding;
   final ValueChanged<int> onChanged;
+  final Color? backgroundColor;
   final int maxValue;
   final int minValue;
 
@@ -24,7 +26,7 @@ class QuantitySelector extends StatelessWidget {
     return Container(
       padding: contentPadding,
       decoration: BoxDecoration(
-        border: Border.all(color: context.colors.onSecondary, width: 1),
+        color: backgroundColor ?? context.colors.secondary,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(

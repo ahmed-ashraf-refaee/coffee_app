@@ -55,9 +55,11 @@ class UiHelpers {
                       sigmaY: blurSigma,
                     ),
                     child: Container(
-                      color: context.colors.surface
-                          .withAlpha(150)
-                          .withValues(blue: 0.1, green: 0.1, red: 0.1),
+                      color: Color.lerp(
+                        context.colors.surface,
+                        context.colors.onSurface,
+                        0.03,
+                      )!.withValues(alpha: 0.7),
                     ),
                   ),
                 ),

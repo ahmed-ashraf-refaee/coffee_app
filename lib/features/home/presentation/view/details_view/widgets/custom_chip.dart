@@ -9,16 +9,19 @@ class CustomChip extends StatelessWidget {
     required this.label,
     required this.selected,
     required this.onSelected,
+    this.contentPadding = const EdgeInsets.all(12),
   });
   final String label;
   final bool selected;
   final VoidCallback onSelected;
+  final EdgeInsets contentPadding;
   @override
   Widget build(BuildContext context) {
     return CustomElevatedButton(
+      wrapContent: true,
       shrink: 3,
-      height: 24,
-      contentPadding: const EdgeInsets.all(12),
+      height: 48,
+      contentPadding: contentPadding,
       backgroundColor: selected
           ? context.colors.primary
           : context.colors.secondary,

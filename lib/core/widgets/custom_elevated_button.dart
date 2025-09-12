@@ -6,13 +6,15 @@ class CustomElevatedButton extends StatelessWidget {
   const CustomElevatedButton({
     super.key,
     this.width,
-    this.height = 32,
+    this.height = 64,
     required this.onPressed,
     required this.child,
     this.contentPadding,
     this.backgroundColor,
     this.shrink = 1,
+    this.wrapContent = false,
   });
+
   final double? width;
   final double? height;
   final Color? backgroundColor;
@@ -20,22 +22,28 @@ class CustomElevatedButton extends StatelessWidget {
   final VoidCallback onPressed;
   final int shrink;
   final Widget child;
+  final bool wrapContent;
 
   @override
   Widget build(BuildContext context) {
-    return PrettierTap(
-      shrink: shrink,
-      onPressed: onPressed,
-      child: Container(
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          color: backgroundColor ?? context.colors.primary,
-        ),
-        width: context.width,
-        child: Padding(
-          padding: contentPadding ?? const EdgeInsets.all(20.0),
-          child: SizedBox(height: height, child: child),
+    final double? effectiveWidth = wrapContent
+        ? null
+        : (width ?? double.infinity);
+
+    return IntrinsicWidth(
+      child: PrettierTap(
+        shrink: shrink,
+        onPressed: onPressed,
+        child: Container(
+          width: effectiveWidth,
+          height: height,
+          alignment: Alignment.center,
+          padding: contentPadding ?? const EdgeInsets.symmetric(horizontal: 20),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            color: backgroundColor ?? context.colors.primary,
+          ),
+          child: child,
         ),
       ),
     );

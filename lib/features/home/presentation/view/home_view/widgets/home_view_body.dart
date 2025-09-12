@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
 import '../../../../../../core/utils/text_styles.dart';
+import '../../../manager/home_filter_cubit/home_filter_cubit.dart';
 import '../../../manager/home_products_cubit/home_product_cubit.dart';
 import 'carousel_list.dart';
 import 'categories_list.dart';
@@ -28,12 +29,6 @@ class _HomeViewBodyState extends State<HomeViewBody> {
   void initState() {
     super.initState();
     searchController = TextEditingController();
-
-    searchController.addListener(() {
-      context.read<HomeProductCubit>().updateFilters(
-        query: searchController.text,
-      );
-    });
   }
 
   @override
@@ -117,13 +112,18 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                                   color: context.colors.onSecondary,
                                 ),
                               ),
+                              onChanged: (value) {
+                                context.read<HomeFilterCubit>().setSearch(
+                                  value,
+                                );
+                              },
                             ),
                           ),
                         ),
                         const SizedBox(width: 8),
                         CustomIconButton(
                           onPressed: () {
-                            filterOverlay(context, () {});
+                            filterOverlay(context);
                           },
                           hight: 48,
                           width: 48,
@@ -156,8 +156,10 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                     crossAxisSpacing: 16,
                     mainAxisSpacing: 16,
                   ),
-                  itemBuilder: (context, index) =>
-                      HomeListItem(product: state.products[index]),
+                  itemBuilder: (context, index) => HomeListItem(
+                    key: Key(state.products[index].id.toString()),
+                    product: state.products[index],
+                  ),
                 ),
               );
             } else if (state is HomeProductsDataLoading) {
