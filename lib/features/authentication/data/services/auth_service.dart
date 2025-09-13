@@ -60,4 +60,15 @@ class AuthService {
   Future<void> resetPassword(String email) async {
     return await _supabaseClient.auth.resetPasswordForEmail(email);
   }
+
+  Future<AuthSessionUrlResponse> verifyEmail(String token) async {
+    return await _supabaseClient.auth.exchangeCodeForSession(token);
+  }
+
+  Future<UserResponse> updatePassword(String newPassword) async {
+    return await _supabaseClient.auth.updateUser(
+      UserAttributes(password: newPassword),
+    );
+
+  }
 }

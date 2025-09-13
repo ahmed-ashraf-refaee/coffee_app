@@ -37,6 +37,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "confirm_password": MessageLookupByLibrary.simpleMessage(
       "Confirm Password",
     ),
+    "conflictError": MessageLookupByLibrary.simpleMessage(
+      "There is a conflict with the current data.",
+    ),
     "connectionTimeout": MessageLookupByLibrary.simpleMessage(
       "Connection timeout with server.",
     ),
@@ -91,7 +94,13 @@ class MessageLookup extends MessageLookupByLibrary {
       "Invalid email or password.",
     ),
     "invalidEmail": MessageLookupByLibrary.simpleMessage("Invalid email"),
+    "invalidInputSyntax": MessageLookupByLibrary.simpleMessage(
+      "Invalid input format.",
+    ),
     "last_name": MessageLookupByLibrary.simpleMessage("Last Name"),
+    "linkExpired": MessageLookupByLibrary.simpleMessage(
+      "This reset link has expired. Please request a new one.",
+    ),
     "log_in": MessageLookupByLibrary.simpleMessage("Log In"),
     "minPassword": MessageLookupByLibrary.simpleMessage(
       "At least 8 characters",
@@ -138,6 +147,15 @@ class MessageLookup extends MessageLookupByLibrary {
     "requestCanceled": MessageLookupByLibrary.simpleMessage(
       "Request was canceled.",
     ),
+    "resetPasswordEmailSent": MessageLookupByLibrary.simpleMessage(
+      "We\'ve sent a password reset link to your email.",
+    ),
+    "resetPasswordError": MessageLookupByLibrary.simpleMessage(
+      "Something went wrong. Please try again.",
+    ),
+    "resetPasswordSuccess": MessageLookupByLibrary.simpleMessage(
+      "Your password has been reset successfully.",
+    ),
     "search": MessageLookupByLibrary.simpleMessage("Find your favorite coffee"),
     "sendTimeout": MessageLookupByLibrary.simpleMessage(
       "Send timeout with server.",
@@ -163,6 +181,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "username": MessageLookupByLibrary.simpleMessage("Username"),
     "usernameTaken": MessageLookupByLibrary.simpleMessage(
       "That username isn\'t available. Choose a different one.",
+    ),
+    "valueTooLong": MessageLookupByLibrary.simpleMessage(
+      "The provided value is too long.",
     ),
     "weakOrWrongPassword": MessageLookupByLibrary.simpleMessage(
       "Your password is too weak or incorrect.",

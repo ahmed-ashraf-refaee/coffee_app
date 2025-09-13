@@ -73,5 +73,12 @@
   "syntaxError": "There is a problem with the database query.",
   "databaseError": "A database error occurred. Please try again.",
   "usernameTaken": "That username isn't available. Choose a different one.",
-  "registrationSuccess": "Your account has been created successfully."
+  "registrationSuccess": "Your account has been created successfully.",
+    "resetPasswordEmailSent": "We've sent a password reset link to your email.",
+  "resetPasswordSuccess": "Your password has been reset successfully.",
+  "resetPasswordError": "Something went wrong. Please try again.",
+  "linkExpired": "This reset link has expired. Please request a new one.",
+  "valueTooLong": "The provided value is too long.",
+  "invalidInputSyntax": "Invalid input format.",
+  "conflictError": "There is a conflict with the current data."
 }

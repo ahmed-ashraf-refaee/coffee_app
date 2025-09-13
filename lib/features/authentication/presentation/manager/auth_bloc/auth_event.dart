@@ -42,3 +42,13 @@ class ResetPasswordEvent extends AuthEvent {
 
   ResetPasswordEvent({required this.email});
 }
+
+class UpdatePasswordEvent extends AuthEvent {
+  final String password;
+  UpdatePasswordEvent({required this.password});
+}
+
+class VerifyEmailEvent extends AuthEvent {
+  final String token;
+  VerifyEmailEvent({required this.token});
+}

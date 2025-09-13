@@ -18,4 +18,8 @@ abstract class AuthRepo {
   Future<Either<Failure, void>> logoutUser();
   Future<Either<Failure, bool>> checkUsername({required String username});
   Future<Either<Failure, void>> resetPassword({required String email});
+  Future<Either<Failure, AuthSessionUrlResponse>> verifyEmail({
+    required String token,
+  });
+  Future<Either<Failure, UserResponse>> setPassword({required String password});
 }

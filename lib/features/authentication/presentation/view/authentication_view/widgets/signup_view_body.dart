@@ -1,14 +1,15 @@
 import 'package:coffee_app/core/helper/ui_helpers.dart';
 import 'package:coffee_app/features/authentication/presentation/manager/auth_bloc/auth_bloc.dart';
-import 'package:coffee_app/features/authentication/presentation/view/widgets/signup_form.dart';
+import 'package:coffee_app/features/authentication/presentation/view/authentication_view/widgets/Signup_form.dart';
+
 import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../core/utils/text_styles.dart';
-import '../../../../../core/widgets/custom_elevated_button.dart';
+import '../../../../../../core/utils/text_styles.dart';
+import '../../../../../../core/widgets/custom_elevated_button.dart';
 import 'auth_suggestion.dart';
-import 'auth_title.dart';
+import '../../widgets/auth_title.dart';
 
 class SignupViewBody extends StatefulWidget {
   const SignupViewBody({super.key, required this.toggleAuthMode});

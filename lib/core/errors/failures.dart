@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
 import '../../generated/l10n.dart';
 
 class Failure {
@@ -44,10 +43,12 @@ class Failure {
     }
     if (statusCode == 400 || statusCode == 401 || statusCode == 403) {
       return Failure(
-        error: response["error"]["message"] ?? S.current.unauthorizedRequest,
+        error: response?["error"]["message"] ?? S.current.unauthorizedRequest,
       );
     } else if (statusCode == 404) {
       return Failure(error: S.current.notFound);
+    } else if (statusCode == 409) {
+      return Failure(error: S.current.conflictError);
     } else if (statusCode == 500) {
       return Failure(error: S.current.internalServerError);
     } else {
@@ -64,6 +65,9 @@ class Failure {
       return Failure(error: S.current.emailNotConfirmed);
     } else if (message.contains("user already registered")) {
       return Failure(error: S.current.emailAlreadyRegistered);
+    } else if (message.contains("expired action link") ||
+        message.contains("token has expired")) {
+      return Failure(error: S.current.linkExpired);
     } else if (message.contains("password")) {
       return Failure(error: S.current.weakOrWrongPassword);
     } else {
@@ -83,6 +87,10 @@ class Failure {
       return Failure(error: S.current.nullValueError);
     } else if (code == "42601" || message.contains("syntax")) {
       return Failure(error: S.current.syntaxError);
+    } else if (code == "22001" || message.contains("value too long")) {
+      return Failure(error: S.current.valueTooLong);
+    } else if (code == "22P02" || message.contains("invalid input syntax")) {
+      return Failure(error: S.current.invalidInputSyntax);
     } else {
       return Failure(error: S.current.databaseError);
     }

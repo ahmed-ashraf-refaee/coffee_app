@@ -1,10 +1,11 @@
 // ignore_for_file: file_names
-
+import 'package:coffee_app/core/constants/reg_constants.dart';
 import 'package:coffee_app/core/widgets/animated_icon_switch.dart';
-import 'package:coffee_app/features/authentication/presentation/view/widgets/build_suffix_icon_with_divider.dart';
 import 'package:coffee_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+
+import 'build_suffix_icon_with_divider.dart';
 
 class LoginForm extends StatelessWidget {
   final GlobalKey<FormState> formKey;
@@ -16,7 +17,6 @@ class LoginForm extends StatelessWidget {
     required this.emailController,
     required this.passwordController,
   });
-  final RegExp _emailRegExp = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
 
   final ValueNotifier<bool> _isPasswordVisible = ValueNotifier(false);
 
@@ -38,7 +38,7 @@ class LoginForm extends StatelessWidget {
             validator: (value) {
               if (value == null || value.trim().isEmpty) {
                 return S.current.enterEmail;
-              } else if (!_emailRegExp.hasMatch(value.trim())) {
+              } else if (!RegConstants.emailRegExp.hasMatch(value.trim())) {
                 return S.current.invalidEmail;
               }
               return null;

@@ -37,6 +37,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "confirm_password": MessageLookupByLibrary.simpleMessage(
       "تأكيد كلمة المرور",
     ),
+    "conflictError": MessageLookupByLibrary.simpleMessage(
+      "يوجد تعارض مع البيانات الحالية.",
+    ),
     "connectionTimeout": MessageLookupByLibrary.simpleMessage(
       "انتهت مهلة الاتصال بالخادم.",
     ),
@@ -91,7 +94,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "invalidEmail": MessageLookupByLibrary.simpleMessage(
       "بريد إلكتروني غير صالح",
     ),
+    "invalidInputSyntax": MessageLookupByLibrary.simpleMessage(
+      "تنسيق الإدخال غير صالح.",
+    ),
     "last_name": MessageLookupByLibrary.simpleMessage("اسم العائلة"),
+    "linkExpired": MessageLookupByLibrary.simpleMessage(
+      "انتهت صلاحية رابط إعادة التعيين. يرجى طلب رابط جديد.",
+    ),
     "log_in": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
     "minPassword": MessageLookupByLibrary.simpleMessage("على الأقل ٨ أحرف"),
     "nameTooLong": MessageLookupByLibrary.simpleMessage("الاسم طويل جدًا"),
@@ -130,6 +139,15 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "remember_me": MessageLookupByLibrary.simpleMessage("تذكرني"),
     "requestCanceled": MessageLookupByLibrary.simpleMessage("تم إلغاء الطلب."),
+    "resetPasswordEmailSent": MessageLookupByLibrary.simpleMessage(
+      "لقد أرسلنا رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني.",
+    ),
+    "resetPasswordError": MessageLookupByLibrary.simpleMessage(
+      "حدث خطأ ما. حاول مرة أخرى.",
+    ),
+    "resetPasswordSuccess": MessageLookupByLibrary.simpleMessage(
+      "تمت إعادة تعيين كلمة المرور بنجاح.",
+    ),
     "search": MessageLookupByLibrary.simpleMessage("ابحث عن قهوتك المفضلة"),
     "sendTimeout": MessageLookupByLibrary.simpleMessage(
       "انتهت مهلة الإرسال للخادم.",
@@ -155,6 +173,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "username": MessageLookupByLibrary.simpleMessage("اسم المستخدم"),
     "usernameTaken": MessageLookupByLibrary.simpleMessage(
       "هذا الاسم غير متوفر، من فضلك اختر اسمًا آخر.",
+    ),
+    "valueTooLong": MessageLookupByLibrary.simpleMessage(
+      "القيمة المدخلة طويلة جدًا.",
     ),
     "weakOrWrongPassword": MessageLookupByLibrary.simpleMessage(
       "كلمة المرور ضعيفة جدًا أو غير صحيحة.",

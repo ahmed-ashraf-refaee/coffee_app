@@ -13,11 +13,9 @@ class AuthTitle extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(title, style: TextStyles.bold32),
-
         Text(
           subtitle,
           style: TextStyles.bold14.copyWith(
-            height: 0.6,
             color: context.colors.onSecondary.withAlpha(153),
           ),
         ),

@@ -1,13 +1,13 @@
 // ignore_for_file: file_names
-
-import 'package:coffee_app/features/authentication/presentation/view/widgets/build_suffix_icon_with_divider.dart';
+import 'package:coffee_app/core/constants/reg_constants.dart';
+import 'package:coffee_app/core/widgets/animated_icon_switch.dart';
+import 'package:coffee_app/features/authentication/presentation/manager/auth_bloc/auth_bloc.dart';
+import 'package:coffee_app/features/authentication/presentation/view/authentication_view/widgets/build_suffix_icon_with_divider.dart';
 import 'package:coffee_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
 
-import '../../../../../core/widgets/animated_icon_switch.dart';
-import '../../manager/auth_bloc/auth_bloc.dart';
 
 class SignupForm extends StatelessWidget {
   final GlobalKey<FormState> formKey;
@@ -28,14 +28,7 @@ class SignupForm extends StatelessWidget {
     required this.confirmPasswordController,
   });
   final ValueNotifier<bool> _isPasswordVisible = ValueNotifier(false);
-  static final RegExp _nameRegExp = RegExp(r"^[\p{L}'-.]+$", unicode: true);
 
-  static final RegExp _emailRegExp = RegExp(
-    r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
-  );
-  static final RegExp _passwordRegExp = RegExp(
-    r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$',
-  );
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +57,7 @@ class SignupForm extends StatelessWidget {
                       return S.current.tooShort;
                     } else if (value.trim().length > 20) {
                       return S.current.tooLong;
-                    } else if (!_nameRegExp.hasMatch(value.trim())) {
+                    } else if (!RegConstants.nameRegExp.hasMatch(value.trim())) {
                       return S.current.invalidCharacters;
                     }
                     return null;
@@ -86,7 +79,7 @@ class SignupForm extends StatelessWidget {
                       return S.current.tooShort;
                     } else if (value.trim().length > 20) {
                       return S.current.tooLong;
-                    } else if (!_nameRegExp.hasMatch(value.trim())) {
+                    } else if (!RegConstants.emailRegExp.hasMatch(value.trim())) {
                       return S.current.invalidCharacters;
                     }
                     return null;
@@ -150,7 +143,7 @@ class SignupForm extends StatelessWidget {
             validator: (value) {
               if (value == null || value.trim().isEmpty) {
                 return S.current.enterEmail;
-              } else if (!_emailRegExp.hasMatch(value.trim())) {
+              } else if (!RegConstants.emailRegExp.hasMatch(value.trim())) {
                 return S.current.invalidEmail;
               }
               return null;
@@ -187,7 +180,7 @@ class SignupForm extends StatelessWidget {
                   if (value.length < 8) {
                     return S.current.minPassword;
                   }
-                  if (!_passwordRegExp.hasMatch(value)) {
+                  if (!RegConstants.passwordRegExp.hasMatch(value)) {
                     return S.current.passwordRequirement;
                   }
                   return null;

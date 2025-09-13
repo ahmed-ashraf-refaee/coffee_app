@@ -68,4 +68,27 @@ class AuthRepoImpl extends AuthRepo {
       return response;
     });
   }
+
+  @override
+  Future<Either<Failure, UserResponse>> setPassword({
+    required String password,
+  }) {
+    return guard(() async {
+      final UserResponse userResponse = await _authService.updatePassword(
+        password,
+      );
+      return userResponse;
+    });
+  }
+
+  @override
+  Future<Either<Failure, AuthSessionUrlResponse>> verifyEmail({
+    required String token,
+  }) {
+    return guard(() async {
+      final AuthSessionUrlResponse authSessionUrlResponse = await _authService
+          .verifyEmail(token);
+      return authSessionUrlResponse;
+    });
+  }
 }

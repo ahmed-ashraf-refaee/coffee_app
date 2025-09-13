@@ -59,5 +59,23 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         (response) => emit(AuthSuccess()),
       );
     });
+
+    on<VerifyEmailEvent>((event, emit) async {
+      emit(AuthLoading());
+      var result = await _authRepoImpl.verifyEmail(token: event.token);
+      result.fold(
+        (failure) => emit(AuthFailure(error: failure.error)),
+        (response) => emit(AuthSuccess()),
+      );
+    });
+
+    on<UpdatePasswordEvent>((event, emit) async {
+      emit(AuthLoading());
+      var result = await _authRepoImpl.setPassword(password: event.password);
+      result.fold(
+        (failure) => emit(AuthFailure(error: failure.error)),
+        (response) => emit(AuthSuccess()),
+      );
+    });
   }
 }

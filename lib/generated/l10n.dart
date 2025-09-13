@@ -694,6 +694,76 @@ class S {
       args: [],
     );
   }
+
+  /// `We've sent a password reset link to your email.`
+  String get resetPasswordEmailSent {
+    return Intl.message(
+      'We\'ve sent a password reset link to your email.',
+      name: 'resetPasswordEmailSent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your password has been reset successfully.`
+  String get resetPasswordSuccess {
+    return Intl.message(
+      'Your password has been reset successfully.',
+      name: 'resetPasswordSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Something went wrong. Please try again.`
+  String get resetPasswordError {
+    return Intl.message(
+      'Something went wrong. Please try again.',
+      name: 'resetPasswordError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This reset link has expired. Please request a new one.`
+  String get linkExpired {
+    return Intl.message(
+      'This reset link has expired. Please request a new one.',
+      name: 'linkExpired',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The provided value is too long.`
+  String get valueTooLong {
+    return Intl.message(
+      'The provided value is too long.',
+      name: 'valueTooLong',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid input format.`
+  String get invalidInputSyntax {
+    return Intl.message(
+      'Invalid input format.',
+      name: 'invalidInputSyntax',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `There is a conflict with the current data.`
+  String get conflictError {
+    return Intl.message(
+      'There is a conflict with the current data.',
+      name: 'conflictError',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
