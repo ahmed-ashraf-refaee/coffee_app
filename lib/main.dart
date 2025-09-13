@@ -1,8 +1,7 @@
 import 'package:coffee_app/core/utils/app_router.dart';
 import 'package:coffee_app/core/utils/dark_theme.dart';
 import 'package:coffee_app/core/utils/light_theme.dart';
-import 'package:coffee_app/features/cart/data/repo/cart_repo_impl.dart';
-import 'package:coffee_app/features/cart/data/service/cart_service.dart';
+
 import 'package:coffee_app/features/cart/presentation/manager/cart_cubit/cart_cubit.dart';
 import 'package:coffee_app/features/profile/presentation/manager/toggle_to_dark_mode/toggle_to_dark_mode_cubit.dart';
 import 'package:flutter/material.dart';

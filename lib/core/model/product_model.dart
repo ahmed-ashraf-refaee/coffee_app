@@ -9,9 +9,11 @@ class ProductModel {
   final double rating;
   final int categoryId;
   final String imageUrl;
+  final DateTime createdAt;
   final List<ProductVariantsModel> productVariants;
   final CategoriesModel? category;
   ProductModel({
+    required this.createdAt,
     required this.id,
     required this.name,
     required this.description,
@@ -36,6 +38,7 @@ class ProductModel {
       rating: (json['rating'] as num).toDouble(),
       categoryId: json['category_id'],
       imageUrl: json['image_url'],
+      createdAt: DateTime.parse(json['created_at'] ?? DateTime.now()),
       productVariants: productVariantsList,
       category: json['categories'] != null
           ? CategoriesModel.fromJson(json['categories'])

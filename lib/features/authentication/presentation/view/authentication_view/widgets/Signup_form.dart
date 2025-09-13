@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
 
-
 class SignupForm extends StatelessWidget {
   final GlobalKey<FormState> formKey;
   final TextEditingController firstNameController;
@@ -28,7 +27,6 @@ class SignupForm extends StatelessWidget {
     required this.confirmPasswordController,
   });
   final ValueNotifier<bool> _isPasswordVisible = ValueNotifier(false);
-
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +55,9 @@ class SignupForm extends StatelessWidget {
                       return S.current.tooShort;
                     } else if (value.trim().length > 20) {
                       return S.current.tooLong;
-                    } else if (!RegConstants.nameRegExp.hasMatch(value.trim())) {
+                    } else if (!RegConstants.nameRegExp.hasMatch(
+                      value.trim(),
+                    )) {
                       return S.current.invalidCharacters;
                     }
                     return null;
@@ -79,7 +79,9 @@ class SignupForm extends StatelessWidget {
                       return S.current.tooShort;
                     } else if (value.trim().length > 20) {
                       return S.current.tooLong;
-                    } else if (!RegConstants.emailRegExp.hasMatch(value.trim())) {
+                    } else if (!RegConstants.nameRegExp.hasMatch(
+                      value.trim(),
+                    )) {
                       return S.current.invalidCharacters;
                     }
                     return null;
