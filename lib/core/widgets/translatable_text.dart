@@ -32,8 +32,7 @@ class _TranslatableTextState extends State<TranslatableText> {
   }
 
   Future<void> _translate() async {
-    final locale = Localizations.localeOf(context);
-    final translated = await _service.translateText(widget.text, locale);
+    final translated = await _service.translateText(widget.text);
     if (mounted) {
       setState(() => _translated = translated);
     }

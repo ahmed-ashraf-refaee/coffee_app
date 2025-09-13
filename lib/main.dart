@@ -11,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import 'core/services/app_locale.dart';
 import 'features/wishlist/presentation/manager/wishlist/wishlist_cubit.dart';
 import 'generated/l10n.dart';
 
@@ -54,6 +55,10 @@ class CoffeeApp extends StatelessWidget {
             darkTheme: darkTheme,
             themeMode: themeMode,
             routerConfig: AppRouter.router,
+            builder: (context, router) {
+              AppLocale.update(Localizations.localeOf(context));
+              return router ?? const SizedBox.shrink();
+            },
           );
         },
       ),

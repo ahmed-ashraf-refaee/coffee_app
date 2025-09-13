@@ -1,6 +1,8 @@
 import 'package:coffee_app/core/constants/filter_constants.dart';
-import 'package:coffee_app/features/home/data/model/product_model.dart';
+
 import 'package:flutter/material.dart';
+
+import '../../../../../core/model/product_model.dart';
 
 abstract class FilterStrategy {
   final bool enabled;
