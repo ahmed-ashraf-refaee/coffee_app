@@ -38,8 +38,9 @@ class CartService {
 
   Future<Map<String, dynamic>> addToCart({
     required String userId,
-    required int productVariantId,
     required int productId,
+    required int productVariantId,
+
     int quantity = 1,
   }) async {
     final cart = await getOrCreateCart(userId: userId);
@@ -53,9 +54,8 @@ class CartService {
 
     if (existing != null) {
       final newQty = (existing['quantity'] as int) + quantity;
-      return await updateQuantity(
-        userId: userId,
-        productVariantId: productVariantId,
+      return await updateQuantityById(
+        cartItemId: existing['id'] as int,
         newQuantity: newQty,
       );
     } else {
@@ -89,21 +89,24 @@ class CartService {
         .eq('product_variant_id', productVariantId)
         .select(''' *, product_variants(*, products(*)) ''')
         .single();
-
     return updated;
   }
 
-  Future<void> removeItemByVariant({
-    required String userId,
-    required int productVariantId,
+  Future<Map<String, dynamic>> updateQuantityById({
+    required int cartItemId,
+    required int newQuantity,
   }) async {
-    final cart = await getOrCreateCart(userId: userId);
-
-    await _supabaseClient
+    final updated = await _supabaseClient
         .from('cart_item')
-        .delete()
-        .eq('cart_id', cart['id'])
-        .eq('product_variant_id', productVariantId);
+        .update({'quantity': newQuantity})
+        .eq('id', cartItemId)
+        .select(''' *, product_variants(*, products(*)) ''')
+        .single();
+    return updated;
+  }
+
+  Future<void> removeItemById({required int cartItemId}) async {
+    await _supabaseClient.from('cart_item').delete().eq('id', cartItemId);
   }
 
   Future<void> clearCart({required String userId}) async {

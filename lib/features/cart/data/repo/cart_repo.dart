@@ -12,9 +12,9 @@ abstract class CartRepo {
   });
 
   Future<Either<Failure, void>> updateItemQuantity({
-    required int productVariantId,
+    required int cartItemId,
     required int newQuantity,
   });
-  Future<Either<Failure, void>> removeItem({required int productVariantId});
+  Future<Either<Failure, void>> removeItem({required int cartItemId});
   Future<Either<Failure, void>> removeAll();
 }
