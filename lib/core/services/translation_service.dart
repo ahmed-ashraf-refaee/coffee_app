@@ -1,12 +1,13 @@
-import 'package:flutter/material.dart';
+import 'package:coffee_app/core/services/app_locale.dart';
+
 import 'package:translator/translator.dart';
 
 class TranslationService {
   final _translator = GoogleTranslator();
 
-  Future<String> translateText(String text, Locale locale) async {
+  Future<String> translateText(String text) async {
     try {
-      final targetLang = locale.languageCode;
+      final targetLang = AppLocale.current.languageCode;
       final translation = await _translator.translate(text, to: targetLang);
       return translation.text;
     } catch (e) {

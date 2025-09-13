@@ -2,7 +2,9 @@ import 'package:coffee_app/features/home/data/service/filters/filter_products.da
 import 'package:coffee_app/features/home/data/service/filters/filter_strategy.dart';
 import 'package:coffee_app/features/home/presentation/manager/home_filter_cubit/home_filter_cubit.dart';
 
-import '../../model/product_model.dart';
+import '../../../../../core/model/product_model.dart';
+
+
 
 class FilterService {
   final HomeFilterCubit filterCubit;

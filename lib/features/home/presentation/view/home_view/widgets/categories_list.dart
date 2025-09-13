@@ -2,7 +2,6 @@ import 'package:coffee_app/core/helper/ui_helpers.dart';
 import 'package:coffee_app/core/model/categories_model.dart';
 import 'package:coffee_app/features/home/presentation/manager/home_category_cubit/home_category_cubit.dart';
 import 'package:coffee_app/features/home/presentation/manager/home_filter_cubit/home_filter_cubit.dart';
-import 'package:coffee_app/features/home/presentation/manager/home_products_cubit/home_product_cubit.dart';
 import 'package:coffee_app/features/home/presentation/view/home_view/widgets/categories_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -53,18 +52,13 @@ class _CategoriesListState extends State<CategoriesList> {
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.only(right: 8.0),
-                  child: ValueListenableBuilder(
-                    valueListenable: selectedIndex,
-                    builder: (context, value, child) {
-                      return CategoriesListItem(
-                        category: state.category[index],
-                        selected: selectedIndex.value == index,
-                        onSelected: () {
-                          selectedIndex.value = index;
-                          context.read<HomeFilterCubit>().setCategory(
-                            state.category[index].name,
-                          );
-                        },
+                  child: CategoriesListItem(
+                    category: state.category[index],
+                    selected: categoryCubit.selectedCategoryIndex == index,
+                    onSelected: () {
+                      categoryCubit.updateSelectedIndex(index);
+                      context.read<HomeFilterCubit>().setCategory(
+                        state.category[index].name,
                       );
                     },
                   ),
