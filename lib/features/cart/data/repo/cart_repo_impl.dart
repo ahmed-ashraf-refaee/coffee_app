@@ -42,48 +42,43 @@ class CartRepoImpl extends CartRepo {
       );
 
       final item = CartItemModel.fromJson(json);
-      _cartCache[item.productVariantId] = item;
+      _cartCache[item.id] = item;
     });
   }
 
   @override
   Future<Either<Failure, void>> removeAll() {
     return guard(() async {
-      await _cartService.clearCart(userId: userId);
       _cartCache.clear();
+      await _cartService.clearCart(userId: userId);
     });
   }
 
   @override
-  Future<Either<Failure, void>> removeItem({required int productVariantId}) {
+  Future<Either<Failure, void>> removeItem({required int cartItemId}) {
     return guard(() async {
-      await _cartService.removeItemByVariant(
-        userId: userId,
-        productVariantId: productVariantId,
-      );
-
-      _cartCache.remove(productVariantId);
+      _cartCache.remove(cartItemId);
+      await _cartService.removeItemById(cartItemId: cartItemId);
     });
   }
 
   @override
   Future<Either<Failure, void>> updateItemQuantity({
-    required int productVariantId,
+    required int cartItemId,
     required int newQuantity,
   }) {
     return guard(() async {
-      final json = await _cartService.updateQuantity(
-        userId: userId,
-        productVariantId: productVariantId,
+      final json = await _cartService.updateQuantityById(
+        cartItemId: cartItemId,
         newQuantity: newQuantity,
       );
 
       final item = CartItemModel.fromJson(json);
-      _cartCache[item.productVariantId] = item;
+      _cartCache[item.id] = item;
     });
   }
 
   void _updateCache(List<CartItemModel> items) {
-    _cartCache = {for (var item in items) item.productVariantId: item};
+    _cartCache = {for (var item in items) item.id: item};
   }
 }

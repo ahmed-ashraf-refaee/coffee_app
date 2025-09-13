@@ -82,7 +82,10 @@ class CartViewBody extends StatelessWidget {
                         final product = state.cartItems[index];
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 16),
-                          child: CartListItem(cartItem: product),
+                          child: CartListItem(
+                            cartItem: product,
+                            key: Key(product.id.toString()),
+                          ),
                         );
                       },
                     );

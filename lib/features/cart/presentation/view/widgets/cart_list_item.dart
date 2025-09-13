@@ -35,7 +35,7 @@ class CartListItem extends StatelessWidget {
                 onPressed: () {
                   BlocProvider.of<CartCubit>(
                     context,
-                  ).removeItem(productVariantId: cartItem.productVariantId);
+                  ).removeItem(cartItemId: cartItem.id);
                   Slidable.of(context)?.close();
                 },
                 child: Icon(
@@ -120,7 +120,7 @@ class CartListItem extends StatelessWidget {
                               minValue: 1,
                               onChanged: (v) {
                                 context.read<CartCubit>().updateQuantity(
-                                  productVariantId: cartItem.productVariantId,
+                                  cartItemId: cartItem.id,
                                   newQuantity: v,
                                 );
                               },
