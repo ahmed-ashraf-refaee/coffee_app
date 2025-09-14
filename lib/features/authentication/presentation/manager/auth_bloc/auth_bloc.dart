@@ -44,30 +44,44 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       );
     });
     on<ResetPasswordEvent>((event, emit) async {
-      emit(AuthLoading());
+      emit(AuthforgotPasswordLoading());
+
       var result = await _authRepoImpl.resetPassword(email: event.email);
-      result.fold(
-        (failure) => emit(AuthFailure(error: failure.error)),
-        (response) => emit(AuthSuccess()),
-      );
+      result.fold((failure) => emit(AuthFailure(error: failure.error)), (_) {
+        emit(AuthCheckMailSuccess());
+      });
     });
 
     on<VerifyEmailEvent>((event, emit) async {
-      emit(AuthLoading());
-      var result = await _authRepoImpl.verifyEmail(token: event.token);
-      result.fold(
-        (failure) => emit(AuthFailure(error: failure.error)),
-        (response) => emit(AuthSuccess()),
+      emit(AuthforgotPasswordLoading());
+
+      var result = await _authRepoImpl.verifyEmail(
+        token: event.token,
+        email: event.email,
       );
+      result.fold((failure) => emit(AuthFailure(error: failure.error)), (__) {
+        emit(AuthVerifySuccess());
+      });
     });
 
     on<UpdatePasswordEvent>((event, emit) async {
-      emit(AuthLoading());
+      emit(AuthforgotPasswordLoading());
       var result = await _authRepoImpl.setPassword(password: event.password);
       result.fold(
         (failure) => emit(AuthFailure(error: failure.error)),
-        (response) => emit(AuthSuccess()),
+        (response) => emit(AuthforgotPasswordSuccess()),
       );
     });
+  }
+  @override
+  void onChange(Change<AuthState> change) {
+    print(change);
+    super.onChange(change);
+  }
+
+  @override
+  void onTransition(Transition<AuthEvent, AuthState> transition) {
+    print(transition);
+    super.onTransition(transition);
   }
 }

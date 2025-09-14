@@ -74,11 +74,15 @@ class AuthRepoImpl extends AuthRepo {
   }
 
   @override
-  Future<Either<Failure, AuthResponse>> verifyEmail({required String token}) {
+  Future<Either<Failure, AuthResponse>> verifyEmail({
+    required String token,
+    required String email,
+  }) {
     return guard(() async {
-      final AuthResponse authSessionUrlResponse = AuthResponse();
-      //  = await _authService
-      //     .verifyEmail(token);
+      final AuthResponse authSessionUrlResponse = await _authService.verify(
+        token,
+        email,
+      );
       return authSessionUrlResponse;
     });
   }

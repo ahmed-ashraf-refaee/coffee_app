@@ -17,6 +17,9 @@ abstract class AuthRepo {
   });
   Future<Either<Failure, bool>> checkUsername({required String username});
   Future<Either<Failure, void>> resetPassword({required String email});
-  Future<Either<Failure, AuthResponse>> verifyEmail({required String token});
+  Future<Either<Failure, AuthResponse>> verifyEmail({
+    required String token,
+    required String email,
+  });
   Future<Either<Failure, UserResponse>> setPassword({required String password});
 }

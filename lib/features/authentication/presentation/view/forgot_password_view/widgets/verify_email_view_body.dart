@@ -11,13 +11,19 @@ import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:pinput/pinput.dart';
 
 class VerifyEmailViewBody extends StatefulWidget {
-  const VerifyEmailViewBody({super.key, required this.onStateChange});
+  const VerifyEmailViewBody({
+    super.key,
+    required this.onStateChange,
+    required this.email,
+  });
 
   final void Function(ForgotPasswordState state) onStateChange;
+  final String email;
   @override
   State<VerifyEmailViewBody> createState() => _VerifyEmailViewBodyState();
 }
@@ -67,6 +73,7 @@ class _VerifyEmailViewBodyState extends State<VerifyEmailViewBody> {
                 color: context.colors.secondary,
               ),
             ),
+
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter the code';
@@ -80,29 +87,43 @@ class _VerifyEmailViewBodyState extends State<VerifyEmailViewBody> {
           ),
         ),
 
-        BlocListener<AuthBloc, AuthState>(
+        BlocConsumer<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is AuthFailure) {
               UiHelpers.showSnackBar(context: context, message: state.error);
-            } else {
-              widget.onStateChange(ForgotPasswordState.resetPassword);
+            } else if (state is AuthVerifySuccess) {
+              UiHelpers.showSnackBar(
+                context: context,
+                message: "Your Token Is Matched",
+              );
             }
+            widget.onStateChange(ForgotPasswordState.resetPassword);
           },
-          child: CustomElevatedButton(
-            child: Text(
-              S.current.log_in,
-              style: TextStyles.medium20.copyWith(
-                color: context.colors.onPrimary,
-              ),
-            ),
-            onPressed: () {
-              if (_formKey.currentState!.validate()) {
-                BlocProvider.of<AuthBloc>(
-                  context,
-                ).add(VerifyEmailEvent(token: tokenController.text));
-              }
-            },
-          ),
+          builder: (context, state) {
+            return CustomElevatedButton(
+              child: state is AuthforgotPasswordLoading
+                  ? SpinKitThreeBounce(
+                      color: context.colors.onPrimary,
+                      size: 26,
+                    )
+                  : Text(
+                      S.current.log_in,
+                      style: TextStyles.medium20.copyWith(
+                        color: context.colors.onPrimary,
+                      ),
+                    ),
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  BlocProvider.of<AuthBloc>(context).add(
+                    VerifyEmailEvent(
+                      token: tokenController.text,
+                      email: widget.email,
+                    ),
+                  );
+                }
+              },
+            );
+          },
         ),
       ],
     );

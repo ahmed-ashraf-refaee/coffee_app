@@ -3,14 +3,18 @@ import 'package:coffee_app/core/utils/app_router.dart';
 import 'package:coffee_app/core/utils/text_styles.dart';
 import 'package:coffee_app/core/widgets/animated_icon_switch.dart';
 import 'package:coffee_app/core/widgets/custom_elevated_button.dart';
+import 'package:coffee_app/features/authentication/presentation/manager/auth_bloc/auth_bloc.dart';
 import 'package:coffee_app/features/authentication/presentation/view/authentication_view/widgets/build_suffix_icon_with_divider.dart';
 import 'package:coffee_app/features/authentication/presentation/view/forgot_password_view/forgot_password_view.dart';
 import 'package:coffee_app/features/authentication/presentation/view/widgets/auth_title.dart';
 import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
+
+import '../../../../../../core/helper/ui_helpers.dart';
 
 class ChangePasswordViewBody extends StatefulWidget {
   const ChangePasswordViewBody({super.key, required this.onStateChange});
@@ -30,7 +34,6 @@ class _ChangePasswordViewBodyState extends State<ChangePasswordViewBody> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     passwordController.dispose();
     confirmPasswordController.dispose();
     super.dispose();
@@ -109,17 +112,36 @@ class _ChangePasswordViewBodyState extends State<ChangePasswordViewBody> {
           ),
 
           const SizedBox(height: 48),
-          CustomElevatedButton(
-            child: Text(
-              S.current.log_in,
-              style: TextStyles.medium20.copyWith(
-                color: context.colors.onPrimary,
-              ),
-            ),
-            onPressed: () {
-              if (_formKey.currentState!.validate()) {
-                GoRouter.of(context).pushReplacement(AppRouter.kAuthView);
+          BlocConsumer<AuthBloc, AuthState>(
+            listener: (context, state) {
+              if (state is AuthFailure) {
+                UiHelpers.showSnackBar(context: context, message: state.error);
+              } else if (state is AuthforgotPasswordSuccess) {
+                UiHelpers.showSnackBar(
+                  context: context,
+                  message: "Your password has been updated",
+                );
+                GoRouter.of(context).pop();
               }
+            },
+            builder: (context, state) {
+              return CustomElevatedButton(
+                child: Text(
+                  S.current.log_in,
+                  style: TextStyles.medium20.copyWith(
+                    color: context.colors.onPrimary,
+                  ),
+                ),
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    BlocProvider.of<AuthBloc>(context).add(
+                      UpdatePasswordEvent(
+                        password: passwordController.text.trim(),
+                      ),
+                    );
+                  }
+                },
+              );
             },
           ),
         ],

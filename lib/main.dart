@@ -1,7 +1,6 @@
 import 'package:coffee_app/core/utils/app_router.dart';
 import 'package:coffee_app/core/utils/dark_theme.dart';
 import 'package:coffee_app/core/utils/light_theme.dart';
-import 'package:coffee_app/features/authentication/data/services/auth_service.dart';
 
 import 'package:coffee_app/features/cart/presentation/manager/cart_cubit/cart_cubit.dart';
 import 'package:coffee_app/features/profile/presentation/manager/toggle_to_dark_mode/toggle_to_dark_mode_cubit.dart';
@@ -12,6 +11,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'core/services/app_locale.dart';
+import 'features/authentication/presentation/manager/auth_bloc/auth_bloc.dart';
 import 'features/wishlist/presentation/manager/wishlist/wishlist_cubit.dart';
 import 'generated/l10n.dart';
 
@@ -38,6 +38,7 @@ class CoffeeApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => ThemeCubit()),
+        BlocProvider(create: (context) => AuthBloc()),
         BlocProvider(create: (context) => WishlistCubit()..getWishlist()),
         BlocProvider(create: (context) => CartCubit()..loadCart()),
       ],

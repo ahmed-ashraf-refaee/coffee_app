@@ -10,8 +10,11 @@ import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
+
+import '../../../../../../core/helper/ui_helpers.dart';
 
 class SendEmailViewBody extends StatefulWidget {
   const SendEmailViewBody({super.key, required this.onStateChange});
@@ -74,20 +77,42 @@ class _SendEmailViewBodyState extends State<SendEmailViewBody> {
             },
           ),
         ),
-        CustomElevatedButton(
-          child: Text(
-            S.current.log_in,
-            style: TextStyles.medium20.copyWith(
-              color: context.colors.onPrimary,
-            ),
-          ),
-          onPressed: () {
-            if (_formKey.currentState!.validate()) {
-              BlocProvider.of<AuthBloc>(
-                context,
-              ).add(ResetPasswordEvent(email: emailController.text));
+        BlocConsumer<AuthBloc, AuthState>(
+          listener: (context, state) {
+            if (state is AuthFailure) {
+              UiHelpers.showSnackBar(context: context, message: state.error);
+            } else if (state is AuthCheckMailSuccess) {
+              UiHelpers.showSnackBar(
+                context: context,
+                message: "Check Your Mail",
+              );
               widget.onStateChange(ForgotPasswordState.verify);
             }
+          },
+          builder: (context, state) {
+            return CustomElevatedButton(
+              child: state is AuthforgotPasswordLoading
+                  ? SpinKitThreeBounce(
+                      color: context.colors.onPrimary,
+                      size: 26,
+                    )
+                  : Text(
+                      S.current.log_in,
+                      style: TextStyles.medium20.copyWith(
+                        color: context.colors.onPrimary,
+                      ),
+                    ),
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  final email = emailController.text.trim();
+
+                  BlocProvider.of<AuthBloc>(
+                    context,
+                  ).add(ResetPasswordEvent(email: email));
+                  ForgotPasswordView.email = email;
+                }
+              },
+            );
           },
         ),
       ],

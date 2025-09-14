@@ -48,5 +48,7 @@ class UpdatePasswordEvent extends AuthEvent {
 
 class VerifyEmailEvent extends AuthEvent {
   final String token;
-  VerifyEmailEvent({required this.token});
+  final String email;
+
+  VerifyEmailEvent({required this.token, required this.email});
 }

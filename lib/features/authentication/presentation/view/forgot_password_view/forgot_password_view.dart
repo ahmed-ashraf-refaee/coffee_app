@@ -13,6 +13,7 @@ final ValueNotifier<ForgotPasswordState> stateNotifier = ValueNotifier(
 
 class ForgotPasswordView extends StatelessWidget {
   const ForgotPasswordView({super.key});
+  static String? email;
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +39,7 @@ class ForgotPasswordView extends StatelessWidget {
                       ),
                       ForgotPasswordState.verify => VerifyEmailViewBody(
                         onStateChange: onStateChange,
+                        email: ForgotPasswordView.email ?? "",
                       ),
                       ForgotPasswordState.resetPassword =>
                         ChangePasswordViewBody(onStateChange: onStateChange),
