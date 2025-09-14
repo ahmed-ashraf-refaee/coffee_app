@@ -1,5 +1,4 @@
 import 'package:coffee_app/core/constants/reg_constants.dart';
-import 'package:coffee_app/core/utils/app_router.dart';
 import 'package:coffee_app/core/utils/text_styles.dart';
 import 'package:coffee_app/core/widgets/animated_icon_switch.dart';
 import 'package:coffee_app/core/widgets/custom_elevated_button.dart';
