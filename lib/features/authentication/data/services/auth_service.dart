@@ -46,6 +46,8 @@ class AuthService {
 
   Future<void> logout() async {
     await _supabaseClient.auth.signOut();
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool("remember_me", false);
   }
 
   Future<bool> usernameTaken(String username) async {
@@ -65,10 +67,17 @@ class AuthService {
     return await _supabaseClient.auth.exchangeCodeForSession(token);
   }
 
+  Future<AuthResponse> verify(String token, String email) async {
+    return await _supabaseClient.auth.verifyOTP(
+      type: OtpType.email,
+      email: email,
+      token: token,
+    );
+  }
+
   Future<UserResponse> updatePassword(String newPassword) async {
     return await _supabaseClient.auth.updateUser(
       UserAttributes(password: newPassword),
     );
-
   }
 }

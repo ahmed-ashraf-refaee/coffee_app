@@ -1,6 +1,7 @@
 import 'package:coffee_app/core/utils/app_router.dart';
 import 'package:coffee_app/core/utils/dark_theme.dart';
 import 'package:coffee_app/core/utils/light_theme.dart';
+import 'package:coffee_app/features/authentication/data/services/auth_service.dart';
 
 import 'package:coffee_app/features/cart/presentation/manager/cart_cubit/cart_cubit.dart';
 import 'package:coffee_app/features/profile/presentation/manager/toggle_to_dark_mode/toggle_to_dark_mode_cubit.dart';
@@ -25,6 +26,8 @@ void main() async {
     const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
   );
   runApp(const CoffeeApp());
+  // await AuthService().resetPassword("sameh.hazem504@gmail.com");
+  // print(await AuthService().verify("567279", "sameh.hazem504@gmail.com"));
 }
 
 class CoffeeApp extends StatelessWidget {

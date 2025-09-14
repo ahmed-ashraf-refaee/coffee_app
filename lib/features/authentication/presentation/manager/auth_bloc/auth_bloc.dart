@@ -35,14 +35,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       );
     });
 
-    on<LogoutEvent>((event, emit) async {
-      emit(AuthLoading());
-      var result = await _authRepoImpl.logoutUser();
-      result.fold(
-        (failure) => emit(AuthFailure(error: failure.error)),
-        (response) => emit(AuthSuccess()),
-      );
-    });
     on<UsernameCheckEvent>((event, emit) async {
       emit(AuthLoading());
       var result = await _authRepoImpl.checkUsername(username: event.username);

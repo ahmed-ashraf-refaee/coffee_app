@@ -1,7 +1,10 @@
+import 'package:coffee_app/core/utils/app_router.dart';
+import 'package:coffee_app/features/profile/presentation/manager/cubit/setting_cubit.dart';
 import 'package:coffee_app/features/profile/presentation/manager/toggle_to_dark_mode/toggle_to_dark_mode_cubit.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '../../../../../core/widgets/prettier_tap.dart';
@@ -122,7 +125,10 @@ class ProfileViewBodySettings extends StatelessWidget {
               _profileTileDivider(),
               PrettierTap(
                 shrink: 1,
-                onPressed: () {},
+                onPressed: () async {
+                  await BlocProvider.of<SettingCubit>(context).logout();
+                  GoRouter.of(context).pushReplacement(AppRouter.kAuthView);
+                },
                 child: ProfileTile(
                   title: S.current.profile_logout,
                   suffixWidget: Transform.scale(

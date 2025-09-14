@@ -46,14 +46,6 @@ class AuthRepoImpl extends AuthRepo {
   }
 
   @override
-  Future<Either<Failure, void>> logoutUser() {
-    return guard(() async {
-      final authResponse = await _authService.logout();
-      return authResponse;
-    });
-  }
-
-  @override
   Future<Either<Failure, bool>> checkUsername({required String username}) {
     return guard(() async {
       final bool usernameTaken = await _authService.usernameTaken(username);
@@ -82,12 +74,11 @@ class AuthRepoImpl extends AuthRepo {
   }
 
   @override
-  Future<Either<Failure, AuthSessionUrlResponse>> verifyEmail({
-    required String token,
-  }) {
+  Future<Either<Failure, AuthResponse>> verifyEmail({required String token}) {
     return guard(() async {
-      final AuthSessionUrlResponse authSessionUrlResponse = await _authService
-          .verifyEmail(token);
+      final AuthResponse authSessionUrlResponse = AuthResponse();
+      //  = await _authService
+      //     .verifyEmail(token);
       return authSessionUrlResponse;
     });
   }

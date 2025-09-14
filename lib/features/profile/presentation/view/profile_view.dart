@@ -1,4 +1,6 @@
+import 'package:coffee_app/features/profile/presentation/manager/cubit/setting_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'widgets/profile_view_body.dart';
 
@@ -7,9 +9,12 @@ class ProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16),
-      child: ProfileViewBody(),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: BlocProvider(
+        create: (context) => SettingCubit(),
+        child: const ProfileViewBody(),
+      ),
     );
   }
 }

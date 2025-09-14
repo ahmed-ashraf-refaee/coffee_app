@@ -27,7 +27,6 @@ class _VerifyEmailViewBodyState extends State<VerifyEmailViewBody> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   void dispose() {
-    // TODO: implement dispose
     tokenController.dispose();
     super.dispose();
   }
