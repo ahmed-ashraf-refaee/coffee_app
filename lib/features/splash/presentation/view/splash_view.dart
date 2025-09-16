@@ -105,55 +105,49 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:Column(
-          children: [
-            const Spacer(),
-            SizedBox(
-              width: context.width,
-              height: 250,
-              child: Lottie.asset(
-                'assets/icons/coffee_icon.json',
-                repeat: false,
+      body: Column(
+        children: [
+          const Spacer(),
+          SizedBox(
+            width: context.width,
+            height: 250,
+            child: Lottie.asset('assets/icons/coffee_icon.json', repeat: false),
+          ),
+
+          Row(
+            spacing: 16,
+            textDirection: TextDirection.ltr,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              FadeTransition(
+                opacity: _animation,
+                child: const Text("Coffee", style: TextStyles.bold48),
               ),
-            ),
-            Localizations.override(
-              context: context,
-              locale: const Locale("en"),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  FadeTransition(
-                    opacity: _animation,
+              RotationTransition(
+                alignment: Alignment.centerLeft,
+                turns: _rotationAnimation,
 
-                    child: const Text("Coffee ", style: TextStyles.bold48),
-                  ),
-                  RotationTransition(
-                    alignment: Alignment.centerLeft,
-                    turns: _rotationAnimation,
-                    child: FadeTransition(
-                      opacity: _animation,
-
-                      child: const Text("Drop", style: TextStyles.bold48),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-
-            Padding(
-              padding: const EdgeInsets.only(top: 8.0),
-              child: FadeTransition(
-                opacity: _descriptionAnimation,
-                child: const Text(
-                  "your perfect pour at your door",
-                  style: TextStyles.bold14,
+                child: FadeTransition(
+                  opacity: _animation,
+                  child: const Text("Drop", style: TextStyles.bold48),
                 ),
               ),
+            ],
+          ),
+
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: FadeTransition(
+              opacity: _descriptionAnimation,
+              child: const Text(
+                "your perfect pour at your door",
+                style: TextStyles.bold14,
+              ),
             ),
-            const Spacer(flex: 3),
-          ],
-        ),
-      
+          ),
+          const Spacer(flex: 3),
+        ],
+      ),
     );
   }
 }
