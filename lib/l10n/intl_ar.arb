@@ -100,7 +100,7 @@
   "setPassword": "تعيين كلمة المرور",
   "setPasswordSubtitle": "إنشاء كلمة مرور جديدة لحسابك.",
   "passwordUpdatedSuccessfully": "تم تحديث كلمة المرور بنجاح.",
-  "sendEmail": "إرسال البريد الإلكتروني",
+  "sendEmail": "إرسال رمز التحقق",
   "verify": "تحقق",
   "setPasswordButton": "تعيين كلمة المرور",
   "resetPassword": "إعادة تعيين كلمة المرور",

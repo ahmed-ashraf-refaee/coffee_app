@@ -100,7 +100,7 @@
   "setPassword": "Set Password",
   "setPasswordSubtitle": "Create a new password for your account.",
   "passwordUpdatedSuccessfully": "Your password has been successfully updated.",
-  "sendEmail": "Send Email",
+  "sendEmail": "Send Verification Code",
   "verify": "Verify",
   "setPasswordButton": "Set Password",
   "resetPassword": "Reset password",

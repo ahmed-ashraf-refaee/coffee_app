@@ -182,9 +182,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "تمت إعادة تعيين كلمة المرور بنجاح.",
     ),
     "search": MessageLookupByLibrary.simpleMessage("ابحث عن قهوتك المفضلة"),
-    "sendEmail": MessageLookupByLibrary.simpleMessage(
-      "إرسال البريد الإلكتروني",
-    ),
+    "sendEmail": MessageLookupByLibrary.simpleMessage("إرسال رمز التحقق"),
     "sendTimeout": MessageLookupByLibrary.simpleMessage(
       "انتهت مهلة الإرسال للخادم.",
     ),

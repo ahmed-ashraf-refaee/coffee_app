@@ -879,9 +879,14 @@ class S {
     );
   }
 
-  /// `Send Email`
+  /// `Send Verification Code`
   String get sendEmail {
-    return Intl.message('Send Email', name: 'sendEmail', desc: '', args: []);
+    return Intl.message(
+      'Send Verification Code',
+      name: 'sendEmail',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Verify`

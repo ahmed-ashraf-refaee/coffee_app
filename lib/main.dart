@@ -28,8 +28,6 @@ void main() async {
     const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
   );
   runApp(const CoffeeApp());
-  // await AuthService().resetPassword("sameh.hazem504@gmail.com");
-  // print(await AuthService().verify("567279", "sameh.hazem504@gmail.com"));
 }
 
 class CoffeeApp extends StatelessWidget {

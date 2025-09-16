@@ -58,8 +58,13 @@ class Failure {
 
   factory Failure.fromAuthException(AuthApiException exception) {
     final message = exception.message.toLowerCase();
+    final code = exception.code;
 
-    if (message.contains("invalid login credentials")) {
+    if (code == 'otp_invalid' ||
+        message.contains('invalid') && message.contains('otp') ||
+        code == 'otp_expired') {
+      return Failure(error: S.current.invalidOTP);
+    } else if (message.contains("invalid login credentials")) {
       return Failure(error: S.current.invalidCredentials);
     } else if (message.contains("email not confirmed")) {
       return Failure(error: S.current.emailNotConfirmed);
@@ -95,16 +100,6 @@ class Failure {
       return Failure(error: S.current.databaseError);
     }
   }
-  factory Failure.fromAuthExceptionOTP(AuthException exception) {
-    final errorMessage = exception.message.toLowerCase();
-    if (errorMessage.contains('expired') ||
-        errorMessage.contains('token has expired') ||
-        errorMessage.contains('otp expired')) {
-      return Failure(error: S.current.otpExpired);
-    } else {
-      return Failure(error: S.current.invalidOTP);
-    }
-  }
   factory Failure.fromStringException(String errorMessage) {
     final message = errorMessage.toLowerCase();
 
@@ -118,8 +113,6 @@ class Failure {
   factory Failure.fromException(dynamic exception) {
     if (exception is AuthApiException) {
       return Failure.fromAuthException(exception);
-    } else if (exception is AuthException) {
-      return Failure.fromAuthExceptionOTP(exception);
     } else if (exception is PostgrestException) {
       return Failure.fromSqlException(exception);
     } else if (exception is DioException) {

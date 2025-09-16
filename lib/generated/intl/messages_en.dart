@@ -190,7 +190,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Your password has been reset successfully.",
     ),
     "search": MessageLookupByLibrary.simpleMessage("Find your favorite coffee"),
-    "sendEmail": MessageLookupByLibrary.simpleMessage("Send Email"),
+    "sendEmail": MessageLookupByLibrary.simpleMessage("Send Verification Code"),
     "sendTimeout": MessageLookupByLibrary.simpleMessage(
       "Send timeout with server.",
     ),
