@@ -19,7 +19,6 @@ class HomeProductCubit extends Cubit<HomeProductState> {
   HomeProductCubit(this.filterCubit) : super(HomeProductInitial()) {
     _filterService = FilterService(filterCubit: filterCubit);
 
-    // listen for filter changes
     _filterSub = filterCubit.stream.listen((_) {
       _emitFiltered();
     });

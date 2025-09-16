@@ -3,6 +3,7 @@ import 'package:coffee_app/features/home/presentation/manager/home_category_cubi
 import 'package:coffee_app/features/home/presentation/manager/home_filter_cubit/home_filter_cubit.dart';
 import 'package:coffee_app/features/home/presentation/manager/home_products_cubit/home_product_cubit.dart';
 import 'package:coffee_app/features/home/presentation/view/home_view/home_view.dart';
+import 'package:coffee_app/features/profile/presentation/manager/locale_cubit/locale_cubit.dart';
 import 'package:coffee_app/features/profile/presentation/view/profile_view.dart';
 import 'package:coffee_app/features/wishlist/presentation/view/wishlist_view.dart';
 import 'package:flutter/material.dart';
@@ -32,16 +33,22 @@ class AppNavigation extends StatelessWidget {
         ],
         child: BlocBuilder<AppNavigatorCubit, AppNavigatorState>(
           builder: (context, state) {
-            return CustomContainer(
-              child: state is AppNavigatorToHomeView
-                  ? const HomeView()
-                  : state is AppNavigatorToCartView
-                  ? const CartView()
-                  : state is AppNavigatorToWishlistView
-                  ? const WishlistView()
-                  : state is AppNavigatorToProfileView
-                  ? const ProfileView()
-                  : Container(),
+            return BlocListener<LocaleCubit, Locale>(
+              listener: (context, locale) {
+                context.read<HomeCategoryCubit>().getCategories();
+                context.read<HomeProductCubit>().getProducts();
+              },
+              child: CustomContainer(
+                child: state is AppNavigatorToHomeView
+                    ? const HomeView()
+                    : state is AppNavigatorToCartView
+                    ? const CartView()
+                    : state is AppNavigatorToWishlistView
+                    ? const WishlistView()
+                    : state is AppNavigatorToProfileView
+                    ? const ProfileView()
+                    : Container(),
+              ),
             );
           },
         ),
