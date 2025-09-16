@@ -1,4 +1,6 @@
+import 'package:coffee_app/core/constants/language_constants.dart';
 import 'package:coffee_app/core/utils/app_router.dart';
+import 'package:coffee_app/features/profile/presentation/manager/locale_cubit/locale_cubit.dart';
 import 'package:coffee_app/features/profile/presentation/manager/setting_cubit/setting_cubit.dart';
 import 'package:coffee_app/features/profile/presentation/manager/theme_cubit/theme_cubit.dart';
 import 'package:coffee_app/main.dart';
@@ -51,7 +53,11 @@ class ProfileViewBodySettings extends StatelessWidget {
               _profileTileDivider(context),
               PrettierTap(
                 shrink: 1,
-                onPressed: () {},
+                onPressed: () {
+                  BlocProvider.of<LocaleCubit>(
+                    context,
+                  ).changeLocale(LanguageConstants.locals[2]);
+                },
                 child: ProfileTile(
                   prefixIcon: "assets/icons/arabic.png",
                   title: S.current.profile_languages,
