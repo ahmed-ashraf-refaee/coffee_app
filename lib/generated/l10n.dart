@@ -28,10 +28,9 @@ class S {
   static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
 
   static Future<S> load(Locale locale) {
-    final name =
-        (locale.countryCode?.isEmpty ?? false)
-            ? locale.languageCode
-            : locale.toString();
+    final name = (locale.countryCode?.isEmpty ?? false)
+        ? locale.languageCode
+        : locale.toString();
     final localeName = Intl.canonicalizedLocale(name);
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
@@ -760,6 +759,201 @@ class S {
     return Intl.message(
       'There is a conflict with the current data.',
       name: 'conflictError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter Verification Code`
+  String get enterVerificationCode {
+    return Intl.message(
+      'Enter Verification Code',
+      name: 'enterVerificationCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter the 6-digit verification code we sent to your email.`
+  String get enterVerificationCodeSubtitle {
+    return Intl.message(
+      'Enter the 6-digit verification code we sent to your email.',
+      name: 'enterVerificationCodeSubtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter the code`
+  String get pleaseEnterCode {
+    return Intl.message(
+      'Please enter the code',
+      name: 'pleaseEnterCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Code must be 6 digits`
+  String get codeMustBeSixDigits {
+    return Intl.message(
+      'Code must be 6 digits',
+      name: 'codeMustBeSixDigits',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Not received yet?`
+  String get notReceivedYet {
+    return Intl.message(
+      'Not received yet?',
+      name: 'notReceivedYet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Resend after {seconds} seconds`
+  String resendAfterSeconds(int seconds) {
+    return Intl.message(
+      'Resend after $seconds seconds',
+      name: 'resendAfterSeconds',
+      desc: '',
+      args: [seconds],
+    );
+  }
+
+  /// `Resend Code`
+  String get resendCode {
+    return Intl.message('Resend Code', name: 'resendCode', desc: '', args: []);
+  }
+
+  /// `Verification successful. You can now set a new password.`
+  String get verificationSuccessful {
+    return Intl.message(
+      'Verification successful. You can now set a new password.',
+      name: 'verificationSuccessful',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New code sent. Please check your inbox.`
+  String get newCodeSent {
+    return Intl.message(
+      'New code sent. Please check your inbox.',
+      name: 'newCodeSent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Set Password`
+  String get setPassword {
+    return Intl.message(
+      'Set Password',
+      name: 'setPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create a new password for your account.`
+  String get setPasswordSubtitle {
+    return Intl.message(
+      'Create a new password for your account.',
+      name: 'setPasswordSubtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your password has been successfully updated.`
+  String get passwordUpdatedSuccessfully {
+    return Intl.message(
+      'Your password has been successfully updated.',
+      name: 'passwordUpdatedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Send Email`
+  String get sendEmail {
+    return Intl.message('Send Email', name: 'sendEmail', desc: '', args: []);
+  }
+
+  /// `Verify`
+  String get verify {
+    return Intl.message('Verify', name: 'verify', desc: '', args: []);
+  }
+
+  /// `Set Password`
+  String get setPasswordButton {
+    return Intl.message(
+      'Set Password',
+      name: 'setPasswordButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reset password`
+  String get resetPassword {
+    return Intl.message(
+      'Reset password',
+      name: 'resetPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your email to reset your password.`
+  String get resetPasswordSubtitle {
+    return Intl.message(
+      'Enter your email to reset your password.',
+      name: 'resetPasswordSubtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Verification email sent. Please check your inbox.`
+  String get verificationEmailSent {
+    return Intl.message(
+      'Verification email sent. Please check your inbox.',
+      name: 'verificationEmailSent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `User with provided email does not exist.`
+  String get userEmailNotFound {
+    return Intl.message(
+      'User with provided email does not exist.',
+      name: 'userEmailNotFound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This reset link has expired`
+  String get otpExpired {
+    return Intl.message(
+      'This reset link has expired',
+      name: 'otpExpired',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid OTP code. Please check and try again.`
+  String get invalidOTP {
+    return Intl.message(
+      'Invalid OTP code. Please check and try again.',
+      name: 'invalidOTP',
       desc: '',
       args: [],
     );

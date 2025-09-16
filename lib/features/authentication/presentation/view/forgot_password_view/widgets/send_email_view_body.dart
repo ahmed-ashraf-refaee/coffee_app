@@ -53,9 +53,9 @@ class _SendEmailViewBodyState extends State<SendEmailViewBody> {
             ),
           ),
         ),
-        const AuthTitle(
-          title: "Reset password",
-          subtitle: "Enter your email to reset your password.",
+        AuthTitle(
+          title: S.current.resetPassword,
+          subtitle: S.current.resetPasswordSubtitle,
         ),
         Form(
           key: _formKey,
@@ -83,7 +83,7 @@ class _SendEmailViewBodyState extends State<SendEmailViewBody> {
             } else if (state is AuthCheckMailSuccess) {
               UiHelpers.showSnackBar(
                 context: context,
-                message: "Check Your Mail",
+                message: S.current.verificationEmailSent,
               );
               widget.onStateChange(ForgotPasswordState.verify);
             }
@@ -96,7 +96,7 @@ class _SendEmailViewBodyState extends State<SendEmailViewBody> {
                       size: 26,
                     )
                   : Text(
-                      S.current.log_in,
+                      S.current.sendEmail,
                       style: TextStyles.medium20.copyWith(
                         color: context.colors.onPrimary,
                       ),

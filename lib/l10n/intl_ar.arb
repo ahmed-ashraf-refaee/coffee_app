@@ -80,8 +80,33 @@
   "linkExpired": "انتهت صلاحية رابط إعادة التعيين. يرجى طلب رابط جديد.",
   "valueTooLong": "القيمة المدخلة طويلة جدًا.",
   "invalidInputSyntax": "تنسيق الإدخال غير صالح.",
-  "conflictError": "يوجد تعارض مع البيانات الحالية."
-
-
-
+  "conflictError": "يوجد تعارض مع البيانات الحالية.",
+  "enterVerificationCode": "أدخل رمز التحقق",
+  "enterVerificationCodeSubtitle": "أدخل رمز التحقق المكون من 6 أرقام الذي أرسلناه إلى بريدك الإلكتروني.",
+  "pleaseEnterCode": "يرجى إدخال الرمز",
+  "codeMustBeSixDigits": "يجب أن يكون الرمز مكون من 6 أرقام",
+  "notReceivedYet": "لم تستلمه بعد؟",
+  "resendAfterSeconds": "إعادة الإرسال بعد {seconds} ثانية",
+  "@resendAfterSeconds": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "resendCode": "إعادة إرسال الرمز",
+  "verificationSuccessful": "تم التحقق بنجاح. يمكنك الآن تعيين كلمة مرور جديدة.",
+  "newCodeSent": "تم إرسال رمز جديد. يرجى التحقق من صندوق الوارد.",
+  "setPassword": "تعيين كلمة المرور",
+  "setPasswordSubtitle": "إنشاء كلمة مرور جديدة لحسابك.",
+  "passwordUpdatedSuccessfully": "تم تحديث كلمة المرور بنجاح.",
+  "sendEmail": "إرسال البريد الإلكتروني",
+  "verify": "تحقق",
+  "setPasswordButton": "تعيين كلمة المرور",
+  "resetPassword": "إعادة تعيين كلمة المرور",
+  "resetPasswordSubtitle": "أدخل بريدك الإلكتروني لإعادة تعيين كلمة المرور.",
+  "verificationEmailSent": "تم إرسال بريد التحقق. يرجى التحقق من صندوق الوارد.",
+  "userEmailNotFound": "المستخدم بالبريد الإلكتروني المقدم غير موجود.",
+  "otpExpired": "انتهت صلاحية رابط إعادة التعيين",
+  "invalidOTP": "رمز التحقق غير صحيح. يرجى المراجعة والمحاولة مرة أخرى."
 }

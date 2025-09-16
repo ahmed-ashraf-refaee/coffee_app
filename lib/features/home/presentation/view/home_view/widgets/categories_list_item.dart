@@ -1,5 +1,4 @@
 import 'package:coffee_app/core/widgets/prettier_tap.dart';
-import 'package:coffee_app/core/widgets/translatable_text.dart';
 import 'package:coffee_app/core/model/categories_model.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';

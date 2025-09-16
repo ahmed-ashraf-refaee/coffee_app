@@ -33,6 +33,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
+    rememberMe.dispose();
     super.dispose();
   }
 

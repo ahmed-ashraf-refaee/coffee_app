@@ -20,6 +20,8 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ar';
 
+  static String m0(seconds) => "إعادة الإرسال بعد ${seconds} ثانية";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "already_have_account": MessageLookupByLibrary.simpleMessage(
@@ -32,6 +34,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "badCertificate": MessageLookupByLibrary.simpleMessage(
       "شهادة غير صالحة (شهادة غير صحيحة).",
+    ),
+    "codeMustBeSixDigits": MessageLookupByLibrary.simpleMessage(
+      "يجب أن يكون الرمز مكون من 6 أرقام",
     ),
     "confirmPassword": MessageLookupByLibrary.simpleMessage("أكد كلمة المرور"),
     "confirm_password": MessageLookupByLibrary.simpleMessage(
@@ -68,6 +73,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "enterLastName": MessageLookupByLibrary.simpleMessage("أدخل اسم العائلة"),
     "enterPassword": MessageLookupByLibrary.simpleMessage("أدخل كلمة المرور"),
     "enterUsername": MessageLookupByLibrary.simpleMessage("أدخل اسم المستخدم"),
+    "enterVerificationCode": MessageLookupByLibrary.simpleMessage(
+      "أدخل رمز التحقق",
+    ),
+    "enterVerificationCodeSubtitle": MessageLookupByLibrary.simpleMessage(
+      "أدخل رمز التحقق المكون من 6 أرقام الذي أرسلناه إلى بريدك الإلكتروني.",
+    ),
     "facebook": MessageLookupByLibrary.simpleMessage("فيسبوك"),
     "first_name": MessageLookupByLibrary.simpleMessage("الاسم الأول"),
     "foreignKeyError": MessageLookupByLibrary.simpleMessage(
@@ -97,6 +108,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "invalidInputSyntax": MessageLookupByLibrary.simpleMessage(
       "تنسيق الإدخال غير صالح.",
     ),
+    "invalidOTP": MessageLookupByLibrary.simpleMessage(
+      "رمز التحقق غير صحيح. يرجى المراجعة والمحاولة مرة أخرى.",
+    ),
     "last_name": MessageLookupByLibrary.simpleMessage("اسم العائلة"),
     "linkExpired": MessageLookupByLibrary.simpleMessage(
       "انتهت صلاحية رابط إعادة التعيين. يرجى طلب رابط جديد.",
@@ -105,21 +119,32 @@ class MessageLookup extends MessageLookupByLibrary {
     "minPassword": MessageLookupByLibrary.simpleMessage("على الأقل ٨ أحرف"),
     "nameTooLong": MessageLookupByLibrary.simpleMessage("الاسم طويل جدًا"),
     "nameTooShort": MessageLookupByLibrary.simpleMessage("الاسم قصير جدًا"),
+    "newCodeSent": MessageLookupByLibrary.simpleMessage(
+      "تم إرسال رمز جديد. يرجى التحقق من صندوق الوارد.",
+    ),
     "noInternetConnection": MessageLookupByLibrary.simpleMessage(
       "لا يوجد اتصال بالإنترنت.",
     ),
     "notFound": MessageLookupByLibrary.simpleMessage("لم يتم العثور على طلبك."),
+    "notReceivedYet": MessageLookupByLibrary.simpleMessage("لم تستلمه بعد؟"),
     "nullValueError": MessageLookupByLibrary.simpleMessage(
       "تم ترك حقل مطلوب فارغًا.",
     ),
     "or": MessageLookupByLibrary.simpleMessage("أو"),
+    "otpExpired": MessageLookupByLibrary.simpleMessage(
+      "انتهت صلاحية رابط إعادة التعيين",
+    ),
     "password": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
     "passwordRequirement": MessageLookupByLibrary.simpleMessage(
       "استخدم أحرف كبيرة وصغيرة وأرقام",
     ),
+    "passwordUpdatedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "تم تحديث كلمة المرور بنجاح.",
+    ),
     "passwordsDontMatch": MessageLookupByLibrary.simpleMessage(
       "كلمتا المرور غير متطابقتين",
     ),
+    "pleaseEnterCode": MessageLookupByLibrary.simpleMessage("يرجى إدخال الرمز"),
     "profile_dark_mode": MessageLookupByLibrary.simpleMessage("الوضع الداكن"),
     "profile_edit_profile": MessageLookupByLibrary.simpleMessage(
       "تعديل الملف الشخصي",
@@ -139,18 +164,36 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "remember_me": MessageLookupByLibrary.simpleMessage("تذكرني"),
     "requestCanceled": MessageLookupByLibrary.simpleMessage("تم إلغاء الطلب."),
+    "resendAfterSeconds": m0,
+    "resendCode": MessageLookupByLibrary.simpleMessage("إعادة إرسال الرمز"),
+    "resetPassword": MessageLookupByLibrary.simpleMessage(
+      "إعادة تعيين كلمة المرور",
+    ),
     "resetPasswordEmailSent": MessageLookupByLibrary.simpleMessage(
       "لقد أرسلنا رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني.",
     ),
     "resetPasswordError": MessageLookupByLibrary.simpleMessage(
       "حدث خطأ ما. حاول مرة أخرى.",
     ),
+    "resetPasswordSubtitle": MessageLookupByLibrary.simpleMessage(
+      "أدخل بريدك الإلكتروني لإعادة تعيين كلمة المرور.",
+    ),
     "resetPasswordSuccess": MessageLookupByLibrary.simpleMessage(
       "تمت إعادة تعيين كلمة المرور بنجاح.",
     ),
     "search": MessageLookupByLibrary.simpleMessage("ابحث عن قهوتك المفضلة"),
+    "sendEmail": MessageLookupByLibrary.simpleMessage(
+      "إرسال البريد الإلكتروني",
+    ),
     "sendTimeout": MessageLookupByLibrary.simpleMessage(
       "انتهت مهلة الإرسال للخادم.",
+    ),
+    "setPassword": MessageLookupByLibrary.simpleMessage("تعيين كلمة المرور"),
+    "setPasswordButton": MessageLookupByLibrary.simpleMessage(
+      "تعيين كلمة المرور",
+    ),
+    "setPasswordSubtitle": MessageLookupByLibrary.simpleMessage(
+      "إنشاء كلمة مرور جديدة لحسابك.",
     ),
     "shipping": MessageLookupByLibrary.simpleMessage("الشحن:"),
     "sign_up": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
@@ -170,6 +213,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "unexpectedServerError": MessageLookupByLibrary.simpleMessage(
       "حدث خطأ غير متوقع في الخادم.",
     ),
+    "userEmailNotFound": MessageLookupByLibrary.simpleMessage(
+      "المستخدم بالبريد الإلكتروني المقدم غير موجود.",
+    ),
     "username": MessageLookupByLibrary.simpleMessage("اسم المستخدم"),
     "usernameTaken": MessageLookupByLibrary.simpleMessage(
       "هذا الاسم غير متوفر، من فضلك اختر اسمًا آخر.",
@@ -177,6 +223,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "valueTooLong": MessageLookupByLibrary.simpleMessage(
       "القيمة المدخلة طويلة جدًا.",
     ),
+    "verificationEmailSent": MessageLookupByLibrary.simpleMessage(
+      "تم إرسال بريد التحقق. يرجى التحقق من صندوق الوارد.",
+    ),
+    "verificationSuccessful": MessageLookupByLibrary.simpleMessage(
+      "تم التحقق بنجاح. يمكنك الآن تعيين كلمة مرور جديدة.",
+    ),
+    "verify": MessageLookupByLibrary.simpleMessage("تحقق"),
     "weakOrWrongPassword": MessageLookupByLibrary.simpleMessage(
       "كلمة المرور ضعيفة جدًا أو غير صحيحة.",
     ),

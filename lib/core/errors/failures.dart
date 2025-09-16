@@ -95,4 +95,39 @@ class Failure {
       return Failure(error: S.current.databaseError);
     }
   }
+  factory Failure.fromAuthExceptionOTP(AuthException exception) {
+    final errorMessage = exception.message.toLowerCase();
+    if (errorMessage.contains('expired') ||
+        errorMessage.contains('token has expired') ||
+        errorMessage.contains('otp expired')) {
+      return Failure(error: S.current.otpExpired);
+    } else {
+      return Failure(error: S.current.invalidOTP);
+    }
+  }
+  factory Failure.fromStringException(String errorMessage) {
+    final message = errorMessage.toLowerCase();
+
+    if (message.contains("user with provided email does not exist")) {
+      return Failure(error: S.current.userEmailNotFound);
+    }
+
+    return Failure(error: S.current.unexpectedError);
+  }
+
+  factory Failure.fromException(dynamic exception) {
+    if (exception is AuthApiException) {
+      return Failure.fromAuthException(exception);
+    } else if (exception is AuthException) {
+      return Failure.fromAuthExceptionOTP(exception);
+    } else if (exception is PostgrestException) {
+      return Failure.fromSqlException(exception);
+    } else if (exception is DioException) {
+      return Failure.fromDioError(exception);
+    } else if (exception is String) {
+      return Failure.fromStringException(exception);
+    } else {
+      return Failure(error: S.current.unexpectedError);
+    }
+  }
 }

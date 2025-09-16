@@ -20,6 +20,8 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
+  static String m0(seconds) => "Resend after ${seconds} seconds";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "already_have_account": MessageLookupByLibrary.simpleMessage(
@@ -32,6 +34,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "badCertificate": MessageLookupByLibrary.simpleMessage(
       "Bad certificate (incorrect certificate).",
+    ),
+    "codeMustBeSixDigits": MessageLookupByLibrary.simpleMessage(
+      "Code must be 6 digits",
     ),
     "confirmPassword": MessageLookupByLibrary.simpleMessage("Confirm password"),
     "confirm_password": MessageLookupByLibrary.simpleMessage(
@@ -68,6 +73,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "enterLastName": MessageLookupByLibrary.simpleMessage("Enter last name"),
     "enterPassword": MessageLookupByLibrary.simpleMessage("Enter password"),
     "enterUsername": MessageLookupByLibrary.simpleMessage("Enter username"),
+    "enterVerificationCode": MessageLookupByLibrary.simpleMessage(
+      "Enter Verification Code",
+    ),
+    "enterVerificationCodeSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Enter the 6-digit verification code we sent to your email.",
+    ),
     "facebook": MessageLookupByLibrary.simpleMessage("Facebook"),
     "first_name": MessageLookupByLibrary.simpleMessage("First Name"),
     "foreignKeyError": MessageLookupByLibrary.simpleMessage(
@@ -97,6 +108,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "invalidInputSyntax": MessageLookupByLibrary.simpleMessage(
       "Invalid input format.",
     ),
+    "invalidOTP": MessageLookupByLibrary.simpleMessage(
+      "Invalid OTP code. Please check and try again.",
+    ),
     "last_name": MessageLookupByLibrary.simpleMessage("Last Name"),
     "linkExpired": MessageLookupByLibrary.simpleMessage(
       "This reset link has expired. Please request a new one.",
@@ -107,22 +121,35 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "nameTooLong": MessageLookupByLibrary.simpleMessage("Name too long"),
     "nameTooShort": MessageLookupByLibrary.simpleMessage("Name too short"),
+    "newCodeSent": MessageLookupByLibrary.simpleMessage(
+      "New code sent. Please check your inbox.",
+    ),
     "noInternetConnection": MessageLookupByLibrary.simpleMessage(
       "No internet connection.",
     ),
     "notFound": MessageLookupByLibrary.simpleMessage(
       "Your request was not found.",
     ),
+    "notReceivedYet": MessageLookupByLibrary.simpleMessage("Not received yet?"),
     "nullValueError": MessageLookupByLibrary.simpleMessage(
       "A required field was left empty.",
     ),
     "or": MessageLookupByLibrary.simpleMessage("or"),
+    "otpExpired": MessageLookupByLibrary.simpleMessage(
+      "This reset link has expired",
+    ),
     "password": MessageLookupByLibrary.simpleMessage("Password"),
     "passwordRequirement": MessageLookupByLibrary.simpleMessage(
       "Use upper, lower & number",
     ),
+    "passwordUpdatedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "Your password has been successfully updated.",
+    ),
     "passwordsDontMatch": MessageLookupByLibrary.simpleMessage(
       "Passwords don\'t match",
+    ),
+    "pleaseEnterCode": MessageLookupByLibrary.simpleMessage(
+      "Please enter the code",
     ),
     "profile_dark_mode": MessageLookupByLibrary.simpleMessage("Dark Mode"),
     "profile_edit_profile": MessageLookupByLibrary.simpleMessage(
@@ -147,18 +174,30 @@ class MessageLookup extends MessageLookupByLibrary {
     "requestCanceled": MessageLookupByLibrary.simpleMessage(
       "Request was canceled.",
     ),
+    "resendAfterSeconds": m0,
+    "resendCode": MessageLookupByLibrary.simpleMessage("Resend Code"),
+    "resetPassword": MessageLookupByLibrary.simpleMessage("Reset password"),
     "resetPasswordEmailSent": MessageLookupByLibrary.simpleMessage(
       "We\'ve sent a password reset link to your email.",
     ),
     "resetPasswordError": MessageLookupByLibrary.simpleMessage(
       "Something went wrong. Please try again.",
     ),
+    "resetPasswordSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Enter your email to reset your password.",
+    ),
     "resetPasswordSuccess": MessageLookupByLibrary.simpleMessage(
       "Your password has been reset successfully.",
     ),
     "search": MessageLookupByLibrary.simpleMessage("Find your favorite coffee"),
+    "sendEmail": MessageLookupByLibrary.simpleMessage("Send Email"),
     "sendTimeout": MessageLookupByLibrary.simpleMessage(
       "Send timeout with server.",
+    ),
+    "setPassword": MessageLookupByLibrary.simpleMessage("Set Password"),
+    "setPasswordButton": MessageLookupByLibrary.simpleMessage("Set Password"),
+    "setPasswordSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Create a new password for your account.",
     ),
     "shipping": MessageLookupByLibrary.simpleMessage("Shipping:"),
     "sign_up": MessageLookupByLibrary.simpleMessage("Sign Up"),
@@ -178,6 +217,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "unexpectedServerError": MessageLookupByLibrary.simpleMessage(
       "Unexpected server error.",
     ),
+    "userEmailNotFound": MessageLookupByLibrary.simpleMessage(
+      "User with provided email does not exist.",
+    ),
     "username": MessageLookupByLibrary.simpleMessage("Username"),
     "usernameTaken": MessageLookupByLibrary.simpleMessage(
       "That username isn\'t available. Choose a different one.",
@@ -185,6 +227,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "valueTooLong": MessageLookupByLibrary.simpleMessage(
       "The provided value is too long.",
     ),
+    "verificationEmailSent": MessageLookupByLibrary.simpleMessage(
+      "Verification email sent. Please check your inbox.",
+    ),
+    "verificationSuccessful": MessageLookupByLibrary.simpleMessage(
+      "Verification successful. You can now set a new password.",
+    ),
+    "verify": MessageLookupByLibrary.simpleMessage("Verify"),
     "weakOrWrongPassword": MessageLookupByLibrary.simpleMessage(
       "Your password is too weak or incorrect.",
     ),

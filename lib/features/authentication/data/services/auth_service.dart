@@ -60,11 +60,17 @@ class AuthService {
   }
 
   Future<void> resetPassword(String email) async {
-    return await _supabaseClient.auth.resetPasswordForEmail(email);
-  }
+    final existingUser = await _supabaseClient
+        .from('users')
+        .select('email')
+        .eq('email', email)
+        .maybeSingle();
 
-  Future<AuthSessionUrlResponse> verifyEmail(String token) async {
-    return await _supabaseClient.auth.exchangeCodeForSession(token);
+    if (existingUser == null) {
+      throw ('User with provided email does not exist.');
+    }
+
+    return await _supabaseClient.auth.resetPasswordForEmail(email);
   }
 
   Future<AuthResponse> verify(String token, String email) async {

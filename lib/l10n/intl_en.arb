@@ -80,5 +80,33 @@
   "linkExpired": "This reset link has expired. Please request a new one.",
   "valueTooLong": "The provided value is too long.",
   "invalidInputSyntax": "Invalid input format.",
-  "conflictError": "There is a conflict with the current data."
+  "conflictError": "There is a conflict with the current data.",
+  "enterVerificationCode": "Enter Verification Code",
+  "enterVerificationCodeSubtitle": "Enter the 6-digit verification code we sent to your email.",
+  "pleaseEnterCode": "Please enter the code",
+  "codeMustBeSixDigits": "Code must be 6 digits",
+  "notReceivedYet": "Not received yet?",
+  "resendAfterSeconds": "Resend after {seconds} seconds",
+  "@resendAfterSeconds": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "resendCode": "Resend Code",
+  "verificationSuccessful": "Verification successful. You can now set a new password.",
+  "newCodeSent": "New code sent. Please check your inbox.",
+  "setPassword": "Set Password",
+  "setPasswordSubtitle": "Create a new password for your account.",
+  "passwordUpdatedSuccessfully": "Your password has been successfully updated.",
+  "sendEmail": "Send Email",
+  "verify": "Verify",
+  "setPasswordButton": "Set Password",
+  "resetPassword": "Reset password",
+  "resetPasswordSubtitle": "Enter your email to reset your password.",
+  "verificationEmailSent": "Verification email sent. Please check your inbox.",
+  "userEmailNotFound": "User with provided email does not exist.",
+   "otpExpired": "This reset link has expired",
+  "invalidOTP": "Invalid OTP code. Please check and try again."
 }
