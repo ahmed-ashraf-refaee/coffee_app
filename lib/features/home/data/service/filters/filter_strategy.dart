@@ -98,7 +98,9 @@ class SortingFilter extends FilterStrategy {
       if (sorting == sortOptions[0]) {
         sorted.sort((a, b) => a.rating.compareTo(b.rating));
       } else if (sorting == sortOptions[1]) {
+        sorted.sort((a, b) => a.createdAt.compareTo(b.createdAt));
       } else if (sorting == sortOptions[2]) {
+         sorted.sort((a, b) => b.createdAt.compareTo(a.createdAt));
       } else if (sorting == sortOptions[3]) {
         sorted.sort((a, b) => b.discount.compareTo(a.discount));
       } else if (sorting == sortOptions[4]) {

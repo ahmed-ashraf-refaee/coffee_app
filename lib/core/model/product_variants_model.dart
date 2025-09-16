@@ -1,3 +1,5 @@
+import 'package:coffee_app/core/services/app_locale.dart';
+
 class ProductVariantsModel {
   final int id;
   final String size;
@@ -14,11 +16,11 @@ class ProductVariantsModel {
   });
   factory ProductVariantsModel.fromJson(Map<String, dynamic> json) {
     return ProductVariantsModel(
-      id: json['id'],
-      size: json['size'],
+      id: json['id'] as int,
+      size: json['size_${AppLocale.current.languageCode}'] as String, 
       price: (json['price'] as num).toDouble(),
       quantity: (json['quantity'] as num).toInt(),
-      productId: json['product_id'],
+      productId: json['product_id'] as int,
     );
   }
 }

@@ -30,7 +30,7 @@ class CategoriesListItem extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
-                child: TranslatableText(
+                child: Text(
                   category.name,
                   style: TextStyles.regular16.copyWith(
                     color: selected

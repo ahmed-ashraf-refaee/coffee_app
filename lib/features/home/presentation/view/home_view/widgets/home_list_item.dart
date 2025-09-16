@@ -56,13 +56,13 @@ class HomeListItem extends StatelessWidget {
                         borderRadius: BorderRadius.circular(8),
                       ),
                     ),
-                    TranslatableText(
+                    Text(
                       product.name,
                       style: TextStyles.bold16,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    TranslatableText(
+                    Text(
                       product.productVariants[0].size,
                       style: TextStyles.regular12.copyWith(
                         color: context.colors.onSecondary.withAlpha(153),
