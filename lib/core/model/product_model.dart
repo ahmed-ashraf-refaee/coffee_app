@@ -29,11 +29,11 @@ class ProductModel {
     List<ProductVariantsModel> productVariantsList = variantsList
         .map((variant) => ProductVariantsModel.fromJson(variant))
         .toList();
-
+    final translation = (json['products_translation'] as List).first;
     return ProductModel(
-      id: json['id'],
-      name: json['name'],
-      description: json['description'],
+      id: json['id'] as int,
+      name: translation['name'] as String,
+      description: translation['description'] as String,
       discount: (json['discount'] as num).toDouble(),
       rating: (json['rating'] as num).toDouble(),
       categoryId: json['category_id'],
