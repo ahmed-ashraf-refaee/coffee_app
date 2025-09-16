@@ -1,6 +1,6 @@
 import 'package:coffee_app/core/utils/app_router.dart';
-import 'package:coffee_app/features/profile/presentation/manager/cubit/setting_cubit.dart';
-import 'package:coffee_app/features/profile/presentation/manager/toggle_to_dark_mode/toggle_to_dark_mode_cubit.dart';
+import 'package:coffee_app/features/profile/presentation/manager/setting_cubit/setting_cubit.dart';
+import 'package:coffee_app/features/profile/presentation/manager/theme_cubit/theme_cubit.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -38,7 +38,7 @@ class ProfileViewBodySettings extends StatelessWidget {
                   suffixWidget: arrowIcon(),
                 ),
               ),
-              _profileTileDivider(),
+              _profileTileDivider(context),
               PrettierTap(
                 shrink: 1,
                 onPressed: () {},
@@ -48,7 +48,7 @@ class ProfileViewBodySettings extends StatelessWidget {
                   suffixWidget: arrowIcon(),
                 ),
               ),
-              _profileTileDivider(),
+              _profileTileDivider(context),
               PrettierTap(
                 shrink: 1,
                 onPressed: () {},
@@ -58,7 +58,7 @@ class ProfileViewBodySettings extends StatelessWidget {
                   suffixWidget: arrowIcon(),
                 ),
               ),
-              _profileTileDivider(),
+              _profileTileDivider(context),
               ProfileTile(
                 prefixIcon: "assets/icons/bell.png",
                 title: S.current.profile_notification,
@@ -74,10 +74,14 @@ class ProfileViewBodySettings extends StatelessWidget {
                   vertical: 8,
                 ),
               ),
-              _profileTileDivider(),
+              _profileTileDivider(context),
               BlocBuilder<ThemeCubit, ThemeMode>(
                 builder: (context, themeMode) {
-                  var isDark = themeMode == ThemeMode.dark;
+                  final brightness = MediaQuery.of(context).platformBrightness;
+                  final isDark =
+                      themeMode == ThemeMode.dark ||
+                      (themeMode == ThemeMode.system &&
+                          brightness == Brightness.dark);
                   return PrettierTap(
                     onPressed: () {
                       context.read<ThemeCubit>().toggleTheme();
@@ -122,7 +126,7 @@ class ProfileViewBodySettings extends StatelessWidget {
                   suffixWidget: arrowIcon(),
                 ),
               ),
-              _profileTileDivider(),
+              _profileTileDivider(context),
               PrettierTap(
                 shrink: 1,
                 onPressed: () async {
@@ -149,9 +153,9 @@ class ProfileViewBodySettings extends StatelessWidget {
     );
   }
 
-  Divider _profileTileDivider() {
+  Divider _profileTileDivider(BuildContext context) {
     return Divider(
-      color: const Color(0xff5D6165).withAlpha((85 * 255 / 100).toInt()),
+      color: context.colors.onSecondary.withValues(alpha: 0.85),
       indent: 16,
       endIndent: 16,
       thickness: 1,

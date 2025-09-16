@@ -14,4 +14,6 @@ class SettingCubit extends Cubit<SettingState> {
       (_) {},
     );
   }
+
+  
 }

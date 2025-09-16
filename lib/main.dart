@@ -1,9 +1,11 @@
+import 'package:coffee_app/core/constants/language_constants.dart';
 import 'package:coffee_app/core/utils/app_router.dart';
 import 'package:coffee_app/core/utils/dark_theme.dart';
 import 'package:coffee_app/core/utils/light_theme.dart';
 
 import 'package:coffee_app/features/cart/presentation/manager/cart_cubit/cart_cubit.dart';
-import 'package:coffee_app/features/profile/presentation/manager/toggle_to_dark_mode/toggle_to_dark_mode_cubit.dart';
+import 'package:coffee_app/features/profile/presentation/manager/locale_cubit/locale_cubit.dart';
+import 'package:coffee_app/features/profile/presentation/manager/theme_cubit/theme_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -41,19 +43,23 @@ class CoffeeApp extends StatelessWidget {
         BlocProvider(create: (context) => AuthBloc()),
         BlocProvider(create: (context) => WishlistCubit()..getWishlist()),
         BlocProvider(create: (context) => CartCubit()..loadCart()),
+        BlocProvider(create: (context) => LocaleCubit()),
       ],
-      child: BlocBuilder<ThemeCubit, ThemeMode>(
-        builder: (context, themeMode) {
+      child: Builder(
+        builder: (context) {
+          final themeMode = context.select((ThemeCubit c) => c.state);
+          final locale = context.select((LocaleCubit c) => c.state);
+
           return MaterialApp.router(
             debugShowCheckedModeBanner: false,
-            locale: const Locale("ar"),
+            locale: locale,
             localizationsDelegates: const [
               S.delegate,
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
             ],
-            supportedLocales: S.delegate.supportedLocales,
+            supportedLocales: LanguageConstants.locals,
             theme: lightTheme,
             darkTheme: darkTheme,
             themeMode: themeMode,

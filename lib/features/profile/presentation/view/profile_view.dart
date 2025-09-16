@@ -1,4 +1,4 @@
-import 'package:coffee_app/features/profile/presentation/manager/cubit/setting_cubit.dart';
+import 'package:coffee_app/features/profile/presentation/manager/setting_cubit/setting_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
