@@ -53,7 +53,6 @@ class _SendEmailViewBodyState extends State<SendEmailViewBody> {
             ),
           ),
         ),
-
         const AuthTitle(
           title: "Reset password",
           subtitle: "Enter your email to reset your password.",
@@ -105,7 +104,6 @@ class _SendEmailViewBodyState extends State<SendEmailViewBody> {
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   final email = emailController.text.trim();
-
                   BlocProvider.of<AuthBloc>(
                     context,
                   ).add(ResetPasswordEvent(email: email));
