@@ -81,7 +81,7 @@ class _VerifyEmailViewBodyState extends State<VerifyEmailViewBody> {
               if (value.length < 6) {
                 return 'Code must be 6 digits';
               }
-              return null; // valid
+              return null;
             },
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           ),
@@ -96,8 +96,8 @@ class _VerifyEmailViewBodyState extends State<VerifyEmailViewBody> {
                 context: context,
                 message: "Your Token Is Matched",
               );
+              widget.onStateChange(ForgotPasswordState.resetPassword);
             }
-            widget.onStateChange(ForgotPasswordState.resetPassword);
           },
           builder: (context, state) {
             return CustomElevatedButton(
