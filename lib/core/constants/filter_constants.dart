@@ -1,18 +1,21 @@
+import 'package:coffee_app/generated/l10n.dart';
+
 class FilterConstants {
-  static const List<String> sortOptions = [
-    "top rated",
-    "oldest",
-    "newest",
-    "discount",
-    "lowest price",
-    "highest price",
+  static List<String> get sortOptions => [
+    S.current.sort_topRated,
+    S.current.sort_oldest,
+    S.current.sort_newest,
+    S.current.sort_discount,
+    S.current.sort_lowestPrice,
+    S.current.sort_highestPrice,
   ];
-  static const List<String> ratingOptions = [
-    "5 Stars",
-    "4 Stars & Up",
-    "3 Stars & Up",
-    "2 Stars & Up",
-    "1 Star & Up",
+
+  static List<String> get ratingOptions => [
+    S.current.rating_5,
+    S.current.rating_4up,
+    S.current.rating_3up,
+    S.current.rating_2up,
+    S.current.rating_1up,
   ];
   static const double minPrice = 0;
   static const double maxPrice = 3000;

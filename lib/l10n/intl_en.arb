@@ -110,6 +110,19 @@
    "otpExpired": "This reset link has expired",
   "invalidOTP": "Invalid OTP code. Please check and try again.",
   "selectLanguage": "Select Language",
-  "save": "Save"
+  "save": "Save",
+  
+  "sort_topRated": "Top Rated",
+  "sort_oldest": "Oldest",
+  "sort_newest": "Newest",
+  "sort_discount": "Discount",
+  "sort_lowestPrice": "Lowest Price",
+  "sort_highestPrice": "Highest Price",
+
+  "rating_5": "5 Stars",
+  "rating_4up": "4 Stars & Up",
+  "rating_3up": "3 Stars & Up",
+  "rating_2up": "2 Stars & Up",
+  "rating_1up": "1 Star & Up"
 
 }

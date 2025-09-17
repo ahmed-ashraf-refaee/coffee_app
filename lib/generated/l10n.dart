@@ -979,6 +979,71 @@ class S {
   String get save {
     return Intl.message('Save', name: 'save', desc: '', args: []);
   }
+
+  /// `Top Rated`
+  String get sort_topRated {
+    return Intl.message('Top Rated', name: 'sort_topRated', desc: '', args: []);
+  }
+
+  /// `Oldest`
+  String get sort_oldest {
+    return Intl.message('Oldest', name: 'sort_oldest', desc: '', args: []);
+  }
+
+  /// `Newest`
+  String get sort_newest {
+    return Intl.message('Newest', name: 'sort_newest', desc: '', args: []);
+  }
+
+  /// `Discount`
+  String get sort_discount {
+    return Intl.message('Discount', name: 'sort_discount', desc: '', args: []);
+  }
+
+  /// `Lowest Price`
+  String get sort_lowestPrice {
+    return Intl.message(
+      'Lowest Price',
+      name: 'sort_lowestPrice',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Highest Price`
+  String get sort_highestPrice {
+    return Intl.message(
+      'Highest Price',
+      name: 'sort_highestPrice',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `5 Stars`
+  String get rating_5 {
+    return Intl.message('5 Stars', name: 'rating_5', desc: '', args: []);
+  }
+
+  /// `4 Stars & Up`
+  String get rating_4up {
+    return Intl.message('4 Stars & Up', name: 'rating_4up', desc: '', args: []);
+  }
+
+  /// `3 Stars & Up`
+  String get rating_3up {
+    return Intl.message('3 Stars & Up', name: 'rating_3up', desc: '', args: []);
+  }
+
+  /// `2 Stars & Up`
+  String get rating_2up {
+    return Intl.message('2 Stars & Up', name: 'rating_2up', desc: '', args: []);
+  }
+
+  /// `1 Star & Up`
+  String get rating_1up {
+    return Intl.message('1 Star & Up', name: 'rating_1up', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -110,5 +110,18 @@
   "otpExpired": "انتهت صلاحية رابط إعادة التعيين",
   "invalidOTP": "رمز التحقق غير صحيح. يرجى المراجعة والمحاولة مرة أخرى.",
   "selectLanguage": "اختر اللغة",
-  "save": "حفظ"
+  "save": "حفظ",
+  "sort_topRated": "الأعلى تقييمًا",
+  "sort_oldest": "الأقدم",
+  "sort_newest": "الأحدث",
+  "sort_discount": "الخصومات",
+  "sort_lowestPrice": "الأقل سعرًا",
+  "sort_highestPrice": "الأعلى سعرًا",
+
+  "rating_5": "5 نجوم",
+  "rating_4up": "4 نجوم فما فوق",
+  "rating_3up": "3 نجوم فما فوق",
+  "rating_2up": "2 نجوم فما فوق",
+  "rating_1up": "1 نجمة فما فوق"
+  
 }
