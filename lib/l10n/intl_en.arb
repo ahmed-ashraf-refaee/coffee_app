@@ -108,5 +108,8 @@
   "verificationEmailSent": "Verification email sent. Please check your inbox.",
   "userEmailNotFound": "User with provided email does not exist.",
    "otpExpired": "This reset link has expired",
-  "invalidOTP": "Invalid OTP code. Please check and try again."
+  "invalidOTP": "Invalid OTP code. Please check and try again.",
+  "selectLanguage": "Select Language",
+  "save": "Save"
+
 }

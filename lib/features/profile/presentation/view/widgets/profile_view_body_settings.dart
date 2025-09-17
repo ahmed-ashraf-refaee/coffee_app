@@ -55,11 +55,7 @@ class ProfileViewBodySettings extends StatelessWidget {
               PrettierTap(
                 shrink: 1,
                 onPressed: () {
-                  BlocProvider.of<LocaleCubit>(context).changeLocale(
-                    AppLocale.current.languageCode == "en"
-                        ? LanguageConstants.locals[2]
-                        : LanguageConstants.locals[0],
-                  );
+                  GoRouter.of(context).push(AppRouter.kLanguageSelect);
                 },
                 child: ProfileTile(
                   prefixIcon: "assets/icons/arabic.png",

@@ -1,11 +1,11 @@
 import 'dart:ui';
 
 class LanguageConstants {
-  static const List<Locale> locals = [
-    Locale('en'),
-    Locale('es'),
-    Locale('ar'),
-    Locale('fr'),
-    Locale('it'),
-  ];
+  static final Map<String, Locale> supportedLocals = {
+    'en': const Locale('en'),
+    'es': const Locale('es'),
+    'ar': const Locale('ar'),
+    'fr': const Locale('fr'),
+    'it': const Locale('it'),
+  };
 }

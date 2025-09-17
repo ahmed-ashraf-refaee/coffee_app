@@ -3,6 +3,7 @@ import 'package:coffee_app/features/authentication/presentation/view/authenticat
 import 'package:coffee_app/features/authentication/presentation/view/forgot_password_view/forgot_password_view.dart';
 import 'package:coffee_app/features/home/presentation/view/details_view/details_view.dart';
 import 'package:coffee_app/features/navigation/presentation/manager/navigator_cubit/navigator_cubit.dart';
+import 'package:coffee_app/features/profile/presentation/view/language_select_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -17,6 +18,8 @@ abstract class AppRouter {
   static const kAuthView = "/authView";
   static const kSplashView = "/splashView";
   static const kForgotPass = "/forgotPass";
+  static const kLanguageSelect = "/languageSelect";
+
   static final router = GoRouter(
     routes: [
       GoRoute(path: '/', builder: (context, state) => const SplashView()),
@@ -26,6 +29,10 @@ abstract class AppRouter {
           final ProductModel product = state.extra as ProductModel;
           return DetailsView(product: product);
         },
+      ),
+      GoRoute(
+        path: kLanguageSelect,
+        builder: (context, state) => const LanguageSelectView(),
       ),
       GoRoute(
         path: kNavigationView,

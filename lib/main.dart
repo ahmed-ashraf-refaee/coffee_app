@@ -57,7 +57,7 @@ class CoffeeApp extends StatelessWidget {
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
             ],
-            supportedLocales: LanguageConstants.locals,
+            supportedLocales: LanguageConstants.supportedLocals.values,
             theme: lightTheme,
             darkTheme: darkTheme,
             themeMode: themeMode,
