@@ -8,23 +8,23 @@ class HomeFilterState {
   final String sorting;
   final String rating;
 
-  const HomeFilterState({
+  HomeFilterState({
     this.searchQuery = '',
     this.priceRange = const RangeValues(
       FilterConstants.minPrice,
       FilterConstants.maxPrice,
     ),
-    this.category = 'All',
+    String? category,
     this.sorting = '',
     this.rating = '',
-  });
+  }) : category = category ?? S.current.all;
 
   HomeFilterState copyWith({
-    final String? searchQuery,
-    final RangeValues? priceRange,
-    final String? category,
-    final String? sorting,
-    final String? rating,
+    String? searchQuery,
+    RangeValues? priceRange,
+    String? category,
+    String? sorting,
+    String? rating,
   }) {
     return HomeFilterState(
       searchQuery: searchQuery ?? this.searchQuery,
@@ -35,4 +35,3 @@ class HomeFilterState {
     );
   }
 }
-

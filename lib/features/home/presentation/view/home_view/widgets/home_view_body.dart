@@ -28,6 +28,10 @@ class _HomeViewBodyState extends State<HomeViewBody> {
   void initState() {
     super.initState();
     searchController = TextEditingController();
+
+    searchController = TextEditingController(
+      text: context.read<HomeFilterCubit>().selectedQuery,
+    );
   }
 
   @override
@@ -112,9 +116,9 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                                 ),
                               ),
                               onChanged: (value) {
-                                context.read<HomeFilterCubit>().setSearch(
-                                  value,
-                                );
+                                context.read<HomeFilterCubit>().selectedQuery =
+                                    value;
+                                context.read<HomeFilterCubit>().setSearch();
                               },
                             ),
                           ),
@@ -126,9 +130,16 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                           },
                           hight: 48,
                           width: 48,
-                          child: Icon(
-                            Ionicons.filter,
-                            color: context.colors.onSecondary,
+                          child: BlocBuilder<HomeFilterCubit, HomeFilterState>(
+                            builder: (context, state) {
+                              return Icon(
+                                Ionicons.filter,
+                                color:
+                                    context.read<HomeFilterCubit>().isFiltered()
+                                    ? context.colors.primary
+                                    : context.colors.onSecondary,
+                              );
+                            },
                           ),
                         ),
                       ],

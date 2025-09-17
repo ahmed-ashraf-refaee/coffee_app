@@ -124,6 +124,13 @@
   "rating_4up": "4 Stars & Up",
   "rating_3up": "3 Stars & Up",
   "rating_2up": "2 Stars & Up",
-  "rating_1up": "1 Star & Up"
+  "rating_1up": "1 Star & Up",
 
+  "filters": "Filters",
+  "reset": "Reset",
+  "apply": "Apply",
+  "sortBy": "Sort by",
+  "priceRange": "Price range",
+  "rating": "Rating",
+  "all":"All"
 }

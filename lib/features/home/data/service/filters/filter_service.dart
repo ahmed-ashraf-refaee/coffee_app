@@ -1,10 +1,9 @@
 import 'package:coffee_app/features/home/data/service/filters/filter_products.dart';
 import 'package:coffee_app/features/home/data/service/filters/filter_strategy.dart';
 import 'package:coffee_app/features/home/presentation/manager/home_filter_cubit/home_filter_cubit.dart';
+import 'package:coffee_app/generated/l10n.dart';
 
 import '../../../../../core/model/product_model.dart';
-
-
 
 class FilterService {
   final HomeFilterCubit filterCubit;
@@ -18,7 +17,7 @@ class FilterService {
         searchQuery: state.searchQuery,
       ),
       CategoryFilter(
-        enabled: state.category != "All",
+        enabled: state.category != S.current.all,
         categoryName: state.category,
       ),
       SortingFilter(enabled: state.sorting.isNotEmpty, sorting: state.sorting),

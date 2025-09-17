@@ -57,9 +57,9 @@ class _CategoriesListState extends State<CategoriesList> {
                     selected: categoryCubit.selectedCategoryIndex == index,
                     onSelected: () {
                       categoryCubit.updateSelectedIndex(index);
-                      context.read<HomeFilterCubit>().setCategory(
-                        state.category[index].name,
-                      );
+                      context.read<HomeFilterCubit>().selectedCategory =
+                          state.category[index].name;
+                      context.read<HomeFilterCubit>().setCategory();
                     },
                   ),
                 );

@@ -24,11 +24,13 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "all": MessageLookupByLibrary.simpleMessage("الكل"),
     "already_have_account": MessageLookupByLibrary.simpleMessage(
       "هل لديك حساب بالفعل؟",
     ),
     "app_name_first": MessageLookupByLibrary.simpleMessage("قهوة"),
     "app_name_second": MessageLookupByLibrary.simpleMessage("دروب"),
+    "apply": MessageLookupByLibrary.simpleMessage("تطبيق"),
     "authFailed": MessageLookupByLibrary.simpleMessage(
       "فشل في المصادقة. حاول مرة أخرى.",
     ),
@@ -80,6 +82,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "أدخل رمز التحقق المكون من 6 أرقام الذي أرسلناه إلى بريدك الإلكتروني.",
     ),
     "facebook": MessageLookupByLibrary.simpleMessage("فيسبوك"),
+    "filters": MessageLookupByLibrary.simpleMessage("الفلاتر"),
     "first_name": MessageLookupByLibrary.simpleMessage("الاسم الأول"),
     "foreignKeyError": MessageLookupByLibrary.simpleMessage(
       "هذا السجل مرتبط ولا يمكن حذفه.",
@@ -145,6 +148,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "كلمتا المرور غير متطابقتين",
     ),
     "pleaseEnterCode": MessageLookupByLibrary.simpleMessage("يرجى إدخال الرمز"),
+    "priceRange": MessageLookupByLibrary.simpleMessage("نطاق السعر"),
     "profile_dark_mode": MessageLookupByLibrary.simpleMessage("الوضع الداكن"),
     "profile_edit_profile": MessageLookupByLibrary.simpleMessage(
       "تعديل الملف الشخصي",
@@ -156,6 +160,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "بيانات الدفع",
     ),
     "profile_support": MessageLookupByLibrary.simpleMessage("الدعم"),
+    "rating": MessageLookupByLibrary.simpleMessage("التقييم"),
     "rating_1up": MessageLookupByLibrary.simpleMessage("1 نجمة فما فوق"),
     "rating_2up": MessageLookupByLibrary.simpleMessage("2 نجوم فما فوق"),
     "rating_3up": MessageLookupByLibrary.simpleMessage("3 نجوم فما فوق"),
@@ -171,6 +176,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "requestCanceled": MessageLookupByLibrary.simpleMessage("تم إلغاء الطلب."),
     "resendAfterSeconds": m0,
     "resendCode": MessageLookupByLibrary.simpleMessage("إعادة إرسال الرمز"),
+    "reset": MessageLookupByLibrary.simpleMessage("إعادة تعيين"),
     "resetPassword": MessageLookupByLibrary.simpleMessage(
       "إعادة تعيين كلمة المرور",
     ),
@@ -205,6 +211,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "shipping": MessageLookupByLibrary.simpleMessage("الشحن:"),
     "sign_up": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
+    "sortBy": MessageLookupByLibrary.simpleMessage("ترتيب حسب"),
     "sort_discount": MessageLookupByLibrary.simpleMessage("الخصومات"),
     "sort_highestPrice": MessageLookupByLibrary.simpleMessage("الأعلى سعرًا"),
     "sort_lowestPrice": MessageLookupByLibrary.simpleMessage("الأقل سعرًا"),

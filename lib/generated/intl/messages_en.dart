@@ -24,11 +24,13 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "all": MessageLookupByLibrary.simpleMessage("All"),
     "already_have_account": MessageLookupByLibrary.simpleMessage(
       "Already have an account?",
     ),
     "app_name_first": MessageLookupByLibrary.simpleMessage("Coffee"),
     "app_name_second": MessageLookupByLibrary.simpleMessage("Drop"),
+    "apply": MessageLookupByLibrary.simpleMessage("Apply"),
     "authFailed": MessageLookupByLibrary.simpleMessage(
       "Authentication failed. Please try again.",
     ),
@@ -80,6 +82,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Enter the 6-digit verification code we sent to your email.",
     ),
     "facebook": MessageLookupByLibrary.simpleMessage("Facebook"),
+    "filters": MessageLookupByLibrary.simpleMessage("Filters"),
     "first_name": MessageLookupByLibrary.simpleMessage("First Name"),
     "foreignKeyError": MessageLookupByLibrary.simpleMessage(
       "This record is linked and cannot be removed.",
@@ -151,6 +154,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "pleaseEnterCode": MessageLookupByLibrary.simpleMessage(
       "Please enter the code",
     ),
+    "priceRange": MessageLookupByLibrary.simpleMessage("Price range"),
     "profile_dark_mode": MessageLookupByLibrary.simpleMessage("Dark Mode"),
     "profile_edit_profile": MessageLookupByLibrary.simpleMessage(
       "Edit Profile",
@@ -164,6 +168,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Payment Details",
     ),
     "profile_support": MessageLookupByLibrary.simpleMessage("Support"),
+    "rating": MessageLookupByLibrary.simpleMessage("Rating"),
     "rating_1up": MessageLookupByLibrary.simpleMessage("1 Star & Up"),
     "rating_2up": MessageLookupByLibrary.simpleMessage("2 Stars & Up"),
     "rating_3up": MessageLookupByLibrary.simpleMessage("3 Stars & Up"),
@@ -181,6 +186,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "resendAfterSeconds": m0,
     "resendCode": MessageLookupByLibrary.simpleMessage("Resend Code"),
+    "reset": MessageLookupByLibrary.simpleMessage("Reset"),
     "resetPassword": MessageLookupByLibrary.simpleMessage("Reset password"),
     "resetPasswordEmailSent": MessageLookupByLibrary.simpleMessage(
       "We\'ve sent a password reset link to your email.",
@@ -211,6 +217,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "shipping": MessageLookupByLibrary.simpleMessage("Shipping:"),
     "sign_up": MessageLookupByLibrary.simpleMessage("Sign Up"),
+    "sortBy": MessageLookupByLibrary.simpleMessage("Sort by"),
     "sort_discount": MessageLookupByLibrary.simpleMessage("Discount"),
     "sort_highestPrice": MessageLookupByLibrary.simpleMessage("Highest Price"),
     "sort_lowestPrice": MessageLookupByLibrary.simpleMessage("Lowest Price"),
