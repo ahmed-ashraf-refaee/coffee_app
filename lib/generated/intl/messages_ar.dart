@@ -187,6 +187,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "تمت إعادة تعيين كلمة المرور بنجاح.",
     ),
     "save": MessageLookupByLibrary.simpleMessage("حفظ"),
+    "samePasswordError": MessageLookupByLibrary.simpleMessage(
+      "لا يمكنك استخدام نفس كلمة المرور القديمة مرة أخرى.",
+    ),
     "search": MessageLookupByLibrary.simpleMessage("ابحث عن قهوتك المفضلة"),
     "selectLanguage": MessageLookupByLibrary.simpleMessage("اختر اللغة"),
     "sendEmail": MessageLookupByLibrary.simpleMessage("إرسال رمز التحقق"),
