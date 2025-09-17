@@ -181,6 +181,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "resetPasswordSuccess": MessageLookupByLibrary.simpleMessage(
       "تمت إعادة تعيين كلمة المرور بنجاح.",
     ),
+    "samePasswordError": MessageLookupByLibrary.simpleMessage(
+      "لا يمكنك استخدام نفس كلمة المرور القديمة مرة أخرى.",
+    ),
     "search": MessageLookupByLibrary.simpleMessage("ابحث عن قهوتك المفضلة"),
     "sendEmail": MessageLookupByLibrary.simpleMessage("إرسال رمز التحقق"),
     "sendTimeout": MessageLookupByLibrary.simpleMessage(

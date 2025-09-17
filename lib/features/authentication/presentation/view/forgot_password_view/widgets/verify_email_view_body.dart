@@ -87,48 +87,51 @@ class _VerifyEmailViewBodyState extends State<VerifyEmailViewBody> {
         ),
         Form(
           key: _formKey,
-          child: Pinput(
-            controller: tokenController,
-            length: 6,
-            separatorBuilder: (index) => const SizedBox(width: 16),
-            defaultPinTheme: PinTheme(
-              height: 46,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                color: context.colors.secondary,
-              ),
-            ),
-
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return S.current.pleaseEnterCode;
-              }
-              if (value.length < 6) {
-                return S.current.codeMustBeSixDigits;
-              }
-              return null;
-            },
-            onCompleted: (value) {
-              if (_formKey.currentState!.validate()) {
-                BlocProvider.of<AuthBloc>(
-                  context,
-                ).add(VerifyEmailEvent(token: value, email: widget.email));
-              } else {
-                FocusScope.of(context).unfocus();
-              }
-            },
-            errorBuilder: (errorText, pin) {
-              return Padding(
-                padding: const EdgeInsets.only(top: 8),
-                child: Text(
-                  errorText ?? '',
-                  style: TextStyles.bold14.copyWith(
-                    color: context.colors.primary.withValues(alpha: 0.8),
-                  ),
+          child: Directionality(
+            textDirection: TextDirection.ltr,
+            child: Pinput(
+              controller: tokenController,
+              length: 6,
+              separatorBuilder: (index) => const SizedBox(width: 16),
+              defaultPinTheme: PinTheme(
+                height: 46,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: context.colors.secondary,
                 ),
-              );
-            },
-            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              ),
+
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return S.current.pleaseEnterCode;
+                }
+                if (value.length < 6) {
+                  return S.current.codeMustBeSixDigits;
+                }
+                return null;
+              },
+              onCompleted: (value) {
+                if (_formKey.currentState!.validate()) {
+                  BlocProvider.of<AuthBloc>(
+                    context,
+                  ).add(VerifyEmailEvent(token: value, email: widget.email));
+                } else {
+                  FocusScope.of(context).unfocus();
+                }
+              },
+              errorBuilder: (errorText, pin) {
+                return Padding(
+                  padding: const EdgeInsets.only(top: 8),
+                  child: Text(
+                    errorText ?? '',
+                    style: TextStyles.bold14.copyWith(
+                      color: context.colors.primary.withValues(alpha: 0.8),
+                    ),
+                  ),
+                );
+              },
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+            ),
           ),
         ),
         Row(

@@ -704,6 +704,16 @@ class S {
     );
   }
 
+  /// `New password must be different from the old password.`
+  String get samePasswordError {
+    return Intl.message(
+      'New password must be different from the old password.',
+      name: 'samePasswordError',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Your password has been reset successfully.`
   String get resetPasswordSuccess {
     return Intl.message(

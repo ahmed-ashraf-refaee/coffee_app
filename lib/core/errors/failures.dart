@@ -64,6 +64,10 @@ class Failure {
         message.contains('invalid') && message.contains('otp') ||
         code == 'otp_expired') {
       return Failure(error: S.current.invalidOTP);
+    } else if (code == 'same_password' ||
+        message.contains('new password should be different') ||
+        message.contains('same password')) {
+      return Failure(error: S.current.samePasswordError);
     } else if (message.contains("invalid login credentials")) {
       return Failure(error: S.current.invalidCredentials);
     } else if (message.contains("email not confirmed")) {
