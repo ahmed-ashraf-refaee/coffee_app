@@ -4,6 +4,7 @@ import 'package:coffee_app/core/widgets/overlay_container.dart';
 import 'package:coffee_app/core/widgets/prettier_tap.dart';
 import 'package:coffee_app/features/home/presentation/manager/home_filter_cubit/home_filter_cubit.dart';
 import 'package:coffee_app/features/home/presentation/view/details_view/widgets/custom_chip.dart';
+import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,14 +12,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../../core/constants/filter_constants.dart';
 import '../../../../../../core/helper/ui_helpers.dart';
 
-RangeValues currentPriceRange = const RangeValues(
-  FilterConstants.minPrice,
-  FilterConstants.maxPrice,
-);
 TextEditingController minPriceController = TextEditingController();
 TextEditingController maxPriceController = TextEditingController();
-String selectedSort = '';
-String selectedRating = '';
 
 void filterOverlay(BuildContext context) => UiHelpers.showOverlay(
   context: context,
@@ -39,31 +34,28 @@ class _FilterOverlayState extends State<FilterOverlay> {
   @override
   void initState() {
     super.initState();
-    minPriceController.text = currentPriceRange.start.toStringAsFixed(0);
-    maxPriceController.text = currentPriceRange.end.toStringAsFixed(0);
+    minPriceController.text = context
+        .read<HomeFilterCubit>()
+        .selectedPriceRange
+        .start
+        .toStringAsFixed(0);
+    maxPriceController.text = context
+        .read<HomeFilterCubit>()
+        .selectedPriceRange
+        .end
+        .toStringAsFixed(0);
   }
 
   @override
   Widget build(BuildContext context) {
     void onApplyFilters() {
-      context.read<HomeFilterCubit>().setFilters(
-        range: currentPriceRange,
-        rating: selectedRating,
-        sorting: selectedSort,
-      );
+      context.read<HomeFilterCubit>().setFilters();
       Navigator.of(context).pop();
     }
 
     void onResetFilters() {
-      selectedSort = '';
-      selectedRating = '';
-      currentPriceRange = const RangeValues(
-        FilterConstants.minPrice,
-        FilterConstants.maxPrice,
-      );
       minPriceController.text = FilterConstants.minPrice.toStringAsFixed(0);
       maxPriceController.text = FilterConstants.maxPrice.toStringAsFixed(0);
-
       context.read<HomeFilterCubit>().resetFilters();
     }
 
@@ -82,19 +74,19 @@ class _FilterOverlayState extends State<FilterOverlay> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "     ",
+                    S.current.reset,
                     style: TextStyles.regular15.copyWith(
-                      color: context.colors.onSecondary,
+                      color: Colors.transparent,
                     ),
                   ),
 
-                  const Text("Filters", style: TextStyles.bold20),
+                  Text(S.current.filters, style: TextStyles.bold20),
 
                   PrettierTap(
                     shrink: 1,
                     onPressed: onResetFilters,
                     child: Text(
-                      "reset",
+                      S.current.reset,
                       style: TextStyles.regular15.copyWith(
                         color: context.colors.onSecondary,
                       ),
@@ -120,7 +112,7 @@ class _FilterOverlayState extends State<FilterOverlay> {
                   contentPadding: const EdgeInsets.all(8),
                   onPressed: onApplyFilters,
                   child: Text(
-                    "apply",
+                    S.current.apply,
                     style: TextStyles.bold16.copyWith(
                       color: context.colors.onPrimary,
                     ),
@@ -150,30 +142,37 @@ class _SortFilterState extends State<SortFilter> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(
-          "Sort by",
+          S.current.sortBy,
           style: TextStyles.regular15.copyWith(color: context.colors.onSurface),
         ),
-        Wrap(
-          spacing: 8,
-          runSpacing: 8,
-          direction: Axis.horizontal,
-          children: FilterConstants.sortOptions
-              .map(
-                (label) => CustomChip(
-                  label: label,
-                  selected: selectedSort == label,
-                  onSelected: () {
-                    setState(() {
-                      if (selectedSort == label) {
-                        selectedSort = '';
-                      } else {
-                        selectedSort = label;
-                      }
-                    });
-                  },
-                ),
-              )
-              .toList(),
+        BlocBuilder<HomeFilterCubit, HomeFilterState>(
+          builder: (context, state) {
+            return Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              direction: Axis.horizontal,
+              children: FilterConstants.sortOptions
+                  .map(
+                    (label) => CustomChip(
+                      label: label,
+                      selected:
+                          context.read<HomeFilterCubit>().selectedSort == label,
+                      onSelected: () {
+                        setState(() {
+                          if (context.read<HomeFilterCubit>().selectedSort ==
+                              label) {
+                            context.read<HomeFilterCubit>().selectedSort = '';
+                          } else {
+                            context.read<HomeFilterCubit>().selectedSort =
+                                label;
+                          }
+                        });
+                      },
+                    ),
+                  )
+                  .toList(),
+            );
+          },
         ),
       ],
     );
@@ -201,7 +200,10 @@ class _PriceFilterState extends State<PriceFilter> {
 
       if (start > end) start = end;
 
-      currentPriceRange = RangeValues(start, end);
+      context.read<HomeFilterCubit>().selectedPriceRange = RangeValues(
+        start,
+        end,
+      );
       minPriceController.text = start.toStringAsFixed(0);
       maxPriceController.text = end.toStringAsFixed(0);
     });
@@ -213,15 +215,19 @@ class _PriceFilterState extends State<PriceFilter> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(
-          "Price range",
+          S.current.priceRange,
           style: TextStyles.regular15.copyWith(color: context.colors.onSurface),
         ),
-        RangeSlider(
-          min: FilterConstants.minPrice,
-          max: FilterConstants.maxPrice,
-          values: currentPriceRange,
-          inactiveColor: context.colors.secondary,
-          onChanged: (rangeValues) => _updateRange(rangeValues),
+        BlocBuilder<HomeFilterCubit, HomeFilterState>(
+          builder: (context, state) {
+            return RangeSlider(
+              min: FilterConstants.minPrice,
+              max: FilterConstants.maxPrice,
+              values: context.read<HomeFilterCubit>().selectedPriceRange,
+              inactiveColor: context.colors.secondary,
+              onChanged: (rangeValues) => _updateRange(rangeValues),
+            );
+          },
         ),
         Row(
           spacing: 16,
@@ -235,10 +241,16 @@ class _PriceFilterState extends State<PriceFilter> {
                 ),
                 controller: minPriceController,
                 onChanged: (value) {
-                  double min = safeDoubleParse(
-                    value,
-                  ).clamp(FilterConstants.minPrice, currentPriceRange.end);
-                  _updateRange(RangeValues(min, currentPriceRange.end));
+                  double min = safeDoubleParse(value).clamp(
+                    FilterConstants.minPrice,
+                    context.read<HomeFilterCubit>().selectedPriceRange.end,
+                  );
+                  _updateRange(
+                    RangeValues(
+                      min,
+                      context.read<HomeFilterCubit>().selectedPriceRange.end,
+                    ),
+                  );
                 },
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               ),
@@ -258,10 +270,19 @@ class _PriceFilterState extends State<PriceFilter> {
                   ),
                   controller: maxPriceController,
                   onChanged: (value) {
-                    double max = safeDoubleParse(
-                      value,
-                    ).clamp(currentPriceRange.start, FilterConstants.maxPrice);
-                    _updateRange(RangeValues(currentPriceRange.start, max));
+                    double max = safeDoubleParse(value).clamp(
+                      context.read<HomeFilterCubit>().selectedPriceRange.start,
+                      FilterConstants.maxPrice,
+                    );
+                    _updateRange(
+                      RangeValues(
+                        context
+                            .read<HomeFilterCubit>()
+                            .selectedPriceRange
+                            .start,
+                        max,
+                      ),
+                    );
                   },
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 ),
@@ -289,30 +310,38 @@ class _RatingFilterState extends State<RatingFilter> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(
-          "rating",
+          S.current.rating,
           style: TextStyles.regular15.copyWith(color: context.colors.onSurface),
         ),
-        Wrap(
-          spacing: 8,
-          runSpacing: 8,
-          direction: Axis.horizontal,
-          children: FilterConstants.ratingOptions
-              .map(
-                (label) => CustomChip(
-                  label: label,
-                  selected: selectedRating == label,
-                  onSelected: () {
-                    setState(() {
-                      if (selectedRating == label) {
-                        selectedRating = '';
-                      } else {
-                        selectedRating = label;
-                      }
-                    });
-                  },
-                ),
-              )
-              .toList(),
+        BlocBuilder<HomeFilterCubit, HomeFilterState>(
+          builder: (context, state) {
+            return Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              direction: Axis.horizontal,
+              children: FilterConstants.ratingOptions
+                  .map(
+                    (label) => CustomChip(
+                      label: label,
+                      selected:
+                          context.read<HomeFilterCubit>().selectedRating ==
+                          label,
+                      onSelected: () {
+                        setState(() {
+                          if (context.read<HomeFilterCubit>().selectedRating ==
+                              label) {
+                            context.read<HomeFilterCubit>().selectedRating = '';
+                          } else {
+                            context.read<HomeFilterCubit>().selectedRating =
+                                label;
+                          }
+                        });
+                      },
+                    ),
+                  )
+                  .toList(),
+            );
+          },
         ),
       ],
     );
