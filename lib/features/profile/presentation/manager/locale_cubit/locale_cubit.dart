@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:coffee_app/core/services/app_locale.dart';
+import 'package:coffee_app/generated/l10n.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -10,6 +11,7 @@ class LocaleCubit extends Cubit<Locale> {
 
   Future<void> changeLocale(Locale locale) async {
     AppLocale.update(locale);
+    S.load(Locale(AppLocale.current.languageCode));
 
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('locale', locale.languageCode);

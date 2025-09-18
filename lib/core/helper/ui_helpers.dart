@@ -36,41 +36,48 @@ class UiHelpers {
     required BuildContext context,
     required Widget child,
     double blurSigma = 3.0,
+    VoidCallback? onDismiss,
   }) {
-    return Navigator.of(context).push(
-      PageRouteBuilder(
-        opaque: false,
-        barrierColor: Colors.transparent,
-        pageBuilder: (_, __, ___) {
-          return Scaffold(
-            backgroundColor: Colors.transparent,
-            body: Stack(
-              children: [
-                GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: () => Navigator.of(context).pop(),
-                  child: BackdropFilter(
-                    filter: ImageFilter.blur(
-                      sigmaX: blurSigma,
-                      sigmaY: blurSigma,
+    return Navigator.of(context)
+        .push(
+          PageRouteBuilder(
+            opaque: false,
+            barrierColor: Colors.transparent,
+            pageBuilder: (_, __, ___) {
+              return Scaffold(
+                backgroundColor: Colors.transparent,
+                body: Stack(
+                  children: [
+                    GestureDetector(
+                      behavior: HitTestBehavior.opaque,
+                      onTap: () => Navigator.of(context).pop(),
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(
+                          sigmaX: blurSigma,
+                          sigmaY: blurSigma,
+                        ),
+                        child: Container(
+                          color: Color.lerp(
+                            context.colors.surface,
+                            Colors.black,
+                            0.4,
+                          )!.withValues(alpha: 0.7),
+                        ),
+                      ),
                     ),
-                    child: Container(
-                      color: Color.lerp(
-                        context.colors.surface,
-                        Colors.black,
-                        0.4,
-                      )!.withValues(alpha: 0.7),
+                    Center(
+                      child: GestureDetector(onTap: () {}, child: child),
                     ),
-                  ),
+                  ],
                 ),
-                Center(
-                  child: GestureDetector(onTap: () {}, child: child),
-                ),
-              ],
-            ),
-          );
-        },
-      ),
-    );
+              );
+            },
+          ),
+        )
+        .then((_) {
+          if (onDismiss != null) {
+            onDismiss();
+          }
+        });
   }
 }
