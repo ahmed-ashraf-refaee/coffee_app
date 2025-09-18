@@ -70,7 +70,10 @@ class AuthService {
       throw ('User with provided email does not exist.');
     }
 
-    return await _supabaseClient.auth.resetPasswordForEmail(email);
+    return await _supabaseClient.auth.resetPasswordForEmail(
+      email,
+      redirectTo: 'io.supabase.flutterapp://reset-password',
+    );
   }
 
   Future<AuthResponse> verify(String token, String email) async {

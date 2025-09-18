@@ -12,8 +12,9 @@ final ValueNotifier<ForgotPasswordState> stateNotifier = ValueNotifier(
 );
 
 class ForgotPasswordView extends StatelessWidget {
-  const ForgotPasswordView({super.key});
+  const ForgotPasswordView({super.key, this.sta});
   static String? email;
+  final ForgotPasswordState? sta;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class ForgotPasswordView extends StatelessWidget {
       stateNotifier.value = state;
     }
 
-    onStateChange(ForgotPasswordState.sendEmail);
+    onStateChange(sta ?? ForgotPasswordState.sendEmail);
     return Scaffold(
       body: SingleChildScrollView(
         child: CustomContainer(
@@ -42,7 +43,7 @@ class ForgotPasswordView extends StatelessWidget {
                         email: ForgotPasswordView.email ?? "",
                       ),
                       ForgotPasswordState.resetPassword =>
-                        ChangePasswordViewBody(onStateChange: onStateChange),
+                        const ChangePasswordViewBody(),
                     },
                   );
                 },

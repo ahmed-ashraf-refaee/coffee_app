@@ -1,4 +1,5 @@
 import 'package:coffee_app/core/constants/reg_constants.dart';
+import 'package:coffee_app/core/utils/app_router.dart';
 import 'package:coffee_app/core/utils/text_styles.dart';
 import 'package:coffee_app/core/widgets/animated_icon_switch.dart';
 import 'package:coffee_app/core/widgets/custom_elevated_button.dart';
@@ -17,9 +18,7 @@ import 'package:ionicons/ionicons.dart';
 import '../../../../../../core/helper/ui_helpers.dart';
 
 class ChangePasswordViewBody extends StatefulWidget {
-  const ChangePasswordViewBody({super.key, required this.onStateChange});
-
-  final void Function(ForgotPasswordState state) onStateChange;
+  const ChangePasswordViewBody({super.key});
 
   @override
   State<ChangePasswordViewBody> createState() => _ChangePasswordViewBodyState();
@@ -127,7 +126,7 @@ class _ChangePasswordViewBodyState extends State<ChangePasswordViewBody> {
                   context: context,
                   message: S.current.passwordUpdatedSuccessfully,
                 );
-                GoRouter.of(context).pop();
+                GoRouter.of(context).pushReplacement(AppRouter.kAuthView);
               }
             },
             builder: (context, state) {

@@ -18,6 +18,7 @@ abstract class AppRouter {
   static const kAuthView = "/authView";
   static const kSplashView = "/splashView";
   static const kForgotPass = "/forgotPass";
+  static const kResetPassword = "/reset-password";
   static const kLanguageSelect = "/languageSelect";
 
   static final router = GoRouter(
@@ -49,8 +50,14 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kForgotPass,
-        builder: (context, state) => const ForgotPasswordView(),
+        builder: (context, state) => ForgotPasswordView(),
       ),
+      GoRoute(
+        path: kResetPassword,
+        builder: (context, state) =>
+            ForgotPasswordView(sta: ForgotPasswordState.resetPassword),
+      ),
+
       //GoRoute(path: '/', builder: (context, state) => AppNavigation()),
 
       //GoRoute(path: kSplashView, builder: (context, state) => SplashView()),

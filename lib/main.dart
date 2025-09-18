@@ -14,6 +14,9 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'core/services/app_locale.dart';
 import 'features/authentication/presentation/manager/auth_bloc/auth_bloc.dart';
+import 'features/home/presentation/manager/home_category_cubit/home_category_cubit.dart';
+import 'features/home/presentation/manager/home_filter_cubit/home_filter_cubit.dart';
+import 'features/home/presentation/manager/home_products_cubit/home_product_cubit.dart';
 import 'features/wishlist/presentation/manager/wishlist/wishlist_cubit.dart';
 import 'generated/l10n.dart';
 
@@ -37,6 +40,12 @@ class CoffeeApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(create: (context) => HomeFilterCubit()),
+        BlocProvider(
+          create: (context) =>
+              HomeProductCubit(context.read<HomeFilterCubit>())..getProducts(),
+        ),
+        BlocProvider(create: (context) => HomeCategoryCubit()..getCategories()),
         BlocProvider(create: (context) => ThemeCubit()),
         BlocProvider(create: (context) => AuthBloc()),
         BlocProvider(create: (context) => WishlistCubit()..getWishlist()),
