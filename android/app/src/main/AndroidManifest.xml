@@ -28,8 +28,7 @@
         <category android:name="android.intent.category.BROWSABLE" />
       <data
     android:scheme="io.supabase.flutterapp"
-    android:host="*"
-    android:pathPattern=".*" />
+    android:host="reset-password"/>
 
       </intent-filter>
 

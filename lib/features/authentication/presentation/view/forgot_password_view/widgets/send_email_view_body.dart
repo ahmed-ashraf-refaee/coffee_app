@@ -25,7 +25,9 @@ class SendEmailViewBody extends StatefulWidget {
 }
 
 class _SendEmailViewBodyState extends State<SendEmailViewBody> {
-  final TextEditingController emailController = TextEditingController();
+  final TextEditingController emailController = TextEditingController(
+    text: "sameh.hazem504@gmail.com",
+  );
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override

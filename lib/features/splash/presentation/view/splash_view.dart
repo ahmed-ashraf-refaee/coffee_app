@@ -27,16 +27,6 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    Supabase.instance.client.auth.onAuthStateChange.listen((event) {
-      if (!mounted) return; // don't navigate after unmount
-      print("in splash");
-      final type = event.event;
-      print(type);
-      if (type == AuthChangeEvent.passwordRecovery) {
-        // Force navigation into reset password screen
-        GoRouter.of(context).go('/reset-password');
-      }
-    });
     super.initState();
     titleAnimation();
     rotationAnimation();
@@ -46,8 +36,8 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
       final remember = prefs.getBool("remember_me") ?? true;
 
       if (remember) {
-        final session = Supabase.instance.client.auth.currentSession;
-        if (session != null) {
+        final user = Supabase.instance.client.auth.currentSession?.user;
+        if (user != null) {
           if (mounted) {
             GoRouter.of(context).pushReplacement(AppRouter.kNavigationView);
           }

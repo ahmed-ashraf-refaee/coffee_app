@@ -56,7 +56,7 @@ class Failure {
     }
   }
 
-  factory Failure.fromAuthException(AuthApiException exception) {
+  factory Failure.fromAuthApiException(AuthApiException exception) {
     final message = exception.message.toLowerCase();
     final code = exception.code;
 
@@ -84,6 +84,37 @@ class Failure {
     }
   }
 
+  factory Failure.fromAuthException(AuthException exception) {
+    final message = exception.message.toLowerCase();
+    final code = exception.code;
+
+    // Handle specific codes and messages for AuthException
+    if (code == 'access_denied' && message.contains('expired')) {
+      return Failure(error: S.current.linkExpired);
+    } else if (code == 'otp_expired' ||
+        message.contains('expired') ||
+        message.contains('invalid') && message.contains('link')) {
+      return Failure(error: S.current.linkExpired);
+    } else if (code == 'otp_invalid' ||
+        message.contains('invalid') && message.contains('otp')) {
+      return Failure(error: S.current.invalidOTP);
+    } else if (code == 'same_password' ||
+        message.contains('new password should be different') ||
+        message.contains('same password')) {
+      return Failure(error: S.current.samePasswordError);
+    } else if (message.contains("invalid login credentials")) {
+      return Failure(error: S.current.invalidCredentials);
+    } else if (message.contains("email not confirmed")) {
+      return Failure(error: S.current.emailNotConfirmed);
+    } else if (message.contains("user already registered")) {
+      return Failure(error: S.current.emailAlreadyRegistered);
+    } else if (message.contains("password")) {
+      return Failure(error: S.current.weakOrWrongPassword);
+    } else {
+      return Failure(error: S.current.authFailed);
+    }
+  }
+
   factory Failure.fromSqlException(PostgrestException exception) {
     final code = exception.code;
     final message = exception.message.toLowerCase();
@@ -104,6 +135,7 @@ class Failure {
       return Failure(error: S.current.databaseError);
     }
   }
+
   factory Failure.fromStringException(String errorMessage) {
     final message = errorMessage.toLowerCase();
 
@@ -115,8 +147,10 @@ class Failure {
   }
 
   factory Failure.fromException(dynamic exception) {
-    if (exception is AuthApiException) {
+    if (exception is AuthException) {
       return Failure.fromAuthException(exception);
+    } else if (exception is AuthApiException) {
+      return Failure.fromAuthApiException(exception);
     } else if (exception is PostgrestException) {
       return Failure.fromSqlException(exception);
     } else if (exception is DioException) {
