@@ -25,8 +25,7 @@ class SendEmailViewBody extends StatefulWidget {
 }
 
 class _SendEmailViewBodyState extends State<SendEmailViewBody> {
-  final TextEditingController emailController = TextEditingController(
-  );
+  final TextEditingController emailController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -91,17 +90,14 @@ class _SendEmailViewBodyState extends State<SendEmailViewBody> {
           },
           builder: (context, state) {
             return CustomElevatedButton(
-              child: state is AuthforgotPasswordLoading
-                  ? SpinKitThreeBounce(
-                      color: context.colors.onPrimary,
-                      size: 26,
-                    )
-                  : Text(
-                      S.current.sendEmail,
-                      style: TextStyles.medium20.copyWith(
-                        color: context.colors.onPrimary,
-                      ),
-                    ),
+              isLoading: state is AuthLoading,
+
+              child: Text(
+                S.current.sendEmail,
+                style: TextStyles.medium20.copyWith(
+                  color: context.colors.onPrimary,
+                ),
+              ),
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   final email = emailController.text.trim();

@@ -54,8 +54,9 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kResetPassword,
-        builder: (context, state) =>
-            ForgotPasswordView(sta: ForgotPasswordState.resetPassword),
+        builder: (context, state) => ForgotPasswordView(
+          forgotPasswordState: ForgotPasswordState.resetPassword,
+        ),
       ),
 
       //GoRoute(path: '/', builder: (context, state) => AppNavigation()),

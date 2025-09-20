@@ -1,6 +1,7 @@
 import 'package:coffee_app/core/widgets/prettier_tap.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   const CustomElevatedButton({
@@ -13,6 +14,7 @@ class CustomElevatedButton extends StatelessWidget {
     this.backgroundColor,
     this.shrink = 1,
     this.wrapContent = false,
+    this.isLoading = false,
   });
 
   final double? width;
@@ -21,6 +23,7 @@ class CustomElevatedButton extends StatelessWidget {
   final EdgeInsets? contentPadding;
   final VoidCallback onPressed;
   final int shrink;
+  final bool isLoading;
   final Widget child;
   final bool wrapContent;
 
@@ -43,7 +46,12 @@ class CustomElevatedButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             color: backgroundColor ?? context.colors.primary,
           ),
-          child: child,
+          child: isLoading
+              ? Padding(
+                  padding: const EdgeInsets.all(24.0),
+                  child: SpinKitThreeBounce(color: context.colors.onPrimary),
+                )
+              : child,
         ),
       ),
     );

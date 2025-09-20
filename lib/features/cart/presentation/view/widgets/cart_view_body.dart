@@ -99,6 +99,25 @@ class CartViewBody extends StatelessWidget {
                         ),
                       ),
                     );
+                  } else if (state is CartItemLoading) {
+                    final cartItems = context
+                        .read<CartCubit>()
+                        .cartRepo
+                        .getCachedCart();
+
+                    return SliverList.builder(
+                      itemCount: cartItems.length,
+                      itemBuilder: (context, index) {
+                        final product = cartItems[index];
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 16),
+                          child: CartListItem(
+                            cartItem: product,
+                            key: Key(product.id.toString()),
+                          ),
+                        );
+                      },
+                    );
                   } else {
                     return SliverFillRemaining(
                       child: Center(
@@ -117,56 +136,66 @@ class CartViewBody extends StatelessWidget {
           ),
         ),
 
-        Container(
+        const CartSummary(),
+      ],
+    );
+  }
+}
+
+class CartSummary extends StatelessWidget {
+  const CartSummary({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    double subTotal = 0.0;
+    double shipping = 0.0;
+
+    return BlocBuilder<CartCubit, CartState>(
+      builder: (context, state) {
+        if (state is CartSuccess) {
+          subTotal = state.cartItems.fold<double>(
+            0,
+            (sum, e) => sum + (e.quantity * e.productVariant!.price),
+          );
+          shipping = subTotal * 0.1;
+        }
+        return Container(
           padding: const EdgeInsets.only(top: 16),
           color: context.colors.surface,
           width: context.width,
-          child: BlocBuilder<CartCubit, CartState>(
-            builder: (context, state) {
-              if (state is CartSuccess) {
-                final subTotal = state.cartItems.fold<double>(
-                  0,
-                  (sum, e) => sum + (e.quantity * e.productVariant!.price),
-                );
-                final shipping = (subTotal * 0.1);
-
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  spacing: 8,
-                  children: [
-                    SummaryLine(
-                      label: S.current.sub_total,
-                      value: subTotal.toStringAsFixed(2),
-                      style: TextStyles.regular16,
-                    ),
-                    SummaryLine(
-                      value: shipping.toStringAsFixed(2),
-                      label: S.current.shipping,
-                      style: TextStyles.regular16,
-                    ),
-                    Divider(color: context.colors.onSecondary, thickness: 1),
-                    SummaryLine(
-                      label: S.current.total_price,
-                      value: (subTotal + shipping).toStringAsFixed(2),
-                      style: TextStyles.regular16,
-                    ),
-                    CustomElevatedButton(
-                      onPressed: () {},
-                      child: Text(
-                        S.current.continue_with_payment,
-                        style: TextStyles.medium20.copyWith(
-                          color: context.colors.onPrimary,
-                        ),
-                      ),
-                    ),
-                  ],
-                );
-              }
-              return const SizedBox();
-            },
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            spacing: 8,
+            children: [
+              SummaryLine(
+                label: S.current.sub_total,
+                value: subTotal.toStringAsFixed(2),
+                style: TextStyles.regular16,
+              ),
+              SummaryLine(
+                value: shipping.toStringAsFixed(2),
+                label: S.current.shipping,
+                style: TextStyles.regular16,
+              ),
+              Divider(color: context.colors.onSecondary, thickness: 1),
+              SummaryLine(
+                label: S.current.total_price,
+                value: (subTotal + shipping).toStringAsFixed(2),
+                style: TextStyles.regular16,
+              ),
+              CustomElevatedButton(
+                onPressed: () {},
+                child: Text(
+                  S.current.continue_with_payment,
+                  style: TextStyles.medium20.copyWith(
+                    color: context.colors.onPrimary,
+                  ),
+                ),
+              ),
+            ],
           ),
-        ),
-      ],
+        );
+      },
     );
   }
 }

@@ -130,17 +130,14 @@ class _ChangePasswordViewBodyState extends State<ChangePasswordViewBody> {
             },
             builder: (context, state) {
               return CustomElevatedButton(
-                child: state is AuthforgotPasswordLoading
-                    ? SpinKitThreeBounce(
-                        color: context.colors.onPrimary,
-                        size: 26,
-                      )
-                    : Text(
-                        S.current.setPasswordButton,
-                        style: TextStyles.medium20.copyWith(
-                          color: context.colors.onPrimary,
-                        ),
-                      ),
+                isLoading: state is AuthLoading,
+
+                child: Text(
+                  S.current.setPasswordButton,
+                  style: TextStyles.medium20.copyWith(
+                    color: context.colors.onPrimary,
+                  ),
+                ),
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     BlocProvider.of<AuthBloc>(context).add(

@@ -106,6 +106,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
           },
           builder: (context, state) {
             return CustomElevatedButton(
+              isLoading: state is AuthLoading,
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   BlocProvider.of<AuthBloc>(context).add(
@@ -117,17 +118,12 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                   );
                 }
               },
-              child: state is AuthLoading
-                  ? SpinKitThreeBounce(
-                      color: context.colors.onPrimary,
-                      size: 26,
-                    )
-                  : Text(
-                      S.current.log_in,
-                      style: TextStyles.medium20.copyWith(
-                        color: context.colors.onPrimary,
-                      ),
-                    ),
+              child: Text(
+                S.current.log_in,
+                style: TextStyles.medium20.copyWith(
+                  color: context.colors.onPrimary,
+                ),
+              ),
             );
           },
         ),

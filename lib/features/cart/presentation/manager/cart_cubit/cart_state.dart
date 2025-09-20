@@ -7,6 +7,18 @@ final class CartInitial extends CartState {}
 
 final class CartLoading extends CartState {}
 
+final class CartAddItemLoading extends CartState {
+  final int productId;
+
+  CartAddItemLoading({required this.productId});
+}
+
+final class CartItemLoading extends CartState {
+  final int id;
+
+  CartItemLoading({required this.id});
+}
+
 final class CartSuccess extends CartState {
   final List<CartItemModel> cartItems;
 

@@ -13,6 +13,7 @@ class QuantitySelector extends StatelessWidget {
     this.backgroundColor,
     this.maxValue = 99,
     this.minValue = 0,
+    this.isLoading = false,
   });
   final int value;
   final EdgeInsets contentPadding;
@@ -20,6 +21,7 @@ class QuantitySelector extends StatelessWidget {
   final Color? backgroundColor;
   final int maxValue;
   final int minValue;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -50,13 +52,20 @@ class QuantitySelector extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 4),
             child: SizedBox(
               width: 24,
-              child: Text(
-                "$value",
-                style: TextStyles.medium16.copyWith(
-                  color: context.colors.primary,
-                ),
-                textAlign: TextAlign.center,
-              ),
+              height: 24,
+              child: isLoading
+                  ? CircularProgressIndicator(
+                      padding: const EdgeInsets.all(4),
+                      color: context.colors.primary,
+                      strokeWidth: 1.6,
+                    )
+                  : Text(
+                      "$value",
+                      style: TextStyles.medium16.copyWith(
+                        color: context.colors.primary,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
             ),
           ),
           CustomIconButton(

@@ -61,7 +61,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
           confirmPasswordController: confirmPasswordController,
         ),
         const SizedBox(height: 48),
-        BlocListener<AuthBloc, AuthState>(
+        BlocConsumer<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is AuthFailure) {
               UiHelpers.showSnackBar(context: context, message: state.error);
@@ -78,33 +78,39 @@ class _SignupViewBodyState extends State<SignupViewBody> {
               );
             }
           },
-          child: CustomElevatedButton(
-            onPressed: () {
-              if (usernameController.text.trim().isNotEmpty &&
-                  usernameController.text.trim().length >= 2) {
-                BlocProvider.of<AuthBloc>(context).add(
-                  UsernameCheckEvent(username: usernameController.text.trim()),
-                );
-              }
-              if (_formKey.currentState!.validate()) {
-                BlocProvider.of<AuthBloc>(context).add(
-                  SignupEvent(
-                    email: emailController.text.trim(),
-                    password: passwordController.text.trim(),
-                    username: usernameController.text.trim(),
-                    firstName: firstNameController.text.trim(),
-                    lastName: lastNameController.text.trim(),
-                  ),
-                );
-              }
-            },
-            child: Text(
-              S.current.sign_up,
-              style: TextStyles.medium20.copyWith(
-                color: context.colors.onPrimary,
+          builder: (context, state) {
+            return CustomElevatedButton(
+              isLoading: state is AuthLoading,
+
+              onPressed: () {
+                if (usernameController.text.trim().isNotEmpty &&
+                    usernameController.text.trim().length >= 2) {
+                  BlocProvider.of<AuthBloc>(context).add(
+                    UsernameCheckEvent(
+                      username: usernameController.text.trim(),
+                    ),
+                  );
+                }
+                if (_formKey.currentState!.validate()) {
+                  BlocProvider.of<AuthBloc>(context).add(
+                    SignupEvent(
+                      email: emailController.text.trim(),
+                      password: passwordController.text.trim(),
+                      username: usernameController.text.trim(),
+                      firstName: firstNameController.text.trim(),
+                      lastName: lastNameController.text.trim(),
+                    ),
+                  );
+                }
+              },
+              child: Text(
+                S.current.sign_up,
+                style: TextStyles.medium20.copyWith(
+                  color: context.colors.onPrimary,
+                ),
               ),
-            ),
-          ),
+            );
+          },
         ),
         const Spacer(),
         AuthSuggestion(

@@ -113,22 +113,28 @@ class CartListItem extends StatelessWidget {
                                 ],
                               ),
                             ),
-
-                            QuantitySelector(
-                              backgroundColor: context.colors.surface,
-                              value: cartItem.quantity,
-                              maxValue: cartItem.productVariant!.quantity,
-                              minValue: 1,
-                              onChanged: (v) {
-                                context.read<CartCubit>().updateQuantity(
-                                  cartItemId: cartItem.id,
-                                  newQuantity: v,
+                            BlocBuilder<CartCubit, CartState>(
+                              builder: (context, state) {
+                                return QuantitySelector(
+                                  isLoading:
+                                      state is CartItemLoading &&
+                                      state.id == cartItem.id,
+                                  backgroundColor: context.colors.surface,
+                                  value: cartItem.quantity,
+                                  maxValue: cartItem.productVariant!.quantity,
+                                  minValue: 1,
+                                  onChanged: (v) {
+                                    context.read<CartCubit>().updateQuantity(
+                                      cartItemId: cartItem.id,
+                                      newQuantity: v,
+                                    );
+                                  },
+                                  contentPadding: const EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                    vertical: 2,
+                                  ),
                                 );
                               },
-                              contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 8,
-                                vertical: 2,
-                              ),
                             ),
                           ],
                         ),

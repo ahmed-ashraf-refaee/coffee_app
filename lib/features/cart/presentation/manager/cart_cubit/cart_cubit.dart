@@ -7,11 +7,11 @@ part 'cart_state.dart';
 
 class CartCubit extends Cubit<CartState> {
   CartCubit() : super(CartInitial());
-  final CartRepoImpl _cartRepo = CartRepoImpl();
+  final CartRepoImpl cartRepo = CartRepoImpl();
 
   Future<void> loadCart() async {
     emit(CartLoading());
-    final result = await _cartRepo.getCartItem();
+    final result = await cartRepo.getCartItem();
     result.fold(
       (failure) => emit(CartFailure(error: failure.error)),
       (items) => emit(CartSuccess(cartItems: items)),
@@ -23,19 +23,20 @@ class CartCubit extends Cubit<CartState> {
     required int productId,
     int quantity = 1,
   }) async {
-    final result = await _cartRepo.addItemToCart(
+    emit(CartAddItemLoading(productId: productId));
+    final result = await cartRepo.addItemToCart(
       productVariantId: productVariantId,
       quantity: quantity,
       productId: productId,
     );
     result.fold(
       (failure) => emit(CartFailure(error: failure.error)),
-      (_) => emit(CartSuccess(cartItems: _cartRepo.getCachedCart())),
+      (_) => emit(CartSuccess(cartItems: cartRepo.getCachedCart())),
     );
   }
 
   Future<void> removeItem({required int cartItemId}) async {
-    final currentProducts = _cartRepo.getCachedCart();
+    final currentProducts = cartRepo.getCachedCart();
     emit(
       CartSuccess(
         cartItems: currentProducts
@@ -43,10 +44,10 @@ class CartCubit extends Cubit<CartState> {
             .toList(),
       ),
     );
-    final result = await _cartRepo.removeItem(cartItemId: cartItemId);
+    final result = await cartRepo.removeItem(cartItemId: cartItemId);
     result.fold(
       (failure) => emit(CartFailure(error: failure.error)),
-      (_) => emit(CartSuccess(cartItems: _cartRepo.getCachedCart())),
+      (_) => emit(CartSuccess(cartItems: cartRepo.getCachedCart())),
     );
   }
 
@@ -54,31 +55,22 @@ class CartCubit extends Cubit<CartState> {
     required int cartItemId,
     required int newQuantity,
   }) async {
-    final currentProducts = _cartRepo.getCachedCart();
-    final updatedItems = currentProducts.map((item) {
-      if (item.id == cartItemId) {
-        return item.copyWith(quantity: newQuantity);
-      }
-      return item;
-    }).toList();
-    emit(CartSuccess(cartItems: updatedItems));
-    final result = await _cartRepo.updateItemQuantity(
+    emit(CartItemLoading(id: cartItemId));
+    final result = await cartRepo.updateItemQuantity(
       cartItemId: cartItemId,
       newQuantity: newQuantity,
     );
     result.fold((failure) => emit(CartFailure(error: failure.error)), (_) {
-      final currentItem = _cartRepo.getCachedCart();
+      final currentItem = cartRepo.getCachedCart();
 
-      if (currentItem != updatedItems) {
-        emit(CartSuccess(cartItems: currentItem));
-      }
+      emit(CartSuccess(cartItems: currentItem));
     });
   }
 
   Future<void> clearCart() async {
-    final currentCartProducts = _cartRepo.getCachedCart();
+    final currentCartProducts = cartRepo.getCachedCart();
     emit(CartSuccess(cartItems: const []));
-    final result = await _cartRepo.removeAll();
+    final result = await cartRepo.removeAll();
     result.fold((failure) {
       emit(CartSuccess(cartItems: currentCartProducts));
       emit(CartFailure(error: failure.error));

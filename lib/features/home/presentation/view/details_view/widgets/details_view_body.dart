@@ -205,21 +205,28 @@ class _DetailsViewBodyState extends State<DetailsViewBody> {
           ],
         ),
         const SizedBox(height: 24),
-        CustomElevatedButton(
-          onPressed: () {
-            BlocProvider.of<CartCubit>(context).addItem(
-              productVariantId:
-                  widget.product.productVariants[selectedIndex].id,
-              quantity: quantity,
-              productId: widget.product.id,
+        BlocBuilder<CartCubit, CartState>(
+          builder: (context, state) {
+            return CustomElevatedButton(
+              isLoading:
+                  state is CartAddItemLoading &&
+                  state.productId == widget.product.id,
+              onPressed: () {
+                BlocProvider.of<CartCubit>(context).addItem(
+                  productVariantId:
+                      widget.product.productVariants[selectedIndex].id,
+                  quantity: quantity,
+                  productId: widget.product.id,
+                );
+              },
+              child: Text(
+                "Add to Cart",
+                style: TextStyles.medium20.copyWith(
+                  color: context.colors.onPrimary,
+                ),
+              ),
             );
           },
-          child: Text(
-            "Add to Cart",
-            style: TextStyles.medium20.copyWith(
-              color: context.colors.onPrimary,
-            ),
-          ),
         ),
       ],
     );
