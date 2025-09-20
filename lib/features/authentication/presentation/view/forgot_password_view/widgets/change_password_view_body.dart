@@ -5,7 +5,6 @@ import 'package:coffee_app/core/widgets/animated_icon_switch.dart';
 import 'package:coffee_app/core/widgets/custom_elevated_button.dart';
 import 'package:coffee_app/features/authentication/presentation/manager/auth_bloc/auth_bloc.dart';
 import 'package:coffee_app/features/authentication/presentation/view/authentication_view/widgets/build_suffix_icon_with_divider.dart';
-import 'package:coffee_app/features/authentication/presentation/view/forgot_password_view/forgot_password_view.dart';
 import 'package:coffee_app/features/authentication/presentation/view/widgets/auth_title.dart';
 import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';

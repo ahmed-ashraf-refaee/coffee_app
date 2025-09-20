@@ -34,7 +34,7 @@ class WishlistRepoImpl extends WishlistRepo {
   @override
   Future<Either<Failure, void>> removeAllWishlist() {
     return guard(() async {
-      await _wishlistService.removeAll();
+      await _wishlistService.removeAll(userId);
 
       _updateCache([]);
     });
@@ -59,7 +59,10 @@ class WishlistRepoImpl extends WishlistRepo {
           .where((p) => p.id != productId)
           .toList();
 
-      await _wishlistService.removeByProductId(productId: productId);
+      await _wishlistService.removeByProductId(
+        productId: productId,
+        userId: userId,
+      );
     });
   }
 

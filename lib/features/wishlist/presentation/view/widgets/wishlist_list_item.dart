@@ -1,10 +1,12 @@
 import 'package:coffee_app/core/model/product_model.dart';
+import 'package:coffee_app/core/utils/app_router.dart';
 import 'package:coffee_app/core/widgets/custom_icon_button.dart';
 import 'package:coffee_app/features/wishlist/presentation/manager/wishlist/wishlist_cubit.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '../../../../../core/utils/text_styles.dart';
@@ -48,7 +50,9 @@ class WishlistListItem extends StatelessWidget {
 
         child: PrettierTap(
           shrink: 1,
-          onPressed: () {},
+          onPressed: () {
+            GoRouter.of(context).push(AppRouter.kDetailsView, extra: product);
+          },
           child: Container(
             height: 132,
             width: context.width,

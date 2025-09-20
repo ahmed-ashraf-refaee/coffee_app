@@ -1,3 +1,4 @@
+import 'package:coffee_app/core/services/app_locale.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class CartService {
@@ -29,18 +30,31 @@ class CartService {
 
     final response = await _supabaseClient
         .from('cart_item')
-        .select(''' *, product_variants(*, products(*)) ''')
+        .select('''
+          *,
+          product_variants(
+            *,
+            products(
+              *,
+              products_translation!inner(name, description),
+              categories(id, name_${AppLocale.current.languageCode})
+            )
+          )
+        ''')
         .eq('cart_id', cart['id'])
+        .eq(
+          'product_variants.products.products_translation.language_code',
+          AppLocale.current.languageCode,
+        )
         .order('created_at', ascending: false);
 
-    return response;
+    return List<Map<String, dynamic>>.from(response);
   }
 
   Future<Map<String, dynamic>> addToCart({
     required String userId,
     required int productId,
     required int productVariantId,
-
     int quantity = 1,
   }) async {
     final cart = await getOrCreateCart(userId: userId);
@@ -68,10 +82,32 @@ class CartService {
             'created_at': DateTime.now().toIso8601String(),
             'product_id': productId,
           })
-          .select(''' *, product_variants(*, products(*)) ''')
+          .select('id')
           .single();
 
-      return inserted;
+      final cartItemId = inserted['id'];
+
+      final newItem = await _supabaseClient
+          .from('cart_item')
+          .select('''
+          *,
+          product_variants(
+            *,
+            products(
+              *,
+              products_translation!inner(name, description),
+              categories(id, name_${AppLocale.current.languageCode})
+            )
+          )
+        ''')
+          .eq('id', cartItemId)
+          .eq(
+            'product_variants.products.products_translation.language_code',
+            AppLocale.current.languageCode,
+          )
+          .single();
+
+      return newItem;
     }
   }
 
@@ -82,13 +118,35 @@ class CartService {
   }) async {
     final cart = await getOrCreateCart(userId: userId);
 
-    final updated = await _supabaseClient
+    // First update
+    await _supabaseClient
         .from('cart_item')
         .update({'quantity': newQuantity})
         .eq('cart_id', cart['id'])
+        .eq('product_variant_id', productVariantId);
+
+    // Then fetch with localization
+    final updated = await _supabaseClient
+        .from('cart_item')
+        .select('''
+        *,
+        product_variants(
+          *,
+          products(
+            *,
+            products_translation!inner(name, description),
+            categories(id, name_${AppLocale.current.languageCode})
+          )
+        )
+      ''')
+        .eq('cart_id', cart['id'])
         .eq('product_variant_id', productVariantId)
-        .select(''' *, product_variants(*, products(*)) ''')
+        .eq(
+          'product_variants.products.products_translation.language_code',
+          AppLocale.current.languageCode,
+        )
         .single();
+
     return updated;
   }
 
@@ -96,12 +154,33 @@ class CartService {
     required int cartItemId,
     required int newQuantity,
   }) async {
-    final updated = await _supabaseClient
+    // First, just update
+    await _supabaseClient
         .from('cart_item')
         .update({'quantity': newQuantity})
+        .eq('id', cartItemId);
+
+    // Then, fetch with localization
+    final updated = await _supabaseClient
+        .from('cart_item')
+        .select('''
+        *,
+        product_variants(
+          *,
+          products(
+            *,
+            products_translation!inner(name, description),
+            categories(id, name_${AppLocale.current.languageCode})
+          )
+        )
+      ''')
         .eq('id', cartItemId)
-        .select(''' *, product_variants(*, products(*)) ''')
+        .eq(
+          'product_variants.products.products_translation.language_code',
+          AppLocale.current.languageCode,
+        )
         .single();
+
     return updated;
   }
 
