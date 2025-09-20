@@ -46,15 +46,15 @@ abstract class AppRouter {
       // GoRoute(path: kHomeView, builder: (context, state) => const HomeView()),
       GoRoute(
         path: kAuthView,
-        builder: (context, state) => AuthenticationView(),
+        builder: (context, state) => const AuthenticationView(),
       ),
       GoRoute(
         path: kForgotPass,
-        builder: (context, state) => ForgotPasswordView(),
+        builder: (context, state) => const ForgotPasswordView(),
       ),
       GoRoute(
         path: kResetPassword,
-        builder: (context, state) => ForgotPasswordView(
+        builder: (context, state) => const ForgotPasswordView(
           forgotPasswordState: ForgotPasswordState.resetPassword,
         ),
       ),
