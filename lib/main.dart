@@ -1,3 +1,4 @@
+import 'package:coffee_app/core/constants/keys.dart';
 import 'package:coffee_app/core/constants/language_constants.dart';
 import 'package:coffee_app/core/utils/app_router.dart';
 import 'package:coffee_app/core/utils/dark_theme.dart';
@@ -18,13 +19,12 @@ import 'features/home/presentation/manager/home_filter_cubit/home_filter_cubit.d
 import 'features/wishlist/presentation/manager/wishlist/wishlist_cubit.dart';
 import 'generated/l10n.dart';
 
-final String url = "https://fxwpkhftzlintbdkujze.supabase.co";
-final String anonKey =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ4d3BraGZ0emxpbnRiZGt1anplIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYzNzY0ODQsImV4cCI6MjA3MTk1MjQ4NH0.oAgu9Jlsdem3A6Rk9AmCf76IkYux_fTj21qDU_kml2U";
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Supabase.initialize(url: url, anonKey: anonKey);
+  await Supabase.initialize(
+    url: Keys.supabaseUrl,
+    anonKey: Keys.supabaseAnonKey,
+  );
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
   );
