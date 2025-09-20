@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'core/services/app_locale.dart';
@@ -25,6 +26,7 @@ void main() async {
     url: Keys.supabaseUrl,
     anonKey: Keys.supabaseAnonKey,
   );
+  Stripe.publishableKey = Keys.stripePublishableKey;
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
   );

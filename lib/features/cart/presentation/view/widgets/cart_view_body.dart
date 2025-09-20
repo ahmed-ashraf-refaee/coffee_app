@@ -7,11 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
 
+import '../../../../../core/helper/ui_helpers.dart';
 import '../../../../../core/utils/text_styles.dart';
 import '../../../../../core/widgets/custom_icon_button.dart';
 import '../../../../../core/widgets/loading_list_tile.dart';
 import '../../../../../generated/l10n.dart';
 import '../../../../navigation/presentation/manager/navigator_cubit/navigator_cubit.dart';
+import '../../../../payment/presentation/manager/payment/stripe_payment_cubit.dart';
 
 class CartViewBody extends StatelessWidget {
   const CartViewBody({super.key});
@@ -149,6 +151,7 @@ class CartSummary extends StatelessWidget {
   Widget build(BuildContext context) {
     double subTotal = 0.0;
     double shipping = 0.0;
+    double total = 0.0;
 
     return BlocBuilder<CartCubit, CartState>(
       builder: (context, state) {
@@ -158,6 +161,7 @@ class CartSummary extends StatelessWidget {
             (sum, e) => sum + (e.quantity * e.productVariant!.price),
           );
           shipping = subTotal * 0.1;
+          total = (subTotal + shipping);
         }
         return Container(
           padding: const EdgeInsets.only(top: 16),
@@ -180,17 +184,39 @@ class CartSummary extends StatelessWidget {
               Divider(color: context.colors.onSecondary, thickness: 1),
               SummaryLine(
                 label: S.current.total_price,
-                value: (subTotal + shipping).toStringAsFixed(2),
+                value: total.toStringAsFixed(2),
                 style: TextStyles.regular16,
               ),
-              CustomElevatedButton(
-                onPressed: () {},
-                child: Text(
-                  S.current.continue_with_payment,
-                  style: TextStyles.medium20.copyWith(
-                    color: context.colors.onPrimary,
-                  ),
-                ),
+              BlocConsumer<StripePaymentCubit, StripePaymentState>(
+                listener: (context, state) {
+                  if (state is StripePaymentLoading) {
+                    // Show loading indicator
+                  } else if (state is StripePaymentSuccess) {
+                    // Show success message
+                  } else if (state is StripePaymentFailure) {
+                    UiHelpers.showSnackBar(
+                      context: context,
+                      message: state.error,
+                    );
+                  }
+                },
+                builder: (context, state) {
+                  return CustomElevatedButton(
+                    isLoading: state is StripePaymentLoading,
+                    onPressed: () {
+                      context.read<StripePaymentCubit>().payment(
+                        amount: total,
+                        currency: 'EGP',
+                      );
+                    },
+                    child: Text(
+                      S.current.continue_with_payment,
+                      style: TextStyles.medium20.copyWith(
+                        color: context.colors.onPrimary,
+                      ),
+                    ),
+                  );
+                },
               ),
             ],
           ),

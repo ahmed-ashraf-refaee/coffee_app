@@ -50,7 +50,6 @@ class _FilterOverlayState extends State<FilterOverlay> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     minPriceController.dispose();
     maxPriceController.dispose();
     super.dispose();

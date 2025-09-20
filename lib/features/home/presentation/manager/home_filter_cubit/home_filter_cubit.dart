@@ -52,7 +52,6 @@ class HomeFilterCubit extends Cubit<HomeFilterState> {
 
   void resetAll() {
     selectedCategory = S.current.all;
-    print(selectedCategory);
     selectedQuery = '';
     selectedPriceRange = const RangeValues(
       FilterConstants.minPrice,
