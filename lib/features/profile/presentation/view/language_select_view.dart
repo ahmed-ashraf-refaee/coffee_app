@@ -5,6 +5,7 @@ import 'package:coffee_app/core/widgets/custom_app_bar.dart';
 import 'package:coffee_app/core/widgets/custom_container.dart';
 import 'package:coffee_app/core/widgets/custom_elevated_button.dart';
 import 'package:coffee_app/core/widgets/custom_icon_button.dart';
+import 'package:coffee_app/features/home/presentation/manager/home_filter_cubit/home_filter_cubit.dart';
 import 'package:coffee_app/features/profile/presentation/manager/locale_cubit/locale_cubit.dart';
 import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';
@@ -92,6 +93,8 @@ class _LanguageSelectViewState extends State<LanguageSelectView> {
                                 LanguageConstants.supportedLocals[language
                                     .languageCode]!,
                               );
+                              
+                              context.read<HomeFilterCubit>().resetAll();
                             });
                           },
                           language: language.languageName,

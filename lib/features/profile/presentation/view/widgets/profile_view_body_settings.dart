@@ -1,6 +1,7 @@
 import 'package:coffee_app/core/constants/language_constants.dart';
 import 'package:coffee_app/core/services/app_locale.dart';
 import 'package:coffee_app/core/utils/app_router.dart';
+import 'package:coffee_app/features/home/presentation/manager/home_filter_cubit/home_filter_cubit.dart';
 import 'package:coffee_app/features/profile/presentation/manager/locale_cubit/locale_cubit.dart';
 import 'package:coffee_app/features/profile/presentation/manager/setting_cubit/setting_cubit.dart';
 import 'package:coffee_app/features/profile/presentation/manager/theme_cubit/theme_cubit.dart';
@@ -55,6 +56,7 @@ class ProfileViewBodySettings extends StatelessWidget {
               PrettierTap(
                 shrink: 1,
                 onPressed: () {
+                  
                   GoRouter.of(context).push(AppRouter.kLanguageSelect);
                 },
                 child: ProfileTile(

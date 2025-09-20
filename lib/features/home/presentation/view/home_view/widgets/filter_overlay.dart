@@ -12,15 +12,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../../core/constants/filter_constants.dart';
 import '../../../../../../core/helper/ui_helpers.dart';
 
-TextEditingController minPriceController = TextEditingController();
-TextEditingController maxPriceController = TextEditingController();
-
 void filterOverlay(BuildContext context) => UiHelpers.showOverlay(
   context: context,
   child: BlocProvider.value(
     value: context.read<HomeFilterCubit>(),
     child: const FilterOverlay(),
   ),
+  onDismiss: () {
+    context.read<HomeFilterCubit>().revert();
+  },
 );
 
 class FilterOverlay extends StatefulWidget {
@@ -31,6 +31,8 @@ class FilterOverlay extends StatefulWidget {
 }
 
 class _FilterOverlayState extends State<FilterOverlay> {
+  TextEditingController minPriceController = TextEditingController();
+  TextEditingController maxPriceController = TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -44,6 +46,14 @@ class _FilterOverlayState extends State<FilterOverlay> {
         .selectedPriceRange
         .end
         .toStringAsFixed(0);
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    minPriceController.dispose();
+    maxPriceController.dispose();
+    super.dispose();
   }
 
   @override
@@ -95,12 +105,19 @@ class _FilterOverlayState extends State<FilterOverlay> {
                 ],
               ),
 
-              const Expanded(
+              Expanded(
                 child: SingleChildScrollView(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     spacing: 16,
-                    children: [SortFilter(), PriceFilter(), RatingFilter()],
+                    children: [
+                      const SortFilter(),
+                      PriceFilter(
+                        minPriceController: minPriceController,
+                        maxPriceController: maxPriceController,
+                      ),
+                      const RatingFilter(),
+                    ],
                   ),
                 ),
               ),
@@ -180,7 +197,13 @@ class _SortFilterState extends State<SortFilter> {
 }
 
 class PriceFilter extends StatefulWidget {
-  const PriceFilter({super.key});
+  const PriceFilter({
+    super.key,
+    required this.minPriceController,
+    required this.maxPriceController,
+  });
+  final TextEditingController minPriceController;
+  final TextEditingController maxPriceController;
 
   @override
   State<PriceFilter> createState() => _PriceFilterState();
@@ -204,8 +227,8 @@ class _PriceFilterState extends State<PriceFilter> {
         start,
         end,
       );
-      minPriceController.text = start.toStringAsFixed(0);
-      maxPriceController.text = end.toStringAsFixed(0);
+      widget.minPriceController.text = start.toStringAsFixed(0);
+      widget.maxPriceController.text = end.toStringAsFixed(0);
     });
   }
 
@@ -239,7 +262,7 @@ class _PriceFilterState extends State<PriceFilter> {
                 decoration: const InputDecoration(
                   contentPadding: EdgeInsets.all(10),
                 ),
-                controller: minPriceController,
+                controller: widget.minPriceController,
                 onChanged: (value) {
                   double min = safeDoubleParse(value).clamp(
                     FilterConstants.minPrice,
@@ -268,7 +291,7 @@ class _PriceFilterState extends State<PriceFilter> {
                   decoration: const InputDecoration(
                     contentPadding: EdgeInsets.all(10),
                   ),
-                  controller: maxPriceController,
+                  controller: widget.maxPriceController,
                   onChanged: (value) {
                     double max = safeDoubleParse(value).clamp(
                       context.read<HomeFilterCubit>().selectedPriceRange.start,

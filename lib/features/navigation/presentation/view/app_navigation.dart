@@ -21,7 +21,6 @@ class AppNavigation extends StatelessWidget {
     return Scaffold(
       body: MultiBlocProvider(
         providers: [
-          BlocProvider(create: (context) => HomeFilterCubit()),
           BlocProvider(
             create: (context) =>
                 HomeProductCubit(context.read<HomeFilterCubit>())

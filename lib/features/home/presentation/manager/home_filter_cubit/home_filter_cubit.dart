@@ -37,10 +37,29 @@ class HomeFilterCubit extends Cubit<HomeFilterState> {
     emit(state.copyWith());
   }
 
+  void revert() {
+    selectedPriceRange = state.priceRange;
+    selectedSort = state.sorting;
+    selectedRating = state.rating;
+  }
+
   bool isFiltered() {
     return state.sorting.isNotEmpty ||
         state.rating.isNotEmpty ||
         state.priceRange.start != FilterConstants.minPrice ||
         state.priceRange.end != FilterConstants.maxPrice;
+  }
+
+  void resetAll() {
+    selectedCategory = S.current.all;
+    print(selectedCategory);
+    selectedQuery = '';
+    selectedPriceRange = const RangeValues(
+      FilterConstants.minPrice,
+      FilterConstants.maxPrice,
+    );
+    selectedSort = '';
+    selectedRating = '';
+    emit(HomeFilterState());
   }
 }
