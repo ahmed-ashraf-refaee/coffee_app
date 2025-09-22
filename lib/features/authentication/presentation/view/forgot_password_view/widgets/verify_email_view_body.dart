@@ -202,9 +202,7 @@ class _VerifyEmailViewBodyState extends State<VerifyEmailViewBody> {
 
               child: Text(
                 S.current.verify,
-                style: TextStyles.medium20.copyWith(
-                  color: context.colors.onPrimary,
-                ),
+                style: TextStyles.medium20
               ),
               onPressed: () {
                 if (_formKey.currentState!.validate()) {

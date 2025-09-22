@@ -131,5 +131,14 @@
   "sortBy": "ترتيب حسب",
   "priceRange": "نطاق السعر",
   "rating": "التقييم",
-  "all": "الكل"
+  "all": "الكل",
+
+  "order_summary":"ملخص الطلب",
+  "payWith": "طريقة الدفع",
+  "shipTo": "الشحن إلى",
+  "change": "تغيير",
+  "checkout": "الدفع",
+  "add": "إضافة",
+  "addPaymentMethod": "إضافة طريقة دفع",
+  "addShippingAddress": "إضافة عنوان شحن"
 }

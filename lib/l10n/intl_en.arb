@@ -132,5 +132,14 @@
   "sortBy": "Sort by",
   "priceRange": "Price range",
   "rating": "Rating",
-  "all":"All"
+  "all":"All",
+
+  "order_summary":"Order Summary",
+  "payWith": "Pay with",
+  "shipTo": "Ship to",
+  "change": "change",
+  "checkout": "Checkout",
+  "add": "Add",
+  "addPaymentMethod": "Add payment method",
+  "addShippingAddress": "Add shipping address"
 }

@@ -1,3 +1,4 @@
+import 'package:coffee_app/core/utils/app_router.dart';
 import 'package:coffee_app/core/widgets/custom_elevated_button.dart';
 import 'package:coffee_app/features/cart/presentation/manager/cart_cubit/cart_cubit.dart';
 import 'package:coffee_app/features/cart/presentation/view/widgets/cart_list_item.dart';
@@ -5,6 +6,7 @@ import 'package:coffee_app/features/cart/presentation/view/widgets/summary_line.
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '../../../../../core/helper/ui_helpers.dart';
@@ -208,12 +210,11 @@ class CartSummary extends StatelessWidget {
                         amount: total,
                         currency: 'EGP',
                       );
+                      GoRouter.of(context).push(AppRouter.kPaymentView);
                     },
                     child: Text(
                       S.current.continue_with_payment,
-                      style: TextStyles.medium20.copyWith(
-                        color: context.colors.onPrimary,
-                      ),
+                      style: TextStyles.medium20
                     ),
                   );
                 },

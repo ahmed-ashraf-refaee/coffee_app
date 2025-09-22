@@ -15,6 +15,7 @@ class CustomElevatedButton extends StatelessWidget {
     this.shrink = 1,
     this.wrapContent = false,
     this.isLoading = false,
+    this.disabled = false,
   });
 
   final double? width;
@@ -26,34 +27,47 @@ class CustomElevatedButton extends StatelessWidget {
   final bool isLoading;
   final Widget child;
   final bool wrapContent;
+  final bool disabled;
 
   @override
   Widget build(BuildContext context) {
     final double? effectiveWidth = wrapContent
         ? null
-        : (width ?? double.infinity);
+        : (width ?? context.width);
+
+    final Widget effectiveChild = isLoading
+        ? Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: SpinKitThreeBounce(color: context.colors.onPrimary),
+          )
+        : (disabled && child is Text
+              ? DefaultTextStyle.merge(
+                  style: TextStyle(color: context.colors.onSecondary),
+                  child: child,
+                )
+              : DefaultTextStyle.merge(
+                  style: TextStyle(color: context.colors.onPrimary),
+                  child: child,
+                ));
+
+    final Widget body = Container(
+      width: effectiveWidth,
+      height: height,
+      alignment: Alignment.center,
+      padding: contentPadding ?? const EdgeInsets.symmetric(horizontal: 20),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        color: disabled
+            ? context.colors.secondary
+            : (backgroundColor ?? context.colors.primary),
+      ),
+      child: effectiveChild,
+    );
 
     return IntrinsicWidth(
-      child: PrettierTap(
-        shrink: shrink,
-        onPressed: onPressed,
-        child: Container(
-          width: effectiveWidth,
-          height: height,
-          alignment: Alignment.center,
-          padding: contentPadding ?? const EdgeInsets.symmetric(horizontal: 20),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            color: backgroundColor ?? context.colors.primary,
-          ),
-          child: isLoading
-              ? Padding(
-                  padding: const EdgeInsets.all(24.0),
-                  child: SpinKitThreeBounce(color: context.colors.onPrimary),
-                )
-              : child,
-        ),
-      ),
+      child: disabled
+          ? body
+          : PrettierTap(shrink: shrink, onPressed: onPressed, child: body),
     );
   }
 }

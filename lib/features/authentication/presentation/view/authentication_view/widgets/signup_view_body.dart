@@ -105,9 +105,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
               },
               child: Text(
                 S.current.sign_up,
-                style: TextStyles.medium20.copyWith(
-                  color: context.colors.onPrimary,
-                ),
+                style: TextStyles.medium20
               ),
             );
           },

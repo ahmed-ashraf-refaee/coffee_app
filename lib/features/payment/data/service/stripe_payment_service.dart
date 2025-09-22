@@ -13,14 +13,13 @@ class StripePaymentService {
   }) async {
     String clientSecret = await _getClientSecret(amount, currency);
     await _initializePaymentCard(clientSecret);
-    await Stripe.instance.presentPaymentSheet();
   }
 
   static Future<void> _initializePaymentCard(String clientSecret) async {
     await Stripe.instance.initPaymentSheet(
       paymentSheetParameters: SetupPaymentSheetParameters(
         paymentIntentClientSecret: clientSecret,
-        merchantDisplayName: 'Coffee App',
+        merchantDisplayName: 'Coffee Drop',
       ),
     );
   }

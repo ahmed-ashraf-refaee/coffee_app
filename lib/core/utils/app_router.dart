@@ -1,6 +1,8 @@
 import 'package:coffee_app/core/model/product_model.dart';
 import 'package:coffee_app/features/authentication/presentation/view/authentication_view/authentication_view.dart';
 import 'package:coffee_app/features/authentication/presentation/view/forgot_password_view/forgot_password_view.dart';
+import 'package:coffee_app/features/checkout/presentation/views/checkout_view/checkout_view.dart';
+import 'package:coffee_app/features/checkout/presentation/views/payment_view/payment_view.dart';
 import 'package:coffee_app/features/home/presentation/view/details_view/details_view.dart';
 import 'package:coffee_app/features/navigation/presentation/manager/navigator_cubit/navigator_cubit.dart';
 import 'package:coffee_app/features/profile/presentation/view/language_select_view.dart';
@@ -20,10 +22,12 @@ abstract class AppRouter {
   static const kForgotPass = "/forgotPass";
   static const kResetPassword = "/reset-password";
   static const kLanguageSelect = "/languageSelect";
+  static const kPaymentView = "/paymentView";
+  static const kCheckoutView = "/checkoutView";
 
   static final router = GoRouter(
     routes: [
-      GoRoute(path: '/', builder: (context, state) => const SplashView()),
+      GoRoute(path: '/', builder: (context, state) => const CheckoutView()),
       GoRoute(
         path: kDetailsView,
         builder: (context, state) {
@@ -57,6 +61,10 @@ abstract class AppRouter {
         builder: (context, state) => const ForgotPasswordView(
           forgotPasswordState: ForgotPasswordState.resetPassword,
         ),
+      ),
+      GoRoute(
+        path: kPaymentView,
+        builder: (context, state) => const PaymentView(),
       ),
 
       //GoRoute(path: '/', builder: (context, state) => AppNavigation()),

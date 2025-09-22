@@ -93,9 +93,7 @@ class _SendEmailViewBodyState extends State<SendEmailViewBody> {
 
               child: Text(
                 S.current.sendEmail,
-                style: TextStyles.medium20.copyWith(
-                  color: context.colors.onPrimary,
-                ),
+                style: TextStyles.medium20
               ),
               onPressed: () {
                 if (_formKey.currentState!.validate()) {

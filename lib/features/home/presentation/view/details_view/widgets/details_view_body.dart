@@ -221,9 +221,7 @@ class _DetailsViewBodyState extends State<DetailsViewBody> {
               },
               child: Text(
                 "Add to Cart",
-                style: TextStyles.medium20.copyWith(
-                  color: context.colors.onPrimary,
-                ),
+                style: TextStyles.medium20
               ),
             );
           },

@@ -24,6 +24,13 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "add": MessageLookupByLibrary.simpleMessage("Add"),
+    "addPaymentMethod": MessageLookupByLibrary.simpleMessage(
+      "Add payment method",
+    ),
+    "addShippingAddress": MessageLookupByLibrary.simpleMessage(
+      "Add shipping address",
+    ),
     "all": MessageLookupByLibrary.simpleMessage("All"),
     "already_have_account": MessageLookupByLibrary.simpleMessage(
       "Already have an account?",
@@ -37,6 +44,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "badCertificate": MessageLookupByLibrary.simpleMessage(
       "Bad certificate (incorrect certificate).",
     ),
+    "change": MessageLookupByLibrary.simpleMessage("change"),
+    "checkout": MessageLookupByLibrary.simpleMessage("Checkout"),
     "codeMustBeSixDigits": MessageLookupByLibrary.simpleMessage(
       "Code must be 6 digits",
     ),
@@ -138,6 +147,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "A required field was left empty.",
     ),
     "or": MessageLookupByLibrary.simpleMessage("or"),
+    "order_summary": MessageLookupByLibrary.simpleMessage("Order Summary"),
     "otpExpired": MessageLookupByLibrary.simpleMessage(
       "This reset link has expired",
     ),
@@ -151,6 +161,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "passwordsDontMatch": MessageLookupByLibrary.simpleMessage(
       "Passwords don\'t match",
     ),
+    "payWith": MessageLookupByLibrary.simpleMessage("Pay with"),
     "pleaseEnterCode": MessageLookupByLibrary.simpleMessage(
       "Please enter the code",
     ),
@@ -215,6 +226,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "setPasswordSubtitle": MessageLookupByLibrary.simpleMessage(
       "Create a new password for your account.",
     ),
+    "shipTo": MessageLookupByLibrary.simpleMessage("Ship to"),
     "shipping": MessageLookupByLibrary.simpleMessage("Shipping:"),
     "sign_up": MessageLookupByLibrary.simpleMessage("Sign Up"),
     "sortBy": MessageLookupByLibrary.simpleMessage("Sort by"),

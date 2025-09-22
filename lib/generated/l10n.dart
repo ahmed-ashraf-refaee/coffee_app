@@ -28,9 +28,10 @@ class S {
   static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
 
   static Future<S> load(Locale locale) {
-    final name = (locale.countryCode?.isEmpty ?? false)
-        ? locale.languageCode
-        : locale.toString();
+    final name =
+        (locale.countryCode?.isEmpty ?? false)
+            ? locale.languageCode
+            : locale.toString();
     final localeName = Intl.canonicalizedLocale(name);
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
@@ -1087,6 +1088,61 @@ class S {
   /// `All`
   String get all {
     return Intl.message('All', name: 'all', desc: '', args: []);
+  }
+
+  /// `Order Summary`
+  String get order_summary {
+    return Intl.message(
+      'Order Summary',
+      name: 'order_summary',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pay with`
+  String get payWith {
+    return Intl.message('Pay with', name: 'payWith', desc: '', args: []);
+  }
+
+  /// `Ship to`
+  String get shipTo {
+    return Intl.message('Ship to', name: 'shipTo', desc: '', args: []);
+  }
+
+  /// `change`
+  String get change {
+    return Intl.message('change', name: 'change', desc: '', args: []);
+  }
+
+  /// `Checkout`
+  String get checkout {
+    return Intl.message('Checkout', name: 'checkout', desc: '', args: []);
+  }
+
+  /// `Add`
+  String get add {
+    return Intl.message('Add', name: 'add', desc: '', args: []);
+  }
+
+  /// `Add payment method`
+  String get addPaymentMethod {
+    return Intl.message(
+      'Add payment method',
+      name: 'addPaymentMethod',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add shipping address`
+  String get addShippingAddress {
+    return Intl.message(
+      'Add shipping address',
+      name: 'addShippingAddress',
+      desc: '',
+      args: [],
+    );
   }
 }
 

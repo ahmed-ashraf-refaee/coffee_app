@@ -129,9 +129,7 @@ class _FilterOverlayState extends State<FilterOverlay> {
                   onPressed: onApplyFilters,
                   child: Text(
                     S.current.apply,
-                    style: TextStyles.bold16.copyWith(
-                      color: context.colors.onPrimary,
-                    ),
+                    style: TextStyles.bold16
                   ),
                 ),
               ),

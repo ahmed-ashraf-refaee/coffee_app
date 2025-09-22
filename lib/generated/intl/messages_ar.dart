@@ -24,6 +24,11 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "add": MessageLookupByLibrary.simpleMessage("إضافة"),
+    "addPaymentMethod": MessageLookupByLibrary.simpleMessage("إضافة طريقة دفع"),
+    "addShippingAddress": MessageLookupByLibrary.simpleMessage(
+      "إضافة عنوان شحن",
+    ),
     "all": MessageLookupByLibrary.simpleMessage("الكل"),
     "already_have_account": MessageLookupByLibrary.simpleMessage(
       "هل لديك حساب بالفعل؟",
@@ -37,6 +42,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "badCertificate": MessageLookupByLibrary.simpleMessage(
       "شهادة غير صالحة (شهادة غير صحيحة).",
     ),
+    "change": MessageLookupByLibrary.simpleMessage("تغيير"),
+    "checkout": MessageLookupByLibrary.simpleMessage("الدفع"),
     "codeMustBeSixDigits": MessageLookupByLibrary.simpleMessage(
       "يجب أن يكون الرمز مكون من 6 أرقام",
     ),
@@ -134,6 +141,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "تم ترك حقل مطلوب فارغًا.",
     ),
     "or": MessageLookupByLibrary.simpleMessage("أو"),
+    "order_summary": MessageLookupByLibrary.simpleMessage("ملخص الطلب"),
     "otpExpired": MessageLookupByLibrary.simpleMessage(
       "انتهت صلاحية رابط إعادة التعيين",
     ),
@@ -147,6 +155,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "passwordsDontMatch": MessageLookupByLibrary.simpleMessage(
       "كلمتا المرور غير متطابقتين",
     ),
+    "payWith": MessageLookupByLibrary.simpleMessage("طريقة الدفع"),
     "pleaseEnterCode": MessageLookupByLibrary.simpleMessage("يرجى إدخال الرمز"),
     "priceRange": MessageLookupByLibrary.simpleMessage("نطاق السعر"),
     "profile_dark_mode": MessageLookupByLibrary.simpleMessage("الوضع الداكن"),
@@ -209,6 +218,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "setPasswordSubtitle": MessageLookupByLibrary.simpleMessage(
       "إنشاء كلمة مرور جديدة لحسابك.",
     ),
+    "shipTo": MessageLookupByLibrary.simpleMessage("الشحن إلى"),
     "shipping": MessageLookupByLibrary.simpleMessage("الشحن:"),
     "sign_up": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
     "sortBy": MessageLookupByLibrary.simpleMessage("ترتيب حسب"),

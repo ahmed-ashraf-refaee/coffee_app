@@ -119,9 +119,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
               },
               child: Text(
                 S.current.log_in,
-                style: TextStyles.medium20.copyWith(
-                  color: context.colors.onPrimary,
-                ),
+                style: TextStyles.medium20
               ),
             );
           },

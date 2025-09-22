@@ -93,7 +93,7 @@ class _LanguageSelectViewState extends State<LanguageSelectView> {
                                 LanguageConstants.supportedLocals[language
                                     .languageCode]!,
                               );
-                              
+
                               context.read<HomeFilterCubit>().resetAll();
                             });
                           },
