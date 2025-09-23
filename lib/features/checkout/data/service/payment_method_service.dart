@@ -28,7 +28,7 @@ class PaymentMethodService {
       data: {
         "amount": (amount * 100).round().toString(),
         "currency": currency,
-        "payment_method": paymentMethod.id,
+        // "payment_method": paymentMethod,
         // "confirm": "true",
       },
       options: Options(
@@ -46,14 +46,17 @@ class PaymentMethodService {
       ),
     );
     String clientSecret = await createPaymentIntent(
-      amount: amount * 100,
+      amount: amount,
       currency: currency,
       paymentMethod: paymentMethod,
     );
     await Stripe.instance.confirmPayment(
       paymentIntentClientSecret: clientSecret,
-      data: const PaymentMethodParams.card(
-        paymentMethodData: PaymentMethodData(),
+      data: PaymentMethodParams.cardFromMethodId(
+        paymentMethodData: PaymentMethodDataCardFromMethod(
+          paymentMethodId: paymentMethod.id,
+        ),
+        // paymentMethodData: PaymentMethodData(),
       ),
     );
   }

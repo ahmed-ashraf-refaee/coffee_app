@@ -81,7 +81,7 @@ class _AddCardOverlayState extends State<AddCardOverlay> {
                   //   holderName: holderNameController.text,
                   // );
 
-                  await payService.payWithCardField(1000, 'EGP');
+                  await payService.payWithCardField(8000, 'EGP');
                 },
                 child: Text(S.current.apply, style: TextStyles.bold16),
               ),
