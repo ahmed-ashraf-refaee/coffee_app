@@ -9,8 +9,8 @@ import 'package:coffee_app/features/profile/presentation/view/language_select_vi
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/maps/presentation/view/map_view.dart';
 import '../../features/navigation/presentation/view/app_navigation.dart';
-import '../../features/splash/presentation/view/splash_view.dart';
 
 abstract class AppRouter {
   static const kHomeView = "/homeView";
@@ -27,7 +27,7 @@ abstract class AppRouter {
 
   static final router = GoRouter(
     routes: [
-      GoRoute(path: '/', builder: (context, state) => const CheckoutView()),
+      GoRoute(path: '/', builder: (context, state) => const MapView()),
       GoRoute(
         path: kDetailsView,
         builder: (context, state) {
