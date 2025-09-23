@@ -141,5 +141,8 @@
   "checkout": "Checkout",
   "add": "Add",
   "addPaymentMethod": "Add payment method",
-  "addShippingAddress": "Add shipping address"
+  "addShippingAddress": "Add shipping address",
+  "holderName": "Card Holder Name",
+  "cvv": "CVV",
+  "expiryDate": "MM/YY"
 }

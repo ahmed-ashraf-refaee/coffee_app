@@ -1,54 +1,70 @@
+import 'package:coffee_app/core/utils/text_styles.dart';
+import 'package:coffee_app/core/widgets/prettier_tap.dart';
+import 'package:coffee_app/features/checkout/data/models/payment_method_model.dart';
+import 'package:coffee_app/features/checkout/presentation/views/payment_view/widgets/card_brand_icon.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
+import 'package:simple_icons/simple_icons.dart';
 
 class PaymentMethodListItem extends StatelessWidget {
   const PaymentMethodListItem({
     super.key,
     required this.selected,
     required this.onSelected,
-    required this.cardHolderName,
-    required this.last4,
-    required this.expiryMonth,
-    required this.expiryYear,
+    required this.paymentMethod,
   });
 
   final bool selected;
   final VoidCallback onSelected;
-  final String cardHolderName;
-  final String last4;
-  final String expiryMonth;
-  final String expiryYear;
+  final PaymentMethodModel paymentMethod;
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      borderRadius: BorderRadius.circular(12),
-      onTap: onSelected,
+    return PrettierTap(
+      shrink: 1,
+      onPressed: onSelected,
       child: Container(
         decoration: BoxDecoration(
+          border: selected
+              ? Border.all(
+                  color: context.colors.primary,
+                  strokeAlign: BorderSide.strokeAlignOutside,
+                )
+              : null,
           borderRadius: BorderRadius.circular(12),
-          color: selected ? context.colors.primary : context.colors.secondary,
+          color: selected
+              ? Color.lerp(context.colors.primary, context.colors.surface, 0.4)
+              : context.colors.secondary,
         ),
         child: Padding(
           padding: const EdgeInsets.all(16),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: Column(
+            spacing: 16,
             children: [
-              Column(
-                spacing: 16,
-                crossAxisAlignment: CrossAxisAlignment.start,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    cardHolderName,
-                    style: TextStyle(
+                    paymentMethod.holderName ?? '',
+                    style: TextStyles.bold20.copyWith(
                       color: selected
                           ? context.colors.onPrimary
                           : context.colors.onSecondary,
                     ),
                   ),
+                  cardBrandIcon(
+                    context: context,
+                    brand: paymentMethod.brand,
+                    size: 32,
+                    selected: selected,
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
                   Text(
-                    "**** **** **** $last4",
+                    "**** **** **** ${paymentMethod.last4}",
                     textDirection: TextDirection.ltr,
                     style: TextStyle(
                       color: selected
@@ -56,15 +72,15 @@ class PaymentMethodListItem extends StatelessWidget {
                           : context.colors.onSecondary,
                     ),
                   ),
+                  Text(
+                    '${paymentMethod.expMonth}/${paymentMethod.expYear.toString().substring(paymentMethod.expYear.toString().length - 2)}',
+                    style: TextStyle(
+                      color: selected
+                          ? context.colors.onPrimary
+                          : context.colors.onSecondary,
+                    ),
+                  ),
                 ],
-              ),
-              Text(
-                '$expiryMonth/${expiryYear.substring(expiryYear.length - 2)}',
-                style: TextStyle(
-                  color: selected
-                      ? context.colors.onPrimary
-                      : context.colors.onSecondary,
-                ),
               ),
             ],
           ),

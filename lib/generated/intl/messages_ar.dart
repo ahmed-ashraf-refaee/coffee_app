@@ -61,6 +61,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "متابعة للدفع",
     ),
     "create_account": MessageLookupByLibrary.simpleMessage("إنشاء حساب جديد"),
+    "cvv": MessageLookupByLibrary.simpleMessage("الرمز الأمني (CVV)"),
     "databaseError": MessageLookupByLibrary.simpleMessage(
       "حدث خطأ في قاعدة البيانات. حاول مرة أخرى.",
     ),
@@ -88,6 +89,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "enterVerificationCodeSubtitle": MessageLookupByLibrary.simpleMessage(
       "أدخل رمز التحقق المكون من 6 أرقام الذي أرسلناه إلى بريدك الإلكتروني.",
     ),
+    "expiryDate": MessageLookupByLibrary.simpleMessage(
+      "تاريخ الانتهاء (شهر/سنة)",
+    ),
     "facebook": MessageLookupByLibrary.simpleMessage("فيسبوك"),
     "filters": MessageLookupByLibrary.simpleMessage("الفلاتر"),
     "first_name": MessageLookupByLibrary.simpleMessage("الاسم الأول"),
@@ -105,6 +109,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "get_started_title": MessageLookupByLibrary.simpleMessage("ابدأ الآن!"),
     "google": MessageLookupByLibrary.simpleMessage("جوجل"),
+    "holderName": MessageLookupByLibrary.simpleMessage("اسم حامل البطاقة"),
     "internalServerError": MessageLookupByLibrary.simpleMessage(
       "خطأ داخلي في الخادم. حاول مرة أخرى.",
     ),

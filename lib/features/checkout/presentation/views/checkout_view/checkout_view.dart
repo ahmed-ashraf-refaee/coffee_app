@@ -6,10 +6,12 @@ import 'package:coffee_app/features/checkout/presentation/views/checkout_view/wi
 import 'package:coffee_app/features/checkout/presentation/views/checkout_view/widgets/order_summary.dart';
 import 'package:coffee_app/features/checkout/presentation/views/checkout_view/widgets/payment_info_card.dart';
 import 'package:coffee_app/features/checkout/presentation/views/checkout_view/widgets/shipping_info_card.dart';
+import 'package:coffee_app/features/payment/presentation/manager/payment/stripe_payment_cubit.dart';
 import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:ionicons/ionicons.dart';
 

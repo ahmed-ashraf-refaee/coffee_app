@@ -1,6 +1,9 @@
+import 'package:coffee_app/core/utils/text_styles.dart';
 import 'package:coffee_app/core/widgets/custom_app_bar.dart';
+import 'package:coffee_app/core/widgets/custom_elevated_button.dart';
 import 'package:coffee_app/core/widgets/custom_icon_button.dart';
 import 'package:coffee_app/features/checkout/presentation/views/payment_view/widgets/payment_methods_list.dart';
+import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -31,6 +34,11 @@ class PaymentView extends StatelessWidget {
                 ),
               ),
               PaymentMethodsList(),
+
+              CustomElevatedButton(
+                onPressed: () {},
+                child: Text("", style: TextStyles.medium20),
+              ),
             ],
           ),
         ),

@@ -12,7 +12,6 @@ class PaymentMethodService {
       "$_baseUrl/create-customer",
       data: {"email": email},
     );
-
     return response.data["id"];
   }
 

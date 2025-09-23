@@ -13,7 +13,6 @@ class CustomElevatedButton extends StatelessWidget {
     this.contentPadding,
     this.backgroundColor,
     this.shrink = 1,
-    this.wrapContent = false,
     this.isLoading = false,
     this.disabled = false,
   });
@@ -26,15 +25,10 @@ class CustomElevatedButton extends StatelessWidget {
   final int shrink;
   final bool isLoading;
   final Widget child;
-  final bool wrapContent;
   final bool disabled;
 
   @override
   Widget build(BuildContext context) {
-    final double? effectiveWidth = wrapContent
-        ? null
-        : (width ?? context.width);
-
     final Widget effectiveChild = isLoading
         ? Padding(
             padding: const EdgeInsets.all(24.0),
@@ -51,7 +45,7 @@ class CustomElevatedButton extends StatelessWidget {
                 ));
 
     final Widget body = Container(
-      width: effectiveWidth,
+      width: width ?? context.width,
       height: height,
       alignment: Alignment.center,
       padding: contentPadding ?? const EdgeInsets.symmetric(horizontal: 20),
@@ -64,10 +58,8 @@ class CustomElevatedButton extends StatelessWidget {
       child: effectiveChild,
     );
 
-    return IntrinsicWidth(
-      child: disabled
-          ? body
-          : PrettierTap(shrink: shrink, onPressed: onPressed, child: body),
-    );
+    return disabled
+        ? body
+        : PrettierTap(shrink: shrink, onPressed: onPressed, child: body);
   }
 }
