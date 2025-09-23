@@ -206,15 +206,15 @@ class CartSummary extends StatelessWidget {
                   return CustomElevatedButton(
                     isLoading: state is StripePaymentLoading,
                     onPressed: () {
-                      context.read<StripePaymentCubit>().payment(
-                        amount: total,
-                        currency: 'EGP',
-                      );
-                      GoRouter.of(context).push(AppRouter.kPaymentView);
+                      // context.read<StripePaymentCubit>().payment(
+                      //   amount: total,
+                      //   currency: 'EGP',
+                      // );
+                      GoRouter.of(context).push(AppRouter.kCheckoutView);
                     },
                     child: Text(
                       S.current.continue_with_payment,
-                      style: TextStyles.medium20
+                      style: TextStyles.medium20,
                     ),
                   );
                 },

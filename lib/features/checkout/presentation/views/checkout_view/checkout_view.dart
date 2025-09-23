@@ -13,6 +13,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
 
 class CheckoutView extends StatelessWidget {
@@ -31,7 +32,9 @@ class CheckoutView extends StatelessWidget {
               CustomAppBar(
                 leading: CustomIconButton(
                   padding: 8,
-                  onPressed: () {},
+                  onPressed: () {
+                    GoRouter.of(context).pop();
+                  },
                   child: Icon(
                     Ionicons.chevron_back,
                     color: context.colors.onSecondary,

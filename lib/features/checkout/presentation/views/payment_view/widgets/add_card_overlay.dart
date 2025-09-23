@@ -3,6 +3,7 @@ import 'package:coffee_app/core/helper/ui_helpers.dart';
 import 'package:coffee_app/core/utils/text_styles.dart';
 import 'package:coffee_app/core/widgets/custom_elevated_button.dart';
 import 'package:coffee_app/core/widgets/overlay_container.dart';
+import 'package:coffee_app/features/checkout/data/service/payment_method_service.dart';
 import 'package:coffee_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
@@ -62,6 +63,7 @@ class _AddCardOverlayState extends State<AddCardOverlay> {
                   vertical: 16,
                 ),
               ),
+
               onCardChanged: (card) {},
             ),
             Padding(
@@ -69,7 +71,18 @@ class _AddCardOverlayState extends State<AddCardOverlay> {
               child: CustomElevatedButton(
                 height: 56,
                 contentPadding: const EdgeInsets.all(8),
-                onPressed: () {},
+                onPressed: () async {
+                  var payService = PaymentMethodService();
+                  // var cus_id = await payService.createCustomer(
+                  //   "sameh.hazem504@gmail.com",
+                  // );
+                  // await payService.createAndSavePaymentMethod(
+                  //   // customerId: cus_id,
+                  //   holderName: holderNameController.text,
+                  // );
+
+                  await payService.payWithCardField(1000, 'EGP');
+                },
                 child: Text(S.current.apply, style: TextStyles.bold16),
               ),
             ),

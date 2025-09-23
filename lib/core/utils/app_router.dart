@@ -27,7 +27,11 @@ abstract class AppRouter {
 
   static final router = GoRouter(
     routes: [
-      GoRoute(path: '/', builder: (context, state) => const CheckoutView()),
+      GoRoute(path: '/', builder: (context, state) => const SplashView()),
+      GoRoute(
+        path: kCheckoutView,
+        builder: (context, state) => const CheckoutView(),
+      ),
       GoRoute(
         path: kDetailsView,
         builder: (context, state) {
@@ -47,7 +51,6 @@ abstract class AppRouter {
         ),
       ),
 
-      // GoRoute(path: kHomeView, builder: (context, state) => const HomeView()),
       GoRoute(
         path: kAuthView,
         builder: (context, state) => const AuthenticationView(),

@@ -17,6 +17,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'core/services/app_locale.dart';
 import 'features/authentication/presentation/manager/auth_bloc/auth_bloc.dart';
+import 'features/checkout/data/service/payment_method_service.dart';
 import 'features/home/presentation/manager/home_filter_cubit/home_filter_cubit.dart';
 import 'features/wishlist/presentation/manager/wishlist/wishlist_cubit.dart';
 import 'generated/l10n.dart';
@@ -34,6 +35,7 @@ void main() async {
     const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
   );
   runApp(const CoffeeApp());
+  print(await PaymentMethodService().fetchPaymentMethods());
 }
 
 class CoffeeApp extends StatelessWidget {
@@ -55,7 +57,6 @@ class CoffeeApp extends StatelessWidget {
         builder: (context) {
           final themeMode = context.select((ThemeCubit c) => c.state);
           final locale = context.select((LocaleCubit c) => c.state);
-
           return MaterialApp.router(
             debugShowCheckedModeBanner: false,
             locale: locale,

@@ -7,7 +7,6 @@ class PaymentMethodModel {
   final int? expYear;
   final DateTime createdAt;
   final String? holderName;
-  final String? customerId;
   final String? paymentMethodId;
 
   PaymentMethodModel({
@@ -19,7 +18,6 @@ class PaymentMethodModel {
     this.expYear,
     required this.createdAt,
     this.holderName,
-    this.customerId,
     this.paymentMethodId,
   });
 
@@ -33,7 +31,6 @@ class PaymentMethodModel {
       expYear: json['exp_year'] as int?,
       createdAt: DateTime.parse(json['created_at'] as String),
       holderName: json['holder_name'] as String?,
-      customerId: json['customer_id'] as String?,
       paymentMethodId: json['payment_method_id'] as String?,
     );
   }
@@ -48,7 +45,6 @@ class PaymentMethodModel {
       'exp_year': expYear,
       'created_at': createdAt.toIso8601String(),
       'holder_name': holderName,
-      'customer_id': customerId,
       'payment_method_id': paymentMethodId,
     };
   }
