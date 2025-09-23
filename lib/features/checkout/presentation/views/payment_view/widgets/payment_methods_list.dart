@@ -17,7 +17,7 @@ class PaymentMethodsList extends StatelessWidget {
           itemCount: 5,
           itemBuilder: (context, index) => const Padding(
             padding: EdgeInsets.only(bottom: 16),
-            child: PaymentMethodListItem(),
+            child: PaymentMethodListItem(cardHolderName: 'Ahmed',),
           ),
         ),
         const Text("other methods", style: TextStyles.bold20),
