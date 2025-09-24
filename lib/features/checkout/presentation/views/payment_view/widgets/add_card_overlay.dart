@@ -8,6 +8,7 @@ import 'package:coffee_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 addCardOverlay(BuildContext context) =>
     UiHelpers.showOverlay(context: context, child: const AddCardOverlay());
@@ -73,15 +74,18 @@ class _AddCardOverlayState extends State<AddCardOverlay> {
                 contentPadding: const EdgeInsets.all(8),
                 onPressed: () async {
                   var payService = PaymentMethodService();
-                  // var cus_id = await payService.createCustomer(
-                  //   "sameh.hazem504@gmail.com",
-                  // );
-                  // await payService.createAndSavePaymentMethod(
-                  //   // customerId: cus_id,
-                  //   holderName: holderNameController.text,
-                  // );
 
-                  await payService.payWithCardField(8000, 'EGP');
+                  // payService.saveCard(
+                  //   holderName: holderNameController.text,
+                  //   email: Supabase.instance.client.auth.currentUser!.email!,
+                  // );
+                  payService.payWithSavedCard(
+                    amount: 800,
+
+                    paymentMethodId: "pm_1SApywD3PqUYeRcnlyQe3taE",
+                    customerId: "cus_T747p8JDlWaB9C",
+                    cvc: "333",
+                  );
                 },
                 child: Text(S.current.apply, style: TextStyles.bold16),
               ),

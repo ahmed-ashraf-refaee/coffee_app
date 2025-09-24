@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' hide Headers;
@@ -6,62 +8,21 @@ import '../../../../core/constants/keys.dart';
 
 class PaymentMethodService {
   final Dio _dio = Dio();
-  final String _baseUrl = "https://api.stripe.com/v1";
   final SupabaseClient _supabase = Supabase.instance.client;
 
-  Future<String> creCustomer(String email) async {
+  Future<String> _createCustomer(String email, String name) async {
     final response = await _dio.post(
-      "v1/payment_methods/pm_1SAcHuD3PqUYeRcnhkxNjoKH/attach",
-      data: {"amount": (100 * 100).round().toString(), "currency": "EGP"},
-    );
-    return response.data["id"];
-  }
-
-  Future<String> createPaymentIntent({
-    required double amount,
-    required PaymentMethod paymentMethod,
-    String currency = 'EGP',
-  }) async {
-    Dio dio = Dio();
-    final response = await dio.post(
-      "https://api.stripe.com/v1/payment_intents",
-      data: {
-        "amount": (amount * 100).round().toString(),
-        "currency": currency,
-        // "payment_method": paymentMethod,
-        // "confirm": "true",
-      },
+      "https://api.stripe.com/v1/customers",
       options: Options(
         contentType: Headers.formUrlEncodedContentType,
         headers: {"Authorization": "Bearer ${Keys.stripeSecretKey}"},
       ),
+      data: {"name": name, "email": email},
     );
-    return response.data["client_secret"];
+    return response.data["id"];
   }
 
-  Future<void> payWithCardField(double amount, String currency) async {
-    final paymentMethod = await Stripe.instance.createPaymentMethod(
-      params: const PaymentMethodParams.card(
-        paymentMethodData: PaymentMethodData(),
-      ),
-    );
-    String clientSecret = await createPaymentIntent(
-      amount: amount,
-      currency: currency,
-      paymentMethod: paymentMethod,
-    );
-    await Stripe.instance.confirmPayment(
-      paymentIntentClientSecret: clientSecret,
-      data: PaymentMethodParams.cardFromMethodId(
-        paymentMethodData: PaymentMethodDataCardFromMethod(
-          paymentMethodId: paymentMethod.id,
-        ),
-        // paymentMethodData: PaymentMethodData(),
-      ),
-    );
-  }
-
-  Future<PaymentMethod> createAndSavePaymentMethod({String? holderName}) async {
+  Future<String> _createPaymentMethod({String? holderName}) async {
     final paymentMethod = await Stripe.instance.createPaymentMethod(
       params: PaymentMethodParams.card(
         paymentMethodData: PaymentMethodData(
@@ -69,19 +30,82 @@ class PaymentMethodService {
         ),
       ),
     );
+    return paymentMethod.id;
+  }
 
-    // final card = paymentMethod.card;
+  Future<String> attachPaymentMethod(
+    String customerId,
+    String paymentMethodId,
+  ) async {
+    final response = await _dio.post(
+      "https://api.stripe.com/v1/payment_methods/$paymentMethodId/attach",
+      options: Options(
+        contentType: Headers.formUrlEncodedContentType,
+        headers: {"Authorization": "Bearer ${Keys.stripeSecretKey}"},
+      ),
+      data: {"customer": customerId},
+    );
+    return response.data['id'];
+  }
 
-    // await _supabase.from('payment_methods').insert({
-    //   'user_id': _supabase.auth.currentUser?.id,
-    //   'last4': card.last4,
-    //   'brand': card.brand,
-    //   'exp_month': card.expMonth,
-    //   'exp_year': card.expYear,
-    //   'holder_name': holderName,
-    //   'payment_method_id': paymentMethod.id,
-    // });
-    return paymentMethod;
+  Future<void> saveCard({
+    required String holderName,
+    required String email,
+  }) async {
+    String customerId = await _createCustomer(email, holderName);
+    String paymentMethodId = await _createPaymentMethod(holderName: holderName);
+    await attachPaymentMethod(customerId, paymentMethodId);
+    print(paymentMethodId);
+    print(customerId);
+  }
+
+  Future<String> createPaymentIntent({
+    required String amount,
+    required String paymentMethodId,
+    required String customerId,
+
+    required String currency,
+  }) async {
+    final response = await _dio.post(
+      "https://api.stripe.com/v1/payment_intents",
+      options: Options(
+        contentType: Headers.formUrlEncodedContentType,
+        headers: {"Authorization": "Bearer ${Keys.stripeSecretKey}"},
+      ),
+      data: {
+        "amount": amount,
+        "currency": currency,
+        "payment_method": paymentMethodId,
+        "customer": customerId,
+        "automatic_payment_methods[enabled]": "true",
+      },
+    );
+    return response.data["client_secret"];
+  }
+
+  Future<void> payWithSavedCard({
+    required double amount,
+    String currency = "EGP",
+    required String paymentMethodId,
+    required String customerId,
+    required String cvc,
+  }) async {
+    String processedAmount = (amount * 100).round().toString();
+    String clientSecret = await createPaymentIntent(
+      amount: processedAmount,
+      currency: currency,
+      paymentMethodId: paymentMethodId,
+      customerId: customerId,
+    );
+    await Stripe.instance.confirmPayment(
+      paymentIntentClientSecret: clientSecret,
+      data: PaymentMethodParams.cardFromMethodId(
+        paymentMethodData: PaymentMethodDataCardFromMethod(
+          paymentMethodId: paymentMethodId,
+          cvc: cvc,
+        ),
+      ),
+    );
   }
 
   Future<List<Map<String, dynamic>>> fetchPaymentMethods() async {

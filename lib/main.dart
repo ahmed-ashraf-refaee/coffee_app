@@ -35,7 +35,6 @@ void main() async {
     const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
   );
   runApp(const CoffeeApp());
-  print(await PaymentMethodService().fetchPaymentMethods());
 }
 
 class CoffeeApp extends StatelessWidget {
