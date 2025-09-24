@@ -6,6 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
 
+import '../../../../../core/utils/text_styles.dart';
+import '../../../../../core/widgets/custom_elevated_button.dart';
+
 class PaymentView extends StatelessWidget {
   const PaymentView({super.key});
 
@@ -30,16 +33,12 @@ class PaymentView extends StatelessWidget {
                   ),
                 ),
               ),
-<<<<<<< Updated upstream
-              PaymentMethodsList(),
-=======
               const PaymentMethodsList(),
 
               CustomElevatedButton(
                 onPressed: () {},
                 child: const Text("", style: TextStyles.medium20),
               ),
->>>>>>> Stashed changes
             ],
           ),
         ),

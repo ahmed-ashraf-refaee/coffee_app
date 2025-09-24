@@ -44,8 +44,6 @@ class AuthService {
     return response;
   }
 
-<<<<<<< Updated upstream
-=======
   Future<void> insertUserData({
     required String userId,
     required String email,
@@ -120,7 +118,6 @@ class AuthService {
     }
   }
 
->>>>>>> Stashed changes
   Future<void> logout() async {
     await _supabaseClient.auth.signOut();
     final prefs = await SharedPreferences.getInstance();

@@ -47,10 +47,7 @@ class CoffeeApp extends StatelessWidget {
         BlocProvider(create: (context) => CartCubit()..loadCart()),
         BlocProvider(create: (context) => LocaleCubit()),
         BlocProvider(create: (context) => HomeFilterCubit()),
-<<<<<<< Updated upstream
-=======
         BlocProvider(create: (context) => PaymentCubit()),
->>>>>>> Stashed changes
       ],
       child: Builder(
         builder: (context) {

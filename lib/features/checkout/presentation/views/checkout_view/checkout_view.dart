@@ -8,11 +8,7 @@ import 'package:coffee_app/features/checkout/presentation/views/checkout_view/wi
 import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
-<<<<<<< Updated upstream
-import 'package:flutter_stripe/flutter_stripe.dart';
-=======
 import 'package:go_router/go_router.dart';
->>>>>>> Stashed changes
 import 'package:ionicons/ionicons.dart';
 
 class CheckoutView extends StatelessWidget {

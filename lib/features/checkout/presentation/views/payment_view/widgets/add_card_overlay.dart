@@ -43,7 +43,7 @@ class _AddCardOverlayState extends State<AddCardOverlay> {
             TextFormField(
               controller: holderNameController,
               decoration: InputDecoration(
-                hintText: S.current.holderName,
+                hintText: "55555555",
                 prefixIcon: const Icon(Ionicons.person_outline),
               ),
               autovalidateMode: AutovalidateMode.onUnfocus,
