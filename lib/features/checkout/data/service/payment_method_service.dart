@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:dio/dio.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' hide Headers;
@@ -10,24 +8,22 @@ class PaymentMethodService {
   final Dio _dio = Dio();
   final SupabaseClient _supabase = Supabase.instance.client;
 
-  Future<String> _createCustomer(String email, String name) async {
+  Future<String> _createCustomer(String email) async {
     final response = await _dio.post(
       "https://api.stripe.com/v1/customers",
       options: Options(
         contentType: Headers.formUrlEncodedContentType,
         headers: {"Authorization": "Bearer ${Keys.stripeSecretKey}"},
       ),
-      data: {"name": name, "email": email},
+      data: {"email": email},
     );
     return response.data["id"];
   }
 
-  Future<String> _createPaymentMethod({String? holderName}) async {
+  Future<String> _createPaymentMethod() async {
     final paymentMethod = await Stripe.instance.createPaymentMethod(
-      params: PaymentMethodParams.card(
-        paymentMethodData: PaymentMethodData(
-          billingDetails: BillingDetails(name: holderName),
-        ),
+      params: const PaymentMethodParams.card(
+        paymentMethodData: PaymentMethodData(),
       ),
     );
     return paymentMethod.id;
@@ -48,15 +44,10 @@ class PaymentMethodService {
     return response.data['id'];
   }
 
-  Future<void> saveCard({
-    required String holderName,
-    required String email,
-  }) async {
-    String customerId = await _createCustomer(email, holderName);
-    String paymentMethodId = await _createPaymentMethod(holderName: holderName);
+  Future<void> saveCard({required String email}) async {
+    String customerId = await _createCustomer(email);
+    String paymentMethodId = await _createPaymentMethod();
     await attachPaymentMethod(customerId, paymentMethodId);
-    print(paymentMethodId);
-    print(customerId);
   }
 
   Future<String> createPaymentIntent({

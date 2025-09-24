@@ -17,7 +17,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'core/services/app_locale.dart';
 import 'features/authentication/presentation/manager/auth_bloc/auth_bloc.dart';
-import 'features/checkout/data/service/payment_method_service.dart';
 import 'features/home/presentation/manager/home_filter_cubit/home_filter_cubit.dart';
 import 'features/wishlist/presentation/manager/wishlist/wishlist_cubit.dart';
 import 'generated/l10n.dart';
@@ -34,6 +33,7 @@ void main() async {
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
   );
+
   runApp(const CoffeeApp());
 }
 

@@ -1,8 +1,17 @@
 import 'package:coffee_app/core/errors/failures.dart';
+import 'package:coffee_app/features/authentication/data/model/user_profile_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class AuthRepo {
+  Future<Either<Failure, UserProfileModel>> getUserData();
+  Future<Either<Failure, void>> updateUserData({
+    String? username,
+    String? firstName,
+    String? lastName,
+    String? customerId,
+    String? profileImageUrl,
+  });
   Future<Either<Failure, AuthResponse>> loginUser({
     required String email,
     required String password,

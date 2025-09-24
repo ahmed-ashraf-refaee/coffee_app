@@ -1,4 +1,5 @@
 import 'package:coffee_app/core/errors/failures.dart';
+import 'package:coffee_app/features/authentication/data/model/user_profile_model.dart';
 import 'package:coffee_app/features/authentication/data/services/auth_service.dart';
 import 'package:coffee_app/features/authentication/data/repo/auth_repo.dart';
 import 'package:dartz/dartz.dart';
@@ -84,6 +85,35 @@ class AuthRepoImpl extends AuthRepo {
         email,
       );
       return authSessionUrlResponse;
+    });
+  }
+
+  @override
+  Future<Either<Failure, UserProfileModel>> getUserData() {
+    return guard(() async {
+      final UserProfileModel userProfileModel = UserProfileModel.fromJson(
+        await _authService.fetchUserData(),
+      );
+      return userProfileModel;
+    });
+  }
+
+  @override
+  Future<Either<Failure, void>> updateUserData({
+    String? username,
+    String? firstName,
+    String? lastName,
+    String? customerId,
+    String? profileImageUrl,
+  }) {
+    return guard(() async {
+      await _authService.updateUserProfile(
+        username: username,
+        firstName: firstName,
+        lastName: lastName,
+        customerId: customerId,
+        profileImageUrl: profileImageUrl,
+      );
     });
   }
 }

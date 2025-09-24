@@ -32,16 +32,80 @@ class AuthService {
 
     final user = response.user;
     if (user != null) {
-      await _supabaseClient.from("users").insert({
-        'id': user.id,
-        'email': email,
-        'username': username,
-        'first_name': firstName,
-        'last_name': lastName,
-        'created_at': user.createdAt,
-      });
+      await insertUserData(
+        userId: user.id,
+        email: email,
+        username: username,
+        firstName: firstName,
+        lastName: lastName,
+        createdAt: user.createdAt,
+      );
     }
     return response;
+  }
+
+  Future<void> insertUserData({
+    required String userId,
+    required String email,
+    required String username,
+    required String firstName,
+    required String lastName,
+    required String createdAt,
+  }) async {
+    await _supabaseClient.from("users").insert({
+      'id': userId,
+      'email': email,
+      'username': username,
+      'first_name': firstName,
+      'last_name': lastName,
+      'created_at': createdAt,
+    });
+  }
+
+  Future<Map<String, dynamic>> fetchUserData() async {
+    final userId = _supabaseClient.auth.currentUser!.id;
+    final response = await _supabaseClient
+        .from("users")
+        .select()
+        .eq('id', userId)
+        .single();
+    return response;
+  }
+
+  Future<void> updateUserProfile({
+    String? username,
+    String? firstName,
+    String? lastName,
+    String? customerId,
+    String? profileImageUrl,
+  }) async {
+    final user = _supabaseClient.auth.currentUser;
+    if (user != null) {
+      final Map<String, dynamic> updateData = {};
+
+      if (username != null && username.isNotEmpty) {
+        updateData['username'] = username;
+      }
+      if (firstName != null && firstName.isNotEmpty) {
+        updateData['first_name'] = firstName;
+      }
+      if (lastName != null && lastName.isNotEmpty) {
+        updateData['last_name'] = lastName;
+      }
+      if (customerId != null && customerId.isNotEmpty) {
+        updateData['customer_id'] = customerId;
+      }
+      if (profileImageUrl != null && profileImageUrl.isNotEmpty) {
+        updateData['profile_image_url'] = profileImageUrl;
+      }
+
+      if (updateData.isNotEmpty) {
+        await _supabaseClient
+            .from("users")
+            .update(updateData)
+            .eq('id', user.id);
+      }
+    }
   }
 
   Future<void> logout() async {
