@@ -19,7 +19,7 @@ class CustomElevatedButton extends StatelessWidget {
   });
 
   final double? width;
-  final double? height;
+  final double height;
   final Color? backgroundColor;
   final EdgeInsets? contentPadding;
   final VoidCallback onPressed;
@@ -37,7 +37,7 @@ class CustomElevatedButton extends StatelessWidget {
 
     final Widget effectiveChild = isLoading
         ? Padding(
-            padding: const EdgeInsets.all(24.0),
+            padding: EdgeInsets.all(height * 0.25),
             child: SpinKitThreeBounce(color: context.colors.onPrimary),
           )
         : (disabled && child is Text

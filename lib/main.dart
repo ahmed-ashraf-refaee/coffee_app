@@ -16,6 +16,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'core/services/app_locale.dart';
 import 'features/authentication/presentation/manager/auth_bloc/auth_bloc.dart';
+import 'features/checkout/presentation/manager/payment/payment_cubit.dart';
 import 'features/home/presentation/manager/home_filter_cubit/home_filter_cubit.dart';
 import 'features/wishlist/presentation/manager/wishlist/wishlist_cubit.dart';
 import 'generated/l10n.dart';
@@ -46,6 +47,10 @@ class CoffeeApp extends StatelessWidget {
         BlocProvider(create: (context) => CartCubit()..loadCart()),
         BlocProvider(create: (context) => LocaleCubit()),
         BlocProvider(create: (context) => HomeFilterCubit()),
+<<<<<<< Updated upstream
+=======
+        BlocProvider(create: (context) => PaymentCubit()),
+>>>>>>> Stashed changes
       ],
       child: Builder(
         builder: (context) {

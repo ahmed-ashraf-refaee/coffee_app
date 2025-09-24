@@ -2,15 +2,17 @@ import 'package:coffee_app/core/utils/text_styles.dart';
 import 'package:coffee_app/core/widgets/custom_app_bar.dart';
 import 'package:coffee_app/core/widgets/custom_elevated_button.dart';
 import 'package:coffee_app/core/widgets/custom_icon_button.dart';
-import 'package:coffee_app/features/checkout/presentation/views/checkout_view/widgets/action_container.dart';
 import 'package:coffee_app/features/checkout/presentation/views/checkout_view/widgets/order_summary.dart';
 import 'package:coffee_app/features/checkout/presentation/views/checkout_view/widgets/payment_info_card.dart';
 import 'package:coffee_app/features/checkout/presentation/views/checkout_view/widgets/shipping_info_card.dart';
 import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+<<<<<<< Updated upstream
 import 'package:flutter_stripe/flutter_stripe.dart';
+=======
+import 'package:go_router/go_router.dart';
+>>>>>>> Stashed changes
 import 'package:ionicons/ionicons.dart';
 
 class CheckoutView extends StatelessWidget {

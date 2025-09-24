@@ -30,7 +30,16 @@ class PaymentView extends StatelessWidget {
                   ),
                 ),
               ),
+<<<<<<< Updated upstream
               PaymentMethodsList(),
+=======
+              const PaymentMethodsList(),
+
+              CustomElevatedButton(
+                onPressed: () {},
+                child: const Text("", style: TextStyles.medium20),
+              ),
+>>>>>>> Stashed changes
             ],
           ),
         ),

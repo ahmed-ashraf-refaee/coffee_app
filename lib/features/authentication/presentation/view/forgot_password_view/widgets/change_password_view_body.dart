@@ -7,7 +7,6 @@ import 'package:coffee_app/features/authentication/presentation/manager/auth_blo
 import 'package:coffee_app/features/authentication/presentation/view/authentication_view/widgets/build_suffix_icon_with_divider.dart';
 import 'package:coffee_app/features/authentication/presentation/view/widgets/auth_title.dart';
 import 'package:coffee_app/generated/l10n.dart';
-import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';

@@ -9,13 +9,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
 
-import '../../../../../core/helper/ui_helpers.dart';
 import '../../../../../core/utils/text_styles.dart';
 import '../../../../../core/widgets/custom_icon_button.dart';
 import '../../../../../core/widgets/loading_list_tile.dart';
 import '../../../../../generated/l10n.dart';
 import '../../../../navigation/presentation/manager/navigator_cubit/navigator_cubit.dart';
-import '../../../../payment/presentation/manager/payment/stripe_payment_cubit.dart';
 
 class CartViewBody extends StatelessWidget {
   const CartViewBody({super.key});
@@ -189,6 +187,7 @@ class CartSummary extends StatelessWidget {
                 value: total.toStringAsFixed(2),
                 style: TextStyles.regular16,
               ),
+<<<<<<< Updated upstream
               BlocConsumer<StripePaymentCubit, StripePaymentState>(
                 listener: (context, state) {
                   if (state is StripePaymentLoading) {
@@ -217,7 +216,17 @@ class CartSummary extends StatelessWidget {
                       style: TextStyles.medium20
                     ),
                   );
+=======
+              CustomElevatedButton(
+                isLoading: false,
+                onPressed: () {
+                  GoRouter.of(context).push(AppRouter.kCheckoutView);
+>>>>>>> Stashed changes
                 },
+                child: Text(
+                  S.current.continue_with_payment,
+                  style: TextStyles.medium20,
+                ),
               ),
             ],
           ),

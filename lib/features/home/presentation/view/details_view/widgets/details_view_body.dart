@@ -219,7 +219,7 @@ class _DetailsViewBodyState extends State<DetailsViewBody> {
                   productId: widget.product.id,
                 );
               },
-              child: Text(
+              child: const Text(
                 "Add to Cart",
                 style: TextStyles.medium20
               ),
