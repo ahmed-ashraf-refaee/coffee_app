@@ -159,7 +159,6 @@ class PaymentMethodService {
       "exp_month": cardData["exp_month"],
       "exp_year": cardData["exp_year"],
       "holder_name": cardData["holder_name"],
-      "customer_id": customerId,
     });
   }
 

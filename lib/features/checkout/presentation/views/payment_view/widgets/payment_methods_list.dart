@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '../../../../data/models/payment_method_model.dart';
+import 'cash_on_delivery_list_item.dart';
 
 class PaymentMethodsList extends StatefulWidget {
   const PaymentMethodsList({super.key});
@@ -35,6 +36,10 @@ class _PaymentMethodsListState extends State<PaymentMethodsList> {
             const Text("bank cards", style: TextStyles.bold20),
 
             BlocBuilder<PaymentCubit, PaymentState>(
+              buildWhen: (previous, current) {
+                return current is! PaymentCardOverlayLoading &&
+                    current is! CardAddedSuccess;
+              },
               builder: (context, state) {
                 if (state is PaymentLoading) {
                   return const Center(child: CircularProgressIndicator());

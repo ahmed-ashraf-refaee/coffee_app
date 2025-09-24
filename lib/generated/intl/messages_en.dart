@@ -63,6 +63,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Continue with payment",
     ),
     "create_account": MessageLookupByLibrary.simpleMessage("Create an Account"),
+    "cvv": MessageLookupByLibrary.simpleMessage("CVV"),
     "databaseError": MessageLookupByLibrary.simpleMessage(
       "A database error occurred. Please try again.",
     ),
@@ -90,6 +91,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "enterVerificationCodeSubtitle": MessageLookupByLibrary.simpleMessage(
       "Enter the 6-digit verification code we sent to your email.",
     ),
+    "expiryDate": MessageLookupByLibrary.simpleMessage("MM/YY"),
     "facebook": MessageLookupByLibrary.simpleMessage("Facebook"),
     "filters": MessageLookupByLibrary.simpleMessage("Filters"),
     "first_name": MessageLookupByLibrary.simpleMessage("First Name"),
@@ -107,6 +109,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Get Started Now!",
     ),
     "google": MessageLookupByLibrary.simpleMessage("Google"),
+    "holderName": MessageLookupByLibrary.simpleMessage("Card Holder Name"),
     "internalServerError": MessageLookupByLibrary.simpleMessage(
       "Internal server error. Please try again.",
     ),

@@ -12,18 +12,19 @@ class PaymentCubit extends Cubit<PaymentState> {
   final PaymentRepoImpl _paymentRepo = PaymentRepoImpl();
 
   void addCard({required String holderName}) async {
-    emit(PaymentLoading());
+    emit(PaymentCardOverlayLoading());
     final result = await _paymentRepo.addPaymentCard(holderName: holderName);
-    result.fold((failure) => emit(PaymentFailure(error: failure.error)), (
-      _,
-    ) async {
-      emit(CardAddedSuccess());
-      final cardsResult = await _paymentRepo.fetchPaymentCards();
-      cardsResult.fold(
-        (failure) => emit(PaymentFailure(error: failure.error)),
-        (cards) => emit(CardsLoadedSuccess(cards: cards)),
-      );
-    });
+    result.fold(
+      (failure) => emit(PaymentCardOverlayFailure(error: failure.error)),
+      (_) async {
+        emit(CardAddedSuccess());
+        final cardsResult = await _paymentRepo.fetchPaymentCards();
+        cardsResult.fold(
+          (failure) => emit(PaymentCardOverlayFailure(error: failure.error)),
+          (cards) => emit(CardsLoadedSuccess(cards: cards)),
+        );
+      },
+    );
   }
 
   void fetchCards() async {
@@ -52,12 +53,5 @@ class PaymentCubit extends Cubit<PaymentState> {
       (failure) => emit(PaymentFailure(error: failure.error)),
       (_) => emit(PaymentCompletedSuccess()),
     );
-  }
-
-  @override
-  void onChange(Change<PaymentState> change) {
-    print(change);
-
-    super.onChange(change);
   }
 }

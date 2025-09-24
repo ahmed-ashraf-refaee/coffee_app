@@ -8,7 +8,6 @@ import 'package:coffee_app/features/checkout/presentation/views/checkout_view/wi
 import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
 
 class CheckoutView extends StatelessWidget {

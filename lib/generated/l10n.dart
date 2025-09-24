@@ -1143,6 +1143,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Card Holder Name`
+  String get holderName {
+    return Intl.message(
+      'Card Holder Name',
+      name: 'holderName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `CVV`
+  String get cvv {
+    return Intl.message('CVV', name: 'cvv', desc: '', args: []);
+  }
+
+  /// `MM/YY`
+  String get expiryDate {
+    return Intl.message('MM/YY', name: 'expiryDate', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

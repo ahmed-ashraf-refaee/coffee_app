@@ -140,5 +140,9 @@
   "checkout": "الدفع",
   "add": "إضافة",
   "addPaymentMethod": "إضافة طريقة دفع",
-  "addShippingAddress": "إضافة عنوان شحن"
+  "addShippingAddress": "إضافة عنوان شحن",
+  "holderName": "اسم حامل البطاقة",
+  "cvv": "الرمز الأمني (CVV)",
+  "expiryDate": "تاريخ الانتهاء (شهر/سنة)"
+
 }

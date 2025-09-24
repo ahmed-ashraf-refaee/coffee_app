@@ -3,8 +3,6 @@ import 'package:coffee_app/core/helper/ui_helpers.dart';
 import 'package:coffee_app/core/utils/text_styles.dart';
 import 'package:coffee_app/core/widgets/custom_elevated_button.dart';
 import 'package:coffee_app/core/widgets/overlay_container.dart';
-import 'package:coffee_app/features/authentication/data/services/auth_service.dart';
-import 'package:coffee_app/features/checkout/data/service/payment_method_service.dart';
 import 'package:coffee_app/features/checkout/presentation/manager/payment/payment_cubit.dart';
 import 'package:coffee_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +41,7 @@ class _AddCardOverlayState extends State<AddCardOverlay> {
             TextFormField(
               controller: holderNameController,
               decoration: InputDecoration(
-                hintText: "55555555",
+                hintText: S.current.holderName,
                 prefixIcon: const Icon(Ionicons.person_outline),
               ),
               autovalidateMode: AutovalidateMode.onUnfocus,
@@ -78,7 +76,7 @@ class _AddCardOverlayState extends State<AddCardOverlay> {
                       context: context,
                       message: "Card Added Successfully",
                     );
-                  } else if (state is PaymentFailure) {
+                  } else if (state is PaymentCardOverlayFailure) {
                     if (!mounted) return;
                     UiHelpers.showSnackBar(
                       context: context,
@@ -88,7 +86,7 @@ class _AddCardOverlayState extends State<AddCardOverlay> {
                 },
                 builder: (context, state) {
                   return CustomElevatedButton(
-                    isLoading: state is PaymentLoading,
+                    isLoading: state is PaymentCardOverlayLoading,
                     height: 56,
                     contentPadding: const EdgeInsets.all(8),
                     onPressed: () async {
