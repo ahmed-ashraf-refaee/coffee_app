@@ -1,6 +1,7 @@
 import 'package:coffee_app/core/helper/ui_helpers.dart';
 import 'package:coffee_app/core/utils/text_styles.dart';
 import 'package:coffee_app/core/widgets/custom_elevated_button.dart';
+import 'package:coffee_app/features/checkout/presentation/manager/card/card_cubit.dart';
 import 'package:coffee_app/features/checkout/presentation/manager/payment/payment_cubit.dart';
 import 'package:coffee_app/features/checkout/presentation/views/payment_view/widgets/add_card_overlay.dart';
 import 'package:coffee_app/features/checkout/presentation/views/payment_view/widgets/payment_method_list_item.dart';
@@ -27,15 +28,14 @@ class _PaymentMethodsListState extends State<PaymentMethodsList> {
     context.read<PaymentCubit>().fetchCards();
   }
 
-  ValueNotifier<int> selectedIndex = ValueNotifier(-1);
   @override
   void dispose() {
-    selectedIndex.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final cardCubit = context.watch<CardCubit>();
     return Column(
       spacing: 16,
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -68,31 +68,31 @@ class _PaymentMethodsListState extends State<PaymentMethodsList> {
             } else if (state is CardsLoadedSuccess) {
               final paymentMethodsList = state.cards;
               if (paymentMethodsList.isEmpty) {
-                return Text(
+                return const Text(
                   "No cards available. Please add a card.",
                   style: TextStyles.medium16,
                   textAlign: TextAlign.center,
                 );
               }
-              return ValueListenableBuilder(
-                valueListenable: selectedIndex,
-                builder: (context, value, child) {
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: paymentMethodsList.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 16.0),
-                        child: PaymentMethodListItem(
-                          paymentMethod: paymentMethodsList[index],
-                          selected: index == selectedIndex.value,
-                          onSelected: () {
-                            selectedIndex.value = index;
-                          },
-                        ),
-                      );
-                    },
+              return ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: paymentMethodsList.length,
+                itemBuilder: (context, index) {
+                  final paymentMethod = paymentMethodsList[index];
+
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 16.0),
+
+                    child: PaymentMethodListItem(
+                      paymentMethod: paymentMethod,
+                      selected: cardCubit.state.defaultCard == null
+                          ? false
+                          : paymentMethod.id == cardCubit.state.defaultCard!.id,
+                      onSelected: () {
+                        cardCubit.updateDefaultCard(paymentMethodsList[index]);
+                      },
+                    ),
                   );
                 },
               );
@@ -124,14 +124,14 @@ class _PaymentMethodsListState extends State<PaymentMethodsList> {
         ),
 
         const Text("Other Methods", style: TextStyles.bold20),
-        ValueListenableBuilder(
-          valueListenable: selectedIndex,
-          builder: (context, value, child) {
-            return CashOnDeliveryListItem(
-              selected: selectedIndex.value == -1,
-              onSelected: () {
-                selectedIndex.value = -1;
-              },
+
+        CashOnDeliveryListItem(
+          selected: cardCubit.state.defaultCard == null
+              ? false
+              : cardCubit.state.defaultCard!.id == -1,
+          onSelected: () {
+            BlocProvider.of<CardCubit>(context).updateDefaultCard(
+              PaymentMethodModel(id: -1, createdAt: DateTime.timestamp()),
             );
           },
         ),

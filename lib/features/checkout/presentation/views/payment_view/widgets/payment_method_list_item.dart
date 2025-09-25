@@ -44,7 +44,9 @@ class PaymentMethodListItem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    paymentMethod.holderName ?? '',
+                    paymentMethod.holderName!,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
                     style: TextStyles.bold20.copyWith(
                       color: selected
                           ? context.colors.onPrimary

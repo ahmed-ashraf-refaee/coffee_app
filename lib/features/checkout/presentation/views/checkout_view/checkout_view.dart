@@ -2,12 +2,16 @@ import 'package:coffee_app/core/utils/text_styles.dart';
 import 'package:coffee_app/core/widgets/custom_app_bar.dart';
 import 'package:coffee_app/core/widgets/custom_elevated_button.dart';
 import 'package:coffee_app/core/widgets/custom_icon_button.dart';
+import 'package:coffee_app/features/authentication/presentation/manager/auth_bloc/auth_bloc.dart';
+import 'package:coffee_app/features/checkout/presentation/manager/card/card_cubit.dart';
+import 'package:coffee_app/features/checkout/presentation/manager/payment/payment_cubit.dart';
 import 'package:coffee_app/features/checkout/presentation/views/checkout_view/widgets/order_summary.dart';
 import 'package:coffee_app/features/checkout/presentation/views/checkout_view/widgets/payment_info_card.dart';
 import 'package:coffee_app/features/checkout/presentation/views/checkout_view/widgets/shipping_info_card.dart';
 import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
 
@@ -37,12 +41,25 @@ class CheckoutView extends StatelessWidget {
                 ),
               ),
               const OrderSummary(),
+
               const PaymentInfoCard(),
+
               const ShippingInfoCard(),
               const Spacer(),
               CustomElevatedButton(
-                disabled: true,
-                onPressed: () {},
+                disabled: context.watch<CardCubit>().state.defaultCard == null,
+                onPressed: () {
+                  context.read<PaymentCubit>().payWithCard(
+                    amount: 80,
+                    paymentMethodId: context
+                        .read<CardCubit>()
+                        .state
+                        .defaultCard!
+                        .paymentMethodId!,
+                    customerId: "",
+                    cvc: "22",
+                  );
+                },
                 child: Text(S.current.checkout, style: TextStyles.medium20),
               ),
             ],
