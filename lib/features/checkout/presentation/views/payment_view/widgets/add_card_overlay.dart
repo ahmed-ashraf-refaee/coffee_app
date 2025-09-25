@@ -50,7 +50,9 @@ class _AddCardOverlayState extends State<AddCardOverlay> {
                   return S.current.enterFirstName;
                 } else if (value.trim().length < 3) {
                   return S.current.tooShort;
-                } else if (!RegConstants.nameRegExp.hasMatch(value.trim())) {
+                } else if (!RegConstants.cardHolderNameRegExp.hasMatch(
+                  value.trim(),
+                )) {
                   return S.current.invalidCharacters;
                 }
                 return null;

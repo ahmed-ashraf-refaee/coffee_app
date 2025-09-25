@@ -8,6 +8,7 @@ class PaymentMethodService {
   final Dio _dio = Dio();
   final SupabaseClient _supabase = Supabase.instance.client;
   final AuthService _authService = AuthService();
+  final String _baseUrl = "https://api.stripe.com/v1";
 
   //======================================================================
   /// Save a new card for the current user

@@ -187,35 +187,20 @@ class CartSummary extends StatelessWidget {
                 value: total.toStringAsFixed(2),
                 style: TextStyles.regular16,
               ),
-              BlocConsumer<StripePaymentCubit, StripePaymentState>(
-                listener: (context, state) {
-                  if (state is StripePaymentLoading) {
-                    // Show loading indicator
-                  } else if (state is StripePaymentSuccess) {
-                    // Show success message
-                  } else if (state is StripePaymentFailure) {
-                    UiHelpers.showSnackBar(
-                      context: context,
-                      message: state.error,
-                    );
-                  }
+
+              CustomElevatedButton(
+                isLoading: false,
+                onPressed: () {
+                  // context.read<StripePaymentCubit>().payment(
+                  //   amount: total,
+                  //   currency: 'EGP',
+                  // );
+                  GoRouter.of(context).push(AppRouter.kCheckoutView);
                 },
-                builder: (context, state) {
-                  return CustomElevatedButton(
-                    isLoading: state is StripePaymentLoading,
-                    onPressed: () {
-                      // context.read<StripePaymentCubit>().payment(
-                      //   amount: total,
-                      //   currency: 'EGP',
-                      // );
-                      GoRouter.of(context).push(AppRouter.kCheckoutView);
-                    },
-                    child: Text(
-                      S.current.continue_with_payment,
-                      style: TextStyles.medium20,
-                    ),
-                  );
-                },
+                child: Text(
+                  S.current.continue_with_payment,
+                  style: TextStyles.medium20,
+                ),
               ),
             ],
           ),

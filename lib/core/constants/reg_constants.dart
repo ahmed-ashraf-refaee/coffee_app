@@ -4,4 +4,8 @@ class RegConstants {
   static final RegExp passwordRegExp = RegExp(
     r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$',
   );
+  static final RegExp cardHolderNameRegExp = RegExp(
+    r"^[\p{L}\s'-.]+$",
+    unicode: true,
+  );
 }

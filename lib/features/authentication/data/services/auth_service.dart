@@ -73,17 +73,6 @@ class AuthService {
   }
 
 
-
-  Future<Map<String, dynamic>> fetchUserData() async {
-    final userId = _supabaseClient.auth.currentUser!.id;
-    final response = await _supabaseClient
-        .from("users")
-        .select()
-        .eq('id', userId)
-        .single();
-    return response;
-  }
-
   Future<String?> fetchCustomerId() async {
     final userId = _supabaseClient.auth.currentUser!.id;
     final response = await _supabaseClient
