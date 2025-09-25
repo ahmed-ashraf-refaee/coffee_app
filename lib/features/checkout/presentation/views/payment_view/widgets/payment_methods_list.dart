@@ -28,6 +28,11 @@ class _PaymentMethodsListState extends State<PaymentMethodsList> {
   }
 
   ValueNotifier<int> selectedIndex = ValueNotifier(-1);
+  @override
+  void dispose() {
+    selectedIndex.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

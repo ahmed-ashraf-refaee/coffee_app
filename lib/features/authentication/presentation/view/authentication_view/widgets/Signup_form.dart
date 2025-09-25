@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
 
-class SignupForm extends StatelessWidget {
+class SignupForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;
   final TextEditingController firstNameController;
   final TextEditingController lastNameController;
@@ -26,12 +26,24 @@ class SignupForm extends StatelessWidget {
     required this.passwordController,
     required this.confirmPasswordController,
   });
+
+  @override
+  State<SignupForm> createState() => _SignupFormState();
+}
+
+class _SignupFormState extends State<SignupForm> {
   final ValueNotifier<bool> _isPasswordVisible = ValueNotifier(false);
+
+  @override
+  void dispose() {
+    _isPasswordVisible.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: formKey,
+      key: widget.formKey,
       child: Column(
         spacing: 16,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -42,7 +54,7 @@ class SignupForm extends StatelessWidget {
             children: [
               Expanded(
                 child: TextFormField(
-                  controller: firstNameController,
+                  controller: widget.firstNameController,
                   decoration: InputDecoration(
                     hintText: S.current.first_name,
                     prefixIcon: const Icon(Ionicons.person_outline),
@@ -66,7 +78,7 @@ class SignupForm extends StatelessWidget {
               ),
               Expanded(
                 child: TextFormField(
-                  controller: lastNameController,
+                  controller: widget.lastNameController,
                   decoration: InputDecoration(
                     hintText: S.current.last_name,
                     prefixIcon: const Icon(Ionicons.person_outline),
@@ -97,7 +109,7 @@ class SignupForm extends StatelessWidget {
                 isUsernameTaken = state.usernameCheck;
               }
               return TextFormField(
-                controller: usernameController,
+                controller: widget.usernameController,
                 decoration: InputDecoration(
                   hintText: S.current.username,
                   prefixIcon: const Icon(Ionicons.person_outline),
@@ -136,7 +148,7 @@ class SignupForm extends StatelessWidget {
             },
           ),
           TextFormField(
-            controller: emailController,
+            controller: widget.emailController,
             decoration: InputDecoration(
               hintText: S.current.email,
               prefixIcon: const Icon(Ionicons.mail_outline),
@@ -155,7 +167,7 @@ class SignupForm extends StatelessWidget {
             valueListenable: _isPasswordVisible,
             builder: (context, value, child) {
               return TextFormField(
-                controller: passwordController,
+                controller: widget.passwordController,
                 obscureText: !value,
                 decoration: InputDecoration(
                   hintText: S.current.password,
@@ -191,7 +203,7 @@ class SignupForm extends StatelessWidget {
             },
           ),
           TextFormField(
-            controller: confirmPasswordController,
+            controller: widget.confirmPasswordController,
             obscureText: true,
             decoration: InputDecoration(
               hintText: S.current.confirm_password,
@@ -201,7 +213,7 @@ class SignupForm extends StatelessWidget {
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return S.current.confirmPassword;
-              } else if (value != passwordController.text) {
+              } else if (value != widget.passwordController.text) {
                 return S.current.passwordsDontMatch;
               }
               return null;

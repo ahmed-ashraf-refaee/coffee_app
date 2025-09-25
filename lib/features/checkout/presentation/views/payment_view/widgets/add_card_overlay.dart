@@ -21,10 +21,15 @@ class AddCardOverlay extends StatefulWidget {
 }
 
 class _AddCardOverlayState extends State<AddCardOverlay> {
-  TextEditingController holderNameController = TextEditingController();
+  final TextEditingController holderNameController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  final ValueNotifier<CardFieldInputDetails?> _card = ValueNotifier(null);
+
   @override
   void dispose() {
     holderNameController.dispose();
+    _card.dispose();
     super.dispose();
   }
 
@@ -33,75 +38,90 @@ class _AddCardOverlayState extends State<AddCardOverlay> {
     return OverlayContainer(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
       child: Padding(
-        padding: const EdgeInsetsGeometry.all(16),
-        child: Column(
-          spacing: 16,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextFormField(
-              controller: holderNameController,
-              decoration: InputDecoration(
-                hintText: S.current.holderName,
-                prefixIcon: const Icon(Ionicons.person_outline),
-              ),
-              autovalidateMode: AutovalidateMode.onUnfocus,
-              validator: (value) {
-                if (value == null || value.trim().isEmpty) {
-                  return S.current.enterFirstName;
-                } else if (value.trim().length < 3) {
-                  return S.current.tooShort;
-                } else if (!RegConstants.cardHolderNameRegExp.hasMatch(
-                  value.trim(),
-                )) {
-                  return S.current.invalidCharacters;
-                }
-                return null;
-              },
-            ),
-            CardField(
-              decoration: const InputDecoration(
-                contentPadding: EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 16,
+        padding: const EdgeInsets.all(16),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            spacing: 16,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextFormField(
+                controller: holderNameController,
+                decoration: InputDecoration(
+                  hintText: S.current.holderName,
+                  prefixIcon: const Icon(Ionicons.person_outline),
                 ),
+                autovalidateMode: AutovalidateMode.onUnfocus,
+                validator: (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return S.current.enterFirstName;
+                  } else if (value.trim().length < 3) {
+                    return S.current.tooShort;
+                  } else if (!RegConstants.cardHolderNameRegExp.hasMatch(
+                    value.trim(),
+                  )) {
+                    return S.current.invalidCharacters;
+                  }
+                  return null;
+                },
               ),
 
-              onCardChanged: (card) {},
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 48),
-              child: BlocConsumer<PaymentCubit, PaymentState>(
-                listener: (BuildContext context, PaymentState state) {
-                  if (state is CardAddedSuccess) {
-                    Navigator.of(context).pop();
-                    UiHelpers.showSnackBar(
-                      context: context,
-                      message: "Card Added Successfully",
-                    );
-                  } else if (state is PaymentCardOverlayFailure) {
-                    if (!mounted) return;
-                    UiHelpers.showSnackBar(
-                      context: context,
-                      message: state.error,
-                    );
-                  }
-                },
-                builder: (context, state) {
-                  return CustomElevatedButton(
-                    isLoading: state is PaymentCardOverlayLoading,
-                    height: 56,
-                    contentPadding: const EdgeInsets.all(8),
-                    onPressed: () async {
-                      context.read<PaymentCubit>().addCard(
-                        holderName: holderNameController.text,
-                      );
-                    },
-                    child: Text(S.current.apply, style: TextStyles.bold16),
-                  );
+              CardField(
+                decoration: const InputDecoration(
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 16,
+                  ),
+                ),
+                onCardChanged: (card) {
+                  _card.value = card;
                 },
               ),
-            ),
-          ],
+
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 48),
+                child: BlocConsumer<PaymentCubit, PaymentState>(
+                  listener: (BuildContext context, PaymentState state) {
+                    if (state is CardAddedSuccess) {
+                      Navigator.of(context).pop();
+                      UiHelpers.showSnackBar(
+                        context: context,
+                        message: "Card Added Successfully",
+                      );
+                    } else if (state is PaymentCardOverlayFailure) {
+                      if (!mounted) return;
+                      UiHelpers.showSnackBar(
+                        context: context,
+                        message: state.error,
+                      );
+                    }
+                  },
+                  builder: (context, state) {
+                    return CustomElevatedButton(
+                      isLoading: state is PaymentCardOverlayLoading,
+                      height: 56,
+                      contentPadding: const EdgeInsets.all(8),
+                      onPressed: () async {
+                        if (_formKey.currentState?.validate() ?? false) {
+                          if (_card.value == null || !_card.value!.complete) {
+                            UiHelpers.showSnackBar(
+                              context: context,
+                              message: "Please enter a valid card",
+                            );
+                            return;
+                          }
+                          context.read<PaymentCubit>().addCard(
+                            holderName: holderNameController.text.trim(),
+                          );
+                        }
+                      },
+                      child: Text(S.current.apply, style: TextStyles.bold16),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

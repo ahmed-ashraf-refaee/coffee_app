@@ -7,7 +7,7 @@ import 'package:ionicons/ionicons.dart';
 
 import 'build_suffix_icon_with_divider.dart';
 
-class LoginForm extends StatelessWidget {
+class LoginForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;
   final TextEditingController emailController;
   final TextEditingController passwordController;
@@ -18,18 +18,29 @@ class LoginForm extends StatelessWidget {
     required this.passwordController,
   });
 
+  @override
+  State<LoginForm> createState() => _LoginFormState();
+}
+
+class _LoginFormState extends State<LoginForm> {
   final ValueNotifier<bool> _isPasswordVisible = ValueNotifier(false);
+
+  @override
+  void dispose() {
+    _isPasswordVisible.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: formKey,
+      key: widget.formKey,
       child: Column(
         spacing: 16,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           TextFormField(
-            controller: emailController,
+            controller: widget.emailController,
             decoration: InputDecoration(
               hintText: S.current.email,
               prefixIcon: const Icon(Ionicons.mail_outline),
@@ -49,7 +60,7 @@ class LoginForm extends StatelessWidget {
             valueListenable: _isPasswordVisible,
             builder: (context, value, child) {
               return TextFormField(
-                controller: passwordController,
+                controller: widget.passwordController,
                 obscureText: !value,
                 decoration: InputDecoration(
                   hintText: S.current.password,
