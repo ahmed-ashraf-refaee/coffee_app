@@ -6,7 +6,6 @@ import 'package:supabase_flutter/supabase_flutter.dart' hide Headers;
 
 class PaymentMethodService {
   final Dio _dio = Dio();
-  final String _baseUrl = "https://api.stripe.com/v1";
   final SupabaseClient _supabase = Supabase.instance.client;
   final AuthService _authService = AuthService();
 

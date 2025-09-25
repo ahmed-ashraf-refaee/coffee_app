@@ -32,14 +32,14 @@ class AuthService {
 
     final user = response.user;
     if (user != null) {
-      await _supabaseClient.from("users").insert({
-        'id': user.id,
-        'email': email,
-        'username': username,
-        'first_name': firstName,
-        'last_name': lastName,
-        'created_at': user.createdAt,
-      });
+      await insertUserData(
+        userId: user.id,
+        email: email,
+        username: username,
+        firstName: firstName,
+        lastName: lastName,
+        createdAt: user.createdAt,
+      );
     }
     return response;
   }
@@ -61,6 +61,18 @@ class AuthService {
       'created_at': createdAt,
     });
   }
+
+  Future<Map<String, dynamic>> fetchUserData() async {
+    final userId = _supabaseClient.auth.currentUser!.id;
+    final response = await _supabaseClient
+        .from("users")
+        .select()
+        .eq('id', userId)
+        .single();
+    return response;
+  }
+
+
 
   Future<Map<String, dynamic>> fetchUserData() async {
     final userId = _supabaseClient.auth.currentUser!.id;

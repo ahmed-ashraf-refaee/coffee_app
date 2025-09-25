@@ -131,7 +131,6 @@ class LanguageListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomElevatedButton(
-      wrapContent: true,
       shrink: 1,
       height: 86,
       contentPadding: const EdgeInsets.all(8),

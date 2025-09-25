@@ -5,6 +5,7 @@ import 'package:coffee_app/core/utils/dark_theme.dart';
 import 'package:coffee_app/core/utils/light_theme.dart';
 
 import 'package:coffee_app/features/cart/presentation/manager/cart_cubit/cart_cubit.dart';
+import 'package:coffee_app/features/payment/presentation/manager/payment/stripe_payment_cubit.dart';
 import 'package:coffee_app/features/profile/presentation/manager/locale_cubit/locale_cubit.dart';
 import 'package:coffee_app/features/profile/presentation/manager/theme_cubit/theme_cubit.dart';
 import 'package:flutter/material.dart';
@@ -28,9 +29,12 @@ void main() async {
     anonKey: Keys.supabaseAnonKey,
   );
   Stripe.publishableKey = Keys.stripePublishableKey;
+  await Stripe.instance.applySettings();
+
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
   );
+
   runApp(const CoffeeApp());
 }
 
@@ -53,7 +57,6 @@ class CoffeeApp extends StatelessWidget {
         builder: (context) {
           final themeMode = context.select((ThemeCubit c) => c.state);
           final locale = context.select((LocaleCubit c) => c.state);
-
           return MaterialApp.router(
             debugShowCheckedModeBanner: false,
             locale: locale,

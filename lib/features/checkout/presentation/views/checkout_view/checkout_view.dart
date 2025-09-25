@@ -5,6 +5,7 @@ import 'package:coffee_app/core/widgets/custom_icon_button.dart';
 import 'package:coffee_app/features/checkout/presentation/views/checkout_view/widgets/order_summary.dart';
 import 'package:coffee_app/features/checkout/presentation/views/checkout_view/widgets/payment_info_card.dart';
 import 'package:coffee_app/features/checkout/presentation/views/checkout_view/widgets/shipping_info_card.dart';
+import 'package:coffee_app/features/payment/presentation/manager/payment/stripe_payment_cubit.dart';
 import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,9 @@ class CheckoutView extends StatelessWidget {
               CustomAppBar(
                 leading: CustomIconButton(
                   padding: 8,
-                  onPressed: () {},
+                  onPressed: () {
+                    GoRouter.of(context).pop();
+                  },
                   child: Icon(
                     Ionicons.chevron_back,
                     color: context.colors.onSecondary,

@@ -4,6 +4,7 @@ import 'package:coffee_app/features/checkout/data/models/payment_method_model.da
 import 'package:coffee_app/features/checkout/presentation/views/payment_view/widgets/card_brand_icon.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
+import 'package:simple_icons/simple_icons.dart';
 
 class PaymentMethodListItem extends StatelessWidget {
   const PaymentMethodListItem({
