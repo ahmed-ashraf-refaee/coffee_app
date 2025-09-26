@@ -9,7 +9,6 @@ abstract class PaymentRepo {
   Future<Either<Failure, void>> payWithCard({
     required double amount,
     required String paymentMethodId,
-    required String customerId,
     required String cvc,
   });
 }

@@ -30,7 +30,11 @@ abstract class AppRouter {
       GoRoute(path: '/', builder: (context, state) => const SplashView()),
       GoRoute(
         path: kCheckoutView,
-        builder: (context, state) => const CheckoutView(),
+        builder: (context, state) {
+          return CheckoutView(
+            summeryCheckout: state.extra as Map<String, double>,
+          );
+        },
       ),
       GoRoute(
         path: kDetailsView,

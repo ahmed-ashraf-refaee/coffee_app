@@ -57,7 +57,7 @@ class CartViewBody extends StatelessWidget {
                 builder: (context, state) {
                   if (state is CartLoading) {
                     return SliverList.builder(
-                      itemCount: 7,
+                      itemCount: 3,
                       itemBuilder: (context, index) {
                         return const Padding(
                           padding: EdgeInsets.only(bottom: 16),
@@ -189,13 +189,12 @@ class CartSummary extends StatelessWidget {
               ),
 
               CustomElevatedButton(
-                isLoading: false,
+                disabled: state is! CartSuccess || state.cartItems.isEmpty,
                 onPressed: () {
-                  // context.read<StripePaymentCubit>().payment(
-                  //   amount: total,
-                  //   currency: 'EGP',
-                  // );
-                  GoRouter.of(context).push(AppRouter.kCheckoutView);
+                  GoRouter.of(context).push(
+                    AppRouter.kCheckoutView,
+                    extra: {"subTotal": subTotal, "shipping": shipping},
+                  );
                 },
                 child: Text(
                   S.current.continue_with_payment,

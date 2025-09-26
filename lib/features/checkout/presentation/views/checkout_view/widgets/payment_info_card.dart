@@ -13,8 +13,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class PaymentInfoCard extends StatelessWidget {
-  const PaymentInfoCard({super.key});
-
+  const PaymentInfoCard({
+    super.key,
+    required this.cvvController,
+    required this.formKey,
+  });
+  final TextEditingController cvvController;
+  final GlobalKey formKey;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CardCubit, CardState>(
@@ -27,8 +32,10 @@ class PaymentInfoCard extends StatelessWidget {
               S.current.change,
               style: TextStyles.bold14.copyWith(color: context.colors.primary),
             ),
+
             onPressed: () {
               GoRouter.of(context).push(AppRouter.kPaymentView);
+              cvvController.clear();
             },
           ),
           defaultAction: PrettierTap(
@@ -69,7 +76,11 @@ class PaymentInfoCard extends StatelessWidget {
                     ],
                   ),
                 )
-              : CardPayment(defaultCard: defaultCard),
+              : CardPayment(
+                  defaultCard: defaultCard,
+                  cvvController: cvvController,
+                  formKey: formKey,
+                ),
         );
       },
     );
@@ -77,9 +88,16 @@ class PaymentInfoCard extends StatelessWidget {
 }
 
 class CardPayment extends StatelessWidget {
-  const CardPayment({super.key, required this.defaultCard});
+  const CardPayment({
+    super.key,
+    required this.defaultCard,
+    required this.cvvController,
+    required this.formKey,
+  });
 
   final PaymentMethodModel defaultCard;
+  final TextEditingController cvvController;
+  final GlobalKey formKey;
 
   @override
   Widget build(BuildContext context) {
@@ -88,6 +106,7 @@ class CardPayment extends StatelessWidget {
       child: Row(
         spacing: 16,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
 
         children: [
           cardBrandIcon(
@@ -109,19 +128,29 @@ class CardPayment extends StatelessWidget {
           SizedBox(
             height: 36,
             width: 64,
-            child: TextFormField(
-              style: TextStyles.regular15,
-              textAlign: TextAlign.center,
-              maxLength: 3,
-              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-              decoration: InputDecoration(
-                counterText: '',
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 0,
+            child: Form(
+              key: formKey,
+              child: TextFormField(
+                controller: cvvController,
+                keyboardType: TextInputType.number,
+                style: TextStyles.regular15,
+                textAlign: TextAlign.center,
+                maxLength: 3,
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                decoration: InputDecoration(
+                  counterText: '',
+                  contentPadding: const EdgeInsets.symmetric(vertical: 0),
+                  hintText: "cvv",
+                  fillColor: context.colors.surface,
                 ),
-                hintText: "cvv",
-                fillColor: context.colors.surface,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Enter CVV";
+                  } else if (value.length != 3) {
+                    return "Invalid CVV";
+                  }
+                  return null;
+                },
               ),
             ),
           ),

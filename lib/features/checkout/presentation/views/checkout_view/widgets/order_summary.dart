@@ -5,8 +5,13 @@ import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 
 class OrderSummary extends StatelessWidget {
-  const OrderSummary({super.key});
-
+  const OrderSummary({
+    super.key,
+    required this.subTotal,
+    required this.shipping,
+  });
+  final double subTotal;
+  final double shipping;
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
@@ -34,17 +39,17 @@ class OrderSummary extends StatelessWidget {
 
               SummaryLine(
                 label: S.current.sub_total,
-                value: "20",
+                value: subTotal.toStringAsFixed(2),
                 style: TextStyles.regular16,
               ),
               SummaryLine(
                 label: S.current.shipping,
-                value: "20",
+                value: shipping.toStringAsFixed(2),
                 style: TextStyles.regular16,
               ),
               SummaryLine(
                 label: S.current.total_price,
-                value: "20",
+                value: (subTotal + shipping).toStringAsFixed(2),
                 style: TextStyles.regular16,
               ),
             ],

@@ -116,4 +116,12 @@ class AuthRepoImpl extends AuthRepo {
       );
     });
   }
+
+  @override
+  Future<Either<Failure, String?>> fetchCustomerId() {
+    return guard(() async {
+      final String? customerId = await _authService.fetchCustomerId();
+      return customerId;
+    });
+  }
 }

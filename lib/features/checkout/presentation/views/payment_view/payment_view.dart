@@ -14,27 +14,25 @@ class PaymentView extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                spacing: 16,
-                children: [
-                  CustomAppBar(
-                    leading: CustomIconButton(
-                      padding: 8,
-                      onPressed: () {
-                        GoRouter.of(context).pop();
-                      },
-                      child: Icon(
-                        Ionicons.chevron_back,
-                        color: context.colors.onSecondary,
-                      ),
+          padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
+          child: SingleChildScrollView(
+            child: Column(
+              spacing: 16,
+              children: [
+                CustomAppBar(
+                  leading: CustomIconButton(
+                    padding: 8,
+                    onPressed: () {
+                      GoRouter.of(context).pop();
+                    },
+                    child: Icon(
+                      Ionicons.chevron_back,
+                      color: context.colors.onSecondary,
                     ),
                   ),
-                  const PaymentMethodsList(),
-                ],
-              ),
+                ),
+                const PaymentMethodsList(),
+              ],
             ),
           ),
         ),

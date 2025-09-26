@@ -1,5 +1,6 @@
 import 'package:coffee_app/core/errors/error_handler.dart';
 import 'package:coffee_app/core/errors/failures.dart';
+import 'package:coffee_app/features/authentication/data/services/auth_service.dart';
 
 import 'package:coffee_app/features/checkout/data/models/payment_method_model.dart';
 import 'package:coffee_app/features/checkout/data/service/payment_method_service.dart';
@@ -30,14 +31,15 @@ class PaymentRepoImpl extends PaymentRepo {
   Future<Either<Failure, void>> payWithCard({
     required double amount,
     required String paymentMethodId,
-    required String customerId,
     required String cvc,
   }) {
     return guard(() async {
+      final customerId = await AuthService().fetchCustomerId();
+
       await _methodService.payWithSavedCard(
         amount: amount,
         paymentMethodId: paymentMethodId,
-        customerId: customerId,
+        customerId: customerId!,
         cvc: cvc,
       );
     });

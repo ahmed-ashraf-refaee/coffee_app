@@ -39,14 +39,12 @@ class PaymentCubit extends Cubit<PaymentState> {
   void payWithCard({
     required double amount,
     required String paymentMethodId,
-    required String customerId,
     required String cvc,
   }) async {
     emit(PaymentLoading());
     final result = await _paymentRepo.payWithCard(
       amount: amount,
       paymentMethodId: paymentMethodId,
-      customerId: customerId,
       cvc: cvc,
     );
     result.fold(

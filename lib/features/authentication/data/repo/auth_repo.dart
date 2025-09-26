@@ -31,4 +31,5 @@ abstract class AuthRepo {
     required String email,
   });
   Future<Either<Failure, UserResponse>> setPassword({required String password});
+  Future<Either<Failure, String?>> fetchCustomerId();
 }
