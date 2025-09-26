@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/widgets/custom_container.dart';
+import '../../../cart/presentation/manager/cart_cubit/cart_cubit.dart';
+import '../../../wishlist/presentation/manager/wishlist/wishlist_cubit.dart';
 import '../manager/navigator_cubit/navigator_cubit.dart';
 import 'widgets/custom_bottom_nav_bar.dart';
 
@@ -36,6 +38,8 @@ class AppNavigation extends StatelessWidget {
               listener: (context, locale) {
                 context.read<HomeCategoryCubit>().getCategories();
                 context.read<HomeProductCubit>().getProducts();
+                context.read<CartCubit>().loadCart();
+                context.read<WishlistCubit>().getWishlist();
               },
               child: CustomContainer(
                 child: state is AppNavigatorToHomeView

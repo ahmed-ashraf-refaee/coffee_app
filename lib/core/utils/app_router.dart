@@ -32,7 +32,7 @@ abstract class AppRouter {
         path: kCheckoutView,
         builder: (context, state) {
           return CheckoutView(
-            summeryCheckout: state.extra as Map<String, double>,
+            checkoutSummery: state.extra as Map<String, double>,
           );
         },
       ),
