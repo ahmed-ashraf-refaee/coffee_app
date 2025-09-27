@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:coffee_app/core/model/product_model.dart';
 import 'package:coffee_app/features/authentication/presentation/view/authentication_view/authentication_view.dart';
 import 'package:coffee_app/features/authentication/presentation/view/forgot_password_view/forgot_password_view.dart';
@@ -10,6 +12,7 @@ import 'package:coffee_app/features/splash/presentation/view/splash_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/maps/presentation/view/map_view.dart';
 import '../../features/navigation/presentation/view/app_navigation.dart';
 
 abstract class AppRouter {
@@ -27,7 +30,7 @@ abstract class AppRouter {
 
   static final router = GoRouter(
     routes: [
-      GoRoute(path: '/', builder: (context, state) => const SplashView()),
+      GoRoute(path: '/', builder: (context, state) => const MapsView()),
       GoRoute(
         path: kCheckoutView,
         builder: (context, state) {
