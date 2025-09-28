@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:coffee_app/core/model/product_model.dart';
 import 'package:coffee_app/features/authentication/presentation/view/authentication_view/authentication_view.dart';
 import 'package:coffee_app/features/authentication/presentation/view/forgot_password_view/forgot_password_view.dart';
@@ -8,7 +6,6 @@ import 'package:coffee_app/features/checkout/presentation/views/payment_view/pay
 import 'package:coffee_app/features/home/presentation/view/details_view/details_view.dart';
 import 'package:coffee_app/features/navigation/presentation/manager/navigator_cubit/navigator_cubit.dart';
 import 'package:coffee_app/features/profile/presentation/view/language_select_view.dart';
-import 'package:coffee_app/features/splash/presentation/view/splash_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 

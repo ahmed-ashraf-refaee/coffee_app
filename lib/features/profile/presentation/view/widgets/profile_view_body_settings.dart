@@ -133,6 +133,7 @@ class ProfileViewBodySettings extends StatelessWidget {
                 shrink: 1,
                 onPressed: () async {
                   await BlocProvider.of<SettingCubit>(context).logout();
+                  if (!context.mounted) return;
                   GoRouter.of(context).pushReplacement(AppRouter.kAuthView);
                 },
                 child: ProfileTile(
