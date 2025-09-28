@@ -18,17 +18,21 @@ class MapsView extends StatefulWidget {
 }
 
 class _MapsViewState extends State<MapsView> {
-  String selectedLocation = 'No location selected';
+  // 1. DECLARE THE MAP CONTROLLER
+  final MapController _mapController = MapController();
   final List<LatLng> _routePoints = [];
+  // double _zoomLevel = 20.0; // This state is no longer needed, MapController.fitBounds handles it
 
   Future<void> _getRoute(PickedData destinationPoint) async {
-    final start = const LatLng(30.078212838718034, 31.28506100993173);
+    // The starting point (hardcoded origin)
+    const start = LatLng(30.078212838718034, 31.28506100993173);
     try {
       final response = await Dio().post(
         'https://api.openrouteservice.org/v2/directions/driving-car/geojson',
         options: Options(
           headers: {
             'Authorization':
+                // Note: It is highly recommended to secure or remove this token before production.
                 "eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6Ijc4NzI4MjEyN2I2MDQ0NTA4MjI0MzIyNmI0ZWU4MjFjIiwiaCI6Im11cm11cjY0In0=",
             'Content-Type': 'application/json',
             "User-Agent": "coffee_app/1.0.0 (sameh.hazem504@gmail.com)",
@@ -49,12 +53,34 @@ class _MapsViewState extends State<MapsView> {
         final coordinates =
             data['features'][0]['geometry']['coordinates'] as List;
 
+        // 2. Clear old points and add new ones
+        final newRoutePoints = <LatLng>[];
+        for (var coord in coordinates) {
+          newRoutePoints.add(LatLng(coord[1], coord[0]));
+        }
+
         setState(() {
           _routePoints.clear();
-          for (var coord in coordinates) {
-            _routePoints.add(LatLng(coord[1], coord[0]));
-          }
+          _routePoints.addAll(newRoutePoints);
         });
+
+        // 3. FIT BOUNDS: Move the map to show the entire route
+        if (_routePoints.isNotEmpty) {
+          final LatLngBounds bounds = LatLngBounds.fromPoints(_routePoints);
+
+          // Use fitCamera with CameraFit.bounds
+          _mapController.fitCamera(
+            CameraFit.bounds(
+              bounds: bounds,
+              // Add padding to ensure the route isn't right against the edge
+              padding: const EdgeInsets.all(78.0),
+              // Max zoom prevents the map from zooming in too tightly on short routes
+              maxZoom: 15.0,
+            ),
+
+            // Optional: Add a duration for a smooth animation
+          );
+        }
       }
     } catch (e) {
       UiHelpers.showSnackBar(
@@ -65,11 +91,8 @@ class _MapsViewState extends State<MapsView> {
   }
 
   void handleLocationPicked(PickedData pickedData) async {
-    setState(() {
-      selectedLocation =
-          '${pickedData.latLong.latitude}, ${pickedData.latLong.longitude}';
-    });
     await _getRoute(pickedData);
+
     if (!mounted) return;
     UiHelpers.showSnackBar(
       context: context,
@@ -84,6 +107,8 @@ class _MapsViewState extends State<MapsView> {
         children: [
           Expanded(
             child: FlutterLocationPicker.withConfiguration(
+              // PASS THE CONTROLLER TO THE WIDGET
+              externalMapController: _mapController,
               onError: (e) => UiHelpers.showSnackBar(
                 context: context,
                 message: Failure.fromException(e).error,
@@ -92,14 +117,11 @@ class _MapsViewState extends State<MapsView> {
               onPicked: handleLocationPicked,
               showCurrentLocationPointer: true,
               mapConfiguration: MapConfiguration(
-                maxZoomLevel: 16,
                 mapLoadingBackgroundColor: context.colors.surface,
-                initZoom: 15.0,
                 stepZoom: 2.0,
                 mapLanguage: 'en',
                 customTileProvider: NetworkTileProvider(),
                 urlTemplate:
-                    // 'https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png',
                     'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
                 mapAnimationDuration: Durations.short3,
               ),
@@ -124,20 +146,16 @@ class _MapsViewState extends State<MapsView> {
                 ),
                 animateMarker: true,
               ),
-
-              //==============================
               controlsConfiguration: ControlsConfiguration(
                 showZoomController: false,
                 controlButtonsEnd: 0,
+                buttonAnimationDuration: Durations.short4,
                 locationIcon: Icons.my_location_rounded,
                 showButtonShadow: false,
-
                 buttonShape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
-
-              //==============================
               searchConfiguration: SearchConfiguration(
                 showSearchBar: true,
                 searchBarHintText: "Search here ....",

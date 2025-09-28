@@ -3,7 +3,6 @@ import 'package:coffee_app/core/constants/language_constants.dart';
 import 'package:coffee_app/core/utils/app_router.dart';
 import 'package:coffee_app/core/utils/dark_theme.dart';
 import 'package:coffee_app/core/utils/light_theme.dart';
-
 import 'package:coffee_app/features/cart/presentation/manager/cart_cubit/cart_cubit.dart';
 import 'package:coffee_app/features/checkout/presentation/manager/card/card_cubit.dart';
 import 'package:coffee_app/features/profile/presentation/manager/locale_cubit/locale_cubit.dart';
@@ -14,7 +13,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
 import 'core/services/app_locale.dart';
 import 'features/authentication/presentation/manager/auth_bloc/auth_bloc.dart';
 import 'features/checkout/presentation/manager/payment/payment_cubit.dart';
