@@ -15,5 +15,11 @@ class SettingCubit extends Cubit<SettingState> {
     );
   }
 
-  
+  launchPhoneDialer({required String phone}) async {
+    var result = await _profileRepoImpl.launchPhoneDialer(phone: phone);
+    result.fold(
+      (failure) => emit(ProfileFailureState(error: failure.error)),
+      (_) {},
+    );
+  }
 }

@@ -113,7 +113,11 @@ class ProfileViewBodySettings extends StatelessWidget {
             children: [
               PrettierTap(
                 shrink: 1,
-                onPressed: () {},
+                onPressed: () {
+                  context.read<SettingCubit>().launchPhoneDialer(
+                    phone: "+201552230385",
+                  );
+                },
                 child: ProfileTile(
                   prefixIcon: "assets/icons/help.png",
                   title: S.current.profile_support,
@@ -125,6 +129,7 @@ class ProfileViewBodySettings extends StatelessWidget {
                 shrink: 1,
                 onPressed: () async {
                   await BlocProvider.of<SettingCubit>(context).logout();
+                  if (!context.mounted) return;
                   GoRouter.of(context).pushReplacement(AppRouter.kAuthView);
                 },
                 child: ProfileTile(

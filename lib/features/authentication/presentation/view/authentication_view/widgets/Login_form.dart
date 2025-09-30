@@ -11,7 +11,7 @@ class LoginForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;
   final TextEditingController emailController;
   final TextEditingController passwordController;
-  LoginForm({
+  const LoginForm({
     super.key,
     required this.formKey,
     required this.emailController,
