@@ -144,4 +144,11 @@
   "holderName": "اسم حامل البطاقة",
   "cvv": "الرمز الأمني (CVV)",
   "expiryDate": "تاريخ الانتهاء (شهر/سنة)"
+  ,
+  "signupSuccessTitle": "تم التسجيل بنجاح",
+  "signupSuccessMessage": "تم إنشاء حسابك بنجاح.",
+  "signupErrorEmailExistsTitle": "هذا البريد مسجل بالفعل",
+  "signupErrorEmailExistsMessage": "لا يمكن استخدام هذا البريد. الرجاء تسجيل الدخول بدلاً من ذلك.",
+  "enterCardDetails": "أدخل تفاصيل البطاقة"
+  
 }

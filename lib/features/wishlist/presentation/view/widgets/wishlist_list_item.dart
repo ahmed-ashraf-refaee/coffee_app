@@ -46,12 +46,14 @@ class WishlistListItem extends StatelessWidget {
             ),
           ],
         ),
-        key: const Key("hi"),
 
         child: PrettierTap(
           shrink: 1,
           onPressed: () {
-            GoRouter.of(context).push(AppRouter.kDetailsView, extra: product);
+            GoRouter.of(context).push(
+              AppRouter.kDetailsView,
+              extra: {"product": product, "tag": "${product.id}_wishlist"},
+            );
           },
           child: Container(
             height: 132,
@@ -66,11 +68,14 @@ class WishlistListItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  CustomRoundedImage(
-                    imageUrl: product.imageUrl,
-                    aspectRatio: 3 / 4,
-                    width: 124,
-                    borderRadius: BorderRadius.circular(8),
+                  Hero(
+                    tag: "${product.id}_wishlist",
+                    child: CustomRoundedImage(
+                      imageUrl: product.imageUrl,
+                      aspectRatio: 3 / 4,
+                      width: 124,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
                   ),
 
                   Expanded(

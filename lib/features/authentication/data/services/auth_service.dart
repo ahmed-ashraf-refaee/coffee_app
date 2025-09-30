@@ -40,6 +40,7 @@ class AuthService {
         lastName: lastName,
         createdAt: user.createdAt,
       );
+      await _supabaseClient.auth.signOut();
     }
     return response;
   }
@@ -71,7 +72,6 @@ class AuthService {
         .single();
     return response;
   }
-
 
   Future<String?> fetchCustomerId() async {
     final userId = _supabaseClient.auth.currentUser!.id;

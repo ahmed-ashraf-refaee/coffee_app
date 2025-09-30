@@ -1,7 +1,9 @@
 import 'package:coffee_app/core/utils/text_styles.dart';
 import 'package:coffee_app/core/widgets/prettier_tap.dart';
+import 'package:coffee_app/features/profile/presentation/manager/theme_cubit/theme_cubit.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CashOnDeliveryListItem extends StatelessWidget {
   const CashOnDeliveryListItem({
@@ -28,7 +30,17 @@ class CashOnDeliveryListItem extends StatelessWidget {
               : null,
           borderRadius: BorderRadius.circular(12),
           color: selected
-              ? Color.lerp(context.colors.primary, context.colors.surface, 0.4)
+              ? context.watch<ThemeCubit>().isDark
+                    ? Color.lerp(
+                        context.colors.primary,
+                        context.colors.surface,
+                        0.3,
+                      )
+                    : Color.lerp(
+                        context.colors.primary,
+                        context.colors.surface,
+                        0.05,
+                      )
               : context.colors.secondary,
         ),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),

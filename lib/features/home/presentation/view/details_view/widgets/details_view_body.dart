@@ -21,8 +21,9 @@ import '../../../../../wishlist/presentation/manager/wishlist/wishlist_cubit.dar
 
 class DetailsViewBody extends StatefulWidget {
   final ProductModel product;
+  final String tag;
 
-  const DetailsViewBody({super.key, required this.product});
+  const DetailsViewBody({super.key, required this.product, required this.tag});
 
   @override
   State<DetailsViewBody> createState() => _DetailsViewBodyState();
@@ -95,7 +96,7 @@ class _DetailsViewBodyState extends State<DetailsViewBody> {
           onPressed: () => UiHelpers.showOverlay(
             context: context,
             child: Hero(
-              tag: widget.product.id,
+              tag: widget.tag,
               child: CachedNetworkImage(
                 imageUrl: widget.product.imageUrl,
                 fit: BoxFit.contain,
@@ -105,7 +106,7 @@ class _DetailsViewBodyState extends State<DetailsViewBody> {
             ),
           ),
           child: Hero(
-            tag: widget.product.id,
+            tag: widget.tag,
             child: CustomRoundedImage(
               imageUrl: widget.product.imageUrl,
               aspectRatio: 6 / 4,
@@ -120,6 +121,7 @@ class _DetailsViewBodyState extends State<DetailsViewBody> {
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16),
@@ -219,10 +221,7 @@ class _DetailsViewBodyState extends State<DetailsViewBody> {
                   productId: widget.product.id,
                 );
               },
-              child: const Text(
-                "Add to Cart",
-                style: TextStyles.medium20
-              ),
+              child: const Text("Add to Cart", style: TextStyles.medium20),
             );
           },
         ),

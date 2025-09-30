@@ -1,7 +1,7 @@
 import 'package:coffee_app/core/helper/ui_helpers.dart';
+import 'package:coffee_app/core/widgets/prettier_tap.dart';
 import 'package:coffee_app/features/authentication/presentation/manager/auth_bloc/auth_bloc.dart';
 import 'package:coffee_app/features/authentication/presentation/view/authentication_view/widgets/Signup_form.dart';
-
 import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +13,7 @@ import '../../widgets/auth_title.dart';
 
 class SignupViewBody extends StatefulWidget {
   const SignupViewBody({super.key, required this.toggleAuthMode});
-  final VoidCallback toggleAuthMode;
+  final void Function({String? email}) toggleAuthMode;
 
   @override
   State<SignupViewBody> createState() => _SignupViewBodyState();
@@ -64,24 +64,55 @@ class _SignupViewBodyState extends State<SignupViewBody> {
         BlocConsumer<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is AuthFailure) {
-              UiHelpers.showSnackBar(context: context, message: state.error);
+              if (state.error == S.current.emailAlreadyRegistered) {
+                UiHelpers.showAlert(
+                  title: S.current.signupErrorEmailExistsTitle,
+                  context: context,
+                  content: Text(S.current.signupErrorEmailExistsMessage),
+                  actions: [
+                    PrettierTap(
+                      child: Text(
+                        S.current.log_in,
+                        style: TextStyles.medium12.copyWith(
+                          color: context.colors.primary,
+                        ),
+                      ),
+                      onPressed: () {
+                        widget.toggleAuthMode(email: emailController.text);
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ],
+                );
+              } else {
+                UiHelpers.showSnackBar(context: context, message: state.error);
+              }
             }
             if (state is AuthSuccess) {
-              UiHelpers.showSnackBar(
+              UiHelpers.showAlert(
+                title: S.current.signupSuccessTitle,
                 context: context,
-                message: S.current.registrationSuccess,
-                action: SnackBarAction(
-                  label: S.current.log_in,
-                  onPressed: widget.toggleAuthMode,
-                  textColor: context.colors.primary,
-                ),
+                content: Text(S.current.signupSuccessMessage),
+                actions: [
+                  PrettierTap(
+                    child: Text(
+                      S.current.log_in,
+                      style: TextStyles.medium12.copyWith(
+                        color: context.colors.primary,
+                      ),
+                    ),
+                    onPressed: () {
+                      widget.toggleAuthMode(email: emailController.text);
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
               );
             }
           },
           builder: (context, state) {
             return CustomElevatedButton(
               isLoading: state is AuthLoading,
-
               onPressed: () {
                 if (usernameController.text.trim().isNotEmpty &&
                     usernameController.text.trim().length >= 2) {
@@ -103,10 +134,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                   );
                 }
               },
-              child: Text(
-                S.current.sign_up,
-                style: TextStyles.medium20
-              ),
+              child: Text(S.current.sign_up, style: TextStyles.medium20),
             );
           },
         ),

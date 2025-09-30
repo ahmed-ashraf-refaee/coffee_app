@@ -16,8 +16,9 @@ import '../../widgets/auth_title.dart';
 import 'social_button.dart';
 
 class LoginViewBody extends StatefulWidget {
-  const LoginViewBody({super.key, required this.toggleAuthMode});
-  final VoidCallback toggleAuthMode;
+  const LoginViewBody({super.key, required this.toggleAuthMode,this.email});
+  final String? email;
+  final void Function({String? email}) toggleAuthMode;
 
   @override
   State<LoginViewBody> createState() => _LoginViewBodyState();
@@ -26,8 +27,15 @@ class LoginViewBody extends StatefulWidget {
 class _LoginViewBodyState extends State<LoginViewBody> {
   final _formKey = GlobalKey<FormState>();
   final ValueNotifier<bool> rememberMe = ValueNotifier(true);
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  late TextEditingController emailController ;
+  late TextEditingController passwordController;
+
+    @override
+  void initState() {
+    super.initState();
+    emailController = TextEditingController(text: widget.email);
+    passwordController = TextEditingController();
+  }
   @override
   void dispose() {
     emailController.dispose();
@@ -117,10 +125,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                   );
                 }
               },
-              child: Text(
-                S.current.log_in,
-                style: TextStyles.medium20
-              ),
+              child: Text(S.current.log_in, style: TextStyles.medium20),
             );
           },
         ),

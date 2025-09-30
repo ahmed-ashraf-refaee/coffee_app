@@ -77,40 +77,32 @@ class ProfileViewBodySettings extends StatelessWidget {
                 ),
               ),
               _profileTileDivider(context),
-              BlocBuilder<ThemeCubit, ThemeMode>(
-                builder: (context, themeMode) {
-                  final brightness = MediaQuery.of(context).platformBrightness;
-                  final isDark =
-                      themeMode == ThemeMode.dark ||
-                      (themeMode == ThemeMode.system &&
-                          brightness == Brightness.dark);
-                  return PrettierTap(
-                    onPressed: () {
-                      context.read<ThemeCubit>().toggleTheme();
-                    },
-                    shrink: 1,
-                    child: ProfileTile(
-                      prefixIcon: "assets/icons/night_mode.png",
-                      title: S.current.profile_dark_mode,
-                      suffixWidget: SizedBox(
-                        height: 42,
-                        child: FittedBox(
-                          fit: BoxFit.fitHeight,
-                          child: Switch(
-                            value: isDark,
-                            onChanged: (value) {
-                              context.read<ThemeCubit>().toggleTheme();
-                            },
-                          ),
-                        ),
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 8,
+
+              PrettierTap(
+                onPressed: () {
+                  context.read<ThemeCubit>().toggleTheme();
+                },
+                shrink: 1,
+                child: ProfileTile(
+                  prefixIcon: "assets/icons/night_mode.png",
+                  title: S.current.profile_dark_mode,
+                  suffixWidget: SizedBox(
+                    height: 42,
+                    child: FittedBox(
+                      fit: BoxFit.fitHeight,
+                      child: Switch(
+                        value: context.watch<ThemeCubit>().isDark,
+                        onChanged: (value) {
+                          context.read<ThemeCubit>().toggleTheme();
+                        },
                       ),
                     ),
-                  );
-                },
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 8,
+                  ),
+                ),
               ),
             ],
           ),

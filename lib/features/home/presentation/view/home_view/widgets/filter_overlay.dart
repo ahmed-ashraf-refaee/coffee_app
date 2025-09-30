@@ -127,10 +127,7 @@ class _FilterOverlayState extends State<FilterOverlay> {
                   height: 56,
                   contentPadding: const EdgeInsets.all(8),
                   onPressed: onApplyFilters,
-                  child: Text(
-                    S.current.apply,
-                    style: TextStyles.bold16
-                  ),
+                  child: Text(S.current.apply, style: TextStyles.bold16),
                 ),
               ),
             ],

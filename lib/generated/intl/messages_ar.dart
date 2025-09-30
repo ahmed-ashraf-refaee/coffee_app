@@ -76,6 +76,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "emailNotConfirmed": MessageLookupByLibrary.simpleMessage(
       "يرجى تأكيد بريدك الإلكتروني قبل تسجيل الدخول.",
     ),
+    "enterCardDetails": MessageLookupByLibrary.simpleMessage(
+      "أدخل تفاصيل البطاقة",
+    ),
     "enterEmail": MessageLookupByLibrary.simpleMessage(
       "أدخل البريد الإلكتروني",
     ),
@@ -226,6 +229,18 @@ class MessageLookup extends MessageLookupByLibrary {
     "shipTo": MessageLookupByLibrary.simpleMessage("الشحن إلى"),
     "shipping": MessageLookupByLibrary.simpleMessage("الشحن:"),
     "sign_up": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
+    "signupErrorEmailExistsMessage": MessageLookupByLibrary.simpleMessage(
+      "لا يمكن استخدام هذا البريد. الرجاء تسجيل الدخول بدلاً من ذلك.",
+    ),
+    "signupErrorEmailExistsTitle": MessageLookupByLibrary.simpleMessage(
+      "هذا البريد مسجل بالفعل",
+    ),
+    "signupSuccessMessage": MessageLookupByLibrary.simpleMessage(
+      "تم إنشاء حسابك بنجاح.",
+    ),
+    "signupSuccessTitle": MessageLookupByLibrary.simpleMessage(
+      "تم التسجيل بنجاح",
+    ),
     "sortBy": MessageLookupByLibrary.simpleMessage("ترتيب حسب"),
     "sort_discount": MessageLookupByLibrary.simpleMessage("الخصومات"),
     "sort_highestPrice": MessageLookupByLibrary.simpleMessage("الأعلى سعرًا"),

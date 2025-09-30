@@ -1,7 +1,9 @@
 import 'package:coffee_app/core/utils/text_styles.dart';
 import 'package:coffee_app/core/widgets/prettier_tap.dart';
+import 'package:coffee_app/features/profile/presentation/manager/theme_cubit/theme_cubit.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CustomChip extends StatelessWidget {
   const CustomChip({
@@ -27,12 +29,22 @@ class CustomChip extends StatelessWidget {
         border: selected
             ? Border.all(
                 color: context.colors.primary,
-                strokeAlign: BorderSide.strokeAlignOutside,
+                strokeAlign: BorderSide.strokeAlignInside,
               )
             : null,
         borderRadius: BorderRadius.circular(12),
         color: selected
-            ? Color.lerp(context.colors.primary, context.colors.surface, 0.4)
+            ? context.watch<ThemeCubit>().isDark
+                  ? Color.lerp(
+                      context.colors.primary,
+                      context.colors.surface,
+                      0.4,
+                    )
+                  : Color.lerp(
+                      context.colors.primary,
+                      context.colors.surface,
+                      0.05,
+                    )
             : context.colors.secondary,
       ),
       child: Text(
@@ -46,11 +58,7 @@ class CustomChip extends StatelessWidget {
     );
 
     return IntrinsicWidth(
-      child: PrettierTap(
-        shrink: 3,
-        onPressed: onSelected,
-        child: body,
-      ),
+      child: PrettierTap(shrink: 3, onPressed: onSelected, child: body),
     );
   }
 }

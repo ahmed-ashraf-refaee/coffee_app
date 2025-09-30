@@ -5,6 +5,7 @@ import 'package:coffee_app/core/widgets/custom_elevated_button.dart';
 import 'package:coffee_app/core/widgets/overlay_container.dart';
 import 'package:coffee_app/features/checkout/presentation/manager/payment/payment_cubit.dart';
 import 'package:coffee_app/generated/l10n.dart';
+import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
@@ -23,14 +24,32 @@ class AddCardOverlay extends StatefulWidget {
 class _AddCardOverlayState extends State<AddCardOverlay> {
   final TextEditingController holderNameController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
   final ValueNotifier<CardFieldInputDetails?> _card = ValueNotifier(null);
+  final ValueNotifier<String?> _cardErrorText = ValueNotifier(null);
+  bool _validationAttempted = false;
 
   @override
   void dispose() {
     holderNameController.dispose();
     _card.dispose();
+    _cardErrorText.dispose();
     super.dispose();
+  }
+
+  void _validateCardField(CardFieldInputDetails? cardDetails) {
+    if (!_validationAttempted) return;
+    if (cardDetails == null || !cardDetails.complete) {
+      _cardErrorText.value = S.current.enterCardDetails;
+    } else {
+      _cardErrorText.value = null;
+    }
+  }
+
+  bool _validateAllFields() {
+    _validationAttempted = true;
+    _validateCardField(_card.value);
+    final formIsValid = _formKey.currentState?.validate() ?? false;
+    return formIsValid && _cardErrorText.value == null;
   }
 
   @override
@@ -42,7 +61,6 @@ class _AddCardOverlayState extends State<AddCardOverlay> {
         child: Form(
           key: _formKey,
           child: Column(
-            spacing: 16,
             mainAxisSize: MainAxisSize.min,
             children: [
               TextFormField(
@@ -65,19 +83,13 @@ class _AddCardOverlayState extends State<AddCardOverlay> {
                   return null;
                 },
               ),
-
-              CardField(
-                decoration: const InputDecoration(
-                  contentPadding: EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 16,
-                  ),
-                ),
-                onCardChanged: (card) {
-                  _card.value = card;
-                },
+              const SizedBox(height: 16),
+              ValidatedCardField(
+                cardNotifier: _card,
+                errorNotifier: _cardErrorText,
+                validateCardField: _validateCardField,
               ),
-
+              const SizedBox(height: 32),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 48),
                 child: BlocConsumer<PaymentCubit, PaymentState>(
@@ -102,14 +114,7 @@ class _AddCardOverlayState extends State<AddCardOverlay> {
                       height: 56,
                       contentPadding: const EdgeInsets.all(8),
                       onPressed: () async {
-                        if (_formKey.currentState?.validate() ?? false) {
-                          if (_card.value == null || !_card.value!.complete) {
-                            UiHelpers.showSnackBar(
-                              context: context,
-                              message: "Please enter a valid card",
-                            );
-                            return;
-                          }
+                        if (_validateAllFields()) {
                           context.read<PaymentCubit>().addCard(
                             holderName: holderNameController.text.trim(),
                           );
@@ -124,6 +129,64 @@ class _AddCardOverlayState extends State<AddCardOverlay> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class ValidatedCardField extends StatelessWidget {
+  final ValueNotifier<CardFieldInputDetails?> cardNotifier;
+  final ValueNotifier<String?> errorNotifier;
+  final void Function(CardFieldInputDetails?) validateCardField;
+
+  const ValidatedCardField({
+    super.key,
+    required this.cardNotifier,
+    required this.errorNotifier,
+    required this.validateCardField,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        CardField(
+          decoration: const InputDecoration(
+            contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          ),
+          onCardChanged: (card) {
+            cardNotifier.value = card;
+            validateCardField(card);
+          },
+        ),
+        ValueListenableBuilder<String?>(
+          valueListenable: errorNotifier,
+          builder: (context, error, child) {
+            return AnimatedSize(
+              duration: const Duration(milliseconds: 150),
+              curve: Curves.easeInOut,
+              alignment: Alignment.topCenter,
+              child: error == null
+                  ? const SizedBox.shrink()
+                  : Padding(
+                      padding: const EdgeInsets.only(top: 4),
+                      child: Align(
+                        alignment: context.isArabic
+                            ? Alignment.centerRight
+                            : Alignment.centerLeft,
+                        child: Text(
+                          error,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.error,
+                            fontSize: 12,
+                            height: 1.2,
+                          ),
+                        ),
+                      ),
+                    ),
+            );
+          },
+        ),
+      ],
     );
   }
 }

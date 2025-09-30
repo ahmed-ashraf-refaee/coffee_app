@@ -12,40 +12,11 @@ class HomeService {
           products_translation!inner(name, description),
           product_variants(id,quantity,price,product_id,size_${AppLocale.current.languageCode}),
           categories(id,name_${AppLocale.current.languageCode})
-      ''')
+        ''')
         .eq(
           'products_translation.language_code',
           AppLocale.current.languageCode,
         );
-    return List<Map<String, dynamic>>.from(response);
-  }
-
-  Future<Map<String, dynamic>?> getProductById(int productId) async {
-    final response = await _supabaseClient
-        .from("products")
-        .select('''
-            *,
-            product_variants(*),
-            categories(id,name_${AppLocale.current.languageCode})
-          ''')
-        .eq('id', productId)
-        .single();
-
-    return response;
-  }
-
-  Future<List<Map<String, dynamic>>> getProductsByCategory(
-    int categoryId,
-  ) async {
-    final response = await _supabaseClient
-        .from("products")
-        .select('''
-            *,
-            product_variants(*),
-            categories(*)
-          ''')
-        .eq('category_id', categoryId);
-
     return List<Map<String, dynamic>>.from(response);
   }
 
@@ -54,10 +25,15 @@ class HomeService {
         .from("products")
         .select('''
           *,
-          product_variants(*),
-          categories(*)
+          products_translation!inner(name, description),
+          product_variants(id,quantity,price,product_id,size_${AppLocale.current.languageCode}),
+          categories(id,name_${AppLocale.current.languageCode})
         ''')
-        .order('rating', ascending: false)
+        .eq(
+          'products_translation.language_code',
+          AppLocale.current.languageCode,
+        )
+        .order('discount', ascending: true)
         .limit(5);
 
     return List<Map<String, dynamic>>.from(response);

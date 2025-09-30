@@ -18,5 +18,5 @@ class FilterConstants {
     S.current.rating_1up,
   ];
   static const double minPrice = 0;
-  static const double maxPrice = 3000;
+  static const double maxPrice = 1000;
 }

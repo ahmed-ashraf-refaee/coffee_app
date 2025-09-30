@@ -8,6 +8,7 @@ import 'package:coffee_app/features/checkout/presentation/views/payment_view/wid
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -91,6 +92,7 @@ class _PaymentMethodsListState extends State<PaymentMethodsList> {
                           : paymentMethod.id == cardCubit.state.defaultCard!.id,
                       onSelected: () {
                         cardCubit.updateDefaultCard(paymentMethodsList[index]);
+                        GoRouter.of(context).pop();
                       },
                     ),
                   );
@@ -133,6 +135,7 @@ class _PaymentMethodsListState extends State<PaymentMethodsList> {
             BlocProvider.of<CardCubit>(context).updateDefaultCard(
               PaymentMethodModel(id: -1, createdAt: DateTime.timestamp()),
             );
+            GoRouter.of(context).pop();
           },
         ),
       ],

@@ -2,8 +2,10 @@ import 'package:coffee_app/core/utils/text_styles.dart';
 import 'package:coffee_app/core/widgets/prettier_tap.dart';
 import 'package:coffee_app/features/checkout/data/models/payment_method_model.dart';
 import 'package:coffee_app/features/checkout/presentation/views/payment_view/widgets/card_brand_icon.dart';
+import 'package:coffee_app/features/profile/presentation/manager/theme_cubit/theme_cubit.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PaymentMethodListItem extends StatelessWidget {
   const PaymentMethodListItem({
@@ -32,7 +34,17 @@ class PaymentMethodListItem extends StatelessWidget {
               : null,
           borderRadius: BorderRadius.circular(12),
           color: selected
-              ? Color.lerp(context.colors.primary, context.colors.surface, 0.4)
+              ? context.watch<ThemeCubit>().isDark
+                    ? Color.lerp(
+                        context.colors.primary,
+                        context.colors.surface,
+                        0.3,
+                      )
+                    : Color.lerp(
+                        context.colors.primary,
+                        context.colors.surface,
+                        0.05,
+                      )
               : context.colors.secondary,
         ),
         child: Padding(

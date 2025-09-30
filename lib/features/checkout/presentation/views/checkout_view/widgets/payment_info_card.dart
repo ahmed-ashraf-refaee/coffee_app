@@ -125,33 +125,31 @@ class CardPayment extends StatelessWidget {
             ),
           ),
           const Spacer(),
-          SizedBox(
-            height: 36,
-            width: 64,
-            child: Form(
-              key: formKey,
-              child: TextFormField(
-                controller: cvvController,
-                keyboardType: TextInputType.number,
-                style: TextStyles.regular15,
-                textAlign: TextAlign.center,
-                maxLength: 3,
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                decoration: InputDecoration(
-                  counterText: '',
-                  contentPadding: const EdgeInsets.symmetric(vertical: 0),
-                  hintText: "cvv",
-                  fillColor: context.colors.surface,
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Enter CVV";
-                  } else if (value.length != 3) {
-                    return "Invalid CVV";
-                  }
-                  return null;
-                },
+          Form(
+            key: formKey,
+            child: TextFormField(
+              controller: cvvController,
+              keyboardType: TextInputType.number,
+              style: TextStyles.regular15,
+              textAlign: TextAlign.center,
+              maxLength: 3,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              decoration: InputDecoration(
+                isDense: true,
+                constraints: const BoxConstraints(maxHeight: 64, maxWidth: 64),
+                counterText: '',
+                contentPadding: const EdgeInsets.symmetric(vertical: 8),
+                hintText: "cvv",
+                fillColor: context.colors.surface,
               ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return "Enter CVV";
+                } else if (value.length != 3) {
+                  return "Invalid CVV";
+                }
+                return null;
+              },
             ),
           ),
         ],

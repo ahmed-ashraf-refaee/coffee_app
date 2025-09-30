@@ -1,11 +1,15 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:coffee_app/core/model/product_model.dart';
+import 'package:coffee_app/core/utils/app_router.dart';
 import 'package:coffee_app/core/widgets/custom_rounded_images.dart';
 import 'package:coffee_app/core/widgets/prettier_tap.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class CarouselList extends StatefulWidget {
-  const CarouselList({super.key});
+  const CarouselList({super.key, this.topProducts = const []});
+  final List<ProductModel> topProducts;
 
   @override
   State<CarouselList> createState() => _CarouselListState();
@@ -16,8 +20,12 @@ class _CarouselListState extends State<CarouselList> {
 
   @override
   Widget build(BuildContext context) {
+    void onPressed(Map<String, dynamic> extra) {
+      GoRouter.of(context).push(AppRouter.kDetailsView, extra: extra);
+    }
+
     return CarouselSlider.builder(
-      itemCount: 4,
+      itemCount: widget.topProducts.length,
       itemBuilder: (context, index, realIndex) {
         bool isFocused = index == focusedPageIndex;
         return AnimatedOpacity(
@@ -26,12 +34,21 @@ class _CarouselListState extends State<CarouselList> {
           opacity: isFocused ? 1 : 0.15,
           child: PrettierTap(
             shrink: 1,
-            onPressed: () {},
-            child: CustomRoundedImage(
-              imageUrl:
-                  'https://www.americanolounge.com/wp-content/uploads/2024/08/What-is-American-style-coffee_270222935.webp',
-              aspectRatio: 16 / 9,
-              width: context.width,
+            onPressed: () {
+              if (isFocused) {
+                onPressed({
+                  "product": widget.topProducts[index],
+                  "tag": "${widget.topProducts[index].id}_topProduct",
+                });
+              }
+            },
+            child: Hero(
+              tag: "${widget.topProducts[index].id}_topProduct",
+              child: CustomRoundedImage(
+                imageUrl: widget.topProducts[index].imageUrl,
+                aspectRatio: 16 / 9,
+                width: context.width,
+              ),
             ),
           ),
         );

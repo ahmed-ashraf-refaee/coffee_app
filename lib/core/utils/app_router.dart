@@ -39,8 +39,11 @@ abstract class AppRouter {
       GoRoute(
         path: kDetailsView,
         builder: (context, state) {
-          final ProductModel product = state.extra as ProductModel;
-          return DetailsView(product: product);
+          final Map<String, dynamic> extra =
+              state.extra as Map<String, dynamic>;
+          final String tag = extra['tag'] as String;
+          final ProductModel product = extra['product'] as ProductModel;
+          return DetailsView(product: product, tag: tag);
         },
       ),
       GoRoute(

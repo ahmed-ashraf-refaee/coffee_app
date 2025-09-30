@@ -16,13 +16,15 @@ class HomeListItem extends StatelessWidget {
   const HomeListItem({super.key, required this.product});
   @override
   Widget build(BuildContext context) {
-    void onPressed() {
-      GoRouter.of(context).push(AppRouter.kDetailsView, extra: product);
+    void onPressed(Map<String, dynamic> extra) {
+      GoRouter.of(context).push(AppRouter.kDetailsView, extra: extra);
     }
 
     return PrettierTap(
       shrink: 1,
-      onPressed: onPressed,
+      onPressed: () {
+        onPressed({"product": product, "tag": "${product.id}_normalProduct"});
+      },
       child: Stack(
         children: [
           ClipPath(
@@ -47,7 +49,7 @@ class HomeListItem extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Hero(
-                      tag: product.id,
+                      tag: "${product.id}_normalProduct",
                       child: CustomRoundedImage(
                         imageUrl: product.imageUrl,
                         aspectRatio: 4 / 3,
@@ -105,8 +107,16 @@ class HomeListItem extends StatelessWidget {
               hight: 36,
               width: 36,
               backgroundColor: context.colors.primary,
-              onPressed: onPressed,
-              child: Icon(Ionicons.add, color: context.colors.onPrimary),
+              onPressed: () {
+                onPressed({
+                  "product": product,
+                  "tag": "${product.id}_normalProduct",
+                });
+              },
+              child: Icon(
+                Ionicons.chevron_forward,
+                color: context.colors.onPrimary,
+              ),
             ),
           ),
         ],

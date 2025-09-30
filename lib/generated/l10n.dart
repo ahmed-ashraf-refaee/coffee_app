@@ -28,9 +28,10 @@ class S {
   static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
 
   static Future<S> load(Locale locale) {
-    final name = (locale.countryCode?.isEmpty ?? false)
-        ? locale.languageCode
-        : locale.toString();
+    final name =
+        (locale.countryCode?.isEmpty ?? false)
+            ? locale.languageCode
+            : locale.toString();
     final localeName = Intl.canonicalizedLocale(name);
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
@@ -1162,6 +1163,56 @@ class S {
   /// `MM/YY`
   String get expiryDate {
     return Intl.message('MM/YY', name: 'expiryDate', desc: '', args: []);
+  }
+
+  /// `Registration Successful`
+  String get signupSuccessTitle {
+    return Intl.message(
+      'Registration Successful',
+      name: 'signupSuccessTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your account has been created successfully.`
+  String get signupSuccessMessage {
+    return Intl.message(
+      'Your account has been created successfully.',
+      name: 'signupSuccessMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This email is already registered.`
+  String get signupErrorEmailExistsTitle {
+    return Intl.message(
+      'This email is already registered.',
+      name: 'signupErrorEmailExistsTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This email cannot be used. Please log in instead.`
+  String get signupErrorEmailExistsMessage {
+    return Intl.message(
+      'This email cannot be used. Please log in instead.',
+      name: 'signupErrorEmailExistsMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `enter card details`
+  String get enterCardDetails {
+    return Intl.message(
+      'enter card details',
+      name: 'enterCardDetails',
+      desc: '',
+      args: [],
+    );
   }
 }
 

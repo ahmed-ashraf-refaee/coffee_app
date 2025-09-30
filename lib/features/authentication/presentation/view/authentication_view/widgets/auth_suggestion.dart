@@ -10,7 +10,7 @@ class AuthSuggestion extends StatelessWidget {
     required this.suggestionText,
     required this.actionText,
   });
-  final VoidCallback toggleAuthMode;
+  final void Function({String? email}) toggleAuthMode;
   final String suggestionText;
   final String actionText;
 
@@ -31,7 +31,9 @@ class AuthSuggestion extends StatelessWidget {
           ),
           PrettierTap(
             shrink: 2,
-            onPressed: toggleAuthMode,
+            onPressed: () {
+              toggleAuthMode();
+            },
             child: Text(
               actionText,
               style: TextStyles.bold20.copyWith(color: context.colors.primary),

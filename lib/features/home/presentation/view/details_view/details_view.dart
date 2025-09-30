@@ -6,8 +6,9 @@ import '../../../../../core/model/product_model.dart';
 
 class DetailsView extends StatelessWidget {
   final ProductModel product;
+  final String tag;
 
-  const DetailsView({super.key, required this.product});
+  const DetailsView({super.key, required this.product,required this.tag});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class DetailsView extends StatelessWidget {
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(16),
-            child: DetailsViewBody(product: product),
+            child: DetailsViewBody(product: product,tag:tag),
           ),
         ),
       ),

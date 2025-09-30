@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:coffee_app/features/profile/presentation/manager/theme_cubit/theme_cubit.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -24,32 +26,42 @@ class CustomRoundedImage extends StatelessWidget {
   final Color? shimmerHighlightColor;
   @override
   Widget build(BuildContext context) {
+    final isDark = context.watch<ThemeCubit>().isDark;
+
+    final Color color = isDark
+        ? Color.lerp(context.colors.surface, context.colors.onSurface, 0.05)!
+        : Color.lerp(context.colors.surface, context.colors.onSurface, 0.1)!;
     return SizedBox(
       width: width,
       child: AspectRatio(
         aspectRatio: aspectRatio,
         child: ClipRRect(
           borderRadius: borderRadius ?? BorderRadius.circular(12),
-          child: CachedNetworkImage(
-            imageUrl: imageUrl,
-            fit: BoxFit.cover,
-            placeholder: (context, url) => Skeletonizer(
-              effect: UiHelpers.customShimmer(context),
-              child: Skeleton.shade(
-                child: Container(
-                  width: width,
-                  height: width / aspectRatio,
-                  color: context.colors.secondary,
+          child: Container(
+            color: color,
+
+            child: CachedNetworkImage(
+              imageUrl: imageUrl,
+              fit: BoxFit.cover,
+
+              placeholder: (context, url) => Skeletonizer(
+                effect: UiHelpers.customShimmer(context),
+                child: Skeleton.shade(
+                  child: Container(
+                    width: width,
+                    height: width / aspectRatio,
+                    color: context.colors.secondary,
+                  ),
                 ),
               ),
+              errorWidget: (context, url, error) => Container(
+                color: color,
+                child: const Icon(Ionicons.warning_outline, size: 30),
+              ),
+              errorListener: (_) {
+                // Do nothing to silence HttpException logs
+              },
             ),
-            errorWidget: (context, url, error) => Container(
-              color: context.colors.onSurface.withAlpha(5),
-              child: const Icon(Ionicons.warning_outline, size: 30),
-            ),
-            errorListener: (_) {
-              // Do nothing to silence HttpException logs
-            },
           ),
         ),
       ),

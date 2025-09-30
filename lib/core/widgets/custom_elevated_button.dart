@@ -30,9 +30,9 @@ class CustomElevatedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Widget effectiveChild = isLoading
-        ? Padding(
-            padding: EdgeInsets.all(height * 0.25),
-            child: SpinKitThreeBounce(color: context.colors.onPrimary),
+        ? SpinKitThreeBounce(
+            color: context.colors.onPrimary,
+            size: height * 0.5,
           )
         : (disabled && child is Text
               ? DefaultTextStyle.merge(

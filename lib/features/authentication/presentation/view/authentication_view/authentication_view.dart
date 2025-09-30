@@ -21,7 +21,7 @@ class AuthenticationView extends StatefulWidget {
 class _AuthenticationViewState extends State<AuthenticationView> {
   final ValueNotifier<bool> login = ValueNotifier(true);
   late final StreamSubscription<AuthState> _authSubscription;
-
+  String? signupEmail;
   @override
   void initState() {
     super.initState();
@@ -54,16 +54,17 @@ class _AuthenticationViewState extends State<AuthenticationView> {
     super.dispose();
   }
 
-  void toggleAuthMode() {
+  void toggleAuthMode({String? email}) {
+    signupEmail = email;
     login.value = !login.value;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: CustomContainer(
-          child: SafeArea(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: CustomContainer(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 58),
               child: ValueListenableBuilder(
@@ -72,7 +73,10 @@ class _AuthenticationViewState extends State<AuthenticationView> {
                   return FadeScaleSwitcher(
                     duration: const Duration(milliseconds: 200),
                     child: login.value
-                        ? LoginViewBody(toggleAuthMode: toggleAuthMode)
+                        ? LoginViewBody(
+                            toggleAuthMode: toggleAuthMode,
+                            email: signupEmail,
+                          )
                         : SignupViewBody(toggleAuthMode: toggleAuthMode),
                   );
                 },

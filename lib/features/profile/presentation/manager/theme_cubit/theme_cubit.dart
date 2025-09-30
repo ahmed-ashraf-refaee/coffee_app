@@ -25,4 +25,12 @@ class ThemeCubit extends Cubit<ThemeMode> {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isDark', newTheme == ThemeMode.dark);
   }
+
+  bool get isDark {
+    if (state == ThemeMode.dark) return true;
+    if (state == ThemeMode.light) return false;
+    final brightness =
+        WidgetsBinding.instance.platformDispatcher.platformBrightness;
+    return brightness == Brightness.dark;
+  }
 }

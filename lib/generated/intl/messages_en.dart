@@ -80,6 +80,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "emailNotConfirmed": MessageLookupByLibrary.simpleMessage(
       "Please confirm your email before logging in.",
     ),
+    "enterCardDetails": MessageLookupByLibrary.simpleMessage(
+      "enter card details",
+    ),
     "enterEmail": MessageLookupByLibrary.simpleMessage("Enter email"),
     "enterFirstName": MessageLookupByLibrary.simpleMessage("Enter first name"),
     "enterLastName": MessageLookupByLibrary.simpleMessage("Enter last name"),
@@ -232,6 +235,18 @@ class MessageLookup extends MessageLookupByLibrary {
     "shipTo": MessageLookupByLibrary.simpleMessage("Ship to"),
     "shipping": MessageLookupByLibrary.simpleMessage("Shipping:"),
     "sign_up": MessageLookupByLibrary.simpleMessage("Sign Up"),
+    "signupErrorEmailExistsMessage": MessageLookupByLibrary.simpleMessage(
+      "This email cannot be used. Please log in instead.",
+    ),
+    "signupErrorEmailExistsTitle": MessageLookupByLibrary.simpleMessage(
+      "This email is already registered.",
+    ),
+    "signupSuccessMessage": MessageLookupByLibrary.simpleMessage(
+      "Your account has been created successfully.",
+    ),
+    "signupSuccessTitle": MessageLookupByLibrary.simpleMessage(
+      "Registration Successful",
+    ),
     "sortBy": MessageLookupByLibrary.simpleMessage("Sort by"),
     "sort_discount": MessageLookupByLibrary.simpleMessage("Discount"),
     "sort_highestPrice": MessageLookupByLibrary.simpleMessage("Highest Price"),

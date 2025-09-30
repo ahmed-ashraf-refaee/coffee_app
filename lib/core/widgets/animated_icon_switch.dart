@@ -41,7 +41,11 @@ class _AnimatedIconSwitchState extends State<AnimatedIconSwitch> {
     final currentChild = isToggled ? widget.children[1] : widget.children[0];
 
     if (widget.isFilled) {
-      return CustomIconButton(onPressed: _onPressed, child: currentChild);
+      return CustomIconButton(
+        onPressed: _onPressed,
+        padding: 8,
+        child: currentChild,
+      );
     }
 
     return PrettierTap(

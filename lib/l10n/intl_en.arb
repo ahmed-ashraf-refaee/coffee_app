@@ -145,4 +145,11 @@
   "holderName": "Card Holder Name",
   "cvv": "CVV",
   "expiryDate": "MM/YY"
+,
+  "signupSuccessTitle": "Registration Successful",
+  "signupSuccessMessage": "Your account has been created successfully.",
+  "signupErrorEmailExistsTitle": "This email is already registered.",
+  "signupErrorEmailExistsMessage": "This email cannot be used. Please log in instead."
+
+,"enterCardDetails": "enter card details" 
 }
