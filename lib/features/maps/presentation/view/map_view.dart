@@ -14,6 +14,9 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:latlong2/latlong.dart';
 
+import '../../../../core/services/app_locale.dart';
+import '../../../checkout/data/repo/address/address_repo_impl.dart';
+import '../../../checkout/data/service/address_service.dart';
 import 'widgets/geocoding_service.dart';
 import 'widgets/location_service.dart';
 import 'widgets/o_s_m_data.dart';
@@ -43,6 +46,15 @@ class _MapsViewState extends State<MapsView> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     _initializeServices();
+    d();
+  }
+
+  void d() async {
+    print(
+      await AddressRepoImpl(
+        AddressService(),
+      ).updateAddress(id: 1, city: "kom el shakayer"),
+    );
   }
 
   @override
@@ -57,7 +69,7 @@ class _MapsViewState extends State<MapsView> with TickerProviderStateMixin {
     _geocodingService = GeocodingService(
       nominatimHost: 'nominatim.openstreetmap.org',
       userAgent: "coffee_app/1.0.0 (sameh.hazem504@gmail.com)",
-      language: 'en',
+      language: AppLocale.current.languageCode,
       countryFilter: "eg",
     );
   }
@@ -130,7 +142,7 @@ class _MapsViewState extends State<MapsView> with TickerProviderStateMixin {
 
   void _handleSearchInput(String value) {
     _debounceTimer?.cancel();
-    _debounceTimer = Timer(const Duration(milliseconds: 500), () async {
+    _debounceTimer = Timer(const Duration(milliseconds: 200), () async {
       if (value.trim().isEmpty) {
         setState(() {
           _searchOptions.clear();
@@ -242,7 +254,7 @@ class _MapsViewState extends State<MapsView> with TickerProviderStateMixin {
     );
   }
 
-  Widget _buildLocationButton() {
+  Widget _buildCurrentLocationButton() {
     return Positioned(
       bottom: 16 + 24 + 62,
       right: 16,
@@ -292,7 +304,7 @@ class _MapsViewState extends State<MapsView> with TickerProviderStateMixin {
             setState(() => _isLoading = false);
           }
         },
-        child: Text('Choose This Location', style: TextStyles.medium20),
+        child: const Text('Choose This Location', style: TextStyles.medium20),
       ),
     );
   }
@@ -376,7 +388,7 @@ class _MapsViewState extends State<MapsView> with TickerProviderStateMixin {
             child: Stack(
               children: [
                 _buildSearchBar(),
-                _buildLocationButton(),
+                _buildCurrentLocationButton(),
                 _buildSelectButton(),
               ],
             ),

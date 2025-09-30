@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:coffee_app/features/checkout/data/repo/payment_repo_impl.dart';
+import 'package:coffee_app/features/checkout/data/repo/payment/payment_repo_impl.dart';
 import 'package:meta/meta.dart';
 
 import '../../../data/models/payment_method_model.dart';
