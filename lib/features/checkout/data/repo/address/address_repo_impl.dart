@@ -20,19 +20,23 @@ class AddressRepoImpl implements AddressRepo {
 
   @override
   Future<Either<Failure, void>> addAddress({
-    required String street,
+    required String address,
     required String city,
     required double latitude,
     required double longitude,
     required String phoneNumber,
+    String? state,
+    String? optionalPhoneNumber,
   }) {
     return guard(
       () => _service.addAddress(
-        street: street,
+        address: address,
         city: city,
         latitude: latitude,
         longitude: longitude,
         phoneNumber: phoneNumber,
+        state: state,
+        optionalPhoneNumber: optionalPhoneNumber,
       ),
     );
   }
@@ -40,23 +44,32 @@ class AddressRepoImpl implements AddressRepo {
   @override
   Future<Either<Failure, List<Address>>> updateAddress({
     required int id,
-    String? street,
+    String? address,
     String? city,
     double? latitude,
     double? longitude,
     String? phoneNumber,
+    String? state,
+    String? optionalPhoneNumber,
   }) {
     return guard(() async {
       await _service.updateAddress(
         id: id,
-        street: street,
+        address: address,
         city: city,
         latitude: latitude,
         longitude: longitude,
         phoneNumber: phoneNumber,
+        state: state,
+        optionalPhoneNumber: optionalPhoneNumber,
       );
       final data = await _service.fetchAddresses();
       return data.map((e) => Address.fromJson(e)).toList();
     });
+  }
+
+  @override
+  Future<Either<Failure, void>> deleteAddress(int id) {
+    return guard(() => _service.deleteAddress(id));
   }
 }

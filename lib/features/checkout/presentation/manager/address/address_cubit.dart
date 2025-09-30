@@ -7,6 +7,7 @@ class AddressCubit extends Cubit<AddressState> {
   AddressCubit() : super(AddressInitial());
 
   final AddressRepoImpl _repo = AddressRepoImpl(AddressService());
+
   Future<void> fetchAddresses() async {
     emit(AddressLoading());
     final result = await _repo.fetchAddresses();
@@ -17,43 +18,52 @@ class AddressCubit extends Cubit<AddressState> {
   }
 
   Future<void> addAddress({
-    required String street,
+    required String address,
     required String city,
     required double latitude,
     required double longitude,
     required String phoneNumber,
+    String? state,
+    String? optionalPhoneNumber,
   }) async {
     emit(AddressLoading());
     final result = await _repo.addAddress(
-      street: street,
+      address: address,
       city: city,
       latitude: latitude,
       longitude: longitude,
       phoneNumber: phoneNumber,
+      state: state,
+      optionalPhoneNumber: optionalPhoneNumber,
     );
-    result.fold(
-      (failure) => emit(AddressError(message: failure.error)),
-      (_) => emit(AddressAddedSuccess()),
-    );
-    await fetchAddresses();
+    result.fold((failure) => emit(AddressError(message: failure.error)), (
+      _,
+    ) async {
+      emit(AddressAddedSuccess());
+      await fetchAddresses();
+    });
   }
 
   Future<void> updateAddress({
     required int id,
-    String? street,
+    String? address,
     String? city,
     double? latitude,
     double? longitude,
     String? phoneNumber,
+    String? state,
+    String? optionalPhoneNumber,
   }) async {
     emit(AddressLoading());
     final result = await _repo.updateAddress(
       id: id,
-      street: street,
+      address: address,
       city: city,
       latitude: latitude,
       longitude: longitude,
       phoneNumber: phoneNumber,
+      state: state,
+      optionalPhoneNumber: optionalPhoneNumber,
     );
     result.fold(
       (failure) => emit(AddressError(message: failure.error)),

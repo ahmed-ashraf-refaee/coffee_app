@@ -46,15 +46,6 @@ class _MapsViewState extends State<MapsView> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     _initializeServices();
-    d();
-  }
-
-  void d() async {
-    print(
-      await AddressRepoImpl(
-        AddressService(),
-      ).updateAddress(id: 1, city: "kom el shakayer"),
-    );
   }
 
   @override
@@ -295,6 +286,7 @@ class _MapsViewState extends State<MapsView> with TickerProviderStateMixin {
             );
             final pickedData = await _geocodingService.reverseGeocode(center);
             handleLocationPicked(pickedData);
+            print(pickedData.fullResponse);
           } catch (e) {
             UiHelpers.showSnackBar(
               context: context,
