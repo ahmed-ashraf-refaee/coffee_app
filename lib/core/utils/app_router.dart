@@ -1,11 +1,16 @@
 import 'package:coffee_app/core/model/product_model.dart';
 import 'package:coffee_app/features/authentication/presentation/view/authentication_view/authentication_view.dart';
 import 'package:coffee_app/features/authentication/presentation/view/forgot_password_view/forgot_password_view.dart';
+import 'package:coffee_app/features/checkout/data/models/address_model.dart';
+import 'package:coffee_app/features/checkout/presentation/views/address_view/add_address_view.dart';
+import 'package:coffee_app/features/checkout/presentation/views/address_view/address_view.dart';
 import 'package:coffee_app/features/checkout/presentation/views/checkout_view/checkout_view.dart';
 import 'package:coffee_app/features/checkout/presentation/views/payment_view/payment_view.dart';
 import 'package:coffee_app/features/home/presentation/view/details_view/details_view.dart';
 import 'package:coffee_app/features/navigation/presentation/manager/navigator_cubit/navigator_cubit.dart';
 import 'package:coffee_app/features/profile/presentation/view/language_select_view.dart';
+import 'package:coffee_app/features/splash/presentation/view/splash_view.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -24,10 +29,13 @@ abstract class AppRouter {
   static const kLanguageSelect = "/languageSelect";
   static const kPaymentView = "/paymentView";
   static const kCheckoutView = "/checkoutView";
+  static const kAddressView = "/addressView";
+  static const kAddAddressView = "/addAddressView";
+  static const kMapView = "/mapView";
 
   static final router = GoRouter(
     routes: [
-      GoRoute(path: '/', builder: (context, state) => const MapsView()),
+      GoRoute(path: '/', builder: (context, state) => const SplashView()),
       GoRoute(
         path: kCheckoutView,
         builder: (context, state) {
@@ -76,11 +84,18 @@ abstract class AppRouter {
         path: kPaymentView,
         builder: (context, state) => const PaymentView(),
       ),
-
-      //GoRoute(path: '/', builder: (context, state) => AppNavigation()),
-
-      //GoRoute(path: kSplashView, builder: (context, state) => SplashView()),
-      //GoRoute(path: kHomeView, builder: (context, state) => const HomeView()),
+      GoRoute(
+        path: kAddressView,
+        builder: (context, state) => const AddressView(),
+      ),
+      GoRoute(
+        path: kAddAddressView,
+        builder: (context, state) {
+          final AddressModel? address = state.extra as AddressModel?;
+          return AddAddressView(address: address);
+        },
+      ),
+      GoRoute(path: kMapView, builder: (context, state) => const MapsView()),
     ],
   );
 }

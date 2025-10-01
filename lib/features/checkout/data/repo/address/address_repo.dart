@@ -4,9 +4,9 @@ import '../../../../../core/errors/failures.dart';
 import '../../models/address_model.dart';
 
 abstract class AddressRepo {
-  Future<Either<Failure, List<Address>>> fetchAddresses();
+  Future<Either<Failure, List<AddressModel>>> fetchAddresses();
 
-  Future<Either<Failure, List<Address>>> updateAddress({
+  Future<Either<Failure, List<AddressModel>>> updateAddress({
     required int id,
     String? address,
     String? city,
@@ -15,6 +15,7 @@ abstract class AddressRepo {
     String? phoneNumber,
     String? state,
     String? optionalPhoneNumber,
+    String? title,
   });
 
   Future<Either<Failure, void>> addAddress({
@@ -23,7 +24,9 @@ abstract class AddressRepo {
     required double latitude,
     required double longitude,
     required String phoneNumber,
-    String? state,
+    required String state,
+    required String title,
+
     String? optionalPhoneNumber,
   });
 

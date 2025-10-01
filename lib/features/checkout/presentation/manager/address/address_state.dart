@@ -11,7 +11,7 @@ final class AddressLoading extends AddressState {}
 final class AddressAddedSuccess extends AddressState {}
 
 final class AddressLoaded extends AddressState {
-  final List<Address> addresses;
+  final List<AddressModel> addresses;
 
   AddressLoaded({required this.addresses});
 }

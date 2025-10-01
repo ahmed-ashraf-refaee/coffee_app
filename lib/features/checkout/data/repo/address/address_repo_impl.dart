@@ -11,10 +11,10 @@ class AddressRepoImpl implements AddressRepo {
   AddressRepoImpl(this._service);
 
   @override
-  Future<Either<Failure, List<Address>>> fetchAddresses() {
+  Future<Either<Failure, List<AddressModel>>> fetchAddresses() {
     return guard(() async {
       final data = await _service.fetchAddresses();
-      return data.map((e) => Address.fromJson(e)).toList();
+      return data.map((e) => AddressModel.fromJson(e)).toList();
     });
   }
 
@@ -25,7 +25,9 @@ class AddressRepoImpl implements AddressRepo {
     required double latitude,
     required double longitude,
     required String phoneNumber,
-    String? state,
+    required String state,
+    required String title,
+
     String? optionalPhoneNumber,
   }) {
     return guard(
@@ -37,12 +39,13 @@ class AddressRepoImpl implements AddressRepo {
         phoneNumber: phoneNumber,
         state: state,
         optionalPhoneNumber: optionalPhoneNumber,
+        title: title,
       ),
     );
   }
 
   @override
-  Future<Either<Failure, List<Address>>> updateAddress({
+  Future<Either<Failure, List<AddressModel>>> updateAddress({
     required int id,
     String? address,
     String? city,
@@ -51,6 +54,7 @@ class AddressRepoImpl implements AddressRepo {
     String? phoneNumber,
     String? state,
     String? optionalPhoneNumber,
+    String? title,
   }) {
     return guard(() async {
       await _service.updateAddress(
@@ -62,9 +66,10 @@ class AddressRepoImpl implements AddressRepo {
         phoneNumber: phoneNumber,
         state: state,
         optionalPhoneNumber: optionalPhoneNumber,
+        title: title
       );
       final data = await _service.fetchAddresses();
-      return data.map((e) => Address.fromJson(e)).toList();
+      return data.map((e) => AddressModel.fromJson(e)).toList();
     });
   }
 

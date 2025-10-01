@@ -92,9 +92,10 @@ class LoadingHomeListItem extends StatelessWidget {
                 ),
               ),
             ),
-            Positioned(
-              bottom: 0,
-              right: 0,
+            Align(
+              alignment: context.isArabic
+                  ? Alignment.bottomLeft
+                  : Alignment.bottomRight,
               child: Skeleton.shade(
                 child: CustomIconButton(
                   padding: 8,

@@ -22,7 +22,9 @@ class AddressService {
     required double latitude,
     required double longitude,
     required String phoneNumber,
-    String? state,
+    required String state,
+    required String title,
+
     String? optionalPhoneNumber,
   }) async {
     final userId = _supabase.auth.currentUser!.id;
@@ -36,6 +38,7 @@ class AddressService {
       'phone_number': phoneNumber,
       'state': state,
       'optional_phone_number': optionalPhoneNumber,
+      'title': title,
     });
   }
 
@@ -49,9 +52,11 @@ class AddressService {
     String? phoneNumber,
     String? state,
     String? optionalPhoneNumber,
+    String? title,
   }) async {
     final updates = <String, dynamic>{};
     if (address != null) updates['address'] = address;
+    if (title != null) updates['title'] = title;
     if (city != null) updates['city'] = city;
     if (latitude != null) updates['latitude'] = latitude;
     if (longitude != null) updates['longitude'] = longitude;

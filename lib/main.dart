@@ -4,6 +4,7 @@ import 'package:coffee_app/core/utils/app_router.dart';
 import 'package:coffee_app/core/utils/dark_theme.dart';
 import 'package:coffee_app/core/utils/light_theme.dart';
 import 'package:coffee_app/features/cart/presentation/manager/cart_cubit/cart_cubit.dart';
+import 'package:coffee_app/features/checkout/presentation/manager/address/address_cubit.dart';
 import 'package:coffee_app/features/checkout/presentation/manager/card/card_cubit.dart';
 import 'package:coffee_app/features/profile/presentation/manager/locale_cubit/locale_cubit.dart';
 import 'package:coffee_app/features/profile/presentation/manager/theme_cubit/theme_cubit.dart';
@@ -49,6 +50,7 @@ class CoffeeApp extends StatelessWidget {
         BlocProvider(create: (context) => CartCubit()..loadCart()),
         BlocProvider(create: (context) => LocaleCubit()),
         BlocProvider(create: (context) => HomeFilterCubit()),
+        BlocProvider(create: (context) => AddressCubit()),
         BlocProvider(create: (context) => PaymentCubit()),
         BlocProvider(create: (context) => CardCubit()),
       ],

@@ -5,18 +5,18 @@ import 'package:coffee_app/core/utils/color_palette.dart';
 import 'package:coffee_app/core/utils/text_styles.dart';
 import 'package:coffee_app/core/widgets/custom_elevated_button.dart';
 import 'package:coffee_app/core/widgets/custom_icon_button.dart';
+import 'package:coffee_app/features/checkout/data/models/address_model.dart';
 import 'package:coffee_app/main.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:latlong2/latlong.dart';
 
 import '../../../../core/services/app_locale.dart';
-import '../../../checkout/data/repo/address/address_repo_impl.dart';
-import '../../../checkout/data/service/address_service.dart';
 import 'widgets/geocoding_service.dart';
 import 'widgets/location_service.dart';
 import 'widgets/o_s_m_data.dart';
@@ -36,7 +36,11 @@ class _MapsViewState extends State<MapsView> with TickerProviderStateMixin {
   final FocusNode _focusNode = FocusNode();
 
   List<OSMdata> _searchOptions = <OSMdata>[];
-  LatLng _currentPosition = const LatLng(30.0443879, 31.2357257);
+  LatLng _currentPosition = const LatLng(
+    30.0443879,
+    31.2357257,
+  ); // fallback Cairo
+  LatLng? _pickedPosition;
   bool _isLoading = false;
   Timer? _debounceTimer;
 
@@ -46,6 +50,7 @@ class _MapsViewState extends State<MapsView> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     _initializeServices();
+    _setInitialLocation(); // fetch current GPS location at start
   }
 
   @override
@@ -63,6 +68,23 @@ class _MapsViewState extends State<MapsView> with TickerProviderStateMixin {
       language: AppLocale.current.languageCode,
       countryFilter: "eg",
     );
+  }
+
+  Future<void> _setInitialLocation() async {
+    try {
+      final position = await LocationService.getCurrentPosition();
+      if (!mounted) return;
+      setState(() {
+        _currentPosition = position;
+        _pickedPosition = position;
+      });
+      _mapController.move(position, 17);
+    } catch (e) {
+      UiHelpers.showSnackBar(
+        context: context,
+        message: Failure.fromException(e).error,
+      );
+    }
   }
 
   Future<void> _getRoute(PickedData destinationPoint) async {
@@ -166,10 +188,8 @@ class _MapsViewState extends State<MapsView> with TickerProviderStateMixin {
     _focusNode.unfocus();
     setState(() {
       _searchOptions.clear();
-      _currentPosition = LatLng(
-        selectedLocation.latitude,
-        selectedLocation.longitude,
-      );
+      _pickedPosition = center;
+      _currentPosition = center;
     });
   }
 
@@ -257,6 +277,7 @@ class _MapsViewState extends State<MapsView> with TickerProviderStateMixin {
             _mapController.move(position, 18);
             setState(() {
               _currentPosition = position;
+              _pickedPosition = position;
             });
           } catch (e) {
             UiHelpers.showSnackBar(
@@ -280,13 +301,19 @@ class _MapsViewState extends State<MapsView> with TickerProviderStateMixin {
         onPressed: () async {
           setState(() => _isLoading = true);
           try {
-            final center = LatLng(
-              _mapController.camera.center.latitude,
-              _mapController.camera.center.longitude,
-            );
+            final center = _pickedPosition ?? _currentPosition;
             final pickedData = await _geocodingService.reverseGeocode(center);
-            handleLocationPicked(pickedData);
-            print(pickedData.fullResponse);
+            if (!mounted) return;
+            print(pickedData.fullResponse['display_name']);
+
+            GoRouter.of(context).pop();
+
+            final AddressModel address = AddressModel(
+              address: pickedData.fullResponse['display_name'] as String,
+              city: pickedData.fullResponse['city'] as String,
+
+              state: pickedData.fullResponse['state'] as String,
+            );
           } catch (e) {
             UiHelpers.showSnackBar(
               context: context,
@@ -314,6 +341,11 @@ class _MapsViewState extends State<MapsView> with TickerProviderStateMixin {
               maxZoom: 18.4,
               minZoom: 2.0,
               backgroundColor: context.colors.surface,
+              onTap: (tapPosition, latlng) {
+                setState(() {
+                  _pickedPosition = latlng;
+                });
+              },
             ),
             children: [
               TileLayer(
@@ -357,20 +389,22 @@ class _MapsViewState extends State<MapsView> with TickerProviderStateMixin {
                     ),
                   ],
                 ),
-            ],
-          ),
-
-          Positioned.fill(
-            bottom: 50.0,
-            child: IgnorePointer(
-              child: Center(
-                child: Icon(
-                  Ionicons.location,
-                  color: context.colors.primary,
-                  size: 42,
+              if (_pickedPosition != null)
+                MarkerLayer(
+                  markers: [
+                    Marker(
+                      point: _pickedPosition!,
+                      width: 40,
+                      height: 40,
+                      child: Icon(
+                        Ionicons.location,
+                        color: context.colors.primary,
+                        size: 42,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ),
+            ],
           ),
           if (_isLoading)
             Center(

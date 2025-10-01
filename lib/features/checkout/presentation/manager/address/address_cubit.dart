@@ -23,7 +23,9 @@ class AddressCubit extends Cubit<AddressState> {
     required double latitude,
     required double longitude,
     required String phoneNumber,
-    String? state,
+    required String state,
+    required String title,
+
     String? optionalPhoneNumber,
   }) async {
     emit(AddressLoading());
@@ -35,6 +37,7 @@ class AddressCubit extends Cubit<AddressState> {
       phoneNumber: phoneNumber,
       state: state,
       optionalPhoneNumber: optionalPhoneNumber,
+      title: title,
     );
     result.fold((failure) => emit(AddressError(message: failure.error)), (
       _,
@@ -53,6 +56,7 @@ class AddressCubit extends Cubit<AddressState> {
     String? phoneNumber,
     String? state,
     String? optionalPhoneNumber,
+    String? title,
   }) async {
     emit(AddressLoading());
     final result = await _repo.updateAddress(
@@ -64,6 +68,7 @@ class AddressCubit extends Cubit<AddressState> {
       phoneNumber: phoneNumber,
       state: state,
       optionalPhoneNumber: optionalPhoneNumber,
+      title: title,
     );
     result.fold(
       (failure) => emit(AddressError(message: failure.error)),
