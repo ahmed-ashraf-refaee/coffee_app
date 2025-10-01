@@ -4,6 +4,18 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class AuthService {
   final SupabaseClient _supabaseClient = Supabase.instance.client;
 
+  Future<bool> signInWithFacebook() async {
+    try {
+      final response = await _supabaseClient.auth.signInWithOAuth(
+        OAuthProvider.facebook,
+        redirectTo: 'io.supabase.flutterapp://login-callback',
+      );
+      return response;
+    } catch (e) {
+      throw Exception("Facebook sign-in failed: $e");
+    }
+  }
+
   Future<AuthResponse> login(
     String email,
     String password,

@@ -10,13 +10,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../../core/helper/ui_helpers.dart';
+import '../../../../data/services/auth_service.dart';
 import '../../../manager/auth_bloc/auth_bloc.dart';
 import 'auth_suggestion.dart';
 import '../../widgets/auth_title.dart';
 import 'social_button.dart';
 
 class LoginViewBody extends StatefulWidget {
-  const LoginViewBody({super.key, required this.toggleAuthMode,this.email});
+  const LoginViewBody({super.key, required this.toggleAuthMode, this.email});
   final String? email;
   final void Function({String? email}) toggleAuthMode;
 
@@ -27,15 +28,16 @@ class LoginViewBody extends StatefulWidget {
 class _LoginViewBodyState extends State<LoginViewBody> {
   final _formKey = GlobalKey<FormState>();
   final ValueNotifier<bool> rememberMe = ValueNotifier(true);
-  late TextEditingController emailController ;
+  late TextEditingController emailController;
   late TextEditingController passwordController;
 
-    @override
+  @override
   void initState() {
     super.initState();
     emailController = TextEditingController(text: widget.email);
     passwordController = TextEditingController();
   }
+
   @override
   void dispose() {
     emailController.dispose();
@@ -151,7 +153,9 @@ class _LoginViewBodyState extends State<LoginViewBody> {
           spacing: 76,
           children: [
             SocialButton(
-              onPressed: () {},
+              onPressed: () async {
+                await AuthService().signInWithFacebook();
+              },
               imageAsset: "assets/icons/facebook.png",
               title: S.current.facebook,
             ),

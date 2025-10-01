@@ -6,6 +6,7 @@ import 'package:coffee_app/features/checkout/presentation/views/payment_view/pay
 import 'package:coffee_app/features/home/presentation/view/details_view/details_view.dart';
 import 'package:coffee_app/features/navigation/presentation/manager/navigator_cubit/navigator_cubit.dart';
 import 'package:coffee_app/features/profile/presentation/view/language_select_view.dart';
+import 'package:coffee_app/features/splash/presentation/view/splash_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -27,7 +28,7 @@ abstract class AppRouter {
 
   static final router = GoRouter(
     routes: [
-      GoRoute(path: '/', builder: (context, state) => const MapsView()),
+      GoRoute(path: '/', builder: (context, state) => const SplashView()),
       GoRoute(
         path: kCheckoutView,
         builder: (context, state) {
