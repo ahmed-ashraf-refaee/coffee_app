@@ -304,16 +304,15 @@ class _MapsViewState extends State<MapsView> with TickerProviderStateMixin {
             final center = _pickedPosition ?? _currentPosition;
             final pickedData = await _geocodingService.reverseGeocode(center);
             if (!mounted) return;
-            print(pickedData.fullResponse['display_name']);
-
-            GoRouter.of(context).pop();
-
             final AddressModel address = AddressModel(
-              address: pickedData.fullResponse['display_name'] as String,
-              city: pickedData.fullResponse['city'] as String,
+              address: pickedData.fullResponse['display_name'],
+              city: pickedData.fullResponse['address']['city'],
+              latitude: pickedData.latLong.latitude,
+              longitude: pickedData.latLong.longitude,
 
-              state: pickedData.fullResponse['state'] as String,
+              state: pickedData.fullResponse['address']['state'],
             );
+            GoRouter.of(context).pop(address);
           } catch (e) {
             UiHelpers.showSnackBar(
               context: context,

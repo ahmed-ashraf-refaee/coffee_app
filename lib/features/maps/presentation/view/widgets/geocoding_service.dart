@@ -57,7 +57,7 @@ class GeocodingService {
           .get(uri, headers: _httpHeaders)
           .timeout(
             const Duration(seconds: 10),
-            onTimeout: () => throw GeocodingException(
+            onTimeout: () => throw const GeocodingException(
               'Request timeout: No response from server',
             ),
           );
@@ -70,7 +70,7 @@ class GeocodingService {
       }
 
       if (response.statusCode == 429) {
-        throw GeocodingException(
+        throw const GeocodingException(
           'Rate limit exceeded (429): Too many requests. Please wait before making more requests.',
         );
       }
@@ -86,7 +86,7 @@ class GeocodingService {
     } catch (e) {
       if (e is GeocodingException) rethrow;
       if (e is TimeoutException) {
-        throw GeocodingException(
+        throw const GeocodingException(
           'Request timeout: Server took too long to respond',
         );
       }
@@ -121,7 +121,7 @@ class GeocodingService {
           .get(uri, headers: _httpHeaders)
           .timeout(
             const Duration(seconds: 15),
-            onTimeout: () => throw GeocodingException(
+            onTimeout: () => throw const GeocodingException(
               'Search timeout: No response from server',
             ),
           );
@@ -134,7 +134,7 @@ class GeocodingService {
       }
 
       if (response.statusCode == 429) {
-        throw GeocodingException(
+        throw const GeocodingException(
           'Rate limit exceeded (429): Too many requests. Please wait before making more requests.',
         );
       }
@@ -151,7 +151,7 @@ class GeocodingService {
     } catch (e) {
       if (e is GeocodingException) rethrow;
       if (e is TimeoutException) {
-        throw GeocodingException(
+        throw const GeocodingException(
           'Search timeout: Server took too long to respond',
         );
       }

@@ -10,8 +10,7 @@ import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
 
 class AddAddressViewBody extends StatefulWidget {
-  const AddAddressViewBody({super.key, this.address});
-  final AddressModel? address;
+  const AddAddressViewBody({super.key});
 
   @override
   State<AddAddressViewBody> createState() => _AddAddressViewBodyState();
@@ -26,22 +25,18 @@ class _AddAddressViewBodyState extends State<AddAddressViewBody> {
   late TextEditingController _titleController;
   late TextEditingController _phoneController;
   late TextEditingController _optionalPhoneController;
+  double? lat;
+  double? lng;
   @override
   void initState() {
     super.initState();
 
-    _stateController = TextEditingController(text: widget.address?.state ?? "");
-    _cityController = TextEditingController(text: widget.address?.city ?? "");
-    _addressController = TextEditingController(
-      text: widget.address?.address ?? "",
-    );
-    _titleController = TextEditingController(text: widget.address?.title ?? "");
-    _phoneController = TextEditingController(
-      text: widget.address?.phoneNumber ?? "",
-    );
-    _optionalPhoneController = TextEditingController(
-      text: widget.address?.optionalPhoneNumber ?? "",
-    );
+    _stateController = TextEditingController();
+    _cityController = TextEditingController();
+    _addressController = TextEditingController();
+    _titleController = TextEditingController();
+    _phoneController = TextEditingController();
+    _optionalPhoneController = TextEditingController();
   }
 
   @override
@@ -74,7 +69,7 @@ class _AddAddressViewBodyState extends State<AddAddressViewBody> {
     return null;
   }
 
-  void _submitForm() {
+  void _submitForm() async {
     if (_formKey.currentState?.validate() ?? false) {
       final addressData = {
         "state": _stateController.text.trim(),
@@ -95,16 +90,29 @@ class _AddAddressViewBodyState extends State<AddAddressViewBody> {
       child: Column(
         spacing: 16,
         children: [
-          // --- Map Preview ---
           PrettierTap(
             shrink: 1,
-            onPressed: () {
-              GoRouter.of(context).push(AppRouter.kMapView);
+            onPressed: () async {
+              final AddressModel? result = await GoRouter.of(
+                context,
+              ).push<AddressModel>(AppRouter.kMapView);
+              if (result != null) {
+                setState(() {
+                  _stateController.text = result.state;
+                  _cityController.text = result.city;
+                  _addressController.text = result.address;
+                  lat = result.latitude;
+                  lng = result.longitude;
+                });
+              }
             },
             child: Stack(
               children: [
                 CustomRoundedImage(
-                  imageUrl: staticMapUrl(lat: 30.0444, lng: 31.2357),
+                  imageUrl: staticMapUrl(
+                    lat: lat ?? 30.0444,
+                    lng: lng ?? 31.2357,
+                  ),
                   aspectRatio: 16 / 9,
                   width: context.width,
                 ),

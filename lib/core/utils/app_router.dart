@@ -1,7 +1,6 @@
 import 'package:coffee_app/core/model/product_model.dart';
 import 'package:coffee_app/features/authentication/presentation/view/authentication_view/authentication_view.dart';
 import 'package:coffee_app/features/authentication/presentation/view/forgot_password_view/forgot_password_view.dart';
-import 'package:coffee_app/features/checkout/data/models/address_model.dart';
 import 'package:coffee_app/features/checkout/presentation/views/address_view/add_address_view.dart';
 import 'package:coffee_app/features/checkout/presentation/views/address_view/address_view.dart';
 import 'package:coffee_app/features/checkout/presentation/views/checkout_view/checkout_view.dart';
@@ -65,7 +64,6 @@ abstract class AppRouter {
           child: const AppNavigation(),
         ),
       ),
-
       GoRoute(
         path: kAuthView,
         builder: (context, state) => const AuthenticationView(),
@@ -91,8 +89,7 @@ abstract class AppRouter {
       GoRoute(
         path: kAddAddressView,
         builder: (context, state) {
-          final AddressModel? address = state.extra as AddressModel?;
-          return AddAddressView(address: address);
+          return const AddAddressView();
         },
       ),
       GoRoute(path: kMapView, builder: (context, state) => const MapsView()),

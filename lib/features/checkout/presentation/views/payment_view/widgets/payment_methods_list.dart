@@ -1,4 +1,3 @@
-import 'package:coffee_app/core/helper/ui_helpers.dart';
 import 'package:coffee_app/core/utils/text_styles.dart';
 import 'package:coffee_app/core/widgets/custom_elevated_button.dart';
 import 'package:coffee_app/features/checkout/presentation/manager/card/card_cubit.dart';
@@ -11,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../../data/models/payment_method_model.dart';
 import 'cash_on_delivery_list_item.dart';

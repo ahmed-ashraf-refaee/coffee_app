@@ -50,7 +50,7 @@ class CoffeeApp extends StatelessWidget {
         BlocProvider(create: (context) => CartCubit()..loadCart()),
         BlocProvider(create: (context) => LocaleCubit()),
         BlocProvider(create: (context) => HomeFilterCubit()),
-        BlocProvider(create: (context) => AddressCubit()),
+        BlocProvider(create: (context) => AddressCubit()..fetchAddresses()),
         BlocProvider(create: (context) => PaymentCubit()),
         BlocProvider(create: (context) => CardCubit()),
       ],
