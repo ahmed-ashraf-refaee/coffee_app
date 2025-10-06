@@ -3,6 +3,8 @@ import 'package:coffee_app/features/cart/data/model/cart_item_model.dart';
 import 'package:coffee_app/features/cart/data/repo/cart_repo_impl.dart';
 import 'package:meta/meta.dart';
 
+import '../../../../checkout/data/models/order_item.dart';
+
 part 'cart_state.dart';
 
 class CartCubit extends Cubit<CartState> {
@@ -75,5 +77,10 @@ class CartCubit extends Cubit<CartState> {
       emit(CartSuccess(cartItems: currentCartProducts));
       emit(CartFailure(error: failure.error));
     }, (_) => emit(CartSuccess(cartItems: const [])));
+  }
+
+  List<OrderItemModel> getOrderItemsFromCachedCart() {
+    final cachedCart = cartRepo.getCachedCart();
+    return cachedCart.map((item) => item.toOrderItem()).toList();
   }
 }

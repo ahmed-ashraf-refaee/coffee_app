@@ -292,12 +292,12 @@ class _MapsViewState extends State<MapsView> with TickerProviderStateMixin {
                 );
               }
             },
+            hight: 56,
+            width: 56,
             child: Icon(
               Ionicons.locate_outline,
               color: context.colors.onPrimary,
             ),
-            hight: 56,
-            width: 56,
           ),
           Expanded(
             child: CustomElevatedButton(
@@ -312,6 +312,7 @@ class _MapsViewState extends State<MapsView> with TickerProviderStateMixin {
                   );
                   if (!mounted) return;
                   final AddressModel address = AddressModel(
+                    id: pickedData.fullResponse['place_id'],
                     address: pickedData.fullResponse['display_name'],
                     city: pickedData.fullResponse['address']['city'],
                     latitude: pickedData.latLong.latitude,

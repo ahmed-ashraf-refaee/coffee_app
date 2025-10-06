@@ -15,6 +15,7 @@ class AddressListItemLoading extends StatelessWidget {
         selected: false,
         onSelected: () {},
         address: AddressModel(
+          id: -1,
           title: "Home",
           address: "10th of ramadan , second, sharqia, block 35",
           city: "10th of ramadan",

@@ -1,7 +1,6 @@
 import 'package:coffee_app/core/model/product_model.dart';
 import 'package:coffee_app/features/authentication/presentation/view/authentication_view/authentication_view.dart';
 import 'package:coffee_app/features/authentication/presentation/view/forgot_password_view/forgot_password_view.dart';
-import 'package:coffee_app/features/checkout/data/models/address_model.dart';
 import 'package:coffee_app/features/checkout/presentation/views/address_view/add_address_view.dart';
 import 'package:coffee_app/features/checkout/presentation/views/address_view/address_view.dart';
 import 'package:coffee_app/features/checkout/presentation/views/checkout_view/checkout_view.dart';
@@ -14,6 +13,8 @@ import 'package:coffee_app/features/splash/presentation/view/splash_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/checkout/data/repo/order/order_repo_impl.dart';
+import '../../features/checkout/presentation/manager/order/order_cubit.dart';
 import '../../features/maps/presentation/view/map_view.dart';
 import '../../features/navigation/presentation/view/app_navigation.dart';
 
@@ -39,8 +40,11 @@ abstract class AppRouter {
       GoRoute(
         path: kCheckoutView,
         builder: (context, state) {
-          return CheckoutView(
-            checkoutSummery: state.extra as Map<String, double>,
+          return BlocProvider(
+            create: (context) => OrderCubit(OrderRepoImpl()),
+            child: CheckoutView(
+              checkoutSummery: state.extra as Map<String, double>,
+            ),
           );
         },
       ),

@@ -1,5 +1,6 @@
 import '../../../../core/model/product_model.dart';
 import '../../../../core/model/product_variants_model.dart';
+import '../../../checkout/data/models/order_item.dart';
 
 class CartItemModel {
   final int id;
@@ -68,6 +69,15 @@ class CartItemModel {
       quantity: quantity ?? this.quantity,
       productVariant: productVariant ?? this.productVariant,
       product: product ?? this.product,
+    );
+  }
+
+  OrderItemModel toOrderItem() {
+    return OrderItemModel(
+      variantId: productVariantId,
+      quantity: quantity,
+      unitPrice: productVariant?.price.toDouble() ?? 0.0,
+      productName: product?.name ?? '',
     );
   }
 }

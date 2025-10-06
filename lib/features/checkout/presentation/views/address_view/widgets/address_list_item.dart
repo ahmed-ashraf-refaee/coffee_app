@@ -1,7 +1,6 @@
 import 'package:coffee_app/core/utils/text_styles.dart';
 import 'package:coffee_app/core/widgets/prettier_tap.dart';
 import 'package:coffee_app/features/checkout/data/models/address_model.dart';
-import 'package:coffee_app/features/checkout/presentation/views/payment_view/widgets/card_brand_icon.dart';
 import 'package:coffee_app/features/profile/presentation/manager/theme_cubit/theme_cubit.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';

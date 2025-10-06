@@ -1,5 +1,5 @@
 class AddressModel {
-  final int? id;
+  final int id;
   final String? title;
   final String address;
   final String city;
@@ -11,7 +11,7 @@ class AddressModel {
 
   AddressModel({
     this.title,
-    this.id,
+    required this.id,
     required this.address,
     required this.city,
     this.latitude,
