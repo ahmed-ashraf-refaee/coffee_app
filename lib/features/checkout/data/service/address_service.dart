@@ -19,8 +19,8 @@ class AddressService {
   Future<void> addAddress({
     required String address,
     required String city,
-    required double latitude,
-    required double longitude,
+    double? latitude,
+    double? longitude,
     required String phoneNumber,
     required String state,
     required String title,

@@ -22,8 +22,8 @@ class AddressRepoImpl implements AddressRepo {
   Future<Either<Failure, void>> addAddress({
     required String address,
     required String city,
-    required double latitude,
-    required double longitude,
+    double? latitude,
+    double? longitude,
     required String phoneNumber,
     required String state,
     required String title,
@@ -66,7 +66,7 @@ class AddressRepoImpl implements AddressRepo {
         phoneNumber: phoneNumber,
         state: state,
         optionalPhoneNumber: optionalPhoneNumber,
-        title: title
+        title: title,
       );
       final data = await _service.fetchAddresses();
       return data.map((e) => AddressModel.fromJson(e)).toList();

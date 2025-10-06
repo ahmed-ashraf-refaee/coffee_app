@@ -4,8 +4,10 @@ import 'package:coffee_app/core/widgets/custom_elevated_button.dart';
 import 'package:coffee_app/core/widgets/custom_rounded_images.dart';
 import 'package:coffee_app/core/widgets/prettier_tap.dart';
 import 'package:coffee_app/features/checkout/data/models/address_model.dart';
+import 'package:coffee_app/features/checkout/presentation/manager/address/address_cubit.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
 
@@ -71,15 +73,17 @@ class _AddAddressViewBodyState extends State<AddAddressViewBody> {
 
   void _submitForm() async {
     if (_formKey.currentState?.validate() ?? false) {
-      final addressData = {
-        "state": _stateController.text.trim(),
-        "city": _cityController.text.trim(),
-        "address": _addressController.text.trim(),
-        "title": _titleController.text.trim(),
-        "phone": _phoneController.text.trim(),
-        "optionalPhone": _optionalPhoneController.text.trim(),
-      };
-      debugPrint("Address Data: $addressData");
+      context.read<AddressCubit>().addAddress(
+        address: _addressController.text.trim(),
+        city: _cityController.text.trim(),
+        latitude: lat,
+        longitude: lng,
+        phoneNumber: _phoneController.text.trim(),
+        state: _stateController.text.trim(),
+        title: _titleController.text.trim(),
+        optionalPhoneNumber: _optionalPhoneController.text.trim(),
+      );
+      GoRouter.of(context).pop();
     }
   }
 
@@ -93,9 +97,11 @@ class _AddAddressViewBodyState extends State<AddAddressViewBody> {
           PrettierTap(
             shrink: 1,
             onPressed: () async {
-              final AddressModel? result = await GoRouter.of(
-                context,
-              ).push<AddressModel>(AppRouter.kMapView);
+              final AddressModel? result = await GoRouter.of(context)
+                  .push<AddressModel>(
+                    AppRouter.kMapView,
+                    extra: lat != null ? {'lat': lat!, 'lng': lng!} : null,
+                  );
               if (result != null) {
                 setState(() {
                   _stateController.text = result.state;

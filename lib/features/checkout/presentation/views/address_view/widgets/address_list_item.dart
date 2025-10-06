@@ -65,11 +65,15 @@ class AddressListItem extends StatelessWidget {
                           : context.colors.onSecondary,
                     ),
                   ),
-                  cardBrandIcon(
-                    context: context,
-                    brand: address.phoneNumber,
-                    size: 32,
-                    selected: selected,
+                  Text(
+                    address.phoneNumber!,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    style: TextStyles.regular16.copyWith(
+                      color: selected
+                          ? context.colors.onPrimary
+                          : context.colors.onSecondary,
+                    ),
                   ),
                 ],
               ),

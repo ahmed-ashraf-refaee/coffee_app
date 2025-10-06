@@ -22,67 +22,61 @@ class PaymentInfoCard extends StatelessWidget {
   final GlobalKey formKey;
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CardCubit, CardState>(
-      builder: (context, state) {
-        final defaultCard = state.defaultCard;
-        return ActionContainer(
-          title: S.current.payWith,
-          action: PrettierTap(
-            child: Text(
-              S.current.change,
-              style: TextStyles.bold14.copyWith(color: context.colors.primary),
-            ),
+    final defaultCard = context.watch<CardCubit>().state.defaultCard;
+    return ActionContainer(
+      title: S.current.payWith,
+      action: PrettierTap(
+        child: Text(
+          S.current.change,
+          style: TextStyles.bold14.copyWith(color: context.colors.primary),
+        ),
 
-            onPressed: () {
-              GoRouter.of(context).push(AppRouter.kPaymentView);
-              cvvController.clear();
-            },
-          ),
-          defaultAction: PrettierTap(
-            child: Text(
-              S.current.add,
-              style: TextStyles.bold14.copyWith(color: context.colors.primary),
-            ),
-            onPressed: () {
-              GoRouter.of(context).push(AppRouter.kPaymentView);
-            },
-          ),
-          defaultContent: Text(
-            S.current.addPaymentMethod,
-            style: TextStyles.regular15.copyWith(
-              color: context.colors.onSecondary,
-            ),
-          ),
-          content: defaultCard == null
-              ? null
-              : defaultCard.id == -1
-              ? Padding(
-                  padding: const EdgeInsets.only(top: 16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    spacing: 16,
-                    children: [
-                      Icon(
-                        Icons.payments_outlined,
-                        size: 32,
-                        color: context.colors.onSecondary,
-                      ),
-                      Text(
-                        "Cash on Delivery",
-                        style: TextStyles.medium16.copyWith(
-                          color: context.colors.onSecondary,
-                        ),
-                      ),
-                    ],
+        onPressed: () {
+          GoRouter.of(context).push(AppRouter.kPaymentView);
+          cvvController.clear();
+        },
+      ),
+      defaultAction: PrettierTap(
+        child: Text(
+          S.current.add,
+          style: TextStyles.bold14.copyWith(color: context.colors.primary),
+        ),
+        onPressed: () {
+          GoRouter.of(context).push(AppRouter.kPaymentView);
+        },
+      ),
+      defaultContent: Text(
+        S.current.addPaymentMethod,
+        style: TextStyles.regular15.copyWith(color: context.colors.onSecondary),
+      ),
+      content: defaultCard == null
+          ? null
+          : defaultCard.id == -1
+          ? Padding(
+              padding: const EdgeInsets.only(top: 16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                spacing: 16,
+                children: [
+                  Icon(
+                    Icons.payments_outlined,
+                    size: 32,
+                    color: context.colors.onSecondary,
                   ),
-                )
-              : CardPayment(
-                  defaultCard: defaultCard,
-                  cvvController: cvvController,
-                  formKey: formKey,
-                ),
-        );
-      },
+                  Text(
+                    "Cash on Delivery",
+                    style: TextStyles.medium16.copyWith(
+                      color: context.colors.onSecondary,
+                    ),
+                  ),
+                ],
+              ),
+            )
+          : CardPayment(
+              defaultCard: defaultCard,
+              cvvController: cvvController,
+              formKey: formKey,
+            ),
     );
   }
 }

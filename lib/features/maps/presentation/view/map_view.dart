@@ -5,6 +5,7 @@ import 'package:coffee_app/core/utils/color_palette.dart';
 import 'package:coffee_app/core/utils/text_styles.dart';
 import 'package:coffee_app/core/widgets/custom_elevated_button.dart';
 import 'package:coffee_app/core/widgets/custom_icon_button.dart';
+import 'package:coffee_app/features/authentication/presentation/view/authentication_view/widgets/build_suffix_icon_with_divider.dart';
 import 'package:coffee_app/features/checkout/data/models/address_model.dart';
 import 'package:coffee_app/main.dart';
 import 'package:dio/dio.dart';
@@ -23,7 +24,9 @@ import 'widgets/o_s_m_data.dart';
 import 'widgets/picked_data.dart';
 
 class MapsView extends StatefulWidget {
-  const MapsView({super.key});
+  final Map<String, double>? latlong;
+
+  const MapsView({super.key, this.latlong});
 
   @override
   State<MapsView> createState() => _MapsViewState();
@@ -50,7 +53,7 @@ class _MapsViewState extends State<MapsView> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     _initializeServices();
-    _setInitialLocation(); // fetch current GPS location at start
+    _initLocation();
   }
 
   @override
@@ -70,20 +73,30 @@ class _MapsViewState extends State<MapsView> with TickerProviderStateMixin {
     );
   }
 
-  Future<void> _setInitialLocation() async {
-    try {
-      final position = await LocationService.getCurrentPosition();
-      if (!mounted) return;
-      setState(() {
-        _currentPosition = position;
-        _pickedPosition = position;
-      });
-      _mapController.move(position, 17);
-    } catch (e) {
-      UiHelpers.showSnackBar(
-        context: context,
-        message: Failure.fromException(e).error,
+  Future<void> _initLocation() async {
+    if (widget.latlong != null) {
+      final LatLng saved = LatLng(
+        widget.latlong!['lat']!,
+        widget.latlong!['lng']!,
       );
+      setState(() {
+        _currentPosition = saved;
+        _pickedPosition = saved;
+      });
+    } else {
+      try {
+        final position = await LocationService.getCurrentPosition();
+        if (!mounted) return;
+        setState(() {
+          _currentPosition = position;
+          _pickedPosition = position;
+        });
+      } catch (e) {
+        UiHelpers.showSnackBar(
+          context: context,
+          message: Failure.fromException(e).error,
+        );
+      }
     }
   }
 
@@ -146,11 +159,6 @@ class _MapsViewState extends State<MapsView> with TickerProviderStateMixin {
 
   void handleLocationPicked(PickedData pickedData) async {
     await _getRoute(pickedData);
-    if (!mounted) return;
-    UiHelpers.showSnackBar(
-      context: context,
-      message: "Location selected: ${pickedData.address}",
-    );
   }
 
   void _handleSearchInput(String value) {
@@ -211,30 +219,24 @@ class _MapsViewState extends State<MapsView> with TickerProviderStateMixin {
               controller: _searchController,
               focusNode: _focusNode,
               decoration: InputDecoration(
-                hintText: "Search here ....",
-                hintStyle: TextStyle(color: context.colors.onSecondary),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(color: context.colors.onSecondary),
+                contentPadding: const EdgeInsets.symmetric(
+                  vertical: 8,
+                  horizontal: 16,
                 ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(
-                    color: context.colors.onSecondary,
-                    width: 1.5,
+                hintText: "Search your location",
+                suffixIcon: buildSuffixIconWithDivider(
+                  context,
+                  CustomIconButton(
+                    onPressed: () {
+                      _searchController.clear();
+                      setState(() {
+                        _searchOptions.clear();
+                      });
+                    },
+                    child: Icon(Icons.clear, color: context.colors.onSecondary),
                   ),
                 ),
-                suffixIcon: IconButton(
-                  onPressed: () {
-                    _searchController.clear();
-                    setState(() {
-                      _searchOptions.clear();
-                    });
-                  },
-                  icon: Icon(Icons.clear, color: context.colors.onSecondary),
-                ),
               ),
-              style: TextStyle(color: context.colors.onSecondary),
               onChanged: _handleSearchInput,
             ),
             if (_searchOptions.isNotEmpty) _buildSearchResults(),
@@ -265,64 +267,74 @@ class _MapsViewState extends State<MapsView> with TickerProviderStateMixin {
     );
   }
 
-  Widget _buildCurrentLocationButton() {
-    return Positioned(
-      bottom: 16 + 24 + 62,
-      right: 16,
-      child: CustomIconButton(
-        backgroundColor: context.colors.secondary,
-        onPressed: () async {
-          try {
-            final position = await LocationService.getCurrentPosition();
-            _mapController.move(position, 18);
-            setState(() {
-              _currentPosition = position;
-              _pickedPosition = position;
-            });
-          } catch (e) {
-            UiHelpers.showSnackBar(
-              context: context,
-              message: Failure.fromException(e).error,
-            );
-          }
-        },
-        child: Icon(Ionicons.locate_outline, color: context.colors.onSecondary),
-      ),
-    );
-  }
-
   Widget _buildSelectButton() {
     return Positioned(
       bottom: 16,
       left: 16,
       right: 16,
-      child: CustomElevatedButton(
-        isLoading: _isLoading,
-        onPressed: () async {
-          setState(() => _isLoading = true);
-          try {
-            final center = _pickedPosition ?? _currentPosition;
-            final pickedData = await _geocodingService.reverseGeocode(center);
-            if (!mounted) return;
-            final AddressModel address = AddressModel(
-              address: pickedData.fullResponse['display_name'],
-              city: pickedData.fullResponse['address']['city'],
-              latitude: pickedData.latLong.latitude,
-              longitude: pickedData.latLong.longitude,
-
-              state: pickedData.fullResponse['address']['state'],
-            );
-            GoRouter.of(context).pop(address);
-          } catch (e) {
-            UiHelpers.showSnackBar(
-              context: context,
-              message: Failure.fromException(e).error,
-            );
-          } finally {
-            setState(() => _isLoading = false);
-          }
-        },
-        child: const Text('Choose This Location', style: TextStyles.medium20),
+      child: Row(
+        spacing: 16,
+        children: [
+          CustomIconButton(
+            backgroundColor: context.colors.primary,
+            onPressed: () async {
+              try {
+                final position = await LocationService.getCurrentPosition();
+                _mapController.move(position, 18);
+                setState(() {
+                  _currentPosition = position;
+                  _pickedPosition = position;
+                });
+              } catch (e) {
+                UiHelpers.showSnackBar(
+                  context: context,
+                  message: Failure.fromException(e).error,
+                );
+              }
+            },
+            child: Icon(
+              Ionicons.locate_outline,
+              color: context.colors.onPrimary,
+            ),
+            hight: 56,
+            width: 56,
+          ),
+          Expanded(
+            child: CustomElevatedButton(
+              height: 56,
+              isLoading: _isLoading,
+              onPressed: () async {
+                setState(() => _isLoading = true);
+                try {
+                  final center = _pickedPosition ?? _currentPosition;
+                  final pickedData = await _geocodingService.reverseGeocode(
+                    center,
+                  );
+                  if (!mounted) return;
+                  final AddressModel address = AddressModel(
+                    address: pickedData.fullResponse['display_name'],
+                    city: pickedData.fullResponse['address']['city'],
+                    latitude: pickedData.latLong.latitude,
+                    longitude: pickedData.latLong.longitude,
+                    state: pickedData.fullResponse['address']['state'],
+                  );
+                  GoRouter.of(context).pop(address);
+                } catch (e) {
+                  UiHelpers.showSnackBar(
+                    context: context,
+                    message: Failure.fromException(e).error,
+                  );
+                } finally {
+                  setState(() => _isLoading = false);
+                }
+              },
+              child: const Text(
+                'Choose This Location',
+                style: TextStyles.medium20,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -345,6 +357,14 @@ class _MapsViewState extends State<MapsView> with TickerProviderStateMixin {
                   _pickedPosition = latlng;
                 });
               },
+              // ✅ FIX: ensure move only happens when map is ready
+              onMapReady: () {
+                if (_pickedPosition != null) {
+                  _mapController.move(_pickedPosition!, 17);
+                } else {
+                  _mapController.move(_currentPosition, 17);
+                }
+              },
             ),
             children: [
               TileLayer(
@@ -363,13 +383,13 @@ class _MapsViewState extends State<MapsView> with TickerProviderStateMixin {
                     backgroundColor: ColorPalette.platinum,
                     child: CircleAvatar(
                       radius: 7,
-                      backgroundColor: context.colors.primary,
+                      backgroundColor: context.colors.surface,
                     ),
                   ),
                   accuracyCircleColor: context.colors.primary.withValues(
                     alpha: 0.2,
                   ),
-                  headingSectorColor: context.colors.primary,
+                  headingSectorColor: context.colors.secondary,
                   showHeadingSector: true,
                   showAccuracyCircle: true,
                 ),
@@ -393,8 +413,9 @@ class _MapsViewState extends State<MapsView> with TickerProviderStateMixin {
                   markers: [
                     Marker(
                       point: _pickedPosition!,
-                      width: 40,
-                      height: 40,
+                      width: 42,
+                      height: 42,
+                      alignment: Alignment.topCenter,
                       child: Icon(
                         Ionicons.location,
                         color: context.colors.primary,
@@ -410,13 +431,7 @@ class _MapsViewState extends State<MapsView> with TickerProviderStateMixin {
               child: SpinKitPulse(size: 64, color: context.colors.primary),
             ),
           SafeArea(
-            child: Stack(
-              children: [
-                _buildSearchBar(),
-                _buildCurrentLocationButton(),
-                _buildSelectButton(),
-              ],
-            ),
+            child: Stack(children: [_buildSearchBar(), _buildSelectButton()]),
           ),
         ],
       ),

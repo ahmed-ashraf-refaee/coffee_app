@@ -86,7 +86,8 @@ class _CheckoutViewState extends State<CheckoutView> {
                   return CustomElevatedButton(
                     isLoading: state is PaymentLoading,
                     disabled:
-                        context.watch<CardCubit>().state.defaultCard == null,
+                        context.watch<CardCubit>().state.defaultCard == null ||
+                        context.watch<CardCubit>().state.defaultAddress == null,
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
                         context.read<PaymentCubit>().payWithCard(
