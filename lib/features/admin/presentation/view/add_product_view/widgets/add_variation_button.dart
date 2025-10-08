@@ -15,22 +15,13 @@ class AddVariantButton extends StatelessWidget {
   Widget build(BuildContext context) {
     if (!show) return const SizedBox.shrink();
 
-    return Align(
-      alignment: Alignment.centerRight,
-      child: PrettierTap(
-        onPressed: onAdd,
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Icon(Ionicons.add_circle_outline),
-            const SizedBox(width: 6),
-            Text(
-              "Add another variant",
-              style: TextStyles.medium16.copyWith(
-                color: context.colors.primary,
-              ),
-            ),
-          ],
+    return PrettierTap(
+      onPressed: onAdd,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: Text(
+          "Add another variant",
+          style: TextStyles.medium16.copyWith(color: context.colors.primary),
         ),
       ),
     );
