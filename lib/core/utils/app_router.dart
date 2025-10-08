@@ -15,6 +15,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/admin/presentation/view/add_product_view/add_product_view.dart';
+import '../../features/admin/presentation/view/stock_view/stock_view.dart';
 import '../../features/checkout/data/repo/order/order_repo_impl.dart';
 import '../../features/checkout/presentation/manager/order/order_cubit.dart';
 import '../../features/maps/presentation/view/map_view.dart';
@@ -41,7 +42,7 @@ abstract class AppRouter {
       GoRoute(
         path: '/',
         builder: (context, state) =>
-            Scaffold(body: SafeArea(child: const AddProductViewBody())),
+            Scaffold(body: SafeArea(child: const StockScreen())),
       ),
       GoRoute(
         path: kCheckoutView,

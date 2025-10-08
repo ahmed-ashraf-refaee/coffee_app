@@ -410,9 +410,7 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                           ),
                         ),
                       ),
-
                     const SizedBox(height: 20),
-
                     // ──────────────────────── Save Button ────────────────────────
                     CustomElevatedButton(
                       onPressed: _submitForm,

@@ -2,14 +2,7 @@ import 'package:coffee_app/main.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:ionicons/ionicons.dart';
 
-import '../../../../../core/utils/text_styles.dart';
-import '../../../../../core/widgets/custom_app_bar.dart';
-import '../../../../../core/widgets/custom_elevated_button.dart';
-import '../../../../../core/widgets/custom_icon_button.dart';
-import '../../../../../core/widgets/prettier_tap.dart';
 import '../add_product_view/add_product_view.dart';
 
 // Color Palette
@@ -68,7 +61,6 @@ class _AdminDashboardState extends State<AdminDashboard> {
   int _currentIndex = 0;
 
   final List<Widget> _screens = [
-    const AnalysisScreen(),
     const StockScreen(),
     const AddProductViewBody(),
   ];
@@ -96,10 +88,10 @@ class _AdminDashboardState extends State<AdminDashboard> {
           type: BottomNavigationBarType.fixed,
           elevation: 0,
           items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.bar_chart),
-              label: 'Analysis',
-            ),
+            // BottomNavigationBarItem(
+            //   icon: Icon(Icons.bar_chart),
+            //   label: 'Analysis',
+            // ),
             BottomNavigationBarItem(
               icon: Icon(Icons.inventory_2_outlined),
               label: 'Stock',
@@ -115,285 +107,285 @@ class _AdminDashboardState extends State<AdminDashboard> {
   }
 }
 
-// Analysis Screen
-class AnalysisScreen extends StatelessWidget {
-  const AnalysisScreen({Key? key}) : super(key: key);
+// // Analysis Screen
+// class AnalysisScreen extends StatelessWidget {
+//   const AnalysisScreen({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Admin Dashboard',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: context.colors.onSurface,
-              ),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              'Manage your store',
-              style: TextStyle(fontSize: 14, color: context.colors.onSecondary),
-            ),
-            const SizedBox(height: 24),
+//   @override
+//   Widget build(BuildContext context) {
+//     return SafeArea(
+//       child: SingleChildScrollView(
+//         padding: const EdgeInsets.all(16),
+//         child: Column(
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: [
+//             Text(
+//               'Admin Dashboard',
+//               style: TextStyle(
+//                 fontSize: 24,
+//                 fontWeight: FontWeight.bold,
+//                 color: context.colors.onSurface,
+//               ),
+//             ),
+//             const SizedBox(height: 4),
+//             Text(
+//               'Manage your store',
+//               style: TextStyle(fontSize: 14, color: context.colors.onSecondary),
+//             ),
+//             const SizedBox(height: 24),
 
-            // Top Categories
-            _buildCategoryCard(context),
-            const SizedBox(height: 20),
+//             // Top Categories
+//             _buildCategoryCard(context),
+//             const SizedBox(height: 20),
 
-            // Demographics
-            _buildDemographicsCard(context),
-            const SizedBox(height: 20),
-          ],
-        ),
-      ),
-    );
-  }
+//             // Demographics
+//             _buildDemographicsCard(context),
+//             const SizedBox(height: 20),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
 
-  Widget _buildCategoryCard(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: ColorPalette.raisinBlack,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: ColorPalette.cadetGray.withOpacity(0.2)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Top Categories',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-              color: context.colors.onSurface,
-            ),
-          ),
-          const SizedBox(height: 24),
-          Row(
-            children: [
-              Expanded(
-                flex: 2,
-                child: SizedBox(
-                  height: 200,
-                  child: CustomPaint(
-                    painter: PieChartPainter([
-                      ChartSection(35, ColorPalette.orangeCrayola),
-                      ChartSection(25, const Color(0xFF4ECDC4)),
-                      ChartSection(20, const Color(0xFFFFD93D)),
-                      ChartSection(12, const Color(0xFF6C5CE7)),
-                      ChartSection(8, const Color(0xFFE17899)),
-                    ]),
-                  ),
-                ),
-              ),
-              const SizedBox(width: 24),
-              Expanded(
-                flex: 3,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildLegendItem(
-                      context,
-                      'Electronics',
-                      '35%',
-                      ColorPalette.orangeCrayola,
-                    ),
-                    const SizedBox(height: 12),
-                    _buildLegendItem(
-                      context,
-                      'Fashion',
-                      '25%',
-                      const Color(0xFF4ECDC4),
-                    ),
-                    const SizedBox(height: 12),
-                    _buildLegendItem(
-                      context,
-                      'Home',
-                      '20%',
-                      const Color(0xFFFFD93D),
-                    ),
-                    const SizedBox(height: 12),
-                    _buildLegendItem(
-                      context,
-                      'Sports',
-                      '12%',
-                      const Color(0xFF6C5CE7),
-                    ),
-                    const SizedBox(height: 12),
-                    _buildLegendItem(
-                      context,
-                      'Others',
-                      '8%',
-                      const Color(0xFFE17899),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
+//   Widget _buildCategoryCard(BuildContext context) {
+//     return Container(
+//       padding: const EdgeInsets.all(20),
+//       decoration: BoxDecoration(
+//         color: ColorPalette.raisinBlack,
+//         borderRadius: BorderRadius.circular(12),
+//         border: Border.all(color: ColorPalette.cadetGray.withOpacity(0.2)),
+//       ),
+//       child: Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           Text(
+//             'Top Categories',
+//             style: TextStyle(
+//               fontSize: 18,
+//               fontWeight: FontWeight.w600,
+//               color: context.colors.onSurface,
+//             ),
+//           ),
+//           const SizedBox(height: 24),
+//           Row(
+//             children: [
+//               Expanded(
+//                 flex: 2,
+//                 child: SizedBox(
+//                   height: 200,
+//                   child: CustomPaint(
+//                     painter: PieChartPainter([
+//                       ChartSection(35, ColorPalette.orangeCrayola),
+//                       ChartSection(25, const Color(0xFF4ECDC4)),
+//                       ChartSection(20, const Color(0xFFFFD93D)),
+//                       ChartSection(12, const Color(0xFF6C5CE7)),
+//                       ChartSection(8, const Color(0xFFE17899)),
+//                     ]),
+//                   ),
+//                 ),
+//               ),
+//               const SizedBox(width: 24),
+//               Expanded(
+//                 flex: 3,
+//                 child: Column(
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   children: [
+//                     _buildLegendItem(
+//                       context,
+//                       'Electronics',
+//                       '35%',
+//                       ColorPalette.orangeCrayola,
+//                     ),
+//                     const SizedBox(height: 12),
+//                     _buildLegendItem(
+//                       context,
+//                       'Fashion',
+//                       '25%',
+//                       const Color(0xFF4ECDC4),
+//                     ),
+//                     const SizedBox(height: 12),
+//                     _buildLegendItem(
+//                       context,
+//                       'Home',
+//                       '20%',
+//                       const Color(0xFFFFD93D),
+//                     ),
+//                     const SizedBox(height: 12),
+//                     _buildLegendItem(
+//                       context,
+//                       'Sports',
+//                       '12%',
+//                       const Color(0xFF6C5CE7),
+//                     ),
+//                     const SizedBox(height: 12),
+//                     _buildLegendItem(
+//                       context,
+//                       'Others',
+//                       '8%',
+//                       const Color(0xFFE17899),
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ],
+//       ),
+//     );
+//   }
 
-  Widget _buildLegendItem(
-    BuildContext context,
-    String label,
-    String percentage,
-    Color color,
-  ) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
-          children: [
-            Container(
-              width: 12,
-              height: 12,
-              decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-            ),
-            const SizedBox(width: 8),
-            Text(
-              label,
-              style: TextStyle(fontSize: 14, color: context.colors.onSurface),
-            ),
-          ],
-        ),
-        Text(
-          percentage,
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-            color: context.colors.onSurface,
-          ),
-        ),
-      ],
-    );
-  }
+//   Widget _buildLegendItem(
+//     BuildContext context,
+//     String label,
+//     String percentage,
+//     Color color,
+//   ) {
+//     return Row(
+//       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//       children: [
+//         Row(
+//           children: [
+//             Container(
+//               width: 12,
+//               height: 12,
+//               decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+//             ),
+//             const SizedBox(width: 8),
+//             Text(
+//               label,
+//               style: TextStyle(fontSize: 14, color: context.colors.onSurface),
+//             ),
+//           ],
+//         ),
+//         Text(
+//           percentage,
+//           style: TextStyle(
+//             fontSize: 14,
+//             fontWeight: FontWeight.w600,
+//             color: context.colors.onSurface,
+//           ),
+//         ),
+//       ],
+//     );
+//   }
 
-  Widget _buildDemographicsCard(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: ColorPalette.raisinBlack,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: ColorPalette.cadetGray.withOpacity(0.2)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Demographics',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-              color: context.colors.onSurface,
-            ),
-          ),
-          const SizedBox(height: 24),
-          SizedBox(
-            height: 200,
-            child: CustomPaint(
-              painter: BarChartPainter([
-                BarData(2400),
-                BarData(4200),
-                BarData(3800),
-                BarData(2100),
-                BarData(1500),
-              ], ColorPalette.orangeCrayola),
-              child: Column(
-                children: [
-                  Expanded(child: Container()),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0, left: 40),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Text(
-                          '18-24',
-                          style: TextStyle(
-                            color: context.colors.onSecondary,
-                            fontSize: 12,
-                          ),
-                        ),
-                        Text(
-                          '25-34',
-                          style: TextStyle(
-                            color: context.colors.onSecondary,
-                            fontSize: 12,
-                          ),
-                        ),
-                        Text(
-                          '35-44',
-                          style: TextStyle(
-                            color: context.colors.onSecondary,
-                            fontSize: 12,
-                          ),
-                        ),
-                        Text(
-                          '45-54',
-                          style: TextStyle(
-                            color: context.colors.onSecondary,
-                            fontSize: 12,
-                          ),
-                        ),
-                        Text(
-                          '55+',
-                          style: TextStyle(
-                            color: context.colors.onSecondary,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+//   Widget _buildDemographicsCard(BuildContext context) {
+//     return Container(
+//       padding: const EdgeInsets.all(20),
+//       decoration: BoxDecoration(
+//         color: ColorPalette.raisinBlack,
+//         borderRadius: BorderRadius.circular(12),
+//         border: Border.all(color: ColorPalette.cadetGray.withOpacity(0.2)),
+//       ),
+//       child: Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           Text(
+//             'Demographics',
+//             style: TextStyle(
+//               fontSize: 18,
+//               fontWeight: FontWeight.w600,
+//               color: context.colors.onSurface,
+//             ),
+//           ),
+//           const SizedBox(height: 24),
+//           SizedBox(
+//             height: 200,
+//             child: CustomPaint(
+//               painter: BarChartPainter([
+//                 BarData(2400),
+//                 BarData(4200),
+//                 BarData(3800),
+//                 BarData(2100),
+//                 BarData(1500),
+//               ], ColorPalette.orangeCrayola),
+//               child: Column(
+//                 children: [
+//                   Expanded(child: Container()),
+//                   Padding(
+//                     padding: const EdgeInsets.only(top: 8.0, left: 40),
+//                     child: Row(
+//                       mainAxisAlignment: MainAxisAlignment.spaceAround,
+//                       children: [
+//                         Text(
+//                           '18-24',
+//                           style: TextStyle(
+//                             color: context.colors.onSecondary,
+//                             fontSize: 12,
+//                           ),
+//                         ),
+//                         Text(
+//                           '25-34',
+//                           style: TextStyle(
+//                             color: context.colors.onSecondary,
+//                             fontSize: 12,
+//                           ),
+//                         ),
+//                         Text(
+//                           '35-44',
+//                           style: TextStyle(
+//                             color: context.colors.onSecondary,
+//                             fontSize: 12,
+//                           ),
+//                         ),
+//                         Text(
+//                           '45-54',
+//                           style: TextStyle(
+//                             color: context.colors.onSecondary,
+//                             fontSize: 12,
+//                           ),
+//                         ),
+//                         Text(
+//                           '55+',
+//                           style: TextStyle(
+//                             color: context.colors.onSecondary,
+//                             fontSize: 12,
+//                           ),
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
 
-  // BarChartGroupData _buildBarGroup(int x, double y, BuildContext context) {
-  //   return BarChartGroupData(
-  //     x: x,
-  //     barRods: [
-  //       BarChartRodData(
-  //         toY: y,
-  //         color: context.colors.primary,
-  //         width: 40,
-  //         borderRadius: const BorderRadius.vertical(top: Radius.circular(6)),
-  //       ),
-  //     ],
-  //   );
-  // }
+//   // BarChartGroupData _buildBarGroup(int x, double y, BuildContext context) {
+//   //   return BarChartGroupData(
+//   //     x: x,
+//   //     barRods: [
+//   //       BarChartRodData(
+//   //         toY: y,
+//   //         color: context.colors.primary,
+//   //         width: 40,
+//   //         borderRadius: const BorderRadius.vertical(top: Radius.circular(6)),
+//   //       ),
+//   //     ],
+//   //   );
+//   // }
 
-  BarChartGroupData _buildBarGroup(int x, double y, BuildContext context) {
-    return BarChartGroupData(
-      x: x,
-      barRods: [
-        BarChartRodData(
-          toY: y,
-          color: context.colors.primary,
-          width: 40,
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(6)),
-        ),
-      ],
-    );
-  }
-}
+//   // BarChartGroupData _buildBarGroup(int x, double y, BuildContext context) {
+//   //   return BarChartGroupData(
+//   //     x: x,
+//   //     barRods: [
+//   //       BarChartRodData(
+//   //         toY: y,
+//   //         color: context.colors.primary,
+//   //         width: 40,
+//   //         borderRadius: const BorderRadius.vertical(top: Radius.circular(6)),
+//   //       ),
+//   //     ],
+//   //   );
+//   // }
+// }
 
 // Stock Screen
 class StockScreen extends StatefulWidget {
-  const StockScreen({Key? key}) : super(key: key);
+  const StockScreen({super.key});
 
   @override
   State<StockScreen> createState() => _StockScreenState();
