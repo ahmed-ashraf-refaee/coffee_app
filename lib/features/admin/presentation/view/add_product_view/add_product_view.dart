@@ -6,18 +6,12 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ionicons/ionicons.dart';
 
+import '../../../../../core/model/categories_model.dart';
 import '../../../../../core/utils/text_styles.dart';
 import '../../../../../core/widgets/custom_app_bar.dart';
 import '../../../../../core/widgets/custom_elevated_button.dart';
 import '../../../../../core/widgets/custom_icon_button.dart';
 import '../../../../../core/widgets/prettier_tap.dart';
-
-// ──────────────────────── Category Model ────────────────────────
-class Category {
-  final String id;
-  final String name;
-  Category({required this.id, required this.name});
-}
 
 // ──────────────────────── Variant Model ────────────────────────
 class Variant {
@@ -43,13 +37,13 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
   final picker = ImagePicker();
   File? _selectedImage;
 
-  final List<Category> _categories = [
-    Category(id: '1', name: 'Coffee'),
-    Category(id: '2', name: 'Tea'),
-    Category(id: '3', name: 'Snacks'),
-    Category(id: '4', name: 'Dessert'),
+  final List<CategoriesModel> _categories = [
+    CategoriesModel(id: 1, name: 'Coffee'),
+    CategoriesModel(id: 2, name: 'Tea'),
+    CategoriesModel(id: 3, name: 'Snacks'),
+    CategoriesModel(id: 4, name: 'Dessert'),
   ];
-  Category? _selectedCategory;
+  CategoriesModel? _selectedCategory;
 
   final List<Variant> _variants = [Variant()];
 
@@ -260,7 +254,7 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                     ),
 
                     // ──────────────────────── Category Dropdown ────────────────────────
-                    DropdownButtonFormField<Category>(
+                    DropdownButtonFormField<CategoriesModel>(
                       initialValue: _selectedCategory,
                       items: _categories
                           .map(

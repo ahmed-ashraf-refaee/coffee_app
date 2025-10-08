@@ -1,21 +1,23 @@
+import 'package:coffee_app/core/widgets/custom_app_bar.dart';
+import 'package:coffee_app/core/widgets/custom_rounded_images.dart';
 import 'package:coffee_app/main.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ionicons/ionicons.dart';
 
+import '../../../../../core/model/categories_model.dart';
+import '../../../../../core/model/product_model.dart';
+import '../../../../../core/model/product_variants_model.dart';
+import '../../../../../core/utils/text_styles.dart';
+import '../../../../../core/widgets/custom_elevated_button.dart';
+import '../../../../../core/widgets/custom_icon_button.dart';
+import '../../../../../generated/l10n.dart';
+import '../../../../home/presentation/manager/home_filter_cubit/home_filter_cubit.dart';
+import '../../../../home/presentation/view/home_view/widgets/filter_overlay.dart';
 import '../add_product_view/add_product_view.dart';
-
-// Color Palette
-class ColorPalette {
-  static const Color orangeCrayola = Color(0xFFFF6B35);
-  static const Color antiFlashWhite = Color(0xFFF0F0F0);
-  static const Color raisinBlack = Color(0xFF2A2A2A);
-  static const Color cadetGray = Color(0xFFA0A0A0);
-  static const Color eerieBlack = Color(0xFF0F0F0F);
-  static const Color platinum = Color(0xFFE5E5E5);
-  static const Color linen = Color(0xFFFAF6F1);
-  static const Color charcoalGray = Color(0xFF4A4A4A);
-}
+import 'widgets/edit_product_overlay.dart';
 
 // Main App
 void main() {
@@ -27,25 +29,11 @@ class AdminDashboardApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Admin Dashboard',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: const ColorScheme(
-          brightness: Brightness.dark,
-          primary: ColorPalette.orangeCrayola,
-          onPrimary: ColorPalette.antiFlashWhite,
-          secondary: ColorPalette.raisinBlack,
-          onSecondary: ColorPalette.cadetGray,
-          error: ColorPalette.orangeCrayola,
-          onError: ColorPalette.antiFlashWhite,
-          surface: ColorPalette.eerieBlack,
-          onSurface: ColorPalette.antiFlashWhite,
-        ),
-        scaffoldBackgroundColor: ColorPalette.eerieBlack,
-        useMaterial3: true,
-      ),
-      home: const AdminDashboard(),
+
+      home: AdminDashboard(),
     );
   }
 }
@@ -82,7 +70,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
               _currentIndex = index;
             });
           },
-          backgroundColor: ColorPalette.raisinBlack,
+          backgroundColor: context.colors.onSurface,
           selectedItemColor: context.colors.primary,
           unselectedItemColor: context.colors.onSecondary,
           type: BottomNavigationBarType.fixed,
@@ -151,9 +139,9 @@ class _AdminDashboardState extends State<AdminDashboard> {
 //     return Container(
 //       padding: const EdgeInsets.all(20),
 //       decoration: BoxDecoration(
-//         color: ColorPalette.raisinBlack,
+//         color: context.colors.onSurface,
 //         borderRadius: BorderRadius.circular(12),
-//         border: Border.all(color: ColorPalette.cadetGray.withOpacity(0.2)),
+//         border: Border.all(color: ColorPalette.cadetGray.withValues(alpha:  0.2)),
 //       ),
 //       child: Column(
 //         crossAxisAlignment: CrossAxisAlignment.start,
@@ -273,9 +261,9 @@ class _AdminDashboardState extends State<AdminDashboard> {
 //     return Container(
 //       padding: const EdgeInsets.all(20),
 //       decoration: BoxDecoration(
-//         color: ColorPalette.raisinBlack,
+//         color: context.colors.onSurface,
 //         borderRadius: BorderRadius.circular(12),
-//         border: Border.all(color: ColorPalette.cadetGray.withOpacity(0.2)),
+//         border: Border.all(color: ColorPalette.cadetGray.withValues(alpha:  0.2)),
 //       ),
 //       child: Column(
 //         crossAxisAlignment: CrossAxisAlignment.start,
@@ -384,6 +372,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
 // }
 
 // Stock Screen
+
 class StockScreen extends StatefulWidget {
   const StockScreen({super.key});
 
@@ -393,88 +382,113 @@ class StockScreen extends StatefulWidget {
 
 class _StockScreenState extends State<StockScreen> {
   final TextEditingController _searchController = TextEditingController();
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
 
-  final List<Product> _products = [
-    Product(
-      name: 'Wireless Headphones',
-      sku: 'WH-1001',
-      category: 'Electronics',
-      stock: 145,
-      price: 89.99,
-      status: ProductStatus.inStock,
+  final List<ProductModel> _products = [
+    ProductModel(
+      id: 1,
+      name: 'Espresso Classic',
+      description: 'Rich, full-bodied espresso beans',
+      discount: 10,
+      rating: 4.5,
+      categoryId: 1,
+      imageUrl:
+          'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800',
+      createdAt: DateTime.now(),
+      category: CategoriesModel(id: 1, name: 'Coffee'),
+      productVariants: [
+        ProductVariantsModel(
+          id: 1,
+          size: '250g',
+          price: 12.99,
+          quantity: 120,
+          productId: 1,
+        ),
+        ProductVariantsModel(
+          id: 2,
+          size: '500g',
+          price: 19.99,
+          quantity: 60,
+          productId: 1,
+        ),
+      ],
     ),
-    Product(
-      name: 'Smart Watch Pro',
-      sku: 'SW-2045',
-      category: 'Electronics',
-      stock: 23,
-      price: 299.99,
-      status: ProductStatus.low,
+    ProductModel(
+      id: 2,
+      name: 'Latte Deluxe',
+      description: 'Smooth and creamy latte blend',
+      discount: 5,
+      rating: 4.2,
+      categoryId: 1,
+      imageUrl:
+          'https://images.unsplash.com/photo-1511920170033-f8396924c348?w=800',
+      createdAt: DateTime.now(),
+      category: CategoriesModel(id: 1, name: 'Coffee'),
+      productVariants: [
+        ProductVariantsModel(
+          id: 3,
+          size: '250ml',
+          price: 8.99,
+          quantity: 18,
+          productId: 2,
+        ),
+      ],
     ),
-    Product(
-      name: 'Running Shoes',
-      sku: 'RS-3312',
-      category: 'Sports',
-      stock: 0,
-      price: 129.99,
-      status: ProductStatus.out,
+    ProductModel(
+      id: 3,
+      name: 'Mocha Delight',
+      description: 'Chocolate-flavored coffee blend',
+      discount: 0,
+      rating: 4.7,
+      categoryId: 1,
+      imageUrl:
+          'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800',
+      createdAt: DateTime.now(),
+      category: CategoriesModel(id: 1, name: 'Coffee'),
+      productVariants: [
+        ProductVariantsModel(
+          id: 4,
+          size: '500ml',
+          price: 10.99,
+          quantity: 0,
+          productId: 3,
+        ),
+      ],
     ),
   ];
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
       child: Column(
+        spacing: 16,
+
         children: [
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Admin Dashboard',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: context.colors.onSurface,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  'Manage your store',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: context.colors.onSecondary,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                TextField(
-                  controller: _searchController,
-                  style: TextStyle(color: context.colors.onSurface),
-                  decoration: InputDecoration(
-                    hintText: 'Search products...',
-                    hintStyle: TextStyle(color: context.colors.onSecondary),
-                    prefixIcon: Icon(
-                      Icons.search,
-                      color: context.colors.onSecondary,
-                    ),
-                    filled: true,
-                    fillColor: ColorPalette.raisinBlack,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide.none,
-                    ),
-                  ),
-                ),
-              ],
+          CustomAppBar(
+            leading: CustomIconButton(
+              padding: 8,
+              onPressed: () {},
+              child: Icon(
+                Ionicons.chevron_back,
+                color: context.colors.onSecondary,
+              ),
             ),
           ),
+          _buildHeader(context),
           Expanded(
             child: ListView.builder(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
               itemCount: _products.length,
               itemBuilder: (context, index) {
-                return _buildProductCard(context, _products[index]);
+                final product = _products[index];
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: _buildProductCard(context, product),
+                );
               },
             ),
           ),
@@ -483,127 +497,236 @@ class _StockScreenState extends State<StockScreen> {
     );
   }
 
-  Widget _buildProductCard(BuildContext context, Product product) {
+  Widget _buildHeader(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Admin Dashboard',
+          style: TextStyles.bold20.copyWith(color: context.colors.onSurface),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          'Manage your products and stock levels',
+          style: TextStyles.regular15.copyWith(
+            color: context.colors.onSecondary,
+          ),
+        ),
+        const SizedBox(height: 20),
+        Row(
+          children: [
+            Expanded(
+              child: SizedBox(
+                height: 48,
+                child: TextField(
+                  onSubmitted: (value) {},
+                  textInputAction: TextInputAction.search,
+                  keyboardType: TextInputType.text,
+                  controller: _searchController,
+                  decoration: InputDecoration(
+                    prefixIcon: CustomIconButton(
+                      onPressed: () {},
+                      child: const Icon(Ionicons.search_outline),
+                    ),
+                    hintText: S.current.search,
+                    prefixIconColor: context.colors.onSecondary,
+                    hintStyle: TextStyles.medium16.copyWith(
+                      color: context.colors.onSecondary,
+                    ),
+                  ),
+                  onChanged: (value) {
+                    context.read<HomeFilterCubit>().selectedQuery = value;
+                    context.read<HomeFilterCubit>().setSearch();
+                  },
+                ),
+              ),
+            ),
+            const SizedBox(width: 8),
+            CustomIconButton(
+              onPressed: () {
+                filterOverlay(context);
+              },
+              hight: 48,
+              width: 48,
+              child: BlocBuilder<HomeFilterCubit, HomeFilterState>(
+                builder: (context, state) {
+                  return Icon(
+                    Ionicons.filter,
+                    color: context.read<HomeFilterCubit>().isFiltered()
+                        ? context.colors.primary
+                        : context.colors.onSecondary,
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildProductCard(BuildContext context, ProductModel product) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: ColorPalette.raisinBlack,
+        color: context.colors.secondary,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: ColorPalette.cadetGray.withOpacity(0.2)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          /// ========== PRODUCT HEADER ==========
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: Row(
                   children: [
-                    Text(
-                      product.name,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: context.colors.onSurface,
-                      ),
+                    CustomRoundedImage(
+                      imageUrl: product.imageUrl,
+                      aspectRatio: 1,
+                      width: 64,
                     ),
-                    const SizedBox(height: 4),
-                    Text(
-                      'SKU: ${product.sku}',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: context.colors.onSecondary,
-                      ),
-                    ),
-                    Text(
-                      product.category,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: context.colors.onSecondary,
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            product.name,
+                            style: TextStyles.bold16.copyWith(
+                              color: context.colors.onSurface,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            product.category?.name ?? 'Unknown',
+                            style: TextStyles.regular12.copyWith(
+                              color: context.colors.onSecondary,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
                 ),
               ),
-              _buildStatusBadge(context, product.status),
-            ],
-          ),
-          const SizedBox(height: 12),
-          Divider(color: ColorPalette.cadetGray.withOpacity(0.2)),
-          const SizedBox(height: 12),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
+
+              /// SWAPPED: Edit Button on LEFT, Status on RIGHT
               Row(
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Stock',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: context.colors.onSecondary,
+                  CustomElevatedButton(
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 12),
+                    onPressed: () {
+                      editProductOverlay(context, variants: [], onSave: () {});
+                    },
+                    height: 34,
+                    width: 86,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text("Edit", style: TextStyles.bold14),
+                        Icon(
+                          Ionicons.create_outline,
+                          color: context.colors.onPrimary,
+                          size: 16,
                         ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        '${product.stock}',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: context.colors.onSurface,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(width: 32),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Price',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: context.colors.onSecondary,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        '\$${product.price.toStringAsFixed(2)}',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: context.colors.onSurface,
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ],
               ),
-              ElevatedButton.icon(
-                onPressed: () {},
-                icon: const Icon(Icons.edit, size: 16),
-                label: const Text('Edit'),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: context.colors.primary,
-                  foregroundColor: context.colors.onPrimary,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
+            ],
+          ),
+
+          const SizedBox(height: 12),
+          Divider(color: context.colors.onSecondary.withValues(alpha: 0.2)),
+          const SizedBox(height: 12),
+
+          /// ========== VARIANT LIST ==========
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Variants",
+                style: TextStyles.bold14.copyWith(
+                  color: context.colors.onSurface,
                 ),
               ),
+              const SizedBox(height: 8),
+
+              // Display all product variants
+              ...product.productVariants.map((variant) {
+                final ProductStatus variantStatus = variant.quantity == 0
+                    ? ProductStatus.out
+                    : (variant.quantity < 20
+                          ? ProductStatus.low
+                          : ProductStatus.inStock);
+
+                return Container(
+                  margin: const EdgeInsets.only(bottom: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 10,
+                  ),
+                  decoration: BoxDecoration(
+                    color: context.colors.surface,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                      color: context.colors.outline.withValues(alpha: 0.2),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      /// Left side: size + stock
+                      Row(
+                        children: [
+                          _buildInfoColumn(context, 'Size', variant.size),
+                          const SizedBox(width: 32),
+                          _buildInfoColumn(
+                            context,
+                            'Stock',
+                            '${variant.quantity}',
+                          ),
+                          const SizedBox(width: 32),
+                          _buildInfoColumn(
+                            context,
+                            'Price',
+                            '\$${variant.price.toStringAsFixed(2)}',
+                          ),
+                        ],
+                      ),
+
+                      /// Right side: variant status
+                      _buildStatusBadge(context, variantStatus),
+                    ],
+                  ),
+                );
+              }),
             ],
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildInfoColumn(BuildContext context, String label, String value) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: TextStyles.regular12.copyWith(
+            color: context.colors.onSecondary,
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          value,
+          style: TextStyles.bold16.copyWith(color: context.colors.onSurface),
+        ),
+      ],
     );
   }
 
@@ -629,126 +752,54 @@ class _StockScreenState extends State<StockScreen> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.2),
+        color: color.withValues(alpha: 0.2),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: color.withOpacity(0.3)),
+        border: Border.all(color: color.withValues(alpha: 0.3)),
       ),
-      child: Text(
-        text,
-        style: TextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.w600,
-          color: color,
-        ),
-      ),
+      child: Text(text, style: TextStyles.bold14.copyWith(color: color)),
     );
   }
 }
 
-// Product Model
-class Product {
-  final String name;
-  final String sku;
-  final String category;
-  final int stock;
-  final double price;
-  final ProductStatus status;
-
-  Product({
-    required this.name,
-    required this.sku,
-    required this.category,
-    required this.stock,
-    required this.price,
-    required this.status,
-  });
-}
-
 enum ProductStatus { inStock, low, out }
 
-// Custom Chart Painters
-class ChartSection {
-  final double value;
-  final Color color;
+// class BarData {
+//   final double value;
 
-  ChartSection(this.value, this.color);
-}
+//   BarData(this.value);
+// }
 
-class PieChartPainter extends CustomPainter {
-  final List<ChartSection> sections;
+// class BarChartPainter extends CustomPainter {
+//   final List<BarData> data;
+//   final Color barColor;
 
-  PieChartPainter(this.sections);
+//   BarChartPainter(this.data, this.barColor);
 
-  @override
-  void paint(Canvas canvas, Size size) {
-    final center = Offset(size.width / 2, size.height / 2);
-    final radius = size.width / 2.5;
-    final innerRadius = radius * 0.6;
+//   @override
+//   void paint(Canvas canvas, Size size) {
+//     final maxValue = data.map((d) => d.value).reduce((a, b) => a > b ? a : b);
+//     final barWidth = (size.width - 80) / data.length * 0.6;
+//     final spacing = (size.width - 80) / data.length;
 
-    double total = sections.fold(0, (sum, section) => sum + section.value);
-    double startAngle = -90 * 3.14159 / 180;
+//     for (int i = 0; i < data.length; i++) {
+//       final barHeight = (data[i].value / maxValue) * (size.height - 40);
+//       final left = 40 + i * spacing + (spacing - barWidth) / 2;
+//       final top = size.height - 40 - barHeight;
 
-    for (var section in sections) {
-      final sweepAngle = (section.value / total) * 2 * 3.14159;
+//       final paint = Paint()
+//         ..color = barColor
+//         ..style = PaintingStyle.fill;
 
-      final paint = Paint()
-        ..color = section.color
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = radius - innerRadius;
+//       final rect = RRect.fromRectAndCorners(
+//         Rect.fromLTWH(left, top, barWidth, barHeight),
+//         topLeft: const Radius.circular(6),
+//         topRight: const Radius.circular(6),
+//       );
 
-      canvas.drawArc(
-        Rect.fromCircle(center: center, radius: (radius + innerRadius) / 2),
-        startAngle,
-        sweepAngle,
-        false,
-        paint,
-      );
+//       canvas.drawRRect(rect, paint);
+//     }
+//   }
 
-      startAngle += sweepAngle;
-    }
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-}
-
-class BarData {
-  final double value;
-
-  BarData(this.value);
-}
-
-class BarChartPainter extends CustomPainter {
-  final List<BarData> data;
-  final Color barColor;
-
-  BarChartPainter(this.data, this.barColor);
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final maxValue = data.map((d) => d.value).reduce((a, b) => a > b ? a : b);
-    final barWidth = (size.width - 80) / data.length * 0.6;
-    final spacing = (size.width - 80) / data.length;
-
-    for (int i = 0; i < data.length; i++) {
-      final barHeight = (data[i].value / maxValue) * (size.height - 40);
-      final left = 40 + i * spacing + (spacing - barWidth) / 2;
-      final top = size.height - 40 - barHeight;
-
-      final paint = Paint()
-        ..color = barColor
-        ..style = PaintingStyle.fill;
-
-      final rect = RRect.fromRectAndCorners(
-        Rect.fromLTWH(left, top, barWidth, barHeight),
-        topLeft: const Radius.circular(6),
-        topRight: const Radius.circular(6),
-      );
-
-      canvas.drawRRect(rect, paint);
-    }
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-}
+//   @override
+//   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+// }
