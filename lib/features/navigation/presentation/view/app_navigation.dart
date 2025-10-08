@@ -25,11 +25,6 @@ class AppNavigation extends StatelessWidget {
       body: MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (context) =>
-                HomeProductCubit(context.read<HomeFilterCubit>())
-                  ..getProducts(),
-          ),
-          BlocProvider(
             create: (context) => HomeCategoryCubit()..getCategories(),
           ),
           BlocProvider(

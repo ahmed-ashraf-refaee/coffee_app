@@ -42,7 +42,7 @@ abstract class AppRouter {
       GoRoute(
         path: '/',
         builder: (context, state) =>
-            const Scaffold(body: SafeArea(child: StockScreen())),
+            Scaffold(body: SafeArea(child: const StockScreen())),
       ),
       GoRoute(
         path: kCheckoutView,

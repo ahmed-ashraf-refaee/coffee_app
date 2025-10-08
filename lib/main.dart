@@ -18,6 +18,7 @@ import 'core/services/app_locale.dart';
 import 'features/authentication/presentation/manager/auth_bloc/auth_bloc.dart';
 import 'features/checkout/presentation/manager/payment/payment_cubit.dart';
 import 'features/home/presentation/manager/home_filter_cubit/home_filter_cubit.dart';
+import 'features/home/presentation/manager/home_products_cubit/home_product_cubit.dart';
 import 'features/wishlist/presentation/manager/wishlist/wishlist_cubit.dart';
 import 'generated/l10n.dart';
 
@@ -53,6 +54,10 @@ class CoffeeApp extends StatelessWidget {
         BlocProvider(create: (context) => AddressCubit()..fetchAddresses()),
         BlocProvider(create: (context) => PaymentCubit()),
         BlocProvider(create: (context) => CardCubit()),
+        BlocProvider(
+          create: (context) =>
+              HomeProductCubit(context.read<HomeFilterCubit>())..getProducts(),
+        ),
       ],
       child: Builder(
         builder: (context) {
