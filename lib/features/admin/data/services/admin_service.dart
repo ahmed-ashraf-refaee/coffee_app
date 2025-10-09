@@ -4,7 +4,7 @@ import 'package:coffee_app/core/model/product_model.dart';
 class AdminProductService {
   final SupabaseClient _supabase = Supabase.instance.client;
 
-  Future<int> createProduct(
+  Future<void> createProduct(
     ProductModel product, [
     String languageCode = 'en',
   ]) async {
@@ -37,11 +37,12 @@ class AdminProductService {
         'quantity': variant.quantity,
       });
     }
-
-    return productId;
   }
 
-  Future<void> updateProduct(ProductModel product, String languageCode) async {
+  Future<void> updateProduct(
+    ProductModel product, [
+    String languageCode = 'en',
+  ]) async {
     await _supabase
         .from('products')
         .update({

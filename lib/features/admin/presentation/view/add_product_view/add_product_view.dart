@@ -1,11 +1,16 @@
 import 'dart:io';
+import 'package:coffee_app/core/helper/ui_helpers.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../../core/model/categories_model.dart';
+import '../../../../../core/model/product_model.dart';
+import '../../../../../core/model/product_variants_model.dart';
 import '../../../../../core/utils/text_styles.dart';
 import '../../../../../core/widgets/custom_elevated_button.dart';
+import '../../manager/admin_product_manager/admin_product_manager_cubit.dart';
 import 'widgets/add_product_app_bar.dart';
 import 'widgets/add_variation_button.dart';
 import 'widgets/product_image_picker.dart';
@@ -30,10 +35,12 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
   CategoriesModel? _selectedCategory;
 
   final List<CategoriesModel> _categories = [
-    CategoriesModel(id: 1, name: 'Coffee'),
-    CategoriesModel(id: 2, name: 'Tea'),
-    CategoriesModel(id: 3, name: 'Snacks'),
-    CategoriesModel(id: 4, name: 'Dessert'),
+    CategoriesModel(id: 1, name: 'Hot Beverages'),
+    CategoriesModel(id: 2, name: 'Cold Beverages'),
+    CategoriesModel(id: 3, name: 'Pastries'),
+    CategoriesModel(id: 4, name: 'Tea and Infusions'),
+    CategoriesModel(id: 5, name: 'Light Meals'),
+    CategoriesModel(id: 6, name: 'Desserts'),
   ];
 
   final List<Variant> _variants = [Variant()];
@@ -114,10 +121,29 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
       return;
     }
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text("Product added successfully!")),
+    final productVariants = _variants.map((v) {
+      return ProductVariantsModel(
+        id: 0, // 0 because it's new; backend will assign
+        size: v.sizeController.text.trim(),
+        price: double.tryParse(v.priceController.text) ?? 0.0,
+        quantity: int.tryParse(v.quantityController.text) ?? 0,
+        productId: 0, // also set to 0, since product not created yet
+      );
+    }).toList();
+    final product = ProductModel(
+      id: 0,
+      name: _nameController.text.trim(),
+      description: _descriptionController.text.trim(),
+      discount: double.tryParse(_discountController.text) ?? 0,
+      categoryId: _selectedCategory!.id,
+      imageUrl: _selectedImage!.path,
+      rating: 0,
+      createdAt: DateTime.now(),
+      productVariants: productVariants,
+      category: null,
     );
 
+    context.read<AdminProductManagerCubit>().createProduct(product);
     _clearAll();
   }
 
@@ -187,12 +213,33 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                       onAdd: _addVariant,
                     ),
                     const SizedBox(height: 20),
-                    CustomElevatedButton(
-                      onPressed: _submitForm,
-                      child: const Text(
-                        "Add Product",
-                        style: TextStyles.medium20,
-                      ),
+                    BlocConsumer<
+                      AdminProductManagerCubit,
+                      AdminProductManagerState
+                    >(
+                      listener: (context, state) {
+                        if (state is AdminProductFailure) {
+                          UiHelpers.showSnackBar(
+                            context: context,
+                            message: state.error,
+                          );
+                        } else if (state is AdminProductSuccess) {
+                          UiHelpers.showSnackBar(
+                            context: context,
+                            message: "Product added successfully",
+                          );
+                        }
+                      },
+                      builder: (context, state) {
+                        return CustomElevatedButton(
+                          isLoading: state is AdminProductLoading,
+                          onPressed: _submitForm,
+                          child: const Text(
+                            "Add Product",
+                            style: TextStyles.medium20,
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),
