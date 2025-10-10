@@ -5,7 +5,6 @@ import 'package:coffee_app/core/utils/text_styles.dart';
 import 'package:coffee_app/core/widgets/custom_elevated_button.dart';
 import 'package:coffee_app/core/widgets/prettier_tap.dart';
 import 'package:coffee_app/core/widgets/overlay_container.dart';
-
 import '../../../../../../core/helper/ui_helpers.dart';
 import '../../../../../../core/model/product_variants_model.dart';
 

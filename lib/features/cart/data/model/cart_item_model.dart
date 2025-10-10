@@ -78,6 +78,7 @@ class CartItemModel {
       quantity: quantity,
       unitPrice: productVariant?.price.toDouble() ?? 0.0,
       productName: product?.name ?? '',
+      categoryId: product?.category?.id ?? 0,
     );
   }
 }
