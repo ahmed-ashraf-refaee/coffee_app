@@ -12,6 +12,8 @@ abstract class AuthRepo {
     String? customerId,
     String? profileImageUrl,
   });
+  Future<Either<Failure, bool>> checkIfAdmin();
+
   Future<Either<Failure, AuthResponse>> loginUser({
     required String email,
     required String password,

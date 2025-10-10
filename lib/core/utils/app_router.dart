@@ -1,5 +1,6 @@
 import 'package:coffee_app/core/model/product_model.dart';
 import 'package:coffee_app/features/admin/presentation/manager/analysis_cubit/analysis_cubit.dart';
+import 'package:coffee_app/features/admin/presentation/view/add_product_view/add_product_view.dart';
 import 'package:coffee_app/features/admin/presentation/view/analysis_view/analysis_view.dart';
 import 'package:coffee_app/features/authentication/presentation/view/authentication_view/authentication_view.dart';
 import 'package:coffee_app/features/authentication/presentation/view/forgot_password_view/forgot_password_view.dart';
@@ -11,7 +12,6 @@ import 'package:coffee_app/features/home/presentation/view/details_view/details_
 import 'package:coffee_app/features/navigation/presentation/manager/navigator_cubit/navigator_cubit.dart';
 import 'package:coffee_app/features/profile/presentation/view/language_select_view.dart';
 import 'package:coffee_app/features/splash/presentation/view/splash_view.dart';
-import 'package:coffee_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,7 +40,10 @@ abstract class AppRouter {
 
   static final router = GoRouter(
     routes: [
-      GoRoute(path: '/', builder: (context, state) => const SplashView()),
+      GoRoute(
+        path: '/',
+        builder: (context, state) => Scaffold(body: AddProductViewBody()),
+      ),
       GoRoute(
         path: kLanguageSelect,
         builder: (context, state) => Scaffold(

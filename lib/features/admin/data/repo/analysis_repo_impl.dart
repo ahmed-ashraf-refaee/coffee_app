@@ -2,7 +2,7 @@ import 'package:coffee_app/core/errors/error_handler.dart';
 import 'package:coffee_app/core/errors/failures.dart';
 import 'package:coffee_app/features/admin/data/model/analysis_data_model.dart';
 import 'package:coffee_app/features/admin/data/repo/analysis_repo.dart';
-import 'package:coffee_app/features/admin/data/service/analysis_service.dart';
+import 'package:coffee_app/features/admin/data/services/analysis_service.dart';
 import 'package:dartz/dartz.dart';
 
 class AnalysisRepoImpl extends AnalysisRepo {

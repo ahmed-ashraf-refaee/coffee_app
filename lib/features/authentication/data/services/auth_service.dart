@@ -73,14 +73,19 @@ class AuthService {
     return response;
   }
 
-  Future<String?> fetchCustomerId() async {
-    final userId = _supabaseClient.auth.currentUser!.id;
+  Future<bool> isAdmin() async {
+    final user = _supabaseClient.auth.currentUser;
+    if (user == null) return false;
+
     final response = await _supabaseClient
-        .from("users")
-        .select("customer_id")
-        .eq('id', userId)
+        .from('users')
+        .select('role')
+        .eq('id', user.id)
         .maybeSingle();
-    return response?['customer_id'];
+
+    if (response == null) return false;
+
+    return response['role'] == 'admin';
   }
 
   Future<void> updateUserProfile({
@@ -117,6 +122,16 @@ class AuthService {
             .eq('id', user.id);
       }
     }
+  }
+
+  Future<String?> fetchCustomerId() async {
+    final userId = _supabaseClient.auth.currentUser!.id;
+    final response = await _supabaseClient
+        .from("users")
+        .select("customer_id")
+        .eq('id', userId)
+        .maybeSingle();
+    return response?['customer_id'];
   }
 
   Future<void> logout() async {

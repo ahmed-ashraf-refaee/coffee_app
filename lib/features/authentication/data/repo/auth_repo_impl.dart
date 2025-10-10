@@ -31,6 +31,14 @@ class AuthRepoImpl extends AuthRepo {
   }
 
   @override
+  Future<Either<Failure, bool>> checkIfAdmin() {
+    return guard(() async {
+      final bool isAdmin = await _authService.isAdmin();
+      return isAdmin;
+    });
+  }
+
+  @override
   Future<Either<Failure, AuthResponse>> loginUser({
     required String email,
     required String password,
