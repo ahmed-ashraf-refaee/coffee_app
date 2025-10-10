@@ -137,6 +137,18 @@ class MessageLookup extends MessageLookupByLibrary {
     "minPassword": MessageLookupByLibrary.simpleMessage(
       "At least 8 characters",
     ),
+    "month_apr": MessageLookupByLibrary.simpleMessage("Apr"),
+    "month_aug": MessageLookupByLibrary.simpleMessage("Aug"),
+    "month_dec": MessageLookupByLibrary.simpleMessage("Dec"),
+    "month_feb": MessageLookupByLibrary.simpleMessage("Feb"),
+    "month_jan": MessageLookupByLibrary.simpleMessage("Jan"),
+    "month_jul": MessageLookupByLibrary.simpleMessage("Jul"),
+    "month_jun": MessageLookupByLibrary.simpleMessage("Jun"),
+    "month_mar": MessageLookupByLibrary.simpleMessage("Mar"),
+    "month_may": MessageLookupByLibrary.simpleMessage("May"),
+    "month_nov": MessageLookupByLibrary.simpleMessage("Nov"),
+    "month_oct": MessageLookupByLibrary.simpleMessage("Oct"),
+    "month_sep": MessageLookupByLibrary.simpleMessage("Sep"),
     "nameTooLong": MessageLookupByLibrary.simpleMessage("Name too long"),
     "nameTooShort": MessageLookupByLibrary.simpleMessage("Name too short"),
     "newCodeSent": MessageLookupByLibrary.simpleMessage(

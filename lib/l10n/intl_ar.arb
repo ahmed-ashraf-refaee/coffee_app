@@ -149,6 +149,19 @@
   "signupSuccessMessage": "تم إنشاء حسابك بنجاح.",
   "signupErrorEmailExistsTitle": "هذا البريد مسجل بالفعل",
   "signupErrorEmailExistsMessage": "لا يمكن استخدام هذا البريد. الرجاء تسجيل الدخول بدلاً من ذلك.",
-  "enterCardDetails": "أدخل تفاصيل البطاقة"
+  "enterCardDetails": "أدخل تفاصيل البطاقة",
+  "month_jan": "يناير",
+  "month_feb": "فبراير",
+  "month_mar": "مارس",
+  "month_apr": "أبريل",
+  "month_may": "مايو",
+  "month_jun": "يونيو",
+  "month_jul": "يوليو",
+  "month_aug": "أغسطس",
+  "month_sep": "سبتمبر",
+  "month_oct": "أكتوبر",
+  "month_nov": "نوفمبر",
+  "month_dec": "ديسمبر"
+
   
 }
