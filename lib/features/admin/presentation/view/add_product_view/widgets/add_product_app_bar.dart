@@ -1,9 +1,11 @@
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '../../../../../../core/widgets/custom_app_bar.dart';
 import '../../../../../../core/widgets/custom_icon_button.dart';
+import '../../../../../navigation/presentation/manager/navigator_cubit/navigator_cubit.dart';
 
 class AddProductAppBar extends StatelessWidget {
   final VoidCallback onRefresh;
@@ -15,9 +17,11 @@ class AddProductAppBar extends StatelessWidget {
     return CustomAppBar(
       leading: CustomIconButton(
         padding: 8,
-        onPressed: () => Navigator.pop(context),
+        onPressed: () =>
+            BlocProvider.of<AppNavigatorCubit>(context).setCurrentIndex(0),
         child: Icon(Ionicons.chevron_back, color: context.colors.onSecondary),
       ),
+
       trailing: CustomIconButton(
         padding: 8,
         onPressed: onRefresh,

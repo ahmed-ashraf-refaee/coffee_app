@@ -1,9 +1,11 @@
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '../../../../../../core/widgets/custom_app_bar.dart';
 import '../../../../../../core/widgets/custom_icon_button.dart';
+import '../../../../../navigation/presentation/manager/navigator_cubit/navigator_cubit.dart';
 
 /// Extracted widget for the app bar structure
 class StockAppBar extends StatelessWidget {
@@ -14,13 +16,10 @@ class StockAppBar extends StatelessWidget {
     return CustomAppBar(
       leading: CustomIconButton(
         padding: 8,
-        onPressed: () {
-          // Typically handles navigation back
-          Navigator.of(context).pop();
-        },
+        onPressed: () =>
+            BlocProvider.of<AppNavigatorCubit>(context).setCurrentIndex(0),
         child: Icon(Ionicons.chevron_back, color: context.colors.onSecondary),
       ),
-      // Add trailing or other CustomAppBar properties if needed
     );
   }
 }

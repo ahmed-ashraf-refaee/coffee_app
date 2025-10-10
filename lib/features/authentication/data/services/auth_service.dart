@@ -15,7 +15,25 @@ class AuthService {
     );
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool("remember_me", rememberMe);
+    final adminLoggedIn = await isAdmin();
+    await prefs.setBool("isAdminUser", adminLoggedIn);
+    await prefs.setBool("isAdminMode", adminLoggedIn);
     return response;
+  }
+
+  Future<bool> isAdmin() async {
+    final user = _supabaseClient.auth.currentUser;
+    if (user == null) return false;
+
+    final response = await _supabaseClient
+        .from('users')
+        .select('role')
+        .eq('id', user.id)
+        .maybeSingle();
+
+    if (response == null) return false;
+
+    return response['role'] == 'admin';
   }
 
   Future<AuthResponse> signup(
@@ -71,21 +89,6 @@ class AuthService {
         .eq('id', userId)
         .single();
     return response;
-  }
-
-  Future<bool> isAdmin() async {
-    final user = _supabaseClient.auth.currentUser;
-    if (user == null) return false;
-
-    final response = await _supabaseClient
-        .from('users')
-        .select('role')
-        .eq('id', user.id)
-        .maybeSingle();
-
-    if (response == null) return false;
-
-    return response['role'] == 'admin';
   }
 
   Future<void> updateUserProfile({

@@ -17,14 +17,14 @@ import 'widgets/product_image_picker.dart';
 import 'widgets/product_info_section.dart';
 import 'widgets/variations_section.dart';
 
-class AddProductViewBody extends StatefulWidget {
-  const AddProductViewBody({super.key});
+class AddProductView extends StatefulWidget {
+  const AddProductView({super.key});
 
   @override
-  State<AddProductViewBody> createState() => _AddProductViewBodyState();
+  State<AddProductView> createState() => _AddProductViewState();
 }
 
-class _AddProductViewBodyState extends State<AddProductViewBody> {
+class _AddProductViewState extends State<AddProductView> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _descriptionController = TextEditingController();
@@ -123,11 +123,11 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
 
     final productVariants = _variants.map((v) {
       return ProductVariantsModel(
-        id: 0, // 0 because it's new; backend will assign
+        id: 0,
         size: v.sizeController.text.trim(),
         price: double.tryParse(v.priceController.text) ?? 0.0,
         quantity: int.tryParse(v.quantityController.text) ?? 0,
-        productId: 0, // also set to 0, since product not created yet
+        productId: 0,
       );
     }).toList();
     final product = ProductModel(
@@ -162,91 +162,93 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        spacing: 16,
-        children: [
-          AddProductAppBar(onRefresh: _clearAll),
-          Expanded(
-            child: Form(
-              key: _formKey,
-              child: SingleChildScrollView(
-                child: Column(
-                  spacing: 16,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Add Product",
-                      style: TextStyles.bold20.copyWith(
-                        color: context.colors.onSurface,
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0),
+        child: Column(
+          spacing: 16,
+          children: [
+            AddProductAppBar(onRefresh: _clearAll),
+            Expanded(
+              child: Form(
+                key: _formKey,
+                child: SingleChildScrollView(
+                  child: Column(
+                    spacing: 16,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Add Product",
+                        style: TextStyles.bold20.copyWith(
+                          color: context.colors.onSurface,
+                        ),
                       ),
-                    ),
-                    Text(
-                      "Add a new product to your store",
-                      style: TextStyles.regular15.copyWith(
-                        color: context.colors.onSecondary,
+                      Text(
+                        "Add a new product to your store",
+                        style: TextStyles.regular15.copyWith(
+                          color: context.colors.onSecondary,
+                        ),
                       ),
-                    ),
-                    ProductImagePicker(
-                      image: _selectedImage,
-                      onPick: _pickImage,
-                    ),
-                    ProductInfoSection(
-                      nameController: _nameController,
-                      descController: _descriptionController,
-                      discountController: _discountController,
-                      categories: _categories,
-                      selectedCategory: _selectedCategory,
-                      onCategoryChanged: (val) =>
-                          setState(() => _selectedCategory = val),
-                      requiredValidator: _requiredValidator,
-                    ),
-                    VariantsSection(
-                      variants: _variants,
-                      removeVariant: _removeVariant,
-                      requiredValidator: _requiredValidator,
-                      doubleValidator: _doubleValidator,
-                    ),
-                    AddVariantButton(
-                      show: _variants.length < 3,
-                      onAdd: _addVariant,
-                    ),
-                    const SizedBox(height: 20),
-                    BlocConsumer<
-                      AdminProductManagerCubit,
-                      AdminProductManagerState
-                    >(
-                      listener: (context, state) {
-                        if (state is AdminProductFailure) {
-                          UiHelpers.showSnackBar(
-                            context: context,
-                            message: state.error,
+                      ProductImagePicker(
+                        image: _selectedImage,
+                        onPick: _pickImage,
+                      ),
+                      ProductInfoSection(
+                        nameController: _nameController,
+                        descController: _descriptionController,
+                        discountController: _discountController,
+                        categories: _categories,
+                        selectedCategory: _selectedCategory,
+                        onCategoryChanged: (val) =>
+                            setState(() => _selectedCategory = val),
+                        requiredValidator: _requiredValidator,
+                      ),
+                      VariantsSection(
+                        variants: _variants,
+                        removeVariant: _removeVariant,
+                        requiredValidator: _requiredValidator,
+                        doubleValidator: _doubleValidator,
+                      ),
+                      AddVariantButton(
+                        show: _variants.length < 3,
+                        onAdd: _addVariant,
+                      ),
+                      const SizedBox(height: 20),
+                      BlocConsumer<
+                        AdminProductManagerCubit,
+                        AdminProductManagerState
+                      >(
+                        listener: (context, state) {
+                          if (state is AdminProductFailure) {
+                            UiHelpers.showSnackBar(
+                              context: context,
+                              message: state.error,
+                            );
+                          } else if (state is AdminProductSuccess) {
+                            UiHelpers.showSnackBar(
+                              context: context,
+                              message: "Product added successfully",
+                            );
+                          }
+                        },
+                        builder: (context, state) {
+                          return CustomElevatedButton(
+                            isLoading: state is AdminProductLoading,
+                            onPressed: _submitForm,
+                            child: const Text(
+                              "Add Product",
+                              style: TextStyles.medium20,
+                            ),
                           );
-                        } else if (state is AdminProductSuccess) {
-                          UiHelpers.showSnackBar(
-                            context: context,
-                            message: "Product added successfully",
-                          );
-                        }
-                      },
-                      builder: (context, state) {
-                        return CustomElevatedButton(
-                          isLoading: state is AdminProductLoading,
-                          onPressed: _submitForm,
-                          child: const Text(
-                            "Add Product",
-                            style: TextStyles.medium20,
-                          ),
-                        );
-                      },
-                    ),
-                  ],
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

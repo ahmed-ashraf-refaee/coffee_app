@@ -9,6 +9,7 @@ import 'package:ionicons/ionicons.dart';
 
 import '../../../../../core/widgets/prettier_tap.dart';
 import '../../../../../generated/l10n.dart';
+import '../../../../admin/presentation/manager/admin_role_cubit/admin_role_cubit.dart';
 import 'profile_container.dart';
 import 'profile_tile.dart';
 
@@ -23,6 +24,8 @@ class ProfileViewBodySettings extends StatelessWidget {
       }
       return Icon(Ionicons.chevron_forward, color: context.colors.onSecondary);
     }
+
+    final adminState = context.watch<AdminRoleCubit>().state;
 
     return Column(
       children: [
@@ -76,6 +79,35 @@ class ProfileViewBodySettings extends StatelessWidget {
                   vertical: 8,
                 ),
               ),
+              if (adminState.isAdminUser) ...[
+                _profileTileDivider(context),
+                PrettierTap(
+                  onPressed: () {
+                    context.read<AdminRoleCubit>().toggleAdminMode();
+                  },
+                  shrink: 1,
+                  child: ProfileTile(
+                    prefixIcon: "assets/icons/admin.png",
+                    title: "Admin Mode",
+                    suffixWidget: SizedBox(
+                      height: 42,
+                      child: FittedBox(
+                        fit: BoxFit.fitHeight,
+                        child: Switch(
+                          value: adminState.isAdminMode,
+                          onChanged: (value) {
+                            context.read<AdminRoleCubit>().toggleAdminMode();
+                          },
+                        ),
+                      ),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
+                  ),
+                ),
+              ],
               _profileTileDivider(context),
 
               PrettierTap(

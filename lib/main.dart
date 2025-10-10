@@ -4,7 +4,6 @@ import 'package:coffee_app/core/utils/app_router.dart';
 import 'package:coffee_app/core/utils/dark_theme.dart';
 import 'package:coffee_app/core/utils/light_theme.dart';
 import 'package:coffee_app/features/admin/presentation/manager/admin_product_manager/admin_product_manager_cubit.dart';
-import 'package:coffee_app/features/authentication/data/repo/auth_repo_impl.dart';
 import 'package:coffee_app/features/cart/presentation/manager/cart_cubit/cart_cubit.dart';
 import 'package:coffee_app/features/checkout/presentation/manager/address/address_cubit.dart';
 import 'package:coffee_app/features/checkout/presentation/manager/card/card_cubit.dart';
@@ -17,6 +16,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'core/services/app_locale.dart';
+import 'features/admin/presentation/manager/admin_role_cubit/admin_role_cubit.dart';
 import 'features/authentication/presentation/manager/auth_bloc/auth_bloc.dart';
 import 'features/checkout/presentation/manager/payment/payment_cubit.dart';
 import 'features/home/presentation/manager/home_filter_cubit/home_filter_cubit.dart';
@@ -57,6 +57,7 @@ class CoffeeApp extends StatelessWidget {
         BlocProvider(create: (context) => PaymentCubit()),
         BlocProvider(create: (context) => CardCubit()),
         BlocProvider(create: (context) => AdminProductManagerCubit()),
+        BlocProvider(create: (context) => AdminRoleCubit()..loadRole()),
         BlocProvider(
           create: (context) =>
               HomeProductCubit(context.read<HomeFilterCubit>())..getProducts(),

@@ -2,6 +2,8 @@ import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
+import '../../../../admin/presentation/manager/admin_role_cubit/admin_role_cubit.dart';
+import '../../../../admin/presentation/manager/admin_role_cubit/admin_role_state.dart';
 import '../../manager/navigator_cubit/navigator_cubit.dart';
 import 'bottom_nav_bar_item.dart';
 
@@ -15,10 +17,16 @@ class Pair<T1, T2> {
 class CustomBottomNavBar extends StatelessWidget {
   CustomBottomNavBar({super.key});
 
-  final List<Pair<IconData, IconData>> icons = [
+  final List<Pair<IconData, IconData>> userIcons = [
     Pair(Ionicons.home_outline, Ionicons.home),
     Pair(Ionicons.bag_outline, Ionicons.bag),
     Pair(Ionicons.heart_outline, Ionicons.heart),
+    Pair(Ionicons.person_outline, Ionicons.person),
+  ];
+  final List<Pair<IconData, IconData>> adminIcons = [
+    Pair(Ionicons.analytics_outline, Ionicons.analytics),
+    Pair(Ionicons.cube_outline, Ionicons.cube),
+    Pair(Ionicons.add_circle_outline, Ionicons.add_circle),
     Pair(Ionicons.person_outline, Ionicons.person),
   ];
   final double horizontalPadding = 16;
@@ -33,8 +41,8 @@ class CustomBottomNavBar extends StatelessWidget {
     }) {
       index++;
       double totalWidth = context.width - (horizontalPadding * 2);
-      double spaceWidth = totalWidth - (icons.length * iconSize);
-      double step = (spaceWidth / (icons.length + 1)) + iconSize;
+      double spaceWidth = totalWidth - (userIcons.length * iconSize);
+      double step = (spaceWidth / (userIcons.length + 1)) + iconSize;
       double offsetX =
           ((((step * index)) - (iconSize / 2)) - (dotSize / 2)) / dotSize;
       return context.isArabic ? -offsetX : offsetX;
@@ -55,18 +63,24 @@ class CustomBottomNavBar extends StatelessWidget {
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: List.generate(icons.length, (index) {
-                  return BottomNavBarItem(
-                    icon: icons[index],
-                    isSelected:
-                        BlocProvider.of<AppNavigatorCubit>(
-                          context,
-                        ).currentIndex ==
-                        index,
-                    onPressed: () {
-                      BlocProvider.of<AppNavigatorCubit>(
-                        context,
-                      ).setCurrentIndex(index);
+                children: List.generate(userIcons.length, (index) {
+                  return BlocBuilder<AdminRoleCubit, AdminRoleState>(
+                    builder: (context, isAdmin) {
+                      return BottomNavBarItem(
+                        icon: isAdmin.isAdminMode
+                            ? adminIcons[index]
+                            : userIcons[index],
+                        isSelected:
+                            BlocProvider.of<AppNavigatorCubit>(
+                              context,
+                            ).currentIndex ==
+                            index,
+                        onPressed: () {
+                          BlocProvider.of<AppNavigatorCubit>(
+                            context,
+                          ).setCurrentIndex(index);
+                        },
+                      );
                     },
                   );
                 }),

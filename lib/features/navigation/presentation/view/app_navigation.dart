@@ -10,6 +10,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/widgets/custom_container.dart';
+import '../../../admin/presentation/manager/admin_role_cubit/admin_role_cubit.dart';
+import '../../../admin/presentation/manager/admin_role_cubit/admin_role_state.dart';
+import '../../../admin/presentation/manager/analysis_cubit/analysis_cubit.dart';
+import '../../../admin/presentation/view/add_product_view/add_product_view.dart';
+import '../../../admin/presentation/view/analysis_view/analysis_view.dart';
+import '../../../admin/presentation/view/stock_view/stock_view.dart';
 import '../../../cart/presentation/manager/cart_cubit/cart_cubit.dart';
 import '../../../wishlist/presentation/manager/wishlist/wishlist_cubit.dart';
 import '../manager/navigator_cubit/navigator_cubit.dart';
@@ -29,33 +35,49 @@ class AppNavigation extends StatelessWidget {
           BlocProvider(
             create: (context) => HomeTopProductsCubit()..getTopProducts(),
           ),
+          BlocProvider(
+            create: (context) => AnalysisCubit()..getDashboardAnalysis(),
+          ),
         ],
-        child: BlocBuilder<AppNavigatorCubit, AppNavigatorState>(
-          builder: (context, state) {
-            return BlocListener<LocaleCubit, Locale>(
-              listener: (context, locale) {
-                context.read<HomeCategoryCubit>().getCategories();
-                context.read<HomeProductCubit>().getProducts();
-                context.read<HomeTopProductsCubit>().getTopProducts();
-                context.read<CartCubit>().loadCart();
-                context.read<WishlistCubit>().getWishlist();
+        child: BlocBuilder<AdminRoleCubit, AdminRoleState>(
+          builder: (context, isAdmin) {
+            return BlocBuilder<AppNavigatorCubit, AppNavigatorState>(
+              builder: (context, state) {
+                return BlocListener<LocaleCubit, Locale>(
+                  listener: (context, locale) {
+                    context.read<HomeCategoryCubit>().getCategories();
+                    context.read<HomeProductCubit>().getProducts();
+                    context.read<HomeTopProductsCubit>().getTopProducts();
+                    context.read<CartCubit>().loadCart();
+                    context.read<WishlistCubit>().getWishlist();
+                  },
+                  child: CustomContainer(
+                    child: _buildView(state, isAdmin.isAdminMode),
+                  ),
+                );
               },
-              child: CustomContainer(
-                child: state is AppNavigatorToHomeView
-                    ? const HomeView()
-                    : state is AppNavigatorToCartView
-                    ? const CartView()
-                    : state is AppNavigatorToWishlistView
-                    ? const WishlistView()
-                    : state is AppNavigatorToProfileView
-                    ? const ProfileView()
-                    : Container(),
-              ),
             );
           },
         ),
       ),
       bottomNavigationBar: CustomBottomNavBar(),
     );
+  }
+
+  Widget _buildView(AppNavigatorState state, bool isAdmin) {
+    if (isAdmin) {
+      // Admin Views
+      if (state is AppNavigatorToHomeView) return const AnalysisView();
+      if (state is AppNavigatorToCartView) return const StockView();
+      if (state is AppNavigatorToWishlistView) return const AddProductView();
+      if (state is AppNavigatorToProfileView) return const ProfileView();
+    } else {
+      // Normal User Views
+      if (state is AppNavigatorToHomeView) return const HomeView();
+      if (state is AppNavigatorToCartView) return const CartView();
+      if (state is AppNavigatorToWishlistView) return const WishlistView();
+      if (state is AppNavigatorToProfileView) return const ProfileView();
+    }
+    return Container();
   }
 }

@@ -83,7 +83,7 @@ class _EditProductOverlayState extends State<EditProductOverlay> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const SizedBox(width: 48), // alignment buffer
-                  Text('Edit Variations', style: TextStyles.bold20),
+                  const Text('Edit Variations', style: TextStyles.bold20),
                   PrettierTap(
                     shrink: 1,
                     onPressed: () => Navigator.pop(context),
@@ -150,7 +150,7 @@ class _EditProductOverlayState extends State<EditProductOverlay> {
                     widget.onSave();
                     Navigator.pop(context);
                   },
-                  child: Text("Save Changes", style: TextStyles.bold16),
+                  child: const Text("Save Changes", style: TextStyles.bold16),
                 ),
               ),
             ],

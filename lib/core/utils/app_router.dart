@@ -40,20 +40,10 @@ abstract class AppRouter {
 
   static final router = GoRouter(
     routes: [
-      GoRoute(
-        path: '/',
-        builder: (context, state) => Scaffold(body: AddProductViewBody()),
-      ),
+      GoRoute(path: '/', builder: (context, state) => const SplashView()),
       GoRoute(
         path: kLanguageSelect,
-        builder: (context, state) => Scaffold(
-          body: SafeArea(
-            child: BlocProvider(
-              create: (context) => AnalysisCubit()..getDashboardAnalysis(),
-              child: const AnalysisView(),
-            ),
-          ),
-        ),
+        builder: (context, state) => const LanguageSelectView(),
       ),
       GoRoute(
         path: kCheckoutView,
