@@ -1,4 +1,5 @@
 import 'package:coffee_app/core/utils/app_router.dart';
+import 'package:coffee_app/features/admin/presentation/manager/admin_role_cubit/admin_role_state.dart';
 import 'package:coffee_app/features/profile/presentation/manager/setting_cubit/setting_cubit.dart';
 import 'package:coffee_app/features/profile/presentation/manager/theme_cubit/theme_cubit.dart';
 import 'package:coffee_app/main.dart';
@@ -24,8 +25,6 @@ class ProfileViewBodySettings extends StatelessWidget {
       }
       return Icon(Ionicons.chevron_forward, color: context.colors.onSecondary);
     }
-
-    final adminState = context.watch<AdminRoleCubit>().state;
 
     return Column(
       children: [
@@ -79,35 +78,47 @@ class ProfileViewBodySettings extends StatelessWidget {
                   vertical: 8,
                 ),
               ),
-              if (adminState.isAdminUser) ...[
-                _profileTileDivider(context),
-                PrettierTap(
-                  onPressed: () {
-                    context.read<AdminRoleCubit>().toggleAdminMode();
-                  },
-                  shrink: 1,
-                  child: ProfileTile(
-                    prefixIcon: "assets/icons/admin.png",
-                    title: "Admin Mode",
-                    suffixWidget: SizedBox(
-                      height: 42,
-                      child: FittedBox(
-                        fit: BoxFit.fitHeight,
-                        child: Switch(
-                          value: adminState.isAdminMode,
-                          onChanged: (value) {
+              BlocBuilder<AdminRoleCubit, AdminRoleState>(
+                builder: (context, state) {
+                  if (state.isAdminUser) {
+                    return Column(
+                      children: [
+                        _profileTileDivider(context),
+                        PrettierTap(
+                          onPressed: () {
                             context.read<AdminRoleCubit>().toggleAdminMode();
                           },
+                          shrink: 1,
+                          child: ProfileTile(
+                            prefixIcon: "assets/icons/admin.png",
+                            title: "Admin Mode",
+                            suffixWidget: SizedBox(
+                              height: 42,
+                              child: FittedBox(
+                                fit: BoxFit.fitHeight,
+                                child: Switch(
+                                  value: state.isAdminMode,
+                                  onChanged: (value) {
+                                    context
+                                        .read<AdminRoleCubit>()
+                                        .toggleAdminMode();
+                                  },
+                                ),
+                              ),
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 8,
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 8,
-                    ),
-                  ),
-                ),
-              ],
+                      ],
+                    );
+                  } else {
+                    return const SizedBox.shrink();
+                  }
+                },
+              ),
               _profileTileDivider(context),
 
               PrettierTap(

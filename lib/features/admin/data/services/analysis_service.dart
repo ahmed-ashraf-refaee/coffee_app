@@ -7,7 +7,6 @@ class AnalysisService {
 
   Future<Map<String, dynamic>> fetchDashboardStats() async {
     final response = await _supabaseClient.rpc('get_dashboard_stats');
-    print(response);
     return response as Map<String, dynamic>;
   }
 

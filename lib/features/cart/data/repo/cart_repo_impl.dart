@@ -8,7 +8,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 class CartRepoImpl extends CartRepo {
   final CartService _cartService = CartService();
-  final String userId = Supabase.instance.client.auth.currentUser!.id;
+  String get userId => Supabase.instance.client.auth.currentUser!.id;
 
   Map<int, CartItemModel> _cartCache = {};
 
@@ -80,5 +80,9 @@ class CartRepoImpl extends CartRepo {
 
   void _updateCache(List<CartItemModel> items) {
     _cartCache = {for (var item in items) item.id: item};
+  }
+
+  void clearCache() {
+    _cartCache.clear();
   }
 }

@@ -140,7 +140,7 @@ class AuthService {
   Future<void> logout() async {
     await _supabaseClient.auth.signOut();
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool("remember_me", false);
+    await prefs.clear();
   }
 
   Future<bool> usernameTaken(String username) async {

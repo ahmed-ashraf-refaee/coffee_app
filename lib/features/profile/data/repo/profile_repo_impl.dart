@@ -4,6 +4,8 @@ import 'package:dartz/dartz.dart';
 
 import '../../../../core/errors/error_handler.dart';
 import '../../../../core/errors/failures.dart';
+import '../../../cart/data/repo/cart_repo_impl.dart';
+import '../../../wishlist/data/repo/wishlist_repo_impl.dart';
 import 'profile_repo.dart';
 
 class ProfileRepoImpl extends ProfileRepo {
@@ -11,6 +13,9 @@ class ProfileRepoImpl extends ProfileRepo {
   Future<Either<Failure, void>> logoutUser() {
     return guard(() async {
       final authResponse = await AuthService().logout();
+      WishlistRepoImpl().clearCache();
+      CartRepoImpl().clearCache();
+
       return authResponse;
     });
   }
