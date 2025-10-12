@@ -1,18 +1,25 @@
+import 'dart:io';
+
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:coffee_app/core/model/product_model.dart';
 
+import 'image_upload_service.dart';
+
 class AdminProductService {
   final SupabaseClient _supabase = Supabase.instance.client;
+  final ImageUploadService _imageService = ImageUploadService();
 
   Future<void> createProduct(
-    ProductModel product, [
+    ProductModel product,
+    File imageFile, [
     String languageCode = 'en',
   ]) async {
+    final imageUrl = await _imageService.uploadProductImage(imageFile);
     final response = await _supabase
         .from('products')
         .insert({
           'category_id': product.categoryId,
-          'image_url': product.imageUrl,
+          'image_url': imageUrl,
           'discount': product.discount,
           'rating': product.rating,
           'created_at': DateTime.now().toIso8601String(),

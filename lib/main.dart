@@ -57,7 +57,7 @@ class CoffeeApp extends StatelessWidget {
         BlocProvider(create: (context) => PaymentCubit()),
         BlocProvider(create: (context) => CardCubit()),
         BlocProvider(create: (context) => AdminProductManagerCubit()),
-        BlocProvider(create: (context) => AdminRoleCubit()),
+        BlocProvider(create: (context) => AdminRoleCubit()..loadRole()),
         BlocProvider(
           create: (context) =>
               HomeProductCubit(context.read<HomeFilterCubit>())..getProducts(),
