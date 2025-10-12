@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:coffee_app/core/helper/ui_helpers.dart';
-import 'package:coffee_app/features/admin/data/services/image_upload_service.dart';
 import 'package:coffee_app/features/home/presentation/manager/home_products_cubit/home_product_cubit.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';

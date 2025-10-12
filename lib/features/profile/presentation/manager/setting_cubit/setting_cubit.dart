@@ -22,4 +22,12 @@ class SettingCubit extends Cubit<SettingState> {
       (_) {},
     );
   }
+
+  launchWhatsApp({required String phone}) async {
+    var result = await _profileRepoImpl.launchWhatsApp(phone: phone);
+    result.fold(
+      (failure) => emit(ProfileFailureState(error: failure.error)),
+      (_) {},
+    );
+  }
 }

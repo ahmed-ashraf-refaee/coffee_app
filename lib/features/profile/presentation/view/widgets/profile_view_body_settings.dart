@@ -157,9 +157,13 @@ class ProfileViewBodySettings extends StatelessWidget {
               PrettierTap(
                 shrink: 1,
                 onPressed: () {
+                  //
+                  //add failure snackbar using bloc listener
+                  //
                   context.read<SettingCubit>().launchPhoneDialer(
                     phone: "+201552230385",
                   );
+                  // context.read<SettingCubit>().launchWhatsApp(phone: "+201552230385");
                 },
                 child: ProfileTile(
                   prefixIcon: "assets/icons/help.png",
