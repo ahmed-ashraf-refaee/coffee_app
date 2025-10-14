@@ -18,6 +18,7 @@ class AuthService {
     final adminLoggedIn = await isAdmin();
     await prefs.setBool("isAdminUser", adminLoggedIn);
     await prefs.setBool("isAdminMode", adminLoggedIn);
+
     return response;
   }
 

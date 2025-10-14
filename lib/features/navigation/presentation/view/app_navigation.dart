@@ -4,7 +4,7 @@ import 'package:coffee_app/features/home/presentation/manager/home_products_cubi
 import 'package:coffee_app/features/home/presentation/manager/home_top_products_cubit/home_top_products_cubit.dart';
 import 'package:coffee_app/features/home/presentation/view/home_view/home_view.dart';
 import 'package:coffee_app/features/profile/presentation/manager/locale_cubit/locale_cubit.dart';
-import 'package:coffee_app/features/profile/presentation/view/profile_view.dart';
+import 'package:coffee_app/features/profile/presentation/view/profile_view/profile_view.dart';
 import 'package:coffee_app/features/wishlist/presentation/view/wishlist_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

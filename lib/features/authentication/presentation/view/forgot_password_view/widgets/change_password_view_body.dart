@@ -14,14 +14,14 @@ import 'package:ionicons/ionicons.dart';
 
 import '../../../../../../core/helper/ui_helpers.dart';
 
-class ChangePasswordViewBody extends StatefulWidget {
-  const ChangePasswordViewBody({super.key});
+class ResetPasswordViewBody extends StatefulWidget {
+  const ResetPasswordViewBody({super.key});
 
   @override
-  State<ChangePasswordViewBody> createState() => _ChangePasswordViewBodyState();
+  State<ResetPasswordViewBody> createState() => _ResetPasswordViewBodyState();
 }
 
-class _ChangePasswordViewBodyState extends State<ChangePasswordViewBody> {
+class _ResetPasswordViewBodyState extends State<ResetPasswordViewBody> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
       TextEditingController();
@@ -132,7 +132,7 @@ class _ChangePasswordViewBodyState extends State<ChangePasswordViewBody> {
 
                 child: Text(
                   S.current.setPasswordButton,
-                  style: TextStyles.medium20
+                  style: TextStyles.medium20,
                 ),
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {

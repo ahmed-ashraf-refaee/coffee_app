@@ -1,4 +1,5 @@
 import 'package:coffee_app/core/model/product_model.dart';
+import 'package:coffee_app/features/authentication/data/model/user_profile_model.dart';
 import 'package:coffee_app/features/authentication/presentation/view/authentication_view/authentication_view.dart';
 import 'package:coffee_app/features/authentication/presentation/view/forgot_password_view/forgot_password_view.dart';
 import 'package:coffee_app/features/checkout/presentation/views/address_view/add_address_view.dart';
@@ -7,7 +8,7 @@ import 'package:coffee_app/features/checkout/presentation/views/checkout_view/ch
 import 'package:coffee_app/features/checkout/presentation/views/payment_view/payment_view.dart';
 import 'package:coffee_app/features/home/presentation/view/details_view/details_view.dart';
 import 'package:coffee_app/features/navigation/presentation/manager/navigator_cubit/navigator_cubit.dart';
-import 'package:coffee_app/features/profile/presentation/view/language_select_view.dart';
+import 'package:coffee_app/features/profile/presentation/view/language_view/language_select_view.dart';
 import 'package:coffee_app/features/splash/presentation/view/splash_view.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,6 +18,9 @@ import '../../features/checkout/data/repo/order/order_repo_impl.dart';
 import '../../features/checkout/presentation/manager/order/order_cubit.dart';
 import '../../features/maps/presentation/view/map_view.dart';
 import '../../features/navigation/presentation/view/app_navigation.dart';
+import '../../features/profile/presentation/view/edit_profile_view/change_email_view.dart';
+import '../../features/profile/presentation/view/edit_profile_view/change_password_view.dart';
+import '../../features/profile/presentation/view/edit_profile_view/edit_profile_view.dart';
 
 abstract class AppRouter {
   static const kHomeView = "/homeView";
@@ -33,6 +37,9 @@ abstract class AppRouter {
   static const kAddressView = "/addressView";
   static const kAddAddressView = "/addAddressView";
   static const kMapView = "/mapView";
+  static const kEditProfileView = "/editProfileView";
+  static const kChangeEmailView = "/changeEmailView";
+  static const kChangePassword = "/changeChangeView";
 
   static final router = GoRouter(
     routes: [
@@ -40,6 +47,20 @@ abstract class AppRouter {
       GoRoute(
         path: kLanguageSelect,
         builder: (context, state) => const LanguageSelectView(),
+      ),
+      GoRoute(
+        path: kChangePassword,
+        builder: (context, state) => const ChangePasswordView(),
+      ),
+      GoRoute(
+        path: kEditProfileView,
+        builder: (context, state) {
+          return EditProfileView(user: state.extra as UserProfileModel);
+        },
+      ),
+      GoRoute(
+        path: kChangeEmailView,
+        builder: (context, state) => const ChangeEmailView(),
       ),
       GoRoute(
         path: kCheckoutView,
