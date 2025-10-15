@@ -1,12 +1,6 @@
 import 'dart:io';
 import 'package:coffee_app/core/helper/ui_helpers.dart';
-<<<<<<< HEAD
-import 'package:coffee_app/core/widgets/title_subtitle.dart';
-import 'package:coffee_app/generated/l10n.dart';
-=======
 import 'package:coffee_app/features/home/presentation/manager/home_products_cubit/home_product_cubit.dart';
-import 'package:coffee_app/main.dart';
->>>>>>> merge-test
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -16,6 +10,8 @@ import '../../../../../core/model/product_model.dart';
 import '../../../../../core/model/product_variants_model.dart';
 import '../../../../../core/utils/text_styles.dart';
 import '../../../../../core/widgets/custom_elevated_button.dart';
+import '../../../../../core/widgets/title_subtitle.dart';
+import '../../../../../generated/l10n.dart';
 import '../../manager/admin_product_manager/admin_product_manager_cubit.dart';
 import 'widgets/add_product_app_bar.dart';
 import 'widgets/add_variation_button.dart';
@@ -52,11 +48,16 @@ class _AddProductViewState extends State<AddProductView> {
   final List<Variant> _variants = [Variant()];
 
   String? _requiredValidator(String? value, String field) {
-    if (value == null || value.trim().isEmpty) return "$field ${S.current.isRequired}";
+    if (value == null || value.trim().isEmpty)
+      return "$field ${S.current.isRequired}";
     return null;
   }
 
-  String? _doubleValidator(String? value, String field, {bool required = true}) {
+  String? _doubleValidator(
+    String? value,
+    String field, {
+    bool required = true,
+  }) {
     if (value == null || value.trim().isEmpty) {
       if (required) return "$field ${S.current.isRequired}";
       return null;
@@ -75,9 +76,9 @@ class _AddProductViewState extends State<AddProductView> {
 
   void _addVariant() {
     if (_variants.length >= 3) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(S.current.maxVariantsReached)),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(S.current.maxVariantsReached)));
       return;
     }
     setState(() => _variants.add(Variant()));
@@ -110,16 +111,16 @@ class _AddProductViewState extends State<AddProductView> {
     if (!_formKey.currentState!.validate()) return;
 
     if (_selectedImage == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(S.current.imageRequired)),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(S.current.imageRequired)));
       return;
     }
 
     if (_selectedCategory == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(S.current.categoryRequired)),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(S.current.categoryRequired)));
       return;
     }
 
@@ -199,7 +200,10 @@ class _AddProductViewState extends State<AddProductView> {
                         onAdd: _addVariant,
                       ),
                       const SizedBox(height: 20),
-                      BlocConsumer<AdminProductManagerCubit, AdminProductManagerState>(
+                      BlocConsumer<
+                        AdminProductManagerCubit,
+                        AdminProductManagerState
+                      >(
                         listener: (context, state) {
                           if (state is AdminProductFailure) {
                             UiHelpers.showSnackBar(
