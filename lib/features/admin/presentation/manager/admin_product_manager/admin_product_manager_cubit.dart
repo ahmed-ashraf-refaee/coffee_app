@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:coffee_app/features/admin/data/repo/admin_repo_impl.dart';
 import 'package:meta/meta.dart';
@@ -11,13 +13,15 @@ class AdminProductManagerCubit extends Cubit<AdminProductManagerState> {
   final AdminRepoImpl _repo = AdminRepoImpl();
 
   Future<void> createProduct(
-    ProductModel product, {
+    ProductModel product,
+    File imageFile, {
     String languageCode = 'en',
   }) async {
     emit(AdminProductLoading());
 
     final result = await _repo.createProduct(
       product,
+      imageFile,
       languageCode: languageCode,
     );
 

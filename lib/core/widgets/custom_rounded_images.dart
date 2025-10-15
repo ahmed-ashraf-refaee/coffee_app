@@ -17,10 +17,13 @@ class CustomRoundedImage extends StatelessWidget {
     this.borderRadius,
     this.shimmerBaseColor,
     this.shimmerHighlightColor,
+    this.isAsset = false,
   });
   final String imageUrl;
   final double aspectRatio;
   final double width;
+  final bool isAsset;
+
   final BorderRadius? borderRadius;
   final Color? shimmerBaseColor;
   final Color? shimmerHighlightColor;
@@ -40,28 +43,33 @@ class CustomRoundedImage extends StatelessWidget {
           child: Container(
             color: color,
 
-            child: CachedNetworkImage(
-              imageUrl: imageUrl,
-              fit: BoxFit.cover,
+            child: isAsset
+                ? Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Image.asset(imageUrl),
+                  )
+                : CachedNetworkImage(
+                    imageUrl: imageUrl,
+                    fit: BoxFit.cover,
 
-              placeholder: (context, url) => Skeletonizer(
-                effect: UiHelpers.customShimmer(context),
-                child: Skeleton.shade(
-                  child: Container(
-                    width: width,
-                    height: width / aspectRatio,
-                    color: context.colors.secondary,
+                    placeholder: (context, url) => Skeletonizer(
+                      effect: UiHelpers.customShimmer(context),
+                      child: Skeleton.shade(
+                        child: Container(
+                          width: width,
+                          height: width / aspectRatio,
+                          color: context.colors.secondary,
+                        ),
+                      ),
+                    ),
+                    errorWidget: (context, url, error) => Container(
+                      color: color,
+                      child: const Icon(Ionicons.warning_outline, size: 30),
+                    ),
+                    errorListener: (_) {
+                      // Do nothing to silence HttpException logs
+                    },
                   ),
-                ),
-              ),
-              errorWidget: (context, url, error) => Container(
-                color: color,
-                child: const Icon(Ionicons.warning_outline, size: 30),
-              ),
-              errorListener: (_) {
-                // Do nothing to silence HttpException logs
-              },
-            ),
           ),
         ),
       ),

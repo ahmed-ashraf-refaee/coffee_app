@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:coffee_app/core/errors/error_handler.dart';
 import 'package:coffee_app/core/errors/failures.dart';
 import 'package:coffee_app/core/model/product_model.dart';
@@ -11,11 +13,12 @@ class AdminRepoImpl extends AdminRepo {
 
   @override
   Future<Either<Failure, void>> createProduct(
-    ProductModel product, {
+    ProductModel product,
+    File imageFile, {
     String languageCode = 'en',
   }) {
     return guard(() async {
-      await service.createProduct(product, languageCode);
+      await service.createProduct(product, imageFile, languageCode);
     });
   }
 

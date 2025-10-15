@@ -1,7 +1,12 @@
 import 'dart:io';
 import 'package:coffee_app/core/helper/ui_helpers.dart';
+<<<<<<< HEAD
 import 'package:coffee_app/core/widgets/title_subtitle.dart';
 import 'package:coffee_app/generated/l10n.dart';
+=======
+import 'package:coffee_app/features/home/presentation/manager/home_products_cubit/home_product_cubit.dart';
+import 'package:coffee_app/main.dart';
+>>>>>>> merge-test
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -140,8 +145,11 @@ class _AddProductViewState extends State<AddProductView> {
       productVariants: productVariants,
       category: null,
     );
-
-    context.read<AdminProductManagerCubit>().createProduct(product);
+    context.read<AdminProductManagerCubit>().createProduct(
+      product,
+      _selectedImage!,
+    );
+    context.read<HomeProductCubit>().getProducts();
     _clearAll();
   }
 

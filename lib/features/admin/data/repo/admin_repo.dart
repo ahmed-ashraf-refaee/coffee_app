@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:coffee_app/core/errors/failures.dart';
 import 'package:dartz/dartz.dart';
 
@@ -9,7 +11,8 @@ abstract class AdminRepo {
     String languageCode = 'en',
   });
   Future<Either<Failure, void>> createProduct(
-    ProductModel product, {
+    ProductModel product,
+    File imageFile, {
     String languageCode = 'en',
   });
 }

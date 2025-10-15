@@ -9,7 +9,7 @@ import '../../../../core/errors/error_handler.dart';
 
 class WishlistRepoImpl extends WishlistRepo {
   final WishlistService _wishlistService = WishlistService();
-  final String userId = Supabase.instance.client.auth.currentUser!.id;
+  String get userId => Supabase.instance.client.auth.currentUser!.id;
 
   List<ProductModel> _cachedWishlist = [];
   Set<int> _wishlistProductIds = <int>{};
@@ -91,5 +91,10 @@ class WishlistRepoImpl extends WishlistRepo {
   void _updateCache(List<ProductModel> products) {
     _cachedWishlist = products;
     _wishlistProductIds = products.map((p) => p.id).toSet();
+  }
+
+  void clearCache() {
+    _cachedWishlist.clear();
+    _wishlistProductIds.clear();
   }
 }

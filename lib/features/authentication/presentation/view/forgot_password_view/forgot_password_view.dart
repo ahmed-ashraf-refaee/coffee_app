@@ -43,7 +43,7 @@ class ForgotPasswordView extends StatelessWidget {
                         email: ForgotPasswordView.email ?? "",
                       ),
                       ForgotPasswordState.resetPassword =>
-                        const ChangePasswordViewBody(),
+                        const ResetPasswordViewBody(),
                     },
                   );
                 },

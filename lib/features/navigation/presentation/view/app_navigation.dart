@@ -4,7 +4,7 @@ import 'package:coffee_app/features/home/presentation/manager/home_products_cubi
 import 'package:coffee_app/features/home/presentation/manager/home_top_products_cubit/home_top_products_cubit.dart';
 import 'package:coffee_app/features/home/presentation/view/home_view/home_view.dart';
 import 'package:coffee_app/features/profile/presentation/manager/locale_cubit/locale_cubit.dart';
-import 'package:coffee_app/features/profile/presentation/view/profile_view.dart';
+import 'package:coffee_app/features/profile/presentation/view/profile_view/profile_view.dart';
 import 'package:coffee_app/features/wishlist/presentation/view/wishlist_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,8 +21,20 @@ import '../../../wishlist/presentation/manager/wishlist/wishlist_cubit.dart';
 import '../manager/navigator_cubit/navigator_cubit.dart';
 import 'widgets/custom_bottom_nav_bar.dart';
 
-class AppNavigation extends StatelessWidget {
+class AppNavigation extends StatefulWidget {
   const AppNavigation({super.key});
+
+  @override
+  State<AppNavigation> createState() => _AppNavigationState();
+}
+
+class _AppNavigationState extends State<AppNavigation> {
+  @override
+  void initState() {
+    BlocProvider.of<CartCubit>(context).loadCart();
+    BlocProvider.of<WishlistCubit>(context).getWishlist();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,23 +51,23 @@ class AppNavigation extends StatelessWidget {
             create: (context) => AnalysisCubit()..getDashboardAnalysis(),
           ),
         ],
-        child: BlocBuilder<AdminRoleCubit, AdminRoleState>(
-          builder: (context, isAdmin) {
-            return BlocBuilder<AppNavigatorCubit, AppNavigatorState>(
-              builder: (context, state) {
-                return BlocListener<LocaleCubit, Locale>(
-                  listener: (context, locale) {
-                    context.read<HomeCategoryCubit>().getCategories();
-                    context.read<HomeProductCubit>().getProducts();
-                    context.read<HomeTopProductsCubit>().getTopProducts();
-                    context.read<CartCubit>().loadCart();
-                    context.read<WishlistCubit>().getWishlist();
-                  },
-                  child: CustomContainer(
-                    child: _buildView(state, isAdmin.isAdminMode),
-                  ),
-                );
+        child: BlocBuilder<AppNavigatorCubit, AppNavigatorState>(
+          builder: (context, state) {
+            return BlocListener<LocaleCubit, Locale>(
+              listener: (context, locale) {
+                context.read<HomeCategoryCubit>().getCategories();
+                context.read<HomeProductCubit>().getProducts();
+                context.read<HomeTopProductsCubit>().getTopProducts();
+                context.read<CartCubit>().loadCart();
+                context.read<WishlistCubit>().getWishlist();
               },
+              child: BlocBuilder<AdminRoleCubit, AdminRoleState>(
+                builder: (context, isAdmin) {
+                  return CustomContainer(
+                    child: _buildView(state, isAdmin.isAdminMode),
+                  );
+                },
+              ),
             );
           },
         ),

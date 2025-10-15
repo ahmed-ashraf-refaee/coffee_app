@@ -10,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../../core/helper/ui_helpers.dart';
+import '../../../../../admin/presentation/manager/admin_role_cubit/admin_role_cubit.dart';
 import '../../../manager/auth_bloc/auth_bloc.dart';
 import 'auth_suggestion.dart';
 import '../../../../../../core/widgets/title_subtitle.dart';
@@ -109,6 +110,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
               UiHelpers.showSnackBar(context: context, message: state.error);
             }
             if (state is AuthSuccess) {
+              context.read<AdminRoleCubit>().loadRole();
               GoRouter.of(context).pushReplacement(AppRouter.kNavigationView);
             }
           },
