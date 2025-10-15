@@ -1,6 +1,5 @@
 import 'package:coffee_app/core/utils/text_styles.dart';
 import 'package:coffee_app/core/widgets/custom_elevated_button.dart';
-import 'package:coffee_app/features/authentication/presentation/view/widgets/auth_title.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:go_router/go_router.dart';
@@ -8,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../../../core/widgets/custom_app_bar.dart';
 import '../../../../../../core/widgets/custom_icon_button.dart';
 import '../../../../../../core/widgets/prettier_tap.dart';
+import '../../../../../../core/widgets/title_subtitle.dart';
 import '../../../../../../main.dart';
 
 class ChangeEmailViewBody extends StatefulWidget {
@@ -55,7 +55,7 @@ class _ChangeEmailViewBodyState extends State<ChangeEmailViewBody> {
           ),
           const SizedBox(height: 32),
 
-          const AuthTitle(
+          const TitleSubtitle(
             title: 'Change Email',
             subtitle: 'Change Your Email account.',
           ),
