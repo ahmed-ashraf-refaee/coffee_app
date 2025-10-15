@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:coffee_app/core/helper/ui_helpers.dart';
-import 'package:coffee_app/main.dart';
+import 'package:coffee_app/core/widgets/title_subtitle.dart';
+import 'package:coffee_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -46,21 +47,17 @@ class _AddProductViewState extends State<AddProductView> {
   final List<Variant> _variants = [Variant()];
 
   String? _requiredValidator(String? value, String field) {
-    if (value == null || value.trim().isEmpty) return "$field is required";
+    if (value == null || value.trim().isEmpty) return "$field ${S.current.isRequired}";
     return null;
   }
 
-  String? _doubleValidator(
-    String? value,
-    String field, {
-    bool required = true,
-  }) {
+  String? _doubleValidator(String? value, String field, {bool required = true}) {
     if (value == null || value.trim().isEmpty) {
-      if (required) return "$field is required";
+      if (required) return "$field ${S.current.isRequired}";
       return null;
     }
     final val = double.tryParse(value);
-    if (val == null) return "$field must be a number";
+    if (val == null) return "$field ${S.current.mustBeNumber}";
     return null;
   }
 
@@ -74,7 +71,7 @@ class _AddProductViewState extends State<AddProductView> {
   void _addVariant() {
     if (_variants.length >= 3) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Maximum of 3 variants allowed")),
+        SnackBar(content: Text(S.current.maxVariantsReached)),
       );
       return;
     }
@@ -108,16 +105,16 @@ class _AddProductViewState extends State<AddProductView> {
     if (!_formKey.currentState!.validate()) return;
 
     if (_selectedImage == null) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text("Please select an image")));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(S.current.imageRequired)),
+      );
       return;
     }
 
     if (_selectedCategory == null) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text("Please select a category")));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(S.current.categoryRequired)),
+      );
       return;
     }
 
@@ -138,6 +135,7 @@ class _AddProductViewState extends State<AddProductView> {
       categoryId: _selectedCategory!.id,
       imageUrl: _selectedImage!.path,
       rating: 0,
+      numberOfRatings: 0,
       createdAt: DateTime.now(),
       productVariants: productVariants,
       category: null,
@@ -145,19 +143,6 @@ class _AddProductViewState extends State<AddProductView> {
 
     context.read<AdminProductManagerCubit>().createProduct(product);
     _clearAll();
-  }
-
-  @override
-  void dispose() {
-    _nameController.dispose();
-    _descriptionController.dispose();
-    _discountController.dispose();
-    for (final v in _variants) {
-      v.sizeController.dispose();
-      v.priceController.dispose();
-      v.quantityController.dispose();
-    }
-    super.dispose();
   }
 
   @override
@@ -177,17 +162,9 @@ class _AddProductViewState extends State<AddProductView> {
                     spacing: 16,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "Add Product",
-                        style: TextStyles.bold20.copyWith(
-                          color: context.colors.onSurface,
-                        ),
-                      ),
-                      Text(
-                        "Add a new product to your store",
-                        style: TextStyles.regular15.copyWith(
-                          color: context.colors.onSecondary,
-                        ),
+                      TitleSubtitle(
+                        title: S.current.addProductTitle,
+                        subtitle: S.current.addProductSubtitle,
                       ),
                       ProductImagePicker(
                         image: _selectedImage,
@@ -214,10 +191,7 @@ class _AddProductViewState extends State<AddProductView> {
                         onAdd: _addVariant,
                       ),
                       const SizedBox(height: 20),
-                      BlocConsumer<
-                        AdminProductManagerCubit,
-                        AdminProductManagerState
-                      >(
+                      BlocConsumer<AdminProductManagerCubit, AdminProductManagerState>(
                         listener: (context, state) {
                           if (state is AdminProductFailure) {
                             UiHelpers.showSnackBar(
@@ -227,7 +201,7 @@ class _AddProductViewState extends State<AddProductView> {
                           } else if (state is AdminProductSuccess) {
                             UiHelpers.showSnackBar(
                               context: context,
-                              message: "Product added successfully",
+                              message: S.current.productAddedSuccessfully,
                             );
                           }
                         },
@@ -235,8 +209,8 @@ class _AddProductViewState extends State<AddProductView> {
                           return CustomElevatedButton(
                             isLoading: state is AdminProductLoading,
                             onPressed: _submitForm,
-                            child: const Text(
-                              "Add Product",
+                            child: Text(
+                              S.current.addProductButton,
                               style: TextStyles.medium20,
                             ),
                           );

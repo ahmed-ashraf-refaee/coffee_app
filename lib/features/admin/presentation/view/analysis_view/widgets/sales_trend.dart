@@ -2,6 +2,7 @@ import 'package:coffee_app/core/constants/analysis_constants.dart';
 import 'package:coffee_app/core/utils/text_styles.dart';
 import 'package:coffee_app/core/widgets/prettier_tap.dart';
 import 'package:coffee_app/features/admin/data/model/analysis_data_model.dart';
+import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ class SalesTrend extends StatelessWidget {
         ),
         child: Center(
           child: Text(
-            'No sales data available',
+            S.current.noSalesData,
             style: TextStyles.medium16.copyWith(
               color: context.colors.onSecondary,
             ),
@@ -61,7 +62,7 @@ class SalesTrend extends StatelessWidget {
             spacing: 32,
             children: [
               Text(
-                'Sales Trend',
+                S.current.salesTrend,
                 style: TextStyles.bold16.copyWith(
                   color: context.colors.onSecondary,
                 ),
@@ -140,7 +141,7 @@ class SalesTrend extends StatelessWidget {
                           getTitlesWidget: (value, meta) {
                             if (value == 0) return const SizedBox();
                             return Text(
-                              '${value.toInt()}K',
+                              '${value.toInt()} ${S.current.abbreviationK}',
                               style: TextStyle(
                                 color: context.colors.onSecondary,
                                 fontSize: 12,

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
@@ -40,7 +41,7 @@ class ProductImagePicker extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    "Upload product image (PNG)",
+                    S.current.uploadProductImage,
                     style: TextStyles.regular15.copyWith(
                       color: context.colors.onSecondary,
                     ),

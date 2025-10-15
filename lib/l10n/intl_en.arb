@@ -164,6 +164,64 @@
   "month_sep": "Sep",
   "month_oct": "Oct",
   "month_nov": "Nov",
-  "month_dec": "Dec"
+  "month_dec": "Dec",
+
+  "egp": "EGP"
+  ,"stockManagerTitle": "Stock Manager",
+"stockManagerSubtitle": "Track inventory and update product availability",
+"analysisTitle": "Analytics Dashboard",
+"analysisSubtitle": "Monitor sales performance and growth trends",
+"addProductTitle": "Add Product",
+"addProductSubtitle": "Create new products and customize their details",
+"languageTitle": "Language Settings",
+"languageSubtitle": "Choose your preferred language for the app interface",
+"isRequired": "is required",
+"mustBeNumber": "must be a number",
+"maxVariantsReached": "Maximum of 3 variants allowed",
+"imageRequired": "Please select an image",
+"categoryRequired": "Please select a category",
+"productAddedSuccessfully": "Product added successfully",
+"addProductButton": "Add Product",
+
+  "variantsTitle": "Variants",
+  "variantLabel": "Variant",
+  "variantSizeLabel": "Size",
+  "variantSizeHint": "Size (e.g. Small, Medium)",
+  "variantPriceLabel": "Price",
+  "variantPriceHint": "Price (e.g. 9.99)",
+  "variantQuantityLabel": "Quantity",
+  "variantQuantityHint": "Quantity (in stock)",
+  
+  "productNameLabel": "Product Name",
+  "productNameHint": "Enter product name",
+  "productDescriptionLabel": "Description",
+  "productDescriptionHint": "Enter product description",
+  "productCategoryHint": "Select Category",
+  "productCategoryError": "Please select a category",
+  "productDiscountHint": "Discount (%) (optional)",
+    "uploadProductImage": "Upload product image",
+  "addAnotherVariant": "Add another variant",
+  
+  "topCategories": "Top Categories",
+  "salesTrend": "Sales Trend",
+  "noSalesData": "No sales data available",
+  "revenue": "Revenue",
+  "customers": "Customers",
+  "productsSold": "Products Sold",
+  "growth": "Growth",
+
+"abbreviationK": "K",
+"abbreviationM": "M"
+
+
+
+
+
+
+
+
+
+
+
 
 }

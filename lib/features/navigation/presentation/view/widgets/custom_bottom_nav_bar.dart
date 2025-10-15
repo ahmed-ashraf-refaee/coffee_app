@@ -66,20 +66,46 @@ class CustomBottomNavBar extends StatelessWidget {
                 children: List.generate(userIcons.length, (index) {
                   return BlocBuilder<AdminRoleCubit, AdminRoleState>(
                     builder: (context, isAdmin) {
-                      return BottomNavBarItem(
-                        icon: isAdmin.isAdminMode
-                            ? adminIcons[index]
-                            : userIcons[index],
-                        isSelected:
-                            BlocProvider.of<AppNavigatorCubit>(
-                              context,
-                            ).currentIndex ==
-                            index,
-                        onPressed: () {
+                      final isToggled = isAdmin.isAdminMode;
+                      final currentIcon = isToggled
+                          ? adminIcons[index]
+                          : userIcons[index];
+                      final isSelected =
                           BlocProvider.of<AppNavigatorCubit>(
                             context,
-                          ).setCurrentIndex(index);
+                          ).currentIndex ==
+                          index;
+
+                      return AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 200),
+                        switchInCurve: Curves.easeInOut,
+                        switchOutCurve: Curves.easeInOut,
+                        transitionBuilder: (child, animation) {
+                          final scale = Tween<double>(
+                            begin: 0.94,
+                            end: 1.0,
+                          ).animate(animation);
+
+                          final opacity = Tween<double>(
+                            begin: 0.0,
+                            end: 1.0,
+                          ).animate(animation);
+
+                          return FadeTransition(
+                            opacity: opacity,
+                            child: ScaleTransition(scale: scale, child: child),
+                          );
                         },
+                        child: BottomNavBarItem(
+                          key: ValueKey('$isToggled-$index'),
+                          icon: currentIcon,
+                          isSelected: isSelected,
+                          onPressed: () {
+                            BlocProvider.of<AppNavigatorCubit>(
+                              context,
+                            ).setCurrentIndex(index);
+                          },
+                        ),
                       );
                     },
                   );

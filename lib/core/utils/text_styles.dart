@@ -39,7 +39,7 @@ abstract class TextStyles {
 
   static const medium32 = TextStyle(fontSize: 32, fontWeight: FontWeight.w500);
 
-  static const bold32 = TextStyle(fontSize: 32, fontWeight: FontWeight.bold);
+  static const bold28 = TextStyle(fontSize: 28, fontWeight: FontWeight.bold);
 
   static const regular36 = TextStyle(
     fontSize: 36,

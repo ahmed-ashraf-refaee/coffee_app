@@ -3,8 +3,8 @@ import 'package:coffee_app/main.dart';
 
 import 'package:flutter/material.dart';
 
-class AuthTitle extends StatelessWidget {
-  const AuthTitle({super.key, required this.title, required this.subtitle});
+class TitleSubtitle extends StatelessWidget {
+  const TitleSubtitle({super.key, required this.title, required this.subtitle});
   final String title;
   final String subtitle;
   @override
@@ -12,11 +12,11 @@ class AuthTitle extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: TextStyles.bold32),
+        Text(title, style: TextStyles.bold28),
         Text(
           subtitle,
           style: TextStyles.bold14.copyWith(
-            color: context.colors.onSecondary.withAlpha(153),
+            color: context.colors.onSecondary.withValues(alpha: 0.6),
           ),
         ),
       ],

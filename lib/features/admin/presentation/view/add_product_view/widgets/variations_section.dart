@@ -1,7 +1,7 @@
+import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
-
 import '../../../../../../core/utils/text_styles.dart';
 import '../../../../../../core/widgets/custom_icon_button.dart';
 import '../add_product_view.dart';
@@ -22,11 +22,13 @@ class VariantsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = S.of(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Variants",
+          l10n.variantsTitle,
           style: TextStyles.bold20.copyWith(color: context.colors.onSurface),
         ),
         ...variants.asMap().entries.map((entry) {
@@ -37,10 +39,7 @@ class VariantsSection extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
-              color: context.colors.surface,
-              border: Border.all(
-                color: context.colors.outline.withValues(alpha: 0.2),
-              ),
+              color: context.colors.secondary,
             ),
             child: Column(
               spacing: 16,
@@ -48,14 +47,19 @@ class VariantsSection extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Variant ${index + 1}", style: TextStyles.medium16),
+                    Text(
+                      '${l10n.variantLabel} ${index + 1}',
+                      style: TextStyles.medium16.copyWith(
+                        color: context.colors.onSecondary,
+                      ),
+                    ),
                     if (variants.length > 1)
                       CustomIconButton(
                         onPressed: () => removeVariant(index),
                         backgroundColor: Colors.transparent,
                         borderRadius: BorderRadius.circular(10),
                         child: Icon(
-                          Ionicons.trash_outline,
+                          Ionicons.trash_bin_outline,
                           color: context.colors.primary,
                         ),
                       ),
@@ -63,31 +67,33 @@ class VariantsSection extends StatelessWidget {
                 ),
                 TextFormField(
                   controller: variant.sizeController,
-                  decoration: const InputDecoration(
-                    hintText: "Size (e.g. Small, Medium)",
-                    prefixIcon: Icon(Ionicons.resize_outline),
+                  decoration: InputDecoration(
+                    hintText: l10n.variantSizeHint,
+                    prefixIcon: const Icon(Ionicons.resize_outline),
+                    fillColor: context.colors.surface,
                   ),
-                  validator: (v) => requiredValidator(v, "Size"),
+                  validator: (v) => requiredValidator(v, l10n.variantSizeLabel),
                 ),
                 TextFormField(
                   controller: variant.priceController,
-                  keyboardType: const TextInputType.numberWithOptions(
-                    decimal: true,
+                  keyboardType:
+                      const TextInputType.numberWithOptions(decimal: true),
+                  decoration: InputDecoration(
+                    hintText: l10n.variantPriceHint,
+                    prefixIcon: const Icon(Ionicons.cash_outline),
+                    fillColor: context.colors.surface,
                   ),
-                  decoration: const InputDecoration(
-                    hintText: "Price (e.g. 9.99)",
-                    prefixIcon: Icon(Ionicons.cash_outline),
-                  ),
-                  validator: (v) => doubleValidator(v, "Price"),
+                  validator: (v) => doubleValidator(v, l10n.variantPriceLabel),
                 ),
                 TextFormField(
                   controller: variant.quantityController,
                   keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    hintText: "Quantity (in stock)",
-                    prefixIcon: Icon(Ionicons.cube_outline),
+                  decoration: InputDecoration(
+                    hintText: l10n.variantQuantityHint,
+                    prefixIcon: const Icon(Ionicons.cube_outline),
+                    fillColor: context.colors.surface,
                   ),
-                  validator: (v) => doubleValidator(v, "Quantity"),
+                  validator: (v) => doubleValidator(v, l10n.variantQuantityLabel),
                 ),
               ],
             ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ionicons/ionicons.dart';
-
+import 'package:coffee_app/generated/l10n.dart';
 import '../../../../../../core/model/categories_model.dart';
 
 class ProductInfoSection extends StatelessWidget {
@@ -26,24 +26,26 @@ class ProductInfoSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = S.of(context);
+
     return Column(
       spacing: 16,
       children: [
         TextFormField(
           controller: nameController,
-          decoration: const InputDecoration(
-            hintText: "Product Name",
-            prefixIcon: Icon(Ionicons.cube_outline),
+          decoration: InputDecoration(
+            hintText: l10n.productNameHint,
+            prefixIcon: const Icon(Ionicons.cube_outline),
           ),
-          validator: (v) => requiredValidator(v, "Product name"),
+          validator: (v) => requiredValidator(v, l10n.productNameLabel),
         ),
         TextFormField(
           controller: descController,
-          decoration: const InputDecoration(
-            hintText: "Description",
-            prefixIcon: Icon(Ionicons.document_text_outline),
+          decoration: InputDecoration(
+            hintText: l10n.productDescriptionHint,
+            prefixIcon: const Icon(Ionicons.document_text_outline),
           ),
-          validator: (v) => requiredValidator(v, "Description"),
+          validator: (v) => requiredValidator(v, l10n.productDescriptionLabel),
         ),
         DropdownButtonFormField<CategoriesModel>(
           initialValue: selectedCategory,
@@ -51,22 +53,22 @@ class ProductInfoSection extends StatelessWidget {
               .map((cat) => DropdownMenuItem(value: cat, child: Text(cat.name)))
               .toList(),
           onChanged: onCategoryChanged,
-          decoration: const InputDecoration(
-            prefixIcon: Icon(Ionicons.list_outline),
-            hintText: "Select Category",
+          decoration: InputDecoration(
+            prefixIcon: const Icon(Ionicons.list_outline),
+            hintText: l10n.productCategoryHint,
           ),
           validator: (value) =>
-              value == null ? "Please select a category" : null,
+              value == null ? l10n.productCategoryError : null,
         ),
         TextFormField(
           controller: discountController,
           keyboardType: const TextInputType.numberWithOptions(decimal: true),
           maxLength: 2,
           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-          decoration: const InputDecoration(
+          decoration: InputDecoration(
             counterText: '',
-            hintText: "Discount (%) (optional)",
-            prefixIcon: Icon(Ionicons.pricetag_outline),
+            hintText: l10n.productDiscountHint,
+            prefixIcon: const Icon(Ionicons.pricetag_outline),
           ),
         ),
       ],

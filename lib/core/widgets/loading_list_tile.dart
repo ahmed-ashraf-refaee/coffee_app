@@ -54,7 +54,9 @@ class LoadingListTile extends StatelessWidget {
                         child: Text(
                           "180ml",
                           style: TextStyles.regular12.copyWith(
-                            color: context.colors.onSecondary.withAlpha(153),
+                            color: context.colors.onSecondary.withValues(
+                              alpha: 0.6,
+                            ),
                           ),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,

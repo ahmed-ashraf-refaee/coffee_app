@@ -1,6 +1,7 @@
 import 'package:coffee_app/features/admin/data/model/analysis_data_model.dart';
 import 'package:coffee_app/features/admin/presentation/manager/analysis_cubit/analysis_cubit.dart';
 import 'package:coffee_app/features/admin/presentation/view/analysis_view/widgets/status_card.dart';
+import 'package:coffee_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
@@ -24,28 +25,28 @@ class StatusGrid extends StatelessWidget {
           ),
           children: [
             StatusCard(
-              title: 'Revenue',
+              title: S.current.revenue,
               icon: Ionicons.cash_outline,
               change: analysisData.revenueChange,
               value: analysisData.revenue,
               type: StatusType.money,
             ),
             StatusCard(
-              title: 'Customers',
+              title: S.current.customers,
               icon: Ionicons.people_outline,
               change: analysisData.customersChange,
               value: analysisData.customers,
               type: StatusType.count,
             ),
             StatusCard(
-              title: 'Products Sold',
+              title: S.current.productsSold,
               icon: Ionicons.bag_handle_outline,
               change: analysisData.productsChange,
               value: analysisData.productsSold,
               type: StatusType.count,
             ),
             StatusCard(
-              title: 'Growth',
+              title: S.current.growth,
               icon: Ionicons.trending_up_outline,
               change: analysisData.growthChange,
               value: analysisData.growth,

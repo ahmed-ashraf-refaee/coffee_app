@@ -1,3 +1,4 @@
+import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/core/constants/analysis_constants.dart';
 import 'package:coffee_app/core/utils/text_styles.dart';
 import 'package:coffee_app/core/widgets/prettier_tap.dart';
@@ -12,6 +13,8 @@ class TopCategories extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = S.of(context);
+
     final totalRevenue = topCategories.fold<double>(
       0,
       (sum, item) => sum + (item.revenue),
@@ -38,7 +41,7 @@ class TopCategories extends StatelessWidget {
             spacing: 16,
             children: [
               Text(
-                'Top Categories',
+                l10n.topCategories,
                 style: TextStyles.bold16.copyWith(
                   color: context.colors.onSecondary,
                 ),
@@ -73,7 +76,6 @@ class TopCategories extends StatelessWidget {
                         ),
                       ),
                     ),
-
                     Expanded(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -109,7 +111,6 @@ class TopCategories extends StatelessWidget {
         ),
         const SizedBox(width: 8),
         Expanded(
-          // Add this
           child: Text(
             label,
             style: TextStyle(color: context.colors.onSecondary, fontSize: 13),

@@ -5,6 +5,7 @@ import 'package:coffee_app/core/widgets/custom_app_bar.dart';
 import 'package:coffee_app/core/widgets/custom_container.dart';
 import 'package:coffee_app/core/widgets/custom_icon_button.dart';
 import 'package:coffee_app/core/widgets/prettier_tap.dart';
+import 'package:coffee_app/core/widgets/title_subtitle.dart';
 import 'package:coffee_app/features/home/presentation/manager/home_filter_cubit/home_filter_cubit.dart';
 import 'package:coffee_app/features/profile/presentation/manager/locale_cubit/locale_cubit.dart';
 import 'package:coffee_app/features/profile/presentation/manager/theme_cubit/theme_cubit.dart';
@@ -71,12 +72,9 @@ class _LanguageSelectViewState extends State<LanguageSelectView> {
                   shrinkWrap: true,
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   children: [
-                    Center(
-                      child: Text(
-                        S.current.selectLanguage,
-                        style: TextStyles.bold32.copyWith(fontSize: 24),
-                        textAlign: TextAlign.center,
-                      ),
+                    TitleSubtitle(
+                      title: S.current.languageTitle,
+                      subtitle: S.current.languageSubtitle,
                     ),
                     const SizedBox(height: 16),
                     ...languagesList.map(

@@ -61,7 +61,7 @@ class LoadingHomeListItem extends StatelessWidget {
                       Text(
                         "100ML",
                         style: TextStyles.regular12.copyWith(
-                          color: context.colors.onSecondary.withAlpha(153),
+                          color: context.colors.onSecondary.withValues(alpha: 0.6),
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,

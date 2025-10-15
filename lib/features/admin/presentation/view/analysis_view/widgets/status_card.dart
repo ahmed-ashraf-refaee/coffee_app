@@ -1,6 +1,8 @@
+import 'package:coffee_app/core/utils/color_palette.dart';
 import 'package:coffee_app/core/utils/text_styles.dart';
 import 'package:coffee_app/core/widgets/custom_icon_button.dart';
 import 'package:coffee_app/core/widgets/prettier_tap.dart';
+import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
@@ -64,14 +66,18 @@ class StatusCard extends StatelessWidget {
                   isPositive
                       ? Ionicons.arrow_up_outline
                       : Ionicons.arrow_down_outline,
-                  color: isPositive ? Colors.green : Colors.red,
+                  color: isPositive
+                      ? ColorPalette.darkGreen
+                      : context.colors.error,
                   size: 16,
                 ),
                 const SizedBox(width: 4),
                 Text(
                   change.formatChange(),
                   style: TextStyles.regular15.copyWith(
-                    color: isPositive ? Colors.green : Colors.red,
+                    color: isPositive
+                        ? ColorPalette.darkGreen
+                        : context.colors.error,
                   ),
                 ),
               ],
@@ -88,18 +94,18 @@ extension ValueFormatExtension on num {
     switch (type) {
       case StatusType.money:
         if (this >= 1000000) {
-          return '\$${(this / 1000000).toStringAsFixed(this % 1000000 == 0 ? 0 : 1)}M';
+          return '${(this / 1000000).toStringAsFixed(this % 1000000 == 0 ? 0 : 1)} ${S.current.abbreviationM}';
         } else if (this >= 1000) {
-          return '\$${(this / 1000).toStringAsFixed(this % 1000 == 0 ? 0 : 1)}K';
+          return '${(this / 1000).toStringAsFixed(this % 1000 == 0 ? 0 : 1)} ${S.current.abbreviationK}';
         } else {
-          return '\$${toStringAsFixed(this == roundToDouble() ? 0 : 1)}';
+          return toStringAsFixed(this == roundToDouble() ? 0 : 1);
         }
 
       case StatusType.count:
         if (this >= 1000000) {
-          return '${(this / 1000000).toStringAsFixed(this % 1000000 == 0 ? 0 : 1)}M';
+          return '${(this / 1000000).toStringAsFixed(this % 1000000 == 0 ? 0 : 1)} ${S.current.abbreviationM} ';
         } else if (this >= 1000) {
-          return '${(this / 1000).toStringAsFixed(this % 1000 == 0 ? 0 : 1)}K';
+          return '${(this / 1000).toStringAsFixed(this % 1000 == 0 ? 0 : 1)} ${S.current.abbreviationK}';
         } else {
           return toStringAsFixed(this == roundToDouble() ? 0 : 1);
         }

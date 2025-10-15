@@ -24,8 +24,16 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "abbreviationK": MessageLookupByLibrary.simpleMessage("ألف"),
+    "abbreviationM": MessageLookupByLibrary.simpleMessage("مليون"),
     "add": MessageLookupByLibrary.simpleMessage("إضافة"),
+    "addAnotherVariant": MessageLookupByLibrary.simpleMessage("أضف نوعًا آخر"),
     "addPaymentMethod": MessageLookupByLibrary.simpleMessage("إضافة طريقة دفع"),
+    "addProductButton": MessageLookupByLibrary.simpleMessage("إضافة المنتج"),
+    "addProductSubtitle": MessageLookupByLibrary.simpleMessage(
+      "أنشئ منتجات جديدة وقم بتخصيص تفاصيلها",
+    ),
+    "addProductTitle": MessageLookupByLibrary.simpleMessage("إضافة منتج"),
     "addShippingAddress": MessageLookupByLibrary.simpleMessage(
       "إضافة عنوان شحن",
     ),
@@ -33,6 +41,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "already_have_account": MessageLookupByLibrary.simpleMessage(
       "هل لديك حساب بالفعل؟",
     ),
+    "analysisSubtitle": MessageLookupByLibrary.simpleMessage(
+      "تابع أداء المبيعات واتجاهات النمو",
+    ),
+    "analysisTitle": MessageLookupByLibrary.simpleMessage("لوحة التحليلات"),
     "app_name_first": MessageLookupByLibrary.simpleMessage("قهوة"),
     "app_name_second": MessageLookupByLibrary.simpleMessage("دروب"),
     "apply": MessageLookupByLibrary.simpleMessage("تطبيق"),
@@ -42,6 +54,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "badCertificate": MessageLookupByLibrary.simpleMessage(
       "شهادة غير صالحة (شهادة غير صحيحة).",
     ),
+    "categoryRequired": MessageLookupByLibrary.simpleMessage("يرجى اختيار فئة"),
     "change": MessageLookupByLibrary.simpleMessage("تغيير"),
     "checkout": MessageLookupByLibrary.simpleMessage("الدفع"),
     "codeMustBeSixDigits": MessageLookupByLibrary.simpleMessage(
@@ -61,6 +74,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "متابعة للدفع",
     ),
     "create_account": MessageLookupByLibrary.simpleMessage("إنشاء حساب جديد"),
+    "customers": MessageLookupByLibrary.simpleMessage("العملاء"),
     "cvv": MessageLookupByLibrary.simpleMessage("الرمز الأمني (CVV)"),
     "databaseError": MessageLookupByLibrary.simpleMessage(
       "حدث خطأ في قاعدة البيانات. حاول مرة أخرى.",
@@ -69,6 +83,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "duplicateRecord": MessageLookupByLibrary.simpleMessage(
       "هذا السجل موجود بالفعل.",
     ),
+    "egp": MessageLookupByLibrary.simpleMessage("ج.م"),
     "email": MessageLookupByLibrary.simpleMessage("البريد الإلكتروني"),
     "emailAlreadyRegistered": MessageLookupByLibrary.simpleMessage(
       "هذا البريد الإلكتروني مسجل بالفعل.",
@@ -112,7 +127,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "get_started_title": MessageLookupByLibrary.simpleMessage("ابدأ الآن!"),
     "google": MessageLookupByLibrary.simpleMessage("جوجل"),
+    "growth": MessageLookupByLibrary.simpleMessage("النمو"),
     "holderName": MessageLookupByLibrary.simpleMessage("اسم حامل البطاقة"),
+    "imageRequired": MessageLookupByLibrary.simpleMessage("يرجى اختيار صورة"),
     "internalServerError": MessageLookupByLibrary.simpleMessage(
       "خطأ داخلي في الخادم. حاول مرة أخرى.",
     ),
@@ -129,11 +146,19 @@ class MessageLookup extends MessageLookupByLibrary {
     "invalidOTP": MessageLookupByLibrary.simpleMessage(
       "رمز التحقق غير صحيح. يرجى المراجعة والمحاولة مرة أخرى.",
     ),
+    "isRequired": MessageLookupByLibrary.simpleMessage("مطلوب"),
+    "languageSubtitle": MessageLookupByLibrary.simpleMessage(
+      "اختر لغتك المفضلة لواجهة التطبيق",
+    ),
+    "languageTitle": MessageLookupByLibrary.simpleMessage("إعدادات اللغة"),
     "last_name": MessageLookupByLibrary.simpleMessage("اسم العائلة"),
     "linkExpired": MessageLookupByLibrary.simpleMessage(
       "انتهت صلاحية رابط إعادة التعيين. يرجى طلب رابط جديد.",
     ),
     "log_in": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
+    "maxVariantsReached": MessageLookupByLibrary.simpleMessage(
+      "الحد الأقصى هو ٣ خيارات فقط",
+    ),
     "minPassword": MessageLookupByLibrary.simpleMessage("على الأقل ٨ أحرف"),
     "month_apr": MessageLookupByLibrary.simpleMessage("أبريل"),
     "month_aug": MessageLookupByLibrary.simpleMessage("أغسطس"),
@@ -147,6 +172,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "month_nov": MessageLookupByLibrary.simpleMessage("نوفمبر"),
     "month_oct": MessageLookupByLibrary.simpleMessage("أكتوبر"),
     "month_sep": MessageLookupByLibrary.simpleMessage("سبتمبر"),
+    "mustBeNumber": MessageLookupByLibrary.simpleMessage("يجب أن يكون رقمًا"),
     "nameTooLong": MessageLookupByLibrary.simpleMessage("الاسم طويل جدًا"),
     "nameTooShort": MessageLookupByLibrary.simpleMessage("الاسم قصير جدًا"),
     "newCodeSent": MessageLookupByLibrary.simpleMessage(
@@ -154,6 +180,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "noInternetConnection": MessageLookupByLibrary.simpleMessage(
       "لا يوجد اتصال بالإنترنت.",
+    ),
+    "noSalesData": MessageLookupByLibrary.simpleMessage(
+      "لا توجد بيانات مبيعات متاحة",
     ),
     "notFound": MessageLookupByLibrary.simpleMessage("لم يتم العثور على طلبك."),
     "notReceivedYet": MessageLookupByLibrary.simpleMessage("لم تستلمه بعد؟"),
@@ -178,6 +207,23 @@ class MessageLookup extends MessageLookupByLibrary {
     "payWith": MessageLookupByLibrary.simpleMessage("طريقة الدفع"),
     "pleaseEnterCode": MessageLookupByLibrary.simpleMessage("يرجى إدخال الرمز"),
     "priceRange": MessageLookupByLibrary.simpleMessage("نطاق السعر"),
+    "productAddedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "تمت إضافة المنتج بنجاح",
+    ),
+    "productCategoryError": MessageLookupByLibrary.simpleMessage(
+      "يرجى اختيار فئة",
+    ),
+    "productCategoryHint": MessageLookupByLibrary.simpleMessage("اختر الفئة"),
+    "productDescriptionHint": MessageLookupByLibrary.simpleMessage(
+      "أدخل وصف المنتج",
+    ),
+    "productDescriptionLabel": MessageLookupByLibrary.simpleMessage("الوصف"),
+    "productDiscountHint": MessageLookupByLibrary.simpleMessage(
+      "الخصم (%) (اختياري)",
+    ),
+    "productNameHint": MessageLookupByLibrary.simpleMessage("أدخل اسم المنتج"),
+    "productNameLabel": MessageLookupByLibrary.simpleMessage("اسم المنتج"),
+    "productsSold": MessageLookupByLibrary.simpleMessage("المنتجات المباعة"),
     "profile_dark_mode": MessageLookupByLibrary.simpleMessage("الوضع الداكن"),
     "profile_edit_profile": MessageLookupByLibrary.simpleMessage(
       "تعديل الملف الشخصي",
@@ -221,6 +267,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "resetPasswordSuccess": MessageLookupByLibrary.simpleMessage(
       "تمت إعادة تعيين كلمة المرور بنجاح.",
     ),
+    "revenue": MessageLookupByLibrary.simpleMessage("الإيرادات"),
+    "salesTrend": MessageLookupByLibrary.simpleMessage("اتجاه المبيعات"),
     "samePasswordError": MessageLookupByLibrary.simpleMessage(
       "لا يمكنك استخدام نفس كلمة المرور القديمة مرة أخرى.",
     ),
@@ -260,12 +308,19 @@ class MessageLookup extends MessageLookupByLibrary {
     "sort_newest": MessageLookupByLibrary.simpleMessage("الأحدث"),
     "sort_oldest": MessageLookupByLibrary.simpleMessage("الأقدم"),
     "sort_topRated": MessageLookupByLibrary.simpleMessage("الأعلى تقييمًا"),
+    "stockManagerSubtitle": MessageLookupByLibrary.simpleMessage(
+      "تتبع المخزون وحدّث توافر المنتجات",
+    ),
+    "stockManagerTitle": MessageLookupByLibrary.simpleMessage("إدارة المخزون"),
     "sub_total": MessageLookupByLibrary.simpleMessage("المجموع الفرعي:"),
     "syntaxError": MessageLookupByLibrary.simpleMessage(
       "هناك مشكلة في استعلام قاعدة البيانات.",
     ),
     "tooLong": MessageLookupByLibrary.simpleMessage("طويل جدًا"),
     "tooShort": MessageLookupByLibrary.simpleMessage("قصير جدًا"),
+    "topCategories": MessageLookupByLibrary.simpleMessage(
+      "الفئات الأكثر مبيعًا",
+    ),
     "total_price": MessageLookupByLibrary.simpleMessage("إجمالي السعر:"),
     "unauthorizedRequest": MessageLookupByLibrary.simpleMessage(
       "طلب غير مصرح به.",
@@ -275,6 +330,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "unexpectedServerError": MessageLookupByLibrary.simpleMessage(
       "حدث خطأ غير متوقع في الخادم.",
+    ),
+    "uploadProductImage": MessageLookupByLibrary.simpleMessage(
+      "قم بتحميل صورة المنتج",
     ),
     "userEmailNotFound": MessageLookupByLibrary.simpleMessage(
       "المستخدم بالبريد الإلكتروني المقدم غير موجود.",
@@ -286,6 +344,20 @@ class MessageLookup extends MessageLookupByLibrary {
     "valueTooLong": MessageLookupByLibrary.simpleMessage(
       "القيمة المدخلة طويلة جدًا.",
     ),
+    "variantLabel": MessageLookupByLibrary.simpleMessage("النوع"),
+    "variantPriceHint": MessageLookupByLibrary.simpleMessage(
+      "السعر (مثل 9.99)",
+    ),
+    "variantPriceLabel": MessageLookupByLibrary.simpleMessage("السعر"),
+    "variantQuantityHint": MessageLookupByLibrary.simpleMessage(
+      "الكمية في المخزون",
+    ),
+    "variantQuantityLabel": MessageLookupByLibrary.simpleMessage("الكمية"),
+    "variantSizeHint": MessageLookupByLibrary.simpleMessage(
+      "الحجم (مثل صغير، متوسط)",
+    ),
+    "variantSizeLabel": MessageLookupByLibrary.simpleMessage("الحجم"),
+    "variantsTitle": MessageLookupByLibrary.simpleMessage("الأنواع"),
     "verificationEmailSent": MessageLookupByLibrary.simpleMessage(
       "تم إرسال بريد التحقق. يرجى التحقق من صندوق الوارد.",
     ),

@@ -34,7 +34,7 @@ class CategoriesListItem extends StatelessWidget {
                   style: TextStyles.regular16.copyWith(
                     color: selected
                         ? context.colors.onSurface
-                        : context.colors.onSecondary.withAlpha(153),
+                        : context.colors.onSecondary.withValues(alpha: 0.6),
                   ),
                 ),
               ),

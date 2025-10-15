@@ -8,7 +8,7 @@ Widget buildSuffixIconWithDivider(BuildContext context, Widget suffix) {
       Container(
         width: 1,
         height: 38,
-        color: context.colors.onSecondary.withAlpha(102),
+        color: context.colors.onSecondary.withValues(alpha: 0.4),
       ),
       suffix,
     ],

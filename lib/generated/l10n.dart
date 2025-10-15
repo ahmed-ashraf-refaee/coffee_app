@@ -1274,6 +1274,366 @@ class S {
   String get month_dec {
     return Intl.message('Dec', name: 'month_dec', desc: '', args: []);
   }
+
+  /// `EGP`
+  String get egp {
+    return Intl.message('EGP', name: 'egp', desc: '', args: []);
+  }
+
+  /// `Stock Manager`
+  String get stockManagerTitle {
+    return Intl.message(
+      'Stock Manager',
+      name: 'stockManagerTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Track inventory and update product availability`
+  String get stockManagerSubtitle {
+    return Intl.message(
+      'Track inventory and update product availability',
+      name: 'stockManagerSubtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Analytics Dashboard`
+  String get analysisTitle {
+    return Intl.message(
+      'Analytics Dashboard',
+      name: 'analysisTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Monitor sales performance and growth trends`
+  String get analysisSubtitle {
+    return Intl.message(
+      'Monitor sales performance and growth trends',
+      name: 'analysisSubtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add Product`
+  String get addProductTitle {
+    return Intl.message(
+      'Add Product',
+      name: 'addProductTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create new products and customize their details`
+  String get addProductSubtitle {
+    return Intl.message(
+      'Create new products and customize their details',
+      name: 'addProductSubtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Language Settings`
+  String get languageTitle {
+    return Intl.message(
+      'Language Settings',
+      name: 'languageTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose your preferred language for the app interface`
+  String get languageSubtitle {
+    return Intl.message(
+      'Choose your preferred language for the app interface',
+      name: 'languageSubtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `is required`
+  String get isRequired {
+    return Intl.message('is required', name: 'isRequired', desc: '', args: []);
+  }
+
+  /// `must be a number`
+  String get mustBeNumber {
+    return Intl.message(
+      'must be a number',
+      name: 'mustBeNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Maximum of 3 variants allowed`
+  String get maxVariantsReached {
+    return Intl.message(
+      'Maximum of 3 variants allowed',
+      name: 'maxVariantsReached',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please select an image`
+  String get imageRequired {
+    return Intl.message(
+      'Please select an image',
+      name: 'imageRequired',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please select a category`
+  String get categoryRequired {
+    return Intl.message(
+      'Please select a category',
+      name: 'categoryRequired',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Product added successfully`
+  String get productAddedSuccessfully {
+    return Intl.message(
+      'Product added successfully',
+      name: 'productAddedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add Product`
+  String get addProductButton {
+    return Intl.message(
+      'Add Product',
+      name: 'addProductButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Variants`
+  String get variantsTitle {
+    return Intl.message('Variants', name: 'variantsTitle', desc: '', args: []);
+  }
+
+  /// `Variant`
+  String get variantLabel {
+    return Intl.message('Variant', name: 'variantLabel', desc: '', args: []);
+  }
+
+  /// `Size`
+  String get variantSizeLabel {
+    return Intl.message('Size', name: 'variantSizeLabel', desc: '', args: []);
+  }
+
+  /// `Size (e.g. Small, Medium)`
+  String get variantSizeHint {
+    return Intl.message(
+      'Size (e.g. Small, Medium)',
+      name: 'variantSizeHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Price`
+  String get variantPriceLabel {
+    return Intl.message('Price', name: 'variantPriceLabel', desc: '', args: []);
+  }
+
+  /// `Price (e.g. 9.99)`
+  String get variantPriceHint {
+    return Intl.message(
+      'Price (e.g. 9.99)',
+      name: 'variantPriceHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Quantity`
+  String get variantQuantityLabel {
+    return Intl.message(
+      'Quantity',
+      name: 'variantQuantityLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Quantity (in stock)`
+  String get variantQuantityHint {
+    return Intl.message(
+      'Quantity (in stock)',
+      name: 'variantQuantityHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Product Name`
+  String get productNameLabel {
+    return Intl.message(
+      'Product Name',
+      name: 'productNameLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter product name`
+  String get productNameHint {
+    return Intl.message(
+      'Enter product name',
+      name: 'productNameHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Description`
+  String get productDescriptionLabel {
+    return Intl.message(
+      'Description',
+      name: 'productDescriptionLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter product description`
+  String get productDescriptionHint {
+    return Intl.message(
+      'Enter product description',
+      name: 'productDescriptionHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select Category`
+  String get productCategoryHint {
+    return Intl.message(
+      'Select Category',
+      name: 'productCategoryHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please select a category`
+  String get productCategoryError {
+    return Intl.message(
+      'Please select a category',
+      name: 'productCategoryError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Discount (%) (optional)`
+  String get productDiscountHint {
+    return Intl.message(
+      'Discount (%) (optional)',
+      name: 'productDiscountHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Upload product image`
+  String get uploadProductImage {
+    return Intl.message(
+      'Upload product image',
+      name: 'uploadProductImage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add another variant`
+  String get addAnotherVariant {
+    return Intl.message(
+      'Add another variant',
+      name: 'addAnotherVariant',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Top Categories`
+  String get topCategories {
+    return Intl.message(
+      'Top Categories',
+      name: 'topCategories',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sales Trend`
+  String get salesTrend {
+    return Intl.message('Sales Trend', name: 'salesTrend', desc: '', args: []);
+  }
+
+  /// `No sales data available`
+  String get noSalesData {
+    return Intl.message(
+      'No sales data available',
+      name: 'noSalesData',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Revenue`
+  String get revenue {
+    return Intl.message('Revenue', name: 'revenue', desc: '', args: []);
+  }
+
+  /// `Customers`
+  String get customers {
+    return Intl.message('Customers', name: 'customers', desc: '', args: []);
+  }
+
+  /// `Products Sold`
+  String get productsSold {
+    return Intl.message(
+      'Products Sold',
+      name: 'productsSold',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Growth`
+  String get growth {
+    return Intl.message('Growth', name: 'growth', desc: '', args: []);
+  }
+
+  /// `K`
+  String get abbreviationK {
+    return Intl.message('K', name: 'abbreviationK', desc: '', args: []);
+  }
+
+  /// `M`
+  String get abbreviationM {
+    return Intl.message('M', name: 'abbreviationM', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

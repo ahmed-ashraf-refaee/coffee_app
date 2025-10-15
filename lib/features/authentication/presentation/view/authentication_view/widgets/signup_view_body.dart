@@ -9,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../../core/utils/text_styles.dart';
 import '../../../../../../core/widgets/custom_elevated_button.dart';
 import 'auth_suggestion.dart';
-import '../../widgets/auth_title.dart';
+import '../../../../../../core/widgets/title_subtitle.dart';
 
 class SignupViewBody extends StatefulWidget {
   const SignupViewBody({super.key, required this.toggleAuthMode});
@@ -46,7 +46,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
       mainAxisSize: MainAxisSize.max,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        AuthTitle(
+        TitleSubtitle(
           title: S.current.get_started_title,
           subtitle: S.current.get_started_subtitle,
         ),

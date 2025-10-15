@@ -5,7 +5,7 @@ import 'package:coffee_app/core/widgets/animated_icon_switch.dart';
 import 'package:coffee_app/core/widgets/custom_elevated_button.dart';
 import 'package:coffee_app/features/authentication/presentation/manager/auth_bloc/auth_bloc.dart';
 import 'package:coffee_app/features/authentication/presentation/view/authentication_view/widgets/build_suffix_icon_with_divider.dart';
-import 'package:coffee_app/features/authentication/presentation/view/widgets/auth_title.dart';
+import 'package:coffee_app/core/widgets/title_subtitle.dart';
 import 'package:coffee_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -43,7 +43,7 @@ class _ChangePasswordViewBodyState extends State<ChangePasswordViewBody> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          AuthTitle(
+          TitleSubtitle(
             title: S.current.setPassword,
             subtitle: S.current.setPasswordSubtitle,
           ),
@@ -132,7 +132,7 @@ class _ChangePasswordViewBodyState extends State<ChangePasswordViewBody> {
 
                 child: Text(
                   S.current.setPasswordButton,
-                  style: TextStyles.medium20
+                  style: TextStyles.medium20,
                 ),
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {

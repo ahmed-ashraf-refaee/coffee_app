@@ -133,7 +133,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                       child: Text(
                         onboardingData[index]['title']!,
 
-                        style: TextStyles.bold32.copyWith(
+                        style: TextStyles.bold28.copyWith(
                           color: context.colors.onPrimary,
                         ),
                       ),
@@ -153,7 +153,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                         onboardingData[index]['subtitle']!,
                         textAlign: TextAlign.center,
                         style: TextStyles.bold20.copyWith(
-                          color: context.colors.onPrimary.withAlpha(200),
+                          color: context.colors.onPrimary.withValues(alpha: 85),
                         ),
                       ),
                     ),
@@ -169,7 +169,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                     Text(
                       onboardingData[index]['title']!,
                       textAlign: TextAlign.center,
-                      style: TextStyles.bold32.copyWith(
+                      style: TextStyles.bold28.copyWith(
                         color: context.colors.onPrimary,
                       ),
                     ),
@@ -178,7 +178,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                       onboardingData[index]['subtitle']!,
                       textAlign: TextAlign.center,
                       style: TextStyles.bold20.copyWith(
-                        color: context.colors.onPrimary.withAlpha(200),
+                        color: context.colors.onPrimary.withValues(alpha: 85),
                       ),
                     ),
                   ],
@@ -195,7 +195,10 @@ class _OnboardingViewState extends State<OnboardingView> {
               gradient: LinearGradient(
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
-                colors: [Colors.black.withAlpha(170), Colors.transparent],
+                colors: [
+                  Colors.black.withValues(alpha: 70),
+                  Colors.transparent,
+                ],
               ),
             ),
           ),
@@ -212,7 +215,10 @@ class _OnboardingViewState extends State<OnboardingView> {
               gradient: LinearGradient(
                 begin: Alignment.centerRight,
                 end: Alignment.centerLeft,
-                colors: [Colors.black.withAlpha(170), Colors.transparent],
+                colors: [
+                  Colors.black.withValues(alpha: 70),
+                  Colors.transparent,
+                ],
               ),
             ),
           ),

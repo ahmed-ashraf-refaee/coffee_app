@@ -1,3 +1,4 @@
+import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 
@@ -19,8 +20,11 @@ class AddVariantButton extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Text(
-          "Add another variant",
-          style: TextStyles.medium16.copyWith(color: context.colors.primary),
+          S.current.addAnotherVariant,
+          style: TextStyles.medium16.copyWith(
+            color: context.colors.primary,
+            fontSize: 14,
+          ),
         ),
       ),
     );

@@ -5,7 +5,7 @@ import 'package:coffee_app/core/widgets/custom_elevated_button.dart';
 import 'package:coffee_app/core/widgets/custom_icon_button.dart';
 import 'package:coffee_app/features/authentication/presentation/manager/auth_bloc/auth_bloc.dart';
 import 'package:coffee_app/features/authentication/presentation/view/forgot_password_view/forgot_password_view.dart';
-import 'package:coffee_app/features/authentication/presentation/view/widgets/auth_title.dart';
+import 'package:coffee_app/core/widgets/title_subtitle.dart';
 import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +52,7 @@ class _SendEmailViewBodyState extends State<SendEmailViewBody> {
             ),
           ),
         ),
-        AuthTitle(
+        TitleSubtitle(
           title: S.current.resetPassword,
           subtitle: S.current.resetPasswordSubtitle,
         ),
@@ -91,10 +91,7 @@ class _SendEmailViewBodyState extends State<SendEmailViewBody> {
             return CustomElevatedButton(
               isLoading: state is AuthLoading,
 
-              child: Text(
-                S.current.sendEmail,
-                style: TextStyles.medium20
-              ),
+              child: Text(S.current.sendEmail, style: TextStyles.medium20),
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   final email = emailController.text.trim();

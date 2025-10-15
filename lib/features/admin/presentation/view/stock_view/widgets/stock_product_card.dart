@@ -1,4 +1,5 @@
 import 'package:coffee_app/core/model/product_model.dart';
+import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
@@ -61,7 +62,7 @@ class StockProductCard extends StatelessWidget {
               Row(
                 children: [
                   CustomElevatedButton(
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 12),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 8),
                     onPressed: () {
                       editProductOverlay(
                         context,
@@ -69,10 +70,11 @@ class StockProductCard extends StatelessWidget {
                         onSave: () {},
                       );
                     },
+                    
                     height: 34,
-                    width: 86,
+                    width: 78,
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         const Text("Edit", style: TextStyles.bold14),
                         Icon(
@@ -97,7 +99,7 @@ class StockProductCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Variants",
+                S.current.variantsTitle,
                 style: TextStyles.bold14.copyWith(
                   color: context.colors.onSurface,
                 ),
@@ -141,7 +143,7 @@ class StockProductCard extends StatelessWidget {
                           _buildInfoColumn(
                             context,
                             'Price',
-                            '\$${variant.price.toStringAsFixed(2)}',
+                            variant.price.toStringAsFixed(2) + S.current.egp,
                           ),
                         ],
                       ),

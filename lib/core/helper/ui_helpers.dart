@@ -70,8 +70,8 @@ class UiHelpers {
   }
 
   static ShimmerEffect customShimmer(BuildContext context) => ShimmerEffect(
-    baseColor: context.colors.onSecondary.withAlpha(5),
-    highlightColor: context.colors.onSecondary.withAlpha(30),
+    baseColor: context.colors.onSecondary.withValues(alpha: 0.05),
+    highlightColor: context.colors.onSecondary.withValues(alpha: 0.15),
   );
 
   static Future<void> showOverlay({

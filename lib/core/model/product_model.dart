@@ -7,6 +7,7 @@ class ProductModel {
   final String description;
   final double discount;
   final double rating;
+  final int numberOfRatings;
   final int categoryId;
   final String imageUrl;
   final DateTime createdAt;
@@ -19,6 +20,7 @@ class ProductModel {
     required this.description,
     required this.discount,
     required this.rating,
+    required this.numberOfRatings,
     required this.categoryId,
     required this.imageUrl,
     required this.productVariants,
@@ -36,6 +38,7 @@ class ProductModel {
       description: translation['description'] as String,
       discount: (json['discount'] as num).toDouble(),
       rating: (json['rating'] as num).toDouble(),
+      numberOfRatings: json['num_ratings'] as int,
       categoryId: json['category_id'],
       imageUrl: json['image_url'],
       createdAt: DateTime.parse(json['created_at'] ?? DateTime.now()),

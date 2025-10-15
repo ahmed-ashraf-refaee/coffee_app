@@ -8,7 +8,7 @@ import 'package:coffee_app/core/widgets/custom_icon_button.dart';
 import 'package:coffee_app/core/widgets/prettier_tap.dart';
 import 'package:coffee_app/features/authentication/presentation/manager/auth_bloc/auth_bloc.dart';
 import 'package:coffee_app/features/authentication/presentation/view/forgot_password_view/forgot_password_view.dart';
-import 'package:coffee_app/features/authentication/presentation/view/widgets/auth_title.dart';
+import 'package:coffee_app/core/widgets/title_subtitle.dart';
 import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
@@ -80,7 +80,7 @@ class _VerifyEmailViewBodyState extends State<VerifyEmailViewBody> {
           ),
         ),
 
-        AuthTitle(
+        TitleSubtitle(
           title: S.current.enterVerificationCode,
           subtitle: S.current.enterVerificationCodeSubtitle,
         ),
@@ -139,7 +139,7 @@ class _VerifyEmailViewBodyState extends State<VerifyEmailViewBody> {
             Text(
               S.current.notReceivedYet,
               style: TextStyles.bold14.copyWith(
-                color: context.colors.onSecondary.withAlpha(153),
+                color: context.colors.onSecondary.withValues(alpha: 0.6),
               ),
               textAlign: TextAlign.center,
             ),
@@ -200,10 +200,7 @@ class _VerifyEmailViewBodyState extends State<VerifyEmailViewBody> {
             return CustomElevatedButton(
               isLoading: state is AuthLoading,
 
-              child: Text(
-                S.current.verify,
-                style: TextStyles.medium20
-              ),
+              child: Text(S.current.verify, style: TextStyles.medium20),
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   BlocProvider.of<AuthBloc>(context).add(

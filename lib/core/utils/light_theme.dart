@@ -6,7 +6,7 @@ import 'text_styles.dart';
 ThemeData lightTheme = ThemeData(
   colorScheme: light,
   scaffoldBackgroundColor: light.surface,
-  dividerTheme: DividerThemeData(color: light.onSecondary.withAlpha(102)),
+  dividerTheme: DividerThemeData(color: light.onSecondary.withValues(alpha: 0.4)),
   checkboxTheme: CheckboxThemeData(
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2)),
     side: WidgetStateBorderSide.resolveWith((states) {
@@ -30,7 +30,7 @@ ThemeData lightTheme = ThemeData(
   ),
   textSelectionTheme: TextSelectionThemeData(
     cursorColor: light.primary,
-    selectionColor: light.primary.withAlpha(102),
+    selectionColor: light.primary.withValues(alpha: 0.4),
     selectionHandleColor: light.primary,
   ),
   textTheme: GoogleFonts.poppinsTextTheme(ThemeData.light().textTheme).apply(
@@ -50,14 +50,14 @@ ThemeData lightTheme = ThemeData(
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
     fillColor: light.secondary,
-    suffixIconColor: light.onSecondary.withAlpha(153),
-    prefixIconColor: light.onSecondary.withAlpha(102),
+    suffixIconColor: light.onSecondary.withValues(alpha: 0.6),
+    prefixIconColor: light.onSecondary.withValues(alpha: 0.4),
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(12),
       borderSide: BorderSide.none,
     ),
     hintStyle: TextStyles.bold16.copyWith(
-      color: light.onSecondary.withAlpha(102),
+      color: light.onSecondary.withValues(alpha: 0.4),
     ),
     contentPadding: const EdgeInsets.symmetric(vertical: 16),
   ),

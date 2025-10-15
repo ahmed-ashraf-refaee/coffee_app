@@ -1,12 +1,15 @@
+import 'package:coffee_app/core/model/product_model.dart';
 import 'package:coffee_app/core/utils/app_router.dart';
 import 'package:coffee_app/core/utils/text_styles.dart';
 import 'package:coffee_app/core/widgets/custom_icon_button.dart';
 import 'package:coffee_app/core/widgets/custom_rounded_images.dart';
 import 'package:coffee_app/core/widgets/prettier_tap.dart';
-import 'package:coffee_app/core/model/product_model.dart';
+import 'package:coffee_app/core/widgets/price_text.dart';
 import 'package:coffee_app/features/home/presentation/view/home_view/widgets/custom_home_list_item_clipper.dart';
+import 'package:coffee_app/features/profile/presentation/manager/theme_cubit/theme_cubit.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
 
@@ -14,11 +17,16 @@ class HomeListItem extends StatelessWidget {
   final ProductModel product;
 
   const HomeListItem({super.key, required this.product});
+
   @override
   Widget build(BuildContext context) {
     void onPressed(Map<String, dynamic> extra) {
       GoRouter.of(context).push(AppRouter.kDetailsView, extra: extra);
     }
+
+    final bool isSoldOut = product.productVariants.every(
+      (v) => v.quantity == 0,
+    );
 
     return PrettierTap(
       shrink: 1,
@@ -42,62 +50,118 @@ class HomeListItem extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.only(
+                  left: 16,
+                  right: 16,
+                  top: 16,
+                  bottom: 8,
+                ),
                 child: Column(
-                  spacing: 6,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Hero(
-                      tag: "${product.id}_normalProduct",
-                      child: CustomRoundedImage(
-                        imageUrl: product.imageUrl,
-                        aspectRatio: 4 / 3,
-                        width: context.width,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
+                    Stack(
+                      children: [
+                        Hero(
+                          tag: "${product.id}_normalProduct",
+                          child: CustomRoundedImage(
+                            imageUrl: product.imageUrl,
+                            aspectRatio: 4 / 3,
+                            width: context.width,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        if (isSoldOut)
+                          AspectRatio(
+                            aspectRatio: 4 / 3,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: context.colors.surface.withValues(
+                                  alpha: context.read<ThemeCubit>().isDark
+                                      ? 0.85
+                                      : 0.6,
+                                ),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              alignment: Alignment.center,
+                              child: Text(
+                                "SOLD OUT",
+                                style: TextStyles.bold20.copyWith(
+                                  color: context.colors.error,
+                                  letterSpacing: 1.2,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                      ],
                     ),
+                    const SizedBox(height: 6),
                     Text(
                       product.name,
                       style: TextStyles.bold16,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    Text(
-                      product.productVariants[0].size,
-                      style: TextStyles.regular12.copyWith(
-                        color: context.colors.onSecondary.withAlpha(153),
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+                    const SizedBox(height: 2),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      spacing: 4,
+                      children: [
+                        Text(product.rating.toStringAsFixed(1)),
+                        Icon(
+                          Ionicons.star,
+                          color: context.colors.primary,
+                          size: 14,
+                        ),
+                        Text(
+                          '(${product.numberOfRatings.toString()})',
+                          style: TextStyles.regular12.copyWith(
+                            color: context.colors.onSecondary.withValues(
+                              alpha: 0.6,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                     const Spacer(),
-                    RichText(
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      text: TextSpan(
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: "\$",
-                            style: TextStyles.regular15.copyWith(
-                              color: context.colors.primary,
-                            ),
-                          ),
-                          TextSpan(
-                            text: product.productVariants[0].price
-                                .toStringAsFixed(2),
-                            style: TextStyles.regular22.copyWith(
-                              color: context.colors.primary,
-                            ),
-                          ),
-                        ],
-                      ),
+                    PriceText(
+                      price: product.productVariants[0].price,
+                      discount: product.discount,
                     ),
                   ],
                 ),
               ),
             ),
           ),
+          if (product.discount > 0)
+            Align(
+              alignment: context.isArabic
+                  ? Alignment.topRight
+                  : Alignment.topLeft,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Transform.flip(
+                    flipX: !context.isArabic,
+                    child: Icon(
+                      Ionicons.pricetag,
+                      size: 48,
+                      color: context.colors.primary,
+                    ),
+                  ),
+                  Transform.rotate(
+                    angle: context.isArabic ? -0.785398 : 0.785398,
+                    child: Text(
+                      '${product.discount.toStringAsFixed(0)}%',
+                      style: TextStyles.bold14.copyWith(
+                        color: context.colors.onPrimary,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           Align(
             alignment: context.isArabic
                 ? Alignment.bottomLeft

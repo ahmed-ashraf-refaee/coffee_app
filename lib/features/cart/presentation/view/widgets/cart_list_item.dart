@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:ionicons/ionicons.dart';
-
 import '../../../../../core/utils/text_styles.dart';
 import '../../../../../core/widgets/custom_rounded_images.dart';
 import '../../../../../core/widgets/prettier_tap.dart';
@@ -16,36 +15,66 @@ class CartListItem extends StatelessWidget {
   final CartItemModel cartItem;
 
   const CartListItem({super.key, required this.cartItem});
+
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(12),
       child: Slidable(
+        key: ValueKey(cartItem.id),
         endActionPane: ActionPane(
           extentRatio: 0.3,
-          motion: const DrawerMotion(),
+          motion: const ScrollMotion(),
+          dismissible: DismissiblePane(
+            onDismissed: () {
+              context.read<CartCubit>().removeItem(cartItemId: cartItem.id);
+            },
+          ),
           children: [
-            CustomSlidableAction(
-              backgroundColor: context.colors.primary,
-              foregroundColor: context.colors.onPrimary,
-              onPressed: (BuildContext context) {},
-              child: CustomIconButton(
-                hight: 56,
-                width: 56,
-                onPressed: () {
-                  BlocProvider.of<CartCubit>(
-                    context,
-                  ).removeItem(cartItemId: cartItem.id);
-                  Slidable.of(context)?.close();
-                },
-                child: Icon(
-                  Ionicons.bag_remove_outline,
-                  color: context.colors.primary,
-                ),
-              ),
+            Builder(
+              builder: (slidableContext) {
+                return CustomSlidableAction(
+                  backgroundColor: context.colors.primary,
+                  foregroundColor: context.colors.onPrimary,
+                  onPressed: (_) async {
+                    final slidable = Slidable.of(slidableContext);
+                    slidable?.dismiss(
+                      ResizeRequest(const Duration(milliseconds: 300), () {
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          BlocProvider.of<CartCubit>(
+                            slidableContext,
+                          ).removeItem(cartItemId: cartItem.id);
+                        });
+                      }),
+                    );
+                  },
+                  child: CustomIconButton(
+                    
+                    hight: 56,
+                    width: 56,
+                    onPressed: () async {
+                      final slidable = Slidable.of(slidableContext);
+                      slidable?.dismiss(
+                        ResizeRequest(const Duration(milliseconds: 300), () {
+                          WidgetsBinding.instance.addPostFrameCallback((_) {
+                            BlocProvider.of<CartCubit>(
+                              context,
+                            ).removeItem(cartItemId: cartItem.id);
+                          });
+                        }),
+                      );
+                    },
+                    child: Icon(
+                      Ionicons.bag_remove_outline,
+                      color: context.colors.primary,
+                    ),
+                  ),
+                );
+              },
             ),
           ],
         ),
+
         child: PrettierTap(
           shrink: 1,
           onPressed: () {},
@@ -66,7 +95,6 @@ class CartListItem extends StatelessWidget {
                     width: 124,
                     borderRadius: BorderRadius.circular(8),
                   ),
-
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -80,7 +108,7 @@ class CartListItem extends StatelessWidget {
                         Text(
                           cartItem.productVariant!.size,
                           style: TextStyles.regular12.copyWith(
-                            color: context.colors.onSecondary.withAlpha(153),
+                            color: context.colors.onSecondary.withValues(alpha: 0.6),
                           ),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,

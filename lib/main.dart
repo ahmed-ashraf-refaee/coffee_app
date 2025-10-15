@@ -106,11 +106,3 @@ extension LocaleExtension on BuildContext {
 extension ColorSchemeExtension on BuildContext {
   ColorScheme get colors => Theme.of(this).colorScheme;
 }
-
-extension ThemeModeX on ThemeMode {
-  bool isDark(BuildContext context) {
-    final brightness = MediaQuery.of(context).platformBrightness;
-    return this == ThemeMode.dark ||
-        (this == ThemeMode.system && brightness == Brightness.dark);
-  }
-}

@@ -91,7 +91,9 @@ class WishlistListItem extends StatelessWidget {
                         Text(
                           product.productVariants[0].size,
                           style: TextStyles.regular12.copyWith(
-                            color: context.colors.onSecondary.withAlpha(153),
+                            color: context.colors.onSecondary.withValues(
+                              alpha: 60,
+                            ),
                           ),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,

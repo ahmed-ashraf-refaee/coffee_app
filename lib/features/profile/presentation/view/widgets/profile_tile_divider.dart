@@ -1,3 +1,4 @@
+import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 
 class ProfileTileDivider extends StatelessWidget {
@@ -6,7 +7,7 @@ class ProfileTileDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Divider(
-      color: const Color(0xff5D6165).withAlpha((85 * 255 / 100).toInt()),
+      color: context.colors.onSecondary.withValues(alpha: 85),
       indent: 16,
       endIndent: 16,
       thickness: 1,

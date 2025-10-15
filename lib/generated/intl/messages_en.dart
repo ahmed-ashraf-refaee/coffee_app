@@ -24,16 +24,32 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "abbreviationK": MessageLookupByLibrary.simpleMessage("K"),
+    "abbreviationM": MessageLookupByLibrary.simpleMessage("M"),
     "add": MessageLookupByLibrary.simpleMessage("Add"),
+    "addAnotherVariant": MessageLookupByLibrary.simpleMessage(
+      "Add another variant",
+    ),
     "addPaymentMethod": MessageLookupByLibrary.simpleMessage(
       "Add payment method",
     ),
+    "addProductButton": MessageLookupByLibrary.simpleMessage("Add Product"),
+    "addProductSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Create new products and customize their details",
+    ),
+    "addProductTitle": MessageLookupByLibrary.simpleMessage("Add Product"),
     "addShippingAddress": MessageLookupByLibrary.simpleMessage(
       "Add shipping address",
     ),
     "all": MessageLookupByLibrary.simpleMessage("All"),
     "already_have_account": MessageLookupByLibrary.simpleMessage(
       "Already have an account?",
+    ),
+    "analysisSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Monitor sales performance and growth trends",
+    ),
+    "analysisTitle": MessageLookupByLibrary.simpleMessage(
+      "Analytics Dashboard",
     ),
     "app_name_first": MessageLookupByLibrary.simpleMessage("Coffee"),
     "app_name_second": MessageLookupByLibrary.simpleMessage("Drop"),
@@ -43,6 +59,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "badCertificate": MessageLookupByLibrary.simpleMessage(
       "Bad certificate (incorrect certificate).",
+    ),
+    "categoryRequired": MessageLookupByLibrary.simpleMessage(
+      "Please select a category",
     ),
     "change": MessageLookupByLibrary.simpleMessage("change"),
     "checkout": MessageLookupByLibrary.simpleMessage("Checkout"),
@@ -63,6 +82,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Continue with payment",
     ),
     "create_account": MessageLookupByLibrary.simpleMessage("Create an Account"),
+    "customers": MessageLookupByLibrary.simpleMessage("Customers"),
     "cvv": MessageLookupByLibrary.simpleMessage("CVV"),
     "databaseError": MessageLookupByLibrary.simpleMessage(
       "A database error occurred. Please try again.",
@@ -73,6 +93,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "duplicateRecord": MessageLookupByLibrary.simpleMessage(
       "This record already exists.",
     ),
+    "egp": MessageLookupByLibrary.simpleMessage("EGP"),
     "email": MessageLookupByLibrary.simpleMessage("Email"),
     "emailAlreadyRegistered": MessageLookupByLibrary.simpleMessage(
       "This email is already registered.",
@@ -112,7 +133,11 @@ class MessageLookup extends MessageLookupByLibrary {
       "Get Started Now!",
     ),
     "google": MessageLookupByLibrary.simpleMessage("Google"),
+    "growth": MessageLookupByLibrary.simpleMessage("Growth"),
     "holderName": MessageLookupByLibrary.simpleMessage("Card Holder Name"),
+    "imageRequired": MessageLookupByLibrary.simpleMessage(
+      "Please select an image",
+    ),
     "internalServerError": MessageLookupByLibrary.simpleMessage(
       "Internal server error. Please try again.",
     ),
@@ -129,11 +154,19 @@ class MessageLookup extends MessageLookupByLibrary {
     "invalidOTP": MessageLookupByLibrary.simpleMessage(
       "Invalid OTP code. Please check and try again.",
     ),
+    "isRequired": MessageLookupByLibrary.simpleMessage("is required"),
+    "languageSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Choose your preferred language for the app interface",
+    ),
+    "languageTitle": MessageLookupByLibrary.simpleMessage("Language Settings"),
     "last_name": MessageLookupByLibrary.simpleMessage("Last Name"),
     "linkExpired": MessageLookupByLibrary.simpleMessage(
       "This reset link has expired. Please request a new one.",
     ),
     "log_in": MessageLookupByLibrary.simpleMessage("Log In"),
+    "maxVariantsReached": MessageLookupByLibrary.simpleMessage(
+      "Maximum of 3 variants allowed",
+    ),
     "minPassword": MessageLookupByLibrary.simpleMessage(
       "At least 8 characters",
     ),
@@ -149,6 +182,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "month_nov": MessageLookupByLibrary.simpleMessage("Nov"),
     "month_oct": MessageLookupByLibrary.simpleMessage("Oct"),
     "month_sep": MessageLookupByLibrary.simpleMessage("Sep"),
+    "mustBeNumber": MessageLookupByLibrary.simpleMessage("must be a number"),
     "nameTooLong": MessageLookupByLibrary.simpleMessage("Name too long"),
     "nameTooShort": MessageLookupByLibrary.simpleMessage("Name too short"),
     "newCodeSent": MessageLookupByLibrary.simpleMessage(
@@ -156,6 +190,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "noInternetConnection": MessageLookupByLibrary.simpleMessage(
       "No internet connection.",
+    ),
+    "noSalesData": MessageLookupByLibrary.simpleMessage(
+      "No sales data available",
     ),
     "notFound": MessageLookupByLibrary.simpleMessage(
       "Your request was not found.",
@@ -184,6 +221,29 @@ class MessageLookup extends MessageLookupByLibrary {
       "Please enter the code",
     ),
     "priceRange": MessageLookupByLibrary.simpleMessage("Price range"),
+    "productAddedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "Product added successfully",
+    ),
+    "productCategoryError": MessageLookupByLibrary.simpleMessage(
+      "Please select a category",
+    ),
+    "productCategoryHint": MessageLookupByLibrary.simpleMessage(
+      "Select Category",
+    ),
+    "productDescriptionHint": MessageLookupByLibrary.simpleMessage(
+      "Enter product description",
+    ),
+    "productDescriptionLabel": MessageLookupByLibrary.simpleMessage(
+      "Description",
+    ),
+    "productDiscountHint": MessageLookupByLibrary.simpleMessage(
+      "Discount (%) (optional)",
+    ),
+    "productNameHint": MessageLookupByLibrary.simpleMessage(
+      "Enter product name",
+    ),
+    "productNameLabel": MessageLookupByLibrary.simpleMessage("Product Name"),
+    "productsSold": MessageLookupByLibrary.simpleMessage("Products Sold"),
     "profile_dark_mode": MessageLookupByLibrary.simpleMessage("Dark Mode"),
     "profile_edit_profile": MessageLookupByLibrary.simpleMessage(
       "Edit Profile",
@@ -229,6 +289,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "resetPasswordSuccess": MessageLookupByLibrary.simpleMessage(
       "Your password has been reset successfully.",
     ),
+    "revenue": MessageLookupByLibrary.simpleMessage("Revenue"),
+    "salesTrend": MessageLookupByLibrary.simpleMessage("Sales Trend"),
     "samePasswordError": MessageLookupByLibrary.simpleMessage(
       "New password must be different from the old password.",
     ),
@@ -266,12 +328,17 @@ class MessageLookup extends MessageLookupByLibrary {
     "sort_newest": MessageLookupByLibrary.simpleMessage("Newest"),
     "sort_oldest": MessageLookupByLibrary.simpleMessage("Oldest"),
     "sort_topRated": MessageLookupByLibrary.simpleMessage("Top Rated"),
+    "stockManagerSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Track inventory and update product availability",
+    ),
+    "stockManagerTitle": MessageLookupByLibrary.simpleMessage("Stock Manager"),
     "sub_total": MessageLookupByLibrary.simpleMessage("Sub Total:"),
     "syntaxError": MessageLookupByLibrary.simpleMessage(
       "There is a problem with the database query.",
     ),
     "tooLong": MessageLookupByLibrary.simpleMessage("Too long"),
     "tooShort": MessageLookupByLibrary.simpleMessage("Too short"),
+    "topCategories": MessageLookupByLibrary.simpleMessage("Top Categories"),
     "total_price": MessageLookupByLibrary.simpleMessage("Total Price:"),
     "unauthorizedRequest": MessageLookupByLibrary.simpleMessage(
       "Unauthorized request.",
@@ -281,6 +348,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "unexpectedServerError": MessageLookupByLibrary.simpleMessage(
       "Unexpected server error.",
+    ),
+    "uploadProductImage": MessageLookupByLibrary.simpleMessage(
+      "Upload product image",
     ),
     "userEmailNotFound": MessageLookupByLibrary.simpleMessage(
       "User with provided email does not exist.",
@@ -292,6 +362,20 @@ class MessageLookup extends MessageLookupByLibrary {
     "valueTooLong": MessageLookupByLibrary.simpleMessage(
       "The provided value is too long.",
     ),
+    "variantLabel": MessageLookupByLibrary.simpleMessage("Variant"),
+    "variantPriceHint": MessageLookupByLibrary.simpleMessage(
+      "Price (e.g. 9.99)",
+    ),
+    "variantPriceLabel": MessageLookupByLibrary.simpleMessage("Price"),
+    "variantQuantityHint": MessageLookupByLibrary.simpleMessage(
+      "Quantity (in stock)",
+    ),
+    "variantQuantityLabel": MessageLookupByLibrary.simpleMessage("Quantity"),
+    "variantSizeHint": MessageLookupByLibrary.simpleMessage(
+      "Size (e.g. Small, Medium)",
+    ),
+    "variantSizeLabel": MessageLookupByLibrary.simpleMessage("Size"),
+    "variantsTitle": MessageLookupByLibrary.simpleMessage("Variants"),
     "verificationEmailSent": MessageLookupByLibrary.simpleMessage(
       "Verification email sent. Please check your inbox.",
     ),

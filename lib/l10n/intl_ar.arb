@@ -161,7 +161,69 @@
   "month_sep": "سبتمبر",
   "month_oct": "أكتوبر",
   "month_nov": "نوفمبر",
-  "month_dec": "ديسمبر"
+  "month_dec": "ديسمبر",
+  "egp": "ج.م",
+  "addProductTitle": "إضافة منتج",
+"addProductSubtitle": "أنشئ منتجات جديدة وقم بتخصيص تفاصيلها",
+"stockManagerTitle": "إدارة المخزون",
+"stockManagerSubtitle": "تتبع المخزون وحدّث توافر المنتجات",
+"analysisTitle": "لوحة التحليلات",
+"analysisSubtitle": "تابع أداء المبيعات واتجاهات النمو",
+"languageTitle": "إعدادات اللغة",
+"languageSubtitle": "اختر لغتك المفضلة لواجهة التطبيق",
+"isRequired": "مطلوب",
+"mustBeNumber": "يجب أن يكون رقمًا",
+"maxVariantsReached": "الحد الأقصى هو ٣ خيارات فقط",
+"imageRequired": "يرجى اختيار صورة",
+"categoryRequired": "يرجى اختيار فئة",
+"productAddedSuccessfully": "تمت إضافة المنتج بنجاح",
+"addProductButton": "إضافة المنتج",
 
+  "variantsTitle": "الأنواع",
+  "variantLabel": "النوع",
+  "variantSizeLabel": "الحجم",
+  "variantSizeHint": "الحجم (مثل صغير، متوسط)",
+  "variantPriceLabel": "السعر",
+  "variantPriceHint": "السعر (مثل 9.99)",
+  "variantQuantityLabel": "الكمية",
+  "variantQuantityHint": "الكمية في المخزون",
   
+
+  "productNameLabel": "اسم المنتج",
+  "productNameHint": "أدخل اسم المنتج",
+  "productDescriptionLabel": "الوصف",
+  "productDescriptionHint": "أدخل وصف المنتج",
+  "productCategoryHint": "اختر الفئة",
+  "productCategoryError": "يرجى اختيار فئة",
+  "productDiscountHint": "الخصم (%) (اختياري)",
+  
+  "uploadProductImage": "قم بتحميل صورة المنتج",
+  "addAnotherVariant": "أضف نوعًا آخر",
+  "topCategories": "الفئات الأكثر مبيعًا",
+  "salesTrend": "اتجاه المبيعات",
+  "noSalesData": "لا توجد بيانات مبيعات متاحة",
+  "revenue": "الإيرادات",
+  "customers": "العملاء",
+  "productsSold": "المنتجات المباعة",
+  "growth": "النمو"
+  ,
+
+"abbreviationK": "ألف",
+"abbreviationM": "مليون"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
