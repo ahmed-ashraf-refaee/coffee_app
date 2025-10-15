@@ -1,4 +1,5 @@
 import 'package:coffee_app/core/widgets/title_subtitle.dart';
+import 'package:coffee_app/features/admin/presentation/view/stock_view/widgets/search_and_filter_section.dart';
 import 'package:coffee_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
@@ -13,16 +14,17 @@ class StockView extends StatelessWidget {
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0),
+
         child: Column(
+          spacing: 16,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const StockAppBar(),
-            const SizedBox(height: 16),
             TitleSubtitle(
               subtitle: S.current.stockManagerSubtitle,
               title: S.current.stockManagerTitle,
             ),
-            const SizedBox(height: 16),
+            SearchAndFilterSection(searchController: TextEditingController()),
             const Expanded(child: StockListBody()),
           ],
         ),

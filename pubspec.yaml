@@ -35,6 +35,7 @@ dependencies:
   country_flags: ^4.0.1
   dartz: ^0.10.1
   dio: ^5.9.0
+  dropdown_button2: ^2.3.9
   fl_chart: ^1.1.1
   flutter:
     sdk: flutter

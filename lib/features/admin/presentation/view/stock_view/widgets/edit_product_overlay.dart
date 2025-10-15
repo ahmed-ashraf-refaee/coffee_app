@@ -1,3 +1,4 @@
+import 'package:coffee_app/core/utils/color_palette.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
@@ -78,69 +79,47 @@ class _EditProductOverlayState extends State<EditProductOverlay> {
             spacing: 16,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              //======================== Header ========================
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const SizedBox(width: 48), // alignment buffer
-                  const Text('Edit Variations', style: TextStyles.bold20),
-                  PrettierTap(
-                    shrink: 1,
-                    onPressed: () => Navigator.pop(context),
-                    child: Icon(
-                      Ionicons.close,
-                      color: context.colors.onSecondary,
-                    ),
-                  ),
-                ],
+              const Text(
+                'Edit Variations',
+                style: TextStyles.bold20,
+                textAlign: TextAlign.center,
               ),
 
+              // everything scrollable, including Add Variant
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     spacing: 12,
-                    children: List.generate(_variants.length, (index) {
-                      final variant = _variants[index];
-                      return _buildVariantCard(context, variant, index);
-                    }),
+                    children: [
+                      ...List.generate(_variants.length, (index) {
+                        final variant = _variants[index];
+                        return _buildVariantCard(context, variant, index);
+                      }),
+
+                      // move "Add Variant" here
+                      if (_variants.length < 3)
+                        PrettierTap(
+                          onPressed: _addVariant,
+                          child: Container(
+                            height: 50,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Text(
+                              "Add Variant",
+                              style: TextStyles.bold14.copyWith(
+                                color: context.colors.primary,
+                              ),
+                            ),
+                          ),
+                        ),
+                    ],
                   ),
                 ),
               ),
 
-              //======================== Add Variant ========================
-              if (_variants.length < 3)
-                PrettierTap(
-                  onPressed: _addVariant,
-                  child: Container(
-                    height: 50,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(
-                        color: context.colors.outline.withValues(alpha: 0.4),
-                      ),
-                    ),
-                    child: Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Ionicons.add_circle_outline,
-                            color: context.colors.primary,
-                          ),
-                          const SizedBox(width: 6),
-                          Text(
-                            "Add Variant",
-                            style: TextStyles.bold14.copyWith(
-                              color: context.colors.primary,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-
-              //======================== Save ========================
+              // keep this fixed
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 48),
                 child: CustomElevatedButton(
@@ -150,7 +129,7 @@ class _EditProductOverlayState extends State<EditProductOverlay> {
                     widget.onSave();
                     Navigator.pop(context);
                   },
-                  child: const Text("Save Changes", style: TextStyles.bold16),
+                  child: const Text("Update product", style: TextStyles.bold16),
                 ),
               ),
             ],
@@ -168,8 +147,8 @@ class _EditProductOverlayState extends State<EditProductOverlay> {
     final isLow = variant.quantity < 20 && variant.quantity > 0;
     final isOut = variant.quantity == 0;
     Color color = isOut
-        ? context.colors.primary
-        : (isLow ? Colors.orange : Colors.green);
+        ? ColorPalette.errorLuxurious
+        : (isLow ? ColorPalette.orangeCrayola : ColorPalette.darkGreen);
 
     return Container(
       padding: const EdgeInsets.all(12),
@@ -194,9 +173,9 @@ class _EditProductOverlayState extends State<EditProductOverlay> {
                   shrink: 1,
                   onPressed: () => _removeVariant(index),
                   child: Icon(
-                    Ionicons.trash_outline,
+                    Ionicons.trash_bin_outline,
                     size: 20,
-                    color: context.colors.onSecondary,
+                    color: context.colors.primary,
                   ),
                 ),
             ],
@@ -250,17 +229,29 @@ class _EditProductOverlayState extends State<EditProductOverlay> {
     required ValueChanged<String> onChanged,
     TextInputType inputType = TextInputType.text,
   }) {
-    return TextFormField(
-      initialValue: initialValue,
-      keyboardType: inputType,
-      decoration: InputDecoration(
-        labelText: label,
-        labelStyle: TextStyles.regular12.copyWith(
-          color: context.colors.onSecondary,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: TextStyles.bold14.copyWith(color: context.colors.onSecondary),
         ),
-        isDense: true,
-      ),
-      onChanged: onChanged,
+        const SizedBox(height: 6),
+        TextFormField(
+          initialValue: initialValue,
+          keyboardType: inputType,
+          decoration: InputDecoration(
+            filled: true,
+            fillColor: context.colors.surface,
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 12,
+              vertical: 8,
+            ),
+          ),
+          style: TextStyles.bold14.copyWith(color: context.colors.onSurface),
+          onChanged: onChanged,
+        ),
+      ],
     );
   }
 }

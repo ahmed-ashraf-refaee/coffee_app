@@ -1,3 +1,6 @@
+import 'package:coffee_app/core/utils/text_styles.dart';
+import 'package:coffee_app/main.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ionicons/ionicons.dart';
@@ -47,19 +50,88 @@ class ProductInfoSection extends StatelessWidget {
           ),
           validator: (v) => requiredValidator(v, l10n.productDescriptionLabel),
         ),
-        DropdownButtonFormField<CategoriesModel>(
-          initialValue: selectedCategory,
-          items: categories
-              .map((cat) => DropdownMenuItem(value: cat, child: Text(cat.name)))
-              .toList(),
-          onChanged: onCategoryChanged,
-          decoration: InputDecoration(
-            prefixIcon: const Icon(Ionicons.list_outline),
-            hintText: l10n.productCategoryHint,
+
+        DropdownButtonFormField2<CategoriesModel>(
+          value: selectedCategory,
+          isExpanded: true,
+          decoration: const InputDecoration(
+            prefixIcon: Icon(Ionicons.list_outline),
+            contentPadding: EdgeInsets.symmetric(vertical: 16, horizontal: 12),
           ),
+          hint: Text(
+            textAlign: TextAlign.start,
+            l10n.productCategoryHint,
+            style: TextStyles.medium16.copyWith(
+              color: context.colors.onSecondary.withValues(alpha: 0.6),
+            ),
+          ),
+          items: categories.map((cat) {
+            return DropdownMenuItem(
+              value: cat,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        cat.name,
+                        style: TextStyles.medium16.copyWith(
+                          color: context.colors.onSurface,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }).toList(),
+          selectedItemBuilder: (context) {
+            return categories.map((cat) {
+              // 👇 this is the key: controls padding for the *selected item only*
+              return Padding(
+                padding: const EdgeInsets.only(left: 4),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    cat.name,
+                    style: TextStyles.medium16.copyWith(
+                      color: context.colors.onSurface,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                  ),
+                ),
+              );
+            }).toList();
+          },
+          onChanged: onCategoryChanged,
           validator: (value) =>
               value == null ? l10n.productCategoryError : null,
+          dropdownStyleData: DropdownStyleData(
+            offset: const Offset(0, -8),
+            maxHeight: 300,
+            elevation: 0,
+            decoration: BoxDecoration(
+              color: context.colors.secondary,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            padding: const EdgeInsets.symmetric(vertical: 8),
+          ),
+          menuItemStyleData: const MenuItemStyleData(
+            height: 56,
+            padding: EdgeInsets.symmetric(horizontal: 0),
+          ),
+          iconStyleData: IconStyleData(
+            icon: Icon(
+              Ionicons.chevron_down,
+              color: context.colors.onSecondary,
+            ),
+          ),
         ),
+
+        //===================== DISCOUNT FIELD =====================//
         TextFormField(
           controller: discountController,
           keyboardType: const TextInputType.numberWithOptions(decimal: true),

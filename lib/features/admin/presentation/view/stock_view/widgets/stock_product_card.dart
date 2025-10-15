@@ -1,11 +1,10 @@
 import 'package:coffee_app/core/model/product_model.dart';
+import 'package:coffee_app/core/utils/color_palette.dart';
+import 'package:coffee_app/core/widgets/prettier_tap.dart';
 import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
-import 'package:ionicons/ionicons.dart';
-
 import '../../../../../../core/utils/text_styles.dart';
-import '../../../../../../core/widgets/custom_elevated_button.dart';
 import '../../../../../../core/widgets/custom_rounded_images.dart';
 import 'edit_product_overlay.dart';
 
@@ -24,7 +23,8 @@ class StockProductCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Expanded(
                 child: Row(
@@ -58,40 +58,27 @@ class StockProductCard extends StatelessWidget {
                   ],
                 ),
               ),
-
-              Row(
-                children: [
-                  CustomElevatedButton(
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 8),
-                    onPressed: () {
-                      editProductOverlay(
-                        context,
-                        variants: product.productVariants,
-                        onSave: () {},
-                      );
-                    },
-                    
-                    height: 34,
-                    width: 78,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        const Text("Edit", style: TextStyles.bold14),
-                        Icon(
-                          Ionicons.create_outline,
-                          color: context.colors.onPrimary,
-                          size: 16,
-                        ),
-                      ],
-                    ),
+              const SizedBox(width: 12),
+              PrettierTap(
+                onPressed: () {
+                  editProductOverlay(
+                    context,
+                    variants: product.productVariants,
+                    onSave: () {},
+                  );
+                },
+                child: Text(
+                  "Edit",
+                  style: TextStyles.bold14.copyWith(
+                    color: context.colors.primary,
                   ),
-                ],
+                ),
               ),
             ],
           ),
 
           const SizedBox(height: 12),
-          Divider(color: context.colors.onSecondary.withValues(alpha: 0.2)),
+          Divider(color: context.colors.onSecondary.withValues(alpha: 0.6)),
           const SizedBox(height: 12),
 
           /// ========== VARIANT LIST ==========
@@ -123,29 +110,37 @@ class StockProductCard extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: context.colors.surface,
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                      color: context.colors.outline.withValues(alpha: 0.2),
-                    ),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        children: [
-                          _buildInfoColumn(context, 'Size', variant.size),
-                          const SizedBox(width: 32),
-                          _buildInfoColumn(
-                            context,
-                            'Stock',
-                            '${variant.quantity}',
-                          ),
-                          const SizedBox(width: 32),
-                          _buildInfoColumn(
-                            context,
-                            'Price',
-                            variant.price.toStringAsFixed(2) + S.current.egp,
-                          ),
-                        ],
+                      Expanded(
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: _buildInfoColumn(
+                                context,
+                                'Size',
+                                variant.size,
+                              ),
+                            ),
+                            Expanded(
+                              child: _buildInfoColumn(
+                                context,
+                                'Stock',
+                                '${variant.quantity}',
+                              ),
+                            ),
+                            Expanded(
+                              child: _buildInfoColumn(
+                                context,
+                                'Price',
+                                '${variant.price.toStringAsFixed(2)}${S.current.egp}',
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
 
                       /// Right side: variant status
@@ -163,6 +158,7 @@ class StockProductCard extends StatelessWidget {
 
   Widget _buildInfoColumn(BuildContext context, String label, String value) {
     return Column(
+      spacing: 4,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
@@ -170,11 +166,13 @@ class StockProductCard extends StatelessWidget {
           style: TextStyles.regular12.copyWith(
             color: context.colors.onSecondary,
           ),
+          overflow: TextOverflow.ellipsis,
         ),
-        const SizedBox(height: 4),
+
         Text(
           value,
-          style: TextStyles.bold16.copyWith(color: context.colors.onSurface),
+          style: TextStyles.bold14.copyWith(color: context.colors.onSurface),
+          overflow: TextOverflow.ellipsis,
         ),
       ],
     );
@@ -182,31 +180,26 @@ class StockProductCard extends StatelessWidget {
 
   Widget _buildStatusBadge(BuildContext context, ProductStatus status) {
     Color color;
-    String text;
 
     switch (status) {
       case ProductStatus.inStock:
-        color = Colors.green;
-        text = 'In Stock';
+        color = ColorPalette.darkGreen;
+
         break;
       case ProductStatus.low:
-        color = Colors.orange;
-        text = 'Low';
+        color = ColorPalette.orangeCrayola;
+
         break;
       case ProductStatus.out:
-        color = context.colors.primary;
-        text = 'Out';
+        color = ColorPalette.errorLuxurious;
+
         break;
     }
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.2),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: color.withValues(alpha: 0.3)),
-      ),
-      child: Text(text, style: TextStyles.bold14.copyWith(color: color)),
+      width: 8,
+      height: 8,
+      decoration: BoxDecoration(shape: BoxShape.circle, color: color),
     );
   }
 }

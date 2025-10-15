@@ -11,7 +11,6 @@ import '../../../../../home/presentation/view/home_view/widgets/filter_overlay.d
 
 class SearchAndFilterSection extends StatelessWidget {
   final TextEditingController searchController;
-
   const SearchAndFilterSection({super.key, required this.searchController});
 
   @override
