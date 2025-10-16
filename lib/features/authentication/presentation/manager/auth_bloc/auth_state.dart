@@ -15,11 +15,11 @@ final class AuthUsernameSuccess extends AuthState {
   AuthUsernameSuccess({required this.usernameCheck});
 }
 
-final class AuthforgotPasswordLoading extends AuthState {}
+final class AuthForgotPasswordLoading extends AuthState {}
 
 final class AuthVerifySuccess extends AuthState {}
 
-final class AuthforgotPasswordSuccess extends AuthState {}
+final class AuthForgotPasswordSuccess extends AuthState {}
 
 final class AuthCheckMailSuccess extends AuthState {}
 

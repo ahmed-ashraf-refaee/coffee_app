@@ -82,6 +82,63 @@ class AuthService {
     });
   }
 
+  Future<String?> fetchCustomerId() async {
+    final userId = _supabaseClient.auth.currentUser!.id;
+    final response = await _supabaseClient
+        .from("users")
+        .select("customer_id")
+        .eq('id', userId)
+        .maybeSingle();
+    return response?['customer_id'];
+  }
+
+  Future<void> logout() async {
+    await _supabaseClient.auth.signOut();
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+  }
+
+  Future<bool> usernameTaken(String username) async {
+    final list = await _supabaseClient
+        .from('users')
+        .select('username')
+        .eq('username', username)
+        .maybeSingle();
+    return list != null;
+  }
+
+  Future<void> resetPasswordUsingEmail(String email) async {
+    final existingUser = await _supabaseClient
+        .from('users')
+        .select('email')
+        .eq('email', email)
+        .maybeSingle();
+
+    if (existingUser == null) {
+      throw ('User with provided email does not exist.');
+    }
+
+    return await _supabaseClient.auth.resetPasswordForEmail(
+      email,
+      redirectTo: 'io.supabase.flutterapp://reset-password',
+    );
+  }
+
+  Future<AuthResponse> verify(String token, String email) async {
+    return await _supabaseClient.auth.verifyOTP(
+      type: OtpType.email,
+      email: email,
+      token: token,
+    );
+  }
+
+  Future<UserResponse> resetPassword(String newPassword) async {
+    return await _supabaseClient.auth.updateUser(
+      UserAttributes(password: newPassword),
+    );
+  }
+
+  //========= Edit Profile ==========
   Future<Map<String, dynamic>> fetchUserData() async {
     final userId = _supabaseClient.auth.currentUser!.id;
     final response = await _supabaseClient
@@ -128,58 +185,30 @@ class AuthService {
     }
   }
 
-  Future<String?> fetchCustomerId() async {
-    final userId = _supabaseClient.auth.currentUser!.id;
-    final response = await _supabaseClient
-        .from("users")
-        .select("customer_id")
-        .eq('id', userId)
-        .maybeSingle();
-    return response?['customer_id'];
-  }
-
-  Future<void> logout() async {
-    await _supabaseClient.auth.signOut();
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.clear();
-  }
-
-  Future<bool> usernameTaken(String username) async {
-    final list = await _supabaseClient
-        .from('users')
-        .select('username')
-        .eq('username', username)
-        .maybeSingle();
-    return list != null;
-  }
-
-  Future<void> resetPassword(String email) async {
-    final existingUser = await _supabaseClient
-        .from('users')
-        .select('email')
-        .eq('email', email)
-        .maybeSingle();
-
-    if (existingUser == null) {
-      throw ('User with provided email does not exist.');
-    }
-
-    return await _supabaseClient.auth.resetPasswordForEmail(
-      email,
-      redirectTo: 'io.supabase.flutterapp://reset-password',
+  Future<void> updateEmail(String newEmail, String currentPassword) async {
+    final user = _supabaseClient.auth.currentUser;
+    await _supabaseClient.auth.signInWithPassword(
+      email: user!.email,
+      password: currentPassword,
     );
+    await _supabaseClient.auth.updateUser(UserAttributes(email: newEmail));
+
+    await _supabaseClient
+        .from('users')
+        .update({'email': newEmail})
+        .eq('id', user.id);
   }
 
-  Future<AuthResponse> verify(String token, String email) async {
-    return await _supabaseClient.auth.verifyOTP(
-      type: OtpType.email,
-      email: email,
-      token: token,
+  Future<void> updatePassword(
+    String newPassword,
+    String currentPassword,
+  ) async {
+    final user = _supabaseClient.auth.currentUser;
+    await _supabaseClient.auth.signInWithPassword(
+      email: user!.email,
+      password: currentPassword,
     );
-  }
-
-  Future<UserResponse> updatePassword(String newPassword) async {
-    return await _supabaseClient.auth.updateUser(
+    await _supabaseClient.auth.updateUser(
       UserAttributes(password: newPassword),
     );
   }

@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:coffee_app/core/model/product_model.dart';
 
-import 'image_upload_service.dart';
+import '../../../../core/services/image_upload_service.dart';
 
 class AdminProductService {
   final SupabaseClient _supabase = Supabase.instance.client;
@@ -14,7 +14,10 @@ class AdminProductService {
     File imageFile, [
     String languageCode = 'en',
   ]) async {
-    final imageUrl = await _imageService.uploadProductImage(imageFile);
+    final imageUrl = await _imageService.uploadImage(
+      imageFile,
+      ImageType.product,
+    );
     final response = await _supabase
         .from('products')
         .insert({

@@ -48,8 +48,9 @@ class _AddProductViewState extends State<AddProductView> {
   final List<Variant> _variants = [Variant()];
 
   String? _requiredValidator(String? value, String field) {
-    if (value == null || value.trim().isEmpty)
+    if (value == null || value.trim().isEmpty) {
       return "$field ${S.current.isRequired}";
+    }
     return null;
   }
 
@@ -151,7 +152,6 @@ class _AddProductViewState extends State<AddProductView> {
       _selectedImage!,
     );
     context.read<HomeProductCubit>().getProducts();
-    _clearAll();
   }
 
   @override
@@ -215,6 +215,7 @@ class _AddProductViewState extends State<AddProductView> {
                               context: context,
                               message: S.current.productAddedSuccessfully,
                             );
+                            _clearAll();
                           }
                         },
                         builder: (context, state) {

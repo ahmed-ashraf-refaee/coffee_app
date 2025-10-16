@@ -1,14 +1,17 @@
 import 'package:coffee_app/core/utils/text_styles.dart';
 import 'package:coffee_app/core/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../../../core/helper/ui_helpers.dart';
 import '../../../../../../core/widgets/custom_app_bar.dart';
 import '../../../../../../core/widgets/custom_icon_button.dart';
 import '../../../../../../core/widgets/prettier_tap.dart';
 import '../../../../../../core/widgets/title_subtitle.dart';
 import '../../../../../../main.dart';
+import '../../../../../authentication/presentation/manager/auth_bloc/auth_bloc.dart';
 
 class ChangeEmailViewBody extends StatefulWidget {
   const ChangeEmailViewBody({super.key});
@@ -120,39 +123,35 @@ class _ChangeEmailViewBodyState extends State<ChangeEmailViewBody> {
           const SizedBox(height: 48),
 
           /// --- Update Email Button ---
-          // BlocConsumer<AuthBloc, AuthState>(
-          //   listener: (context, state) {
-          //     if (state is AuthFailure) {
-          //       UiHelpers.showSnackBar(
-          //         context: context,
-          //         message: state.error,
-          //       );
-          //     } else if (state is AuthUpdateEmailSuccess) {
-          //       UiHelpers.showSnackBar(
-          //         context: context,
-          //         message: 'Email updated successfully!',
-          //       );
-          //       GoRouter.of(context).pop();
-          //     }
-          //   },
-          //   builder: (context, state) {
-          // return
-          CustomElevatedButton(
-            // isLoading: state is AuthLoading,
-            onPressed: () {
-              if (_formKey.currentState!.validate()) {
-                // BlocProvider.of<AuthBloc>(context).add(
-                //   UpdateEmailEvent(
-                //     newEmail: emailController.text.trim(),
-                //     password: passwordController.text.trim(),
-                //   ),
-                // );
+          BlocConsumer<AuthBloc, AuthState>(
+            listener: (context, state) {
+              if (state is AuthFailure) {
+                UiHelpers.showSnackBar(context: context, message: state.error);
+              } else if (state is AuthSuccess) {
+                UiHelpers.showSnackBar(
+                  context: context,
+                  message: 'Email updated successfully!',
+                );
+                GoRouter.of(context).pop();
               }
             },
-            child: const Text('Update Email', style: TextStyles.medium20),
+            builder: (context, state) {
+              return CustomElevatedButton(
+                isLoading: state is AuthLoading,
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    BlocProvider.of<AuthBloc>(context).add(
+                      UpdateEmailEvent(
+                        newEmail: emailController.text.trim(),
+                        currentPassword: passwordController.text.trim(),
+                      ),
+                    );
+                  }
+                },
+                child: const Text('Update Email', style: TextStyles.medium20),
+              );
+            },
           ),
-          // },
-          // ),
         ],
       ),
     );

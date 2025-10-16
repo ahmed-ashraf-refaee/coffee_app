@@ -2,14 +2,17 @@ import 'package:coffee_app/core/constants/reg_constants.dart';
 import 'package:coffee_app/core/utils/text_styles.dart';
 import 'package:coffee_app/core/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../../../core/helper/ui_helpers.dart';
 import '../../../../../../core/widgets/custom_app_bar.dart';
 import '../../../../../../core/widgets/custom_icon_button.dart';
 import '../../../../../../core/widgets/prettier_tap.dart';
 import '../../../../../../core/widgets/title_subtitle.dart';
 import '../../../../../../main.dart';
+import '../../../../../authentication/presentation/manager/auth_bloc/auth_bloc.dart';
 
 class ChangePasswordViewBody extends StatefulWidget {
   const ChangePasswordViewBody({super.key});
@@ -141,6 +144,7 @@ class _ChangePasswordViewBodyState extends State<ChangePasswordViewBody> {
 
                 TextFormField(
                   controller: confirmPasswordController,
+                  obscureText: true,
                   decoration: const InputDecoration(
                     hintText: 'confirm password',
                     prefixIcon: Icon(Ionicons.lock_closed_outline),
@@ -162,18 +166,37 @@ class _ChangePasswordViewBodyState extends State<ChangePasswordViewBody> {
           const SizedBox(height: 48),
 
           /// --- Update Password Button ---
-          CustomElevatedButton(
-            onPressed: () {
-              if (_formKey.currentState!.validate()) {
-                // BlocProvider.of<AuthBloc>(context).add(
-                //   UpdatePasswordEvent(
-                //     currentPassword: currentPasswordController.text.trim(),
-                //     newPassword: newPasswordController.text.trim(),
-                //   ),
-                // );
+          BlocConsumer<AuthBloc, AuthState>(
+            listener: (context, state) {
+              if (state is AuthFailure) {
+                UiHelpers.showSnackBar(context: context, message: state.error);
+              } else if (state is AuthSuccess) {
+                UiHelpers.showSnackBar(
+                  context: context,
+                  message: 'Password updated successfully!',
+                );
+                GoRouter.of(context).pop();
               }
             },
-            child: const Text('Update password', style: TextStyles.medium20),
+            builder: (context, state) {
+              return CustomElevatedButton(
+                isLoading: state is AuthLoading,
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    BlocProvider.of<AuthBloc>(context).add(
+                      UpdatePasswordEvent(
+                        currentPassword: currentPasswordController.text.trim(),
+                        newPassword: newPasswordController.text.trim(),
+                      ),
+                    );
+                  }
+                },
+                child: const Text(
+                  'Update password',
+                  style: TextStyles.medium20,
+                ),
+              );
+            },
           ),
         ],
       ),

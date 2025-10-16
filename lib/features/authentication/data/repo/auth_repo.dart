@@ -34,4 +34,12 @@ abstract class AuthRepo {
   });
   Future<Either<Failure, UserResponse>> setPassword({required String password});
   Future<Either<Failure, String?>> fetchCustomerId();
+  Future<Either<Failure, void>> updateEmail({
+    required String newEmail,
+    required String password,
+  });
+  Future<Either<Failure, void>> updatePassword({
+    required String newPassword,
+    required String currentPassword,
+  });
 }

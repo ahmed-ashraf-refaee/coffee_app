@@ -97,7 +97,7 @@ class _SendEmailViewBodyState extends State<SendEmailViewBody> {
                   final email = emailController.text.trim();
                   BlocProvider.of<AuthBloc>(
                     context,
-                  ).add(ResetPasswordEvent(email: email));
+                  ).add(ResetPasswordUsingEmailEvent(email: email));
                   ForgotPasswordView.email = email;
                 }
               },

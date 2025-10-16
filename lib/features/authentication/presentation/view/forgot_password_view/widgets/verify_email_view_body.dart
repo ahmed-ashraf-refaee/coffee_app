@@ -169,7 +169,7 @@ class _VerifyEmailViewBodyState extends State<VerifyEmailViewBody> {
                         onPressed: () {
                           startCountdown();
                           BlocProvider.of<AuthBloc>(context).add(
-                            ResetPasswordEvent(
+                            ResetPasswordUsingEmailEvent(
                               email: ForgotPasswordView.email!,
                             ),
                           );

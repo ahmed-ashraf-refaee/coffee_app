@@ -118,7 +118,7 @@ class _ResetPasswordViewBodyState extends State<ResetPasswordViewBody> {
             listener: (context, state) {
               if (state is AuthFailure) {
                 UiHelpers.showSnackBar(context: context, message: state.error);
-              } else if (state is AuthforgotPasswordSuccess) {
+              } else if (state is AuthForgotPasswordSuccess) {
                 UiHelpers.showSnackBar(
                   context: context,
                   message: S.current.passwordUpdatedSuccessfully,
@@ -137,7 +137,7 @@ class _ResetPasswordViewBodyState extends State<ResetPasswordViewBody> {
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     BlocProvider.of<AuthBloc>(context).add(
-                      UpdatePasswordEvent(
+                      ResetPasswordEvent(
                         password: passwordController.text.trim(),
                       ),
                     );

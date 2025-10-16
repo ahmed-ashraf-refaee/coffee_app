@@ -35,15 +35,15 @@ class UsernameCheckEvent extends AuthEvent {
   UsernameCheckEvent({required this.username});
 }
 
-class ResetPasswordEvent extends AuthEvent {
+class ResetPasswordUsingEmailEvent extends AuthEvent {
   final String email;
 
-  ResetPasswordEvent({required this.email});
+  ResetPasswordUsingEmailEvent({required this.email});
 }
 
-class UpdatePasswordEvent extends AuthEvent {
+class ResetPasswordEvent extends AuthEvent {
   final String password;
-  UpdatePasswordEvent({required this.password});
+  ResetPasswordEvent({required this.password});
 }
 
 class VerifyEmailEvent extends AuthEvent {
@@ -51,4 +51,19 @@ class VerifyEmailEvent extends AuthEvent {
   final String email;
 
   VerifyEmailEvent({required this.token, required this.email});
+}
+
+class UpdateEmailEvent extends AuthEvent {
+  final String newEmail, currentPassword;
+
+  UpdateEmailEvent({required this.newEmail, required this.currentPassword});
+}
+
+class UpdatePasswordEvent extends AuthEvent {
+  final String currentPassword, newPassword;
+
+  UpdatePasswordEvent({
+    required this.currentPassword,
+    required this.newPassword,
+  });
 }

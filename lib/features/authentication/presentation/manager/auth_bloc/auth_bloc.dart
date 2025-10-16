@@ -43,8 +43,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         (response) => emit(AuthUsernameSuccess(usernameCheck: response)),
       );
     });
-    on<ResetPasswordEvent>((event, emit) async {
-      emit(AuthforgotPasswordLoading());
+    on<ResetPasswordUsingEmailEvent>((event, emit) async {
+      emit(AuthForgotPasswordLoading());
 
       var result = await _authRepoImpl.resetPassword(email: event.email);
       result.fold((failure) => emit(AuthFailure(error: failure.error)), (_) {
@@ -53,7 +53,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     });
 
     on<VerifyEmailEvent>((event, emit) async {
-      emit(AuthforgotPasswordLoading());
+      emit(AuthForgotPasswordLoading());
 
       var result = await _authRepoImpl.verifyEmail(
         token: event.token,
@@ -64,12 +64,34 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       });
     });
 
-    on<UpdatePasswordEvent>((event, emit) async {
-      emit(AuthforgotPasswordLoading());
+    on<ResetPasswordEvent>((event, emit) async {
+      emit(AuthForgotPasswordLoading());
       var result = await _authRepoImpl.setPassword(password: event.password);
       result.fold(
         (failure) => emit(AuthFailure(error: failure.error)),
-        (response) => emit(AuthforgotPasswordSuccess()),
+        (response) => emit(AuthForgotPasswordSuccess()),
+      );
+    });
+    on<UpdateEmailEvent>((event, emit) async {
+      emit(AuthLoading());
+      var result = await _authRepoImpl.updateEmail(
+        newEmail: event.newEmail,
+        password: event.currentPassword,
+      );
+      result.fold(
+        (failure) => emit(AuthFailure(error: failure.error)),
+        (response) => emit(AuthSuccess()),
+      );
+    });
+    on<UpdatePasswordEvent>((event, emit) async {
+      emit(AuthLoading());
+      var result = await _authRepoImpl.updatePassword(
+        currentPassword: event.currentPassword,
+        newPassword: event.newPassword,
+      );
+      result.fold(
+        (failure) => emit(AuthFailure(error: failure.error)),
+        (response) => emit(AuthSuccess()),
       );
     });
   }

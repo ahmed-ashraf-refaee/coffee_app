@@ -65,7 +65,7 @@ class AuthRepoImpl extends AuthRepo {
   @override
   Future<Either<Failure, void>> resetPassword({required String email}) {
     return guard(() async {
-      final response = await _authService.resetPassword(email);
+      final response = await _authService.resetPasswordUsingEmail(email);
       return response;
     });
   }
@@ -75,7 +75,7 @@ class AuthRepoImpl extends AuthRepo {
     required String password,
   }) {
     return guard(() async {
-      final UserResponse userResponse = await _authService.updatePassword(
+      final UserResponse userResponse = await _authService.resetPassword(
         password,
       );
       return userResponse;
@@ -130,6 +130,26 @@ class AuthRepoImpl extends AuthRepo {
     return guard(() async {
       final String? customerId = await _authService.fetchCustomerId();
       return customerId;
+    });
+  }
+
+  @override
+  Future<Either<Failure, void>> updateEmail({
+    required String newEmail,
+    required String password,
+  }) {
+    return guard(() async {
+      await _authService.updateEmail(newEmail, password);
+    });
+  }
+
+  @override
+  Future<Either<Failure, void>> updatePassword({
+    required String newPassword,
+    required String currentPassword,
+  }) {
+    return guard(() async {
+      await _authService.updatePassword(newPassword, currentPassword);
     });
   }
 }
