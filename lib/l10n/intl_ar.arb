@@ -209,7 +209,19 @@
   ,
 
 "abbreviationK": "ألف",
-"abbreviationM": "مليون"
+"abbreviationM": "مليون",
+ "edit": "تعديل",
+  "unknown": "غير معروف",
+  "sizeLabel": "الحجم",
+  "stockLabel": "المخزون",
+  "priceLabel": "السعر",
+  "productStatusInStock": "متوفر",
+  "productStatusLow": "مخزون منخفض",
+  "productStatusOut": "غير متوفر",
+   "soldOut": "نفد المخزون",
+    "quantity": "الكمية",
+     "addToCart": "أضف إلى السلة"
+     ,"discount": "خصم"
 
 
 

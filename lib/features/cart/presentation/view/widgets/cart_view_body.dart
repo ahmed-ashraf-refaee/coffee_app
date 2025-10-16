@@ -150,6 +150,7 @@ class CartSummary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double subTotal = 0.0;
+    double discount = 0.0;
     double shipping = 0.0;
     double total = 0.0;
 
@@ -174,6 +175,11 @@ class CartSummary extends StatelessWidget {
               SummaryLine(
                 label: S.current.sub_total,
                 value: subTotal.toStringAsFixed(2),
+                style: TextStyles.regular16,
+              ),
+              SummaryLine(
+                value: shipping.toStringAsFixed(2),
+                label: S.current.discount,
                 style: TextStyles.regular16,
               ),
               SummaryLine(

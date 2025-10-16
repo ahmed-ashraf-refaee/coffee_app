@@ -1,4 +1,6 @@
 import 'package:coffee_app/core/widgets/custom_icon_button.dart';
+import 'package:coffee_app/core/widgets/price_text.dart';
+import 'package:coffee_app/core/widgets/product_rating.dart';
 import 'package:coffee_app/features/cart/data/model/cart_item_model.dart';
 import 'package:coffee_app/features/cart/presentation/manager/cart_cubit/cart_cubit.dart';
 import 'package:coffee_app/main.dart';
@@ -49,7 +51,6 @@ class CartListItem extends StatelessWidget {
                     );
                   },
                   child: CustomIconButton(
-                    
                     hight: 56,
                     width: 56,
                     onPressed: () async {
@@ -79,7 +80,7 @@ class CartListItem extends StatelessWidget {
           shrink: 1,
           onPressed: () {},
           child: Container(
-            height: 132,
+            height: 164,
             width: context.width,
             color: context.colors.secondary,
             child: Padding(
@@ -105,10 +106,16 @@ class CartListItem extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
+                        ProductRating(
+                          rating: cartItem.product!.rating,
+                          numberOfRatings: cartItem.product!.numberOfRatings,
+                        ),
                         Text(
                           cartItem.productVariant!.size,
-                          style: TextStyles.regular12.copyWith(
-                            color: context.colors.onSecondary.withValues(alpha: 0.6),
+                          style: TextStyles.regular15.copyWith(
+                            color: context.colors.onSecondary.withValues(
+                              alpha: 0.6,
+                            ),
                           ),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
@@ -118,29 +125,11 @@ class CartListItem extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            RichText(
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              text: TextSpan(
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: "\$",
-                                    style: TextStyles.regular15.copyWith(
-                                      color: context.colors.primary,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        (cartItem.productVariant!.price *
-                                                cartItem.quantity)
-                                            .toStringAsFixed(2),
-                                    style: TextStyles.regular22.copyWith(
-                                      color: context.colors.primary,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                            PriceText(
+                              price: cartItem.productVariant!.price,
+                              discount: cartItem.product!.discount,
                             ),
+
                             BlocBuilder<CartCubit, CartState>(
                               builder: (context, state) {
                                 return QuantitySelector(

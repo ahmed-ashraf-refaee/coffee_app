@@ -41,6 +41,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "addShippingAddress": MessageLookupByLibrary.simpleMessage(
       "Add shipping address",
     ),
+    "addToCart": MessageLookupByLibrary.simpleMessage("Add to Cart"),
     "all": MessageLookupByLibrary.simpleMessage("All"),
     "already_have_account": MessageLookupByLibrary.simpleMessage(
       "Already have an account?",
@@ -87,12 +88,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "databaseError": MessageLookupByLibrary.simpleMessage(
       "A database error occurred. Please try again.",
     ),
+    "discount": MessageLookupByLibrary.simpleMessage("Discount"),
     "dont_have_account": MessageLookupByLibrary.simpleMessage(
       "Don\'t have an account?",
     ),
     "duplicateRecord": MessageLookupByLibrary.simpleMessage(
       "This record already exists.",
     ),
+    "editButton": MessageLookupByLibrary.simpleMessage("Edit"),
     "egp": MessageLookupByLibrary.simpleMessage("EGP"),
     "email": MessageLookupByLibrary.simpleMessage("Email"),
     "emailAlreadyRegistered": MessageLookupByLibrary.simpleMessage(
@@ -243,6 +246,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Enter product name",
     ),
     "productNameLabel": MessageLookupByLibrary.simpleMessage("Product Name"),
+    "productStatusOut": MessageLookupByLibrary.simpleMessage("Out of Stock"),
     "productsSold": MessageLookupByLibrary.simpleMessage("Products Sold"),
     "profile_dark_mode": MessageLookupByLibrary.simpleMessage("Dark Mode"),
     "profile_edit_profile": MessageLookupByLibrary.simpleMessage(
@@ -257,6 +261,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Payment Details",
     ),
     "profile_support": MessageLookupByLibrary.simpleMessage("Support"),
+    "quantity": MessageLookupByLibrary.simpleMessage("Quantity"),
     "rating": MessageLookupByLibrary.simpleMessage("Rating"),
     "rating_1up": MessageLookupByLibrary.simpleMessage("1 Star & Up"),
     "rating_2up": MessageLookupByLibrary.simpleMessage("2 Stars & Up"),
@@ -321,6 +326,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "signupSuccessTitle": MessageLookupByLibrary.simpleMessage(
       "Registration Successful",
     ),
+    "soldOut": MessageLookupByLibrary.simpleMessage("Sold Out"),
     "sortBy": MessageLookupByLibrary.simpleMessage("Sort by"),
     "sort_discount": MessageLookupByLibrary.simpleMessage("Discount"),
     "sort_highestPrice": MessageLookupByLibrary.simpleMessage("Highest Price"),
@@ -328,6 +334,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "sort_newest": MessageLookupByLibrary.simpleMessage("Newest"),
     "sort_oldest": MessageLookupByLibrary.simpleMessage("Oldest"),
     "sort_topRated": MessageLookupByLibrary.simpleMessage("Top Rated"),
+    "statusInStock": MessageLookupByLibrary.simpleMessage("In Stock"),
+    "statusLow": MessageLookupByLibrary.simpleMessage("Low Stock"),
+    "statusOut": MessageLookupByLibrary.simpleMessage("Out of Stock"),
     "stockManagerSubtitle": MessageLookupByLibrary.simpleMessage(
       "Track inventory and update product availability",
     ),
@@ -349,6 +358,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "unexpectedServerError": MessageLookupByLibrary.simpleMessage(
       "Unexpected server error.",
     ),
+    "unknownCategory": MessageLookupByLibrary.simpleMessage("Unknown"),
     "uploadProductImage": MessageLookupByLibrary.simpleMessage(
       "Upload product image",
     ),
@@ -375,6 +385,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Size (e.g. Small, Medium)",
     ),
     "variantSizeLabel": MessageLookupByLibrary.simpleMessage("Size"),
+    "variantStockLabel": MessageLookupByLibrary.simpleMessage("Stock"),
     "variantsTitle": MessageLookupByLibrary.simpleMessage("Variants"),
     "verificationEmailSent": MessageLookupByLibrary.simpleMessage(
       "Verification email sent. Please check your inbox.",

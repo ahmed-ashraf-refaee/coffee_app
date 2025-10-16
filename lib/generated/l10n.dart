@@ -1634,6 +1634,66 @@ class S {
   String get abbreviationM {
     return Intl.message('M', name: 'abbreviationM', desc: '', args: []);
   }
+
+  /// `Edit`
+  String get editButton {
+    return Intl.message('Edit', name: 'editButton', desc: '', args: []);
+  }
+
+  /// `Unknown`
+  String get unknownCategory {
+    return Intl.message('Unknown', name: 'unknownCategory', desc: '', args: []);
+  }
+
+  /// `Stock`
+  String get variantStockLabel {
+    return Intl.message('Stock', name: 'variantStockLabel', desc: '', args: []);
+  }
+
+  /// `In Stock`
+  String get statusInStock {
+    return Intl.message('In Stock', name: 'statusInStock', desc: '', args: []);
+  }
+
+  /// `Low Stock`
+  String get statusLow {
+    return Intl.message('Low Stock', name: 'statusLow', desc: '', args: []);
+  }
+
+  /// `Out of Stock`
+  String get statusOut {
+    return Intl.message('Out of Stock', name: 'statusOut', desc: '', args: []);
+  }
+
+  /// `Out of Stock`
+  String get productStatusOut {
+    return Intl.message(
+      'Out of Stock',
+      name: 'productStatusOut',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sold Out`
+  String get soldOut {
+    return Intl.message('Sold Out', name: 'soldOut', desc: '', args: []);
+  }
+
+  /// `Quantity`
+  String get quantity {
+    return Intl.message('Quantity', name: 'quantity', desc: '', args: []);
+  }
+
+  /// `Add to Cart`
+  String get addToCart {
+    return Intl.message('Add to Cart', name: 'addToCart', desc: '', args: []);
+  }
+
+  /// `Discount`
+  String get discount {
+    return Intl.message('Discount', name: 'discount', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

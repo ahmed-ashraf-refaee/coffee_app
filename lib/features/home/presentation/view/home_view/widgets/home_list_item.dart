@@ -5,8 +5,10 @@ import 'package:coffee_app/core/widgets/custom_icon_button.dart';
 import 'package:coffee_app/core/widgets/custom_rounded_images.dart';
 import 'package:coffee_app/core/widgets/prettier_tap.dart';
 import 'package:coffee_app/core/widgets/price_text.dart';
+import 'package:coffee_app/core/widgets/product_rating.dart';
 import 'package:coffee_app/features/home/presentation/view/home_view/widgets/custom_home_list_item_clipper.dart';
 import 'package:coffee_app/features/profile/presentation/manager/theme_cubit/theme_cubit.dart';
+import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -85,7 +87,7 @@ class HomeListItem extends StatelessWidget {
                               ),
                               alignment: Alignment.center,
                               child: Text(
-                                "SOLD OUT",
+                                S.current.soldOut,
                                 style: TextStyles.bold20.copyWith(
                                   color: context.colors.error,
                                   letterSpacing: 1.2,
@@ -104,25 +106,9 @@ class HomeListItem extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 2),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      spacing: 4,
-                      children: [
-                        Text(product.rating.toStringAsFixed(1)),
-                        Icon(
-                          Ionicons.star,
-                          color: context.colors.primary,
-                          size: 14,
-                        ),
-                        Text(
-                          '(${product.numberOfRatings.toString()})',
-                          style: TextStyles.regular12.copyWith(
-                            color: context.colors.onSecondary.withValues(
-                              alpha: 0.6,
-                            ),
-                          ),
-                        ),
-                      ],
+                    ProductRating(
+                      rating: product.rating,
+                      numberOfRatings: product.numberOfRatings,
                     ),
                     const Spacer(),
                     PriceText(
@@ -139,27 +125,30 @@ class HomeListItem extends StatelessWidget {
               alignment: context.isArabic
                   ? Alignment.topRight
                   : Alignment.topLeft,
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Transform.flip(
-                    flipX: !context.isArabic,
-                    child: Icon(
-                      Ionicons.pricetag,
-                      size: 48,
-                      color: context.colors.primary,
-                    ),
-                  ),
-                  Transform.rotate(
-                    angle: context.isArabic ? -0.785398 : 0.785398,
-                    child: Text(
-                      '${product.discount.toStringAsFixed(0)}%',
-                      style: TextStyles.bold14.copyWith(
-                        color: context.colors.onPrimary,
+              child: Padding(
+                padding: const EdgeInsets.all(8),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Transform.flip(
+                      flipX: !context.isArabic,
+                      child: Icon(
+                        Ionicons.pricetag,
+                        size: 48,
+                        color: context.colors.primary,
                       ),
                     ),
-                  ),
-                ],
+                    Transform.rotate(
+                      angle: context.isArabic ? -0.785398 : 0.785398,
+                      child: Text(
+                        '${product.discount.toStringAsFixed(0)}%',
+                        style: TextStyles.bold14.copyWith(
+                          color: context.colors.onPrimary,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           Align(

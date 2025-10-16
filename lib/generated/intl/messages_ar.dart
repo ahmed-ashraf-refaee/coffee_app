@@ -37,6 +37,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "addShippingAddress": MessageLookupByLibrary.simpleMessage(
       "إضافة عنوان شحن",
     ),
+    "addToCart": MessageLookupByLibrary.simpleMessage("أضف إلى السلة"),
     "all": MessageLookupByLibrary.simpleMessage("الكل"),
     "already_have_account": MessageLookupByLibrary.simpleMessage(
       "هل لديك حساب بالفعل؟",
@@ -79,6 +80,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "databaseError": MessageLookupByLibrary.simpleMessage(
       "حدث خطأ في قاعدة البيانات. حاول مرة أخرى.",
     ),
+    "discount": MessageLookupByLibrary.simpleMessage("خصم"),
     "dont_have_account": MessageLookupByLibrary.simpleMessage("ليس لديك حساب؟"),
     "duplicateRecord": MessageLookupByLibrary.simpleMessage(
       "هذا السجل موجود بالفعل.",
@@ -223,6 +225,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "productNameHint": MessageLookupByLibrary.simpleMessage("أدخل اسم المنتج"),
     "productNameLabel": MessageLookupByLibrary.simpleMessage("اسم المنتج"),
+    "productStatusOut": MessageLookupByLibrary.simpleMessage("غير متوفر"),
     "productsSold": MessageLookupByLibrary.simpleMessage("المنتجات المباعة"),
     "profile_dark_mode": MessageLookupByLibrary.simpleMessage("الوضع الداكن"),
     "profile_edit_profile": MessageLookupByLibrary.simpleMessage(
@@ -235,6 +238,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "بيانات الدفع",
     ),
     "profile_support": MessageLookupByLibrary.simpleMessage("الدعم"),
+    "quantity": MessageLookupByLibrary.simpleMessage("الكمية"),
     "rating": MessageLookupByLibrary.simpleMessage("التقييم"),
     "rating_1up": MessageLookupByLibrary.simpleMessage("1 نجمة فما فوق"),
     "rating_2up": MessageLookupByLibrary.simpleMessage("2 نجوم فما فوق"),
@@ -301,6 +305,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "signupSuccessTitle": MessageLookupByLibrary.simpleMessage(
       "تم التسجيل بنجاح",
     ),
+    "soldOut": MessageLookupByLibrary.simpleMessage("نفد المخزون"),
     "sortBy": MessageLookupByLibrary.simpleMessage("ترتيب حسب"),
     "sort_discount": MessageLookupByLibrary.simpleMessage("الخصومات"),
     "sort_highestPrice": MessageLookupByLibrary.simpleMessage("الأعلى سعرًا"),

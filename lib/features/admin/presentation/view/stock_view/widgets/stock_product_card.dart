@@ -11,8 +11,11 @@ import 'edit_product_overlay.dart';
 class StockProductCard extends StatelessWidget {
   const StockProductCard({super.key, required this.product});
   final ProductModel product;
+
   @override
   Widget build(BuildContext context) {
+    final l10n = S.current;
+
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -47,7 +50,7 @@ class StockProductCard extends StatelessWidget {
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            product.category?.name ?? 'Unknown',
+                            product.category?.name ?? l10n.unknownCategory,
                             style: TextStyles.regular12.copyWith(
                               color: context.colors.onSecondary,
                             ),
@@ -68,7 +71,7 @@ class StockProductCard extends StatelessWidget {
                   );
                 },
                 child: Text(
-                  "Edit",
+                  l10n.editButton,
                   style: TextStyles.bold14.copyWith(
                     color: context.colors.primary,
                   ),
@@ -81,12 +84,11 @@ class StockProductCard extends StatelessWidget {
           Divider(color: context.colors.onSecondary.withValues(alpha: 0.6)),
           const SizedBox(height: 12),
 
-          /// ========== VARIANT LIST ==========
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                S.current.variantsTitle,
+                l10n.variantsTitle,
                 style: TextStyles.bold14.copyWith(
                   color: context.colors.onSurface,
                 ),
@@ -121,22 +123,22 @@ class StockProductCard extends StatelessWidget {
                             Expanded(
                               child: _buildInfoColumn(
                                 context,
-                                'Size',
+                                l10n.variantSizeLabel,
                                 variant.size,
                               ),
                             ),
                             Expanded(
                               child: _buildInfoColumn(
                                 context,
-                                'Stock',
+                                l10n.variantStockLabel,
                                 '${variant.quantity}',
                               ),
                             ),
                             Expanded(
                               child: _buildInfoColumn(
                                 context,
-                                'Price',
-                                '${variant.price.toStringAsFixed(2)}${S.current.egp}',
+                                l10n.variantPriceLabel,
+                                '${variant.price.toStringAsFixed(2)}${l10n.egp}',
                               ),
                             ),
                           ],
@@ -144,7 +146,7 @@ class StockProductCard extends StatelessWidget {
                       ),
 
                       /// Right side: variant status
-                      _buildStatusBadge(context, variantStatus),
+                      _buildStatusBadge(context, variantStatus, l10n),
                     ],
                   ),
                 );
@@ -168,7 +170,6 @@ class StockProductCard extends StatelessWidget {
           ),
           overflow: TextOverflow.ellipsis,
         ),
-
         Text(
           value,
           style: TextStyles.bold14.copyWith(color: context.colors.onSurface),
@@ -178,28 +179,32 @@ class StockProductCard extends StatelessWidget {
     );
   }
 
-  Widget _buildStatusBadge(BuildContext context, ProductStatus status) {
+  Widget _buildStatusBadge(BuildContext context, ProductStatus status, S l10n) {
     Color color;
+    String label;
 
     switch (status) {
       case ProductStatus.inStock:
         color = ColorPalette.darkGreen;
-
+        label = l10n.statusInStock;
         break;
       case ProductStatus.low:
         color = ColorPalette.orangeCrayola;
-
+        label = l10n.statusLow;
         break;
       case ProductStatus.out:
         color = ColorPalette.errorLuxurious;
-
+        label = l10n.statusOut;
         break;
     }
 
-    return Container(
-      width: 8,
-      height: 8,
-      decoration: BoxDecoration(shape: BoxShape.circle, color: color),
+    return Tooltip(
+      message: label,
+      child: Container(
+        width: 8,
+        height: 8,
+        decoration: BoxDecoration(shape: BoxShape.circle, color: color),
+      ),
     );
   }
 }

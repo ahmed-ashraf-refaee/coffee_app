@@ -211,7 +211,18 @@
   "growth": "Growth",
 
 "abbreviationK": "K",
-"abbreviationM": "M"
+"abbreviationM": "M",
+  "editButton": "Edit",
+  "unknownCategory": "Unknown",
+  "variantStockLabel": "Stock",
+  "statusInStock": "In Stock",
+  "statusLow": "Low Stock",
+  "statusOut": "Out of Stock",
+    "productStatusOut": "Out of Stock",
+     "soldOut": "Sold Out",
+     "quantity": "Quantity",
+      "addToCart": "Add to Cart"
+      ,"discount": "Discount"
 
 
 

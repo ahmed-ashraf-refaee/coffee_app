@@ -110,7 +110,7 @@ class ProductInfoSection extends StatelessWidget {
           validator: (value) =>
               value == null ? l10n.productCategoryError : null,
           dropdownStyleData: DropdownStyleData(
-            offset: const Offset(0, -8),
+            offset: const Offset(0, -16),
             maxHeight: 300,
             elevation: 0,
             decoration: BoxDecoration(
@@ -131,7 +131,6 @@ class ProductInfoSection extends StatelessWidget {
           ),
         ),
 
-        //===================== DISCOUNT FIELD =====================//
         TextFormField(
           controller: discountController,
           keyboardType: const TextInputType.numberWithOptions(decimal: true),

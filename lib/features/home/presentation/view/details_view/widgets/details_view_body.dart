@@ -7,9 +7,13 @@ import 'package:coffee_app/core/widgets/custom_elevated_button.dart';
 import 'package:coffee_app/core/widgets/custom_icon_button.dart';
 import 'package:coffee_app/core/widgets/custom_rounded_images.dart';
 import 'package:coffee_app/core/widgets/prettier_tap.dart';
+import 'package:coffee_app/core/widgets/price_text.dart';
+import 'package:coffee_app/core/widgets/product_rating.dart';
 import 'package:coffee_app/features/cart/presentation/manager/cart_cubit/cart_cubit.dart';
 import 'package:coffee_app/features/home/presentation/view/details_view/widgets/custom_chip.dart';
 import 'package:coffee_app/features/home/presentation/view/details_view/widgets/quantity_selector.dart';
+import 'package:coffee_app/features/profile/presentation/manager/theme_cubit/theme_cubit.dart';
+import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,6 +36,7 @@ class DetailsViewBody extends StatefulWidget {
 class _DetailsViewBodyState extends State<DetailsViewBody> {
   int selectedIndex = 0;
   int quantity = 1;
+
   void onSelected(index) {
     setState(() {
       selectedIndex = index;
@@ -39,12 +44,9 @@ class _DetailsViewBodyState extends State<DetailsViewBody> {
   }
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final product = widget.product;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -61,10 +63,10 @@ class _DetailsViewBodyState extends State<DetailsViewBody> {
             buildWhen: (previous, current) {
               if (previous is WishlistSuccess && current is WishlistSuccess) {
                 final wasInPrevious = previous.products.any(
-                  (p) => p.id == widget.product.id,
+                  (p) => p.id == product.id,
                 );
                 final isInCurrent = current.products.any(
-                  (p) => p.id == widget.product.id,
+                  (p) => p.id == product.id,
                 );
                 return wasInPrevious != isInCurrent;
               }
@@ -72,12 +74,12 @@ class _DetailsViewBodyState extends State<DetailsViewBody> {
             },
             builder: (context, state) {
               final isFavorite = context.read<WishlistCubit>().isFavorite(
-                productId: widget.product.id,
+                productId: product.id,
               );
               return AnimatedIconSwitch(
                 onChanged: (value) {
                   context.read<WishlistCubit>().toggleFavorite(
-                    product: widget.product,
+                    product: product,
                   );
                 },
                 initialState: isFavorite,
@@ -91,115 +93,124 @@ class _DetailsViewBodyState extends State<DetailsViewBody> {
           ),
         ),
         const SizedBox(height: 16),
-        PrettierTap(
-          shrink: 1,
-          onPressed: () => UiHelpers.showOverlay(
-            context: context,
-            child: Hero(
-              tag: widget.tag,
-              child: CachedNetworkImage(
-                imageUrl: widget.product.imageUrl,
-                fit: BoxFit.contain,
-                errorWidget: (context, url, error) =>
-                    const Icon(Ionicons.warning_outline, size: 30),
+        Stack(
+          children: [
+            PrettierTap(
+              shrink: 1,
+              onPressed: () => UiHelpers.showOverlay(
+                context: context,
+                child: ProductImageOverlay(widget: widget),
+              ),
+              child: Hero(
+                tag: widget.tag,
+                child: CustomRoundedImage(
+                  imageUrl: product.imageUrl,
+                  aspectRatio: 6 / 4,
+                  width: context.width,
+                ),
               ),
             ),
-          ),
-          child: Hero(
-            tag: widget.tag,
-            child: CustomRoundedImage(
-              imageUrl: widget.product.imageUrl,
-              aspectRatio: 6 / 4,
-              width: context.width,
-            ),
-          ),
-        ),
-        const SizedBox(height: 24),
 
-        Text(widget.product.name, style: TextStyles.medium32),
+            // 🔹 Discount Overlay (slightly bigger version)
+            if (product.discount > 0)
+              Positioned(
+                top: 8,
+                left: context.isArabic ? null : 8,
+                right: context.isArabic ? 8 : null,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Transform.flip(
+                      flipX: !context.isArabic,
+                      child: Icon(
+                        Ionicons.pricetag,
+                        size: 64, // slightly larger
+                        color: context.colors.primary,
+                      ),
+                    ),
+                    Transform.rotate(
+                      angle: context.isArabic ? -0.785398 : 0.785398,
+                      child: Text(
+                        '${product.discount.toStringAsFixed(0)}%',
+                        style: TextStyles.bold16.copyWith(
+                          color: context.colors.onPrimary,
+                          letterSpacing: 1.2,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+          ],
+        ),
+        const SizedBox(height: 8),
+        Text(product.name, style: TextStyles.medium32),
+        const SizedBox(height: 8),
+        ProductRating(
+          rating: product.rating,
+          numberOfRatings: product.numberOfRatings,
+          size: 16,
+        ),
         Expanded(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  child: Text(
-                    widget.product.description,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    product.description,
                     style: TextStyles.regular16.copyWith(
                       height: 1.2,
                       color: context.colors.onSecondary,
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
-
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          spacing: 16,
-          children: List.generate(widget.product.productVariants.length, (
-            index,
-          ) {
-            return Expanded(
-              child: CustomChip(
-                label: widget.product.productVariants[index].size,
-                onSelected: () {
-                  onSelected(index);
-                  quantity = 1;
-                },
-                selected: selectedIndex == index,
-              ),
-            );
-          }),
-        ),
-        const SizedBox(height: 16),
+        _buildVariantsChips(context),
+        const SizedBox(height: 24),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Column(
-              spacing: 12,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text("quantity", style: TextStyles.semi16),
-
-                QuantitySelector(
-                  value: quantity,
-                  maxValue:
-                      widget.product.productVariants[selectedIndex].quantity,
-                  minValue: 1,
-                  onChanged: (value) {
-                    setState(() {
-                      quantity = value;
-                    });
-                  },
-                  contentPadding: const EdgeInsets.all(8),
-                ),
-              ],
+            PriceText(
+              price: product.productVariants[selectedIndex].price,
+              discount: product.discount,
+              fontSize: 32,
+              oldPriceSize: 14,
+              quantity: quantity,
             ),
-            RichText(
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              text: TextSpan(
-                children: <TextSpan>[
-                  TextSpan(
-                    text: "\$",
-                    style: TextStyles.regular20.copyWith(
-                      color: context.colors.primary,
-                    ),
+            Container(
+              decoration: BoxDecoration(
+                color: context.colors.secondary,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              height: 56,
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Text(S.current.quantity, style: TextStyles.semi16),
                   ),
-                  TextSpan(
-                    text:
-                        (widget.product.productVariants[selectedIndex].price *
-                                quantity)
-                            .toStringAsFixed(2),
-                    style: TextStyles.regular36.copyWith(
-                      color: context.colors.primary,
-                    ),
+                  Container(
+                    height: 24,
+                    width: 1,
+                    color: context.colors.onSecondary.withValues(alpha: 0.6),
+                  ),
+                  QuantitySelector(
+                    value: quantity,
+                    maxValue: product.productVariants[selectedIndex].quantity,
+                    minValue: 1,
+                    onChanged: (value) {
+                      setState(() {
+                        quantity = value;
+                      });
+                    },
+                    contentPadding: const EdgeInsets.all(8),
                   ),
                 ],
               ),
@@ -211,21 +222,60 @@ class _DetailsViewBodyState extends State<DetailsViewBody> {
           builder: (context, state) {
             return CustomElevatedButton(
               isLoading:
-                  state is CartAddItemLoading &&
-                  state.productId == widget.product.id,
+                  state is CartAddItemLoading && state.productId == product.id,
               onPressed: () {
                 BlocProvider.of<CartCubit>(context).addItem(
-                  productVariantId:
-                      widget.product.productVariants[selectedIndex].id,
+                  productVariantId: product.productVariants[selectedIndex].id,
                   quantity: quantity,
-                  productId: widget.product.id,
+                  productId: product.id,
                 );
               },
-              child: const Text("Add to Cart", style: TextStyles.medium20),
+              child: Text(S.current.addToCart, style: TextStyles.medium20),
             );
           },
         ),
       ],
+    );
+  }
+
+  Row _buildVariantsChips(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      spacing: 16,
+      children: List.generate(3, (index) {
+        if (index < widget.product.productVariants.length) {
+          return Expanded(
+            child: CustomChip(
+              label: widget.product.productVariants[index].size,
+              onSelected: () {
+                onSelected(index);
+                quantity = 1;
+              },
+              selected: selectedIndex == index,
+            ),
+          );
+        }
+        return Expanded(child: SizedBox(width: context.width, height: 56));
+      }),
+    );
+  }
+}
+
+class ProductImageOverlay extends StatelessWidget {
+  const ProductImageOverlay({super.key, required this.widget});
+
+  final DetailsViewBody widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return Hero(
+      tag: widget.tag,
+      child: CachedNetworkImage(
+        imageUrl: widget.product.imageUrl,
+        fit: BoxFit.contain,
+        errorWidget: (context, url, error) =>
+            const Icon(Ionicons.warning_outline, size: 30),
+      ),
     );
   }
 }
