@@ -6,7 +6,6 @@ import 'package:coffee_app/features/checkout/presentation/views/address_view/add
 import 'package:coffee_app/features/checkout/presentation/views/checkout_view/checkout_view.dart';
 import 'package:coffee_app/features/checkout/presentation/views/payment_view/payment_view.dart';
 import 'package:coffee_app/features/home/presentation/view/details_view/details_view.dart';
-import 'package:coffee_app/features/navigation/presentation/manager/navigator_cubit/navigator_cubit.dart';
 import 'package:coffee_app/features/profile/presentation/view/language_view/language_select_view.dart';
 import 'package:coffee_app/features/splash/presentation/view/splash_view.dart';
 
@@ -89,10 +88,7 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kNavigationView,
-        builder: (context, state) => BlocProvider(
-          create: (context) => AppNavigatorCubit(),
-          child: const AppNavigation(),
-        ),
+        builder: (context, state) => const AppNavigation(),
       ),
       GoRoute(
         path: kAuthView,

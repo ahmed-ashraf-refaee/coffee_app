@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:coffee_app/features/profile/data/repo/profile_repo_impl.dart';
 import 'package:meta/meta.dart';
 
+
 part 'setting_state.dart';
 
 class SettingCubit extends Cubit<SettingState> {

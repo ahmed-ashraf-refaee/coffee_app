@@ -21,6 +21,8 @@ import 'features/authentication/presentation/manager/auth_bloc/auth_bloc.dart';
 import 'features/checkout/presentation/manager/payment/payment_cubit.dart';
 import 'features/home/presentation/manager/home_filter_cubit/home_filter_cubit.dart';
 import 'features/home/presentation/manager/home_products_cubit/home_product_cubit.dart';
+import 'features/navigation/presentation/manager/navigator_cubit/navigator_cubit.dart';
+import 'features/profile/presentation/manager/edit_profile/edit_profile_cubit.dart';
 import 'features/wishlist/presentation/manager/wishlist/wishlist_cubit.dart';
 import 'generated/l10n.dart';
 
@@ -58,6 +60,8 @@ class CoffeeApp extends StatelessWidget {
         BlocProvider(create: (context) => CardCubit()),
         BlocProvider(create: (context) => AdminProductManagerCubit()),
         BlocProvider(create: (context) => AdminRoleCubit()..loadRole()),
+        BlocProvider(create: (context) => EditProfileCubit()..fetchUserData()),
+        BlocProvider(create: (context) => AppNavigatorCubit()),
         BlocProvider(
           create: (context) =>
               HomeProductCubit(context.read<HomeFilterCubit>())..getProducts(),

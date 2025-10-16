@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:coffee_app/core/services/image_upload_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -183,6 +186,26 @@ class AuthService {
             .eq('id', user.id);
       }
     }
+  }
+
+  Future<void> editProfileData({
+    required String firstName,
+    required String lastName,
+    required String userName,
+    required File? imageFile,
+  }) async {
+    String? imageUrl;
+    if (imageFile != null) {
+      final ImageUploadService imageService = ImageUploadService();
+
+      imageUrl = await imageService.uploadImage(imageFile, ImageType.product);
+    }
+    await updateUserProfile(
+      firstName: firstName,
+      lastName: lastName,
+      username: userName,
+      profileImageUrl: imageUrl,
+    );
   }
 
   Future<void> updateEmail(String newEmail, String currentPassword) async {

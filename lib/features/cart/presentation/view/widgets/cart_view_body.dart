@@ -150,7 +150,6 @@ class CartSummary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double subTotal = 0.0;
-    double discount = 0.0;
     double shipping = 0.0;
     double total = 0.0;
 

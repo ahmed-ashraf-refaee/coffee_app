@@ -10,5 +10,3 @@ final class ProfileFailureState extends SettingState {
 
   ProfileFailureState({required this.error});
 }
-
-final class ProfileSuccessState extends SettingState {}

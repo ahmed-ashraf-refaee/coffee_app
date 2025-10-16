@@ -6,12 +6,15 @@ import 'package:ionicons/ionicons.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../../core/helper/ui_helpers.dart';
+import '../../../../../../core/utils/app_router.dart';
 import '../../../../../../core/widgets/custom_app_bar.dart';
 import '../../../../../../core/widgets/custom_icon_button.dart';
 import '../../../../../../core/widgets/prettier_tap.dart';
 import '../../../../../../core/widgets/title_subtitle.dart';
 import '../../../../../../main.dart';
 import '../../../../../authentication/presentation/manager/auth_bloc/auth_bloc.dart';
+import '../../../../../navigation/presentation/manager/navigator_cubit/navigator_cubit.dart';
+import '../../../manager/edit_profile/edit_profile_cubit.dart';
 
 class ChangeEmailViewBody extends StatefulWidget {
   const ChangeEmailViewBody({super.key});
@@ -132,7 +135,12 @@ class _ChangeEmailViewBodyState extends State<ChangeEmailViewBody> {
                   context: context,
                   message: 'Email updated successfully!',
                 );
-                GoRouter.of(context).pop();
+                context.read<EditProfileCubit>().fetchUserData();
+
+                GoRouter.of(context).pushReplacement(AppRouter.kNavigationView);
+                context.read<AppNavigatorCubit>().setCurrentIndex(3);
+
+                // GoRouter.of(context).pop();
               }
             },
             builder: (context, state) {

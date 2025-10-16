@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:coffee_app/features/authentication/data/services/auth_service.dart';
 import 'package:coffee_app/features/profile/data/services/settings_service.dart';
 import 'package:dartz/dartz.dart';
@@ -33,6 +35,23 @@ class ProfileRepoImpl extends ProfileRepo {
     return guard(() async {
       final response = await SettingService().launchWhatsApp(phone);
       return response;
+    });
+  }
+
+  @override
+  Future<Either<Failure, void>> editProfileData({
+    required String firstName,
+    required String lastName,
+    required String userName,
+    required File? imageFile,
+  }) {
+    return guard(() async {
+      await AuthService().editProfileData(
+        firstName: firstName,
+        lastName: lastName,
+        userName: userName,
+        imageFile: imageFile,
+      );
     });
   }
 }

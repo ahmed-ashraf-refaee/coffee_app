@@ -1,12 +1,14 @@
 import 'package:coffee_app/core/constants/reg_constants.dart';
 import 'package:coffee_app/core/utils/text_styles.dart';
 import 'package:coffee_app/core/widgets/custom_elevated_button.dart';
+import 'package:coffee_app/features/navigation/presentation/manager/navigator_cubit/navigator_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../../core/helper/ui_helpers.dart';
+import '../../../../../../core/utils/app_router.dart';
 import '../../../../../../core/widgets/custom_app_bar.dart';
 import '../../../../../../core/widgets/custom_icon_button.dart';
 import '../../../../../../core/widgets/prettier_tap.dart';
@@ -175,7 +177,9 @@ class _ChangePasswordViewBodyState extends State<ChangePasswordViewBody> {
                   context: context,
                   message: 'Password updated successfully!',
                 );
-                GoRouter.of(context).pop();
+                GoRouter.of(context).pushReplacement(AppRouter.kNavigationView);
+                context.read<AppNavigatorCubit>().setCurrentIndex(3);
+                // GoRouter.of(context).pop();
               }
             },
             builder: (context, state) {

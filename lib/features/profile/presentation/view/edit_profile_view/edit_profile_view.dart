@@ -1,18 +1,24 @@
+import 'dart:io';
+
+import 'package:coffee_app/core/helper/ui_helpers.dart';
 import 'package:coffee_app/core/utils/text_styles.dart';
 import 'package:coffee_app/core/widgets/custom_elevated_button.dart';
 import 'package:coffee_app/features/authentication/data/model/user_profile_model.dart';
+import 'package:coffee_app/features/profile/presentation/manager/edit_profile/edit_profile_cubit.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:ionicons/ionicons.dart';
 import '../../../../../core/utils/app_router.dart';
 import '../../../../../core/widgets/custom_app_bar.dart';
 import '../../../../../core/widgets/custom_icon_button.dart';
+import '../../../../../core/widgets/custom_rounded_images.dart';
 import '../../../../../core/widgets/prettier_tap.dart';
 import '../profile_view/widgets/profile_container.dart';
 import '../profile_view/widgets/profile_divider.dart';
 import '../profile_view/widgets/profile_tile.dart';
-import 'widgets/edit_profile_image_section.dart';
 
 class EditProfileView extends StatefulWidget {
   final UserProfileModel user;
@@ -29,16 +35,7 @@ class _EditProfileViewState extends State<EditProfileView> {
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController usernameController = TextEditingController();
 
-  final TextEditingController changeEmailController = TextEditingController();
-  final TextEditingController changeEmailPasswordController =
-      TextEditingController();
-
-  final TextEditingController currentPasswordController =
-      TextEditingController();
-  final TextEditingController changePasswordController =
-      TextEditingController();
-  final TextEditingController confirmChangePasswordController =
-      TextEditingController();
+  File? imageFile;
 
   @override
   void initState() {
@@ -53,11 +50,6 @@ class _EditProfileViewState extends State<EditProfileView> {
     firstNameController.dispose();
     lastNameController.dispose();
     usernameController.dispose();
-    changeEmailController.dispose();
-    changeEmailPasswordController.dispose();
-    currentPasswordController.dispose();
-    changePasswordController.dispose();
-    confirmChangePasswordController.dispose();
     super.dispose();
   }
 
@@ -94,8 +86,57 @@ class _EditProfileViewState extends State<EditProfileView> {
                       child: Column(
                         spacing: 22,
                         children: [
-                          EditProfileImageSection(
-                            imageUrl: widget.user.profileImageUrl,
+                          Stack(
+                            fit: StackFit.loose,
+                            alignment: Alignment.center,
+                            children: [
+                              imageFile != null
+                                  ? Hero(
+                                      tag: widget.user.profileImageUrl!,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(12),
+                                        child: Image.file(
+                                          imageFile!,
+                                          fit: BoxFit.cover,
+                                          width: 170,
+                                          height: 170,
+                                          filterQuality: FilterQuality.low,
+                                        ),
+                                      ),
+                                    )
+                                  : widget.user.profileImageUrl != null
+                                  ? Hero(
+                                      tag: widget.user.profileImageUrl!,
+                                      child: CustomRoundedImage(
+                                        imageUrl: widget.user.profileImageUrl!,
+                                        aspectRatio: 1,
+                                        width: 170,
+                                      ),
+                                    )
+                                  : const CustomRoundedImage(
+                                      imageUrl: "assets/icons/user.png",
+                                      isAsset: true,
+                                      aspectRatio: 1,
+                                      width: 170,
+                                    ),
+
+                              Positioned(
+                                bottom: 0,
+                                right: 0,
+                                child: CustomIconButton(
+                                  padding: 4,
+                                  width: 36,
+                                  hight: 36,
+                                  backgroundColor: context.colors.secondary
+                                      .withValues(alpha: 0.65),
+                                  onPressed: _pickImage,
+                                  child: Icon(
+                                    Ionicons.camera_outline,
+                                    color: context.colors.onSecondary,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                           Column(
                             children: [
@@ -224,9 +265,26 @@ class _EditProfileViewState extends State<EditProfileView> {
   }
 
   Widget _buildBottomSection(BuildContext context) {
-    return CustomElevatedButton(
-      onPressed: () => _onTapSave(context),
-      child: const Text("Save", style: TextStyles.medium20),
+    return BlocConsumer<EditProfileCubit, EditProfileState>(
+      listener: (context, state) {
+        if (state is EditProfileFailure) {
+          UiHelpers.showSnackBar(context: context, message: state.error);
+        } else if (state is EditProfileSuccess) {
+          UiHelpers.showSnackBar(
+            context: context,
+            message: "Profile updated successfully",
+          );
+          context.read<EditProfileCubit>().fetchUserData();
+          GoRouter.of(context).pop();
+        }
+      },
+      builder: (context, state) {
+        return CustomElevatedButton(
+          isLoading: state is EditProfileLoading,
+          onPressed: () => _onTapSave(context),
+          child: const Text("Save", style: TextStyles.medium20),
+        );
+      },
     );
   }
 
@@ -247,13 +305,24 @@ class _EditProfileViewState extends State<EditProfileView> {
     return null;
   }
 
+  Future<void> _pickImage() async {
+    final pickedFile = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+    );
+    if (pickedFile != null) {
+      setState(() {
+        imageFile = File(pickedFile.path);
+      });
+    }
+  }
+
   void _onTapSave(BuildContext context) {
     if (_formKey.currentState!.validate()) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: const Text('Profile updated successfully'),
-          backgroundColor: context.colors.primary,
-        ),
+      context.read<EditProfileCubit>().editProfileData(
+        firstName: firstNameController.text,
+        lastName: lastNameController.text,
+        userName: usernameController.text,
+        imageFile: imageFile,
       );
     }
   }
