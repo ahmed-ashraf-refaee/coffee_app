@@ -31,6 +31,16 @@ class MessageLookup extends MessageLookupByLibrary {
     "addAnotherVariant": MessageLookupByLibrary.simpleMessage("أضف نوعًا آخر"),
     "addCard": MessageLookupByLibrary.simpleMessage("أضف بطاقة"),
     "addCardTitle": MessageLookupByLibrary.simpleMessage("إضافة طريقة دفع"),
+    "addLocationSubtitle": MessageLookupByLibrary.simpleMessage(
+      "اختر موقعك على الخريطة وأكمل تفاصيل العنوان",
+    ),
+    "addLocationTitle": MessageLookupByLibrary.simpleMessage(
+      "إضافة عنوان جديد",
+    ),
+    "addNewAddress": MessageLookupByLibrary.simpleMessage("إضافة عنوان جديد"),
+    "addNewAddressSubtitle": MessageLookupByLibrary.simpleMessage(
+      "أدخل تفاصيل عنوانك لحفظ هذا الموقع",
+    ),
     "addPaymentMethod": MessageLookupByLibrary.simpleMessage("إضافة طريقة دفع"),
     "addProductButton": MessageLookupByLibrary.simpleMessage("إضافة المنتج"),
     "addProductSubtitle": MessageLookupByLibrary.simpleMessage(
@@ -42,6 +52,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "addToCart": MessageLookupByLibrary.simpleMessage("أضف إلى السلة"),
     "addVariant": MessageLookupByLibrary.simpleMessage("إضافة متغير"),
+    "address": MessageLookupByLibrary.simpleMessage("العنوان"),
     "all": MessageLookupByLibrary.simpleMessage("الكل"),
     "already_have_account": MessageLookupByLibrary.simpleMessage(
       "هل لديك حساب بالفعل؟",
@@ -68,9 +79,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "categoryRequired": MessageLookupByLibrary.simpleMessage("يرجى اختيار فئة"),
     "change": MessageLookupByLibrary.simpleMessage("تغيير"),
     "checkout": MessageLookupByLibrary.simpleMessage("الدفع"),
+    "city": MessageLookupByLibrary.simpleMessage("المدينة"),
     "codeMustBeSixDigits": MessageLookupByLibrary.simpleMessage(
       "يجب أن يكون الرمز مكون من 6 أرقام",
     ),
+    "confirmLocation": MessageLookupByLibrary.simpleMessage("تأكيد الموقع"),
     "confirmPassword": MessageLookupByLibrary.simpleMessage("أكد كلمة المرور"),
     "confirm_password": MessageLookupByLibrary.simpleMessage(
       "تأكيد كلمة المرور",
@@ -120,6 +133,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "enterLastName": MessageLookupByLibrary.simpleMessage("أدخل اسم العائلة"),
     "enterPassword": MessageLookupByLibrary.simpleMessage("أدخل كلمة المرور"),
     "enterUsername": MessageLookupByLibrary.simpleMessage("أدخل اسم المستخدم"),
+    "enterValidPhone": MessageLookupByLibrary.simpleMessage(
+      "أدخل رقم هاتف صحيح",
+    ),
     "enterVerificationCode": MessageLookupByLibrary.simpleMessage(
       "أدخل رمز التحقق",
     ),
@@ -218,6 +234,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "nullValueError": MessageLookupByLibrary.simpleMessage(
       "تم ترك حقل مطلوب فارغًا.",
     ),
+    "openMap": MessageLookupByLibrary.simpleMessage("فتح الخريطة"),
+    "optionalPhoneNumber": MessageLookupByLibrary.simpleMessage(
+      "رقم هاتف إضافي",
+    ),
     "or": MessageLookupByLibrary.simpleMessage("أو"),
     "order_summary": MessageLookupByLibrary.simpleMessage("ملخص الطلب"),
     "otpExpired": MessageLookupByLibrary.simpleMessage(
@@ -237,6 +257,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "paymentMethods": MessageLookupByLibrary.simpleMessage("طرق الدفع"),
     "paymentMethodsSubtitle": MessageLookupByLibrary.simpleMessage(
       "اختر طريقة الدفع المفضلة لديك",
+    ),
+    "phoneNumber": MessageLookupByLibrary.simpleMessage("رقم الهاتف"),
+    "phoneNumberRequired": MessageLookupByLibrary.simpleMessage(
+      "رقم الهاتف مطلوب",
     ),
     "pleaseEnterCode": MessageLookupByLibrary.simpleMessage("يرجى إدخال الرمز"),
     "priceLabel": MessageLookupByLibrary.simpleMessage("السعر"),
@@ -314,12 +338,20 @@ class MessageLookup extends MessageLookupByLibrary {
       "لا يمكنك استخدام نفس كلمة المرور القديمة مرة أخرى.",
     ),
     "save": MessageLookupByLibrary.simpleMessage("حفظ"),
+    "saveAddress": MessageLookupByLibrary.simpleMessage("حفظ العنوان"),
     "saveCard": MessageLookupByLibrary.simpleMessage("حفظ البطاقة"),
     "savedAddresses": MessageLookupByLibrary.simpleMessage("العناوين المحفوظة"),
     "savedAddressesSubtitle": MessageLookupByLibrary.simpleMessage(
       "اختر عنوانًا أو أضف عنوانًا جديدًا بالأسفل.",
     ),
     "search": MessageLookupByLibrary.simpleMessage("ابحث عن قهوتك المفضلة"),
+    "searchYourLocation": MessageLookupByLibrary.simpleMessage("ابحث عن موقعك"),
+    "selectAddressOnMap": MessageLookupByLibrary.simpleMessage(
+      "اختر العنوان من الخريطة",
+    ),
+    "selectAddressSubtitle": MessageLookupByLibrary.simpleMessage(
+      "حرّك واضغط لتحديد موقع التوصيل الخاص بك",
+    ),
     "selectLanguage": MessageLookupByLibrary.simpleMessage("اختر اللغة"),
     "sendEmail": MessageLookupByLibrary.simpleMessage("إرسال رمز التحقق"),
     "sendTimeout": MessageLookupByLibrary.simpleMessage(
@@ -360,6 +392,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "sort_newest": MessageLookupByLibrary.simpleMessage("الأحدث"),
     "sort_oldest": MessageLookupByLibrary.simpleMessage("الأقدم"),
     "sort_topRated": MessageLookupByLibrary.simpleMessage("الأعلى تقييمًا"),
+    "state": MessageLookupByLibrary.simpleMessage("المحافظة"),
     "stockLabel": MessageLookupByLibrary.simpleMessage("المخزون"),
     "stockManagerSubtitle": MessageLookupByLibrary.simpleMessage(
       "تتبع المخزون وحدّث توافر المنتجات",
@@ -369,6 +402,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "syntaxError": MessageLookupByLibrary.simpleMessage(
       "هناك مشكلة في استعلام قاعدة البيانات.",
     ),
+    "title": MessageLookupByLibrary.simpleMessage("الاسم"),
     "tooLong": MessageLookupByLibrary.simpleMessage("طويل جدًا"),
     "tooShort": MessageLookupByLibrary.simpleMessage("قصير جدًا"),
     "topCategories": MessageLookupByLibrary.simpleMessage(

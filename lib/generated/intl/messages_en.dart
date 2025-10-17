@@ -33,6 +33,14 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "addCard": MessageLookupByLibrary.simpleMessage("Add card"),
     "addCardTitle": MessageLookupByLibrary.simpleMessage("Add Payment Method"),
+    "addLocationSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Select your location on the map and fill in your address details",
+    ),
+    "addLocationTitle": MessageLookupByLibrary.simpleMessage("Add New Address"),
+    "addNewAddress": MessageLookupByLibrary.simpleMessage("Add New Address"),
+    "addNewAddressSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Enter your address details to save this location",
+    ),
     "addPaymentMethod": MessageLookupByLibrary.simpleMessage(
       "Add payment method",
     ),
@@ -46,6 +54,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "addToCart": MessageLookupByLibrary.simpleMessage("Add to Cart"),
     "addVariant": MessageLookupByLibrary.simpleMessage("Add Variant"),
+    "address": MessageLookupByLibrary.simpleMessage("Address"),
     "all": MessageLookupByLibrary.simpleMessage("All"),
     "already_have_account": MessageLookupByLibrary.simpleMessage(
       "Already have an account?",
@@ -74,9 +83,11 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "change": MessageLookupByLibrary.simpleMessage("change"),
     "checkout": MessageLookupByLibrary.simpleMessage("Checkout"),
+    "city": MessageLookupByLibrary.simpleMessage("City"),
     "codeMustBeSixDigits": MessageLookupByLibrary.simpleMessage(
       "Code must be 6 digits",
     ),
+    "confirmLocation": MessageLookupByLibrary.simpleMessage("Confirm location"),
     "confirmPassword": MessageLookupByLibrary.simpleMessage("Confirm password"),
     "confirm_password": MessageLookupByLibrary.simpleMessage(
       "Confirm Password",
@@ -126,6 +137,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "enterLastName": MessageLookupByLibrary.simpleMessage("Enter last name"),
     "enterPassword": MessageLookupByLibrary.simpleMessage("Enter password"),
     "enterUsername": MessageLookupByLibrary.simpleMessage("Enter username"),
+    "enterValidPhone": MessageLookupByLibrary.simpleMessage(
+      "Enter a valid phone number",
+    ),
     "enterVerificationCode": MessageLookupByLibrary.simpleMessage(
       "Enter Verification Code",
     ),
@@ -228,6 +242,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "nullValueError": MessageLookupByLibrary.simpleMessage(
       "A required field was left empty.",
     ),
+    "openMap": MessageLookupByLibrary.simpleMessage("Open Map"),
+    "optionalPhoneNumber": MessageLookupByLibrary.simpleMessage(
+      "Optional Phone Number",
+    ),
     "or": MessageLookupByLibrary.simpleMessage("or"),
     "order_summary": MessageLookupByLibrary.simpleMessage("Order Summary"),
     "otpExpired": MessageLookupByLibrary.simpleMessage(
@@ -247,6 +265,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "paymentMethods": MessageLookupByLibrary.simpleMessage("Payment Methods"),
     "paymentMethodsSubtitle": MessageLookupByLibrary.simpleMessage(
       "Choose your preferred payment option",
+    ),
+    "phoneNumber": MessageLookupByLibrary.simpleMessage("Phone Number"),
+    "phoneNumberRequired": MessageLookupByLibrary.simpleMessage(
+      "Phone number is required",
     ),
     "pleaseEnterCode": MessageLookupByLibrary.simpleMessage(
       "Please enter the code",
@@ -334,12 +356,22 @@ class MessageLookup extends MessageLookupByLibrary {
       "New password must be different from the old password.",
     ),
     "save": MessageLookupByLibrary.simpleMessage("Save"),
+    "saveAddress": MessageLookupByLibrary.simpleMessage("Save Address"),
     "saveCard": MessageLookupByLibrary.simpleMessage("Save Card"),
     "savedAddresses": MessageLookupByLibrary.simpleMessage("Saved Addresses"),
     "savedAddressesSubtitle": MessageLookupByLibrary.simpleMessage(
       "Select an address or add a new one below.",
     ),
     "search": MessageLookupByLibrary.simpleMessage("Find your favorite coffee"),
+    "searchYourLocation": MessageLookupByLibrary.simpleMessage(
+      "Search your location",
+    ),
+    "selectAddressOnMap": MessageLookupByLibrary.simpleMessage(
+      "Select address on map",
+    ),
+    "selectAddressSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Move and tap to pick your delivery location",
+    ),
     "selectLanguage": MessageLookupByLibrary.simpleMessage("Select Language"),
     "sendEmail": MessageLookupByLibrary.simpleMessage("Send Verification Code"),
     "sendTimeout": MessageLookupByLibrary.simpleMessage(
@@ -380,6 +412,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "sort_newest": MessageLookupByLibrary.simpleMessage("Newest"),
     "sort_oldest": MessageLookupByLibrary.simpleMessage("Oldest"),
     "sort_topRated": MessageLookupByLibrary.simpleMessage("Top Rated"),
+    "state": MessageLookupByLibrary.simpleMessage("State"),
     "stockLabel": MessageLookupByLibrary.simpleMessage("Stock"),
     "stockManagerSubtitle": MessageLookupByLibrary.simpleMessage(
       "Track inventory and update product availability",
@@ -389,6 +422,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "syntaxError": MessageLookupByLibrary.simpleMessage(
       "There is a problem with the database query.",
     ),
+    "title": MessageLookupByLibrary.simpleMessage("Title"),
     "tooLong": MessageLookupByLibrary.simpleMessage("Too long"),
     "tooShort": MessageLookupByLibrary.simpleMessage("Too short"),
     "topCategories": MessageLookupByLibrary.simpleMessage("Top Categories"),

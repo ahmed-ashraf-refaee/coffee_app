@@ -248,6 +248,26 @@
 "savedAddressesSubtitle": "اختر عنوانًا أو أضف عنوانًا جديدًا بالأسفل.",
 "savedAddresses": "العناوين المحفوظة",
 "noAddressesAvailable": "لا توجد عناوين. يرجى إضافة عنوان جديد.",
-"addAddress": "إضافة عنوان"
+"addAddress": "إضافة عنوان",
+  "selectAddressOnMap": "اختر العنوان من الخريطة",
+  "selectAddressSubtitle": "حرّك واضغط لتحديد موقع التوصيل الخاص بك",
+  "confirmLocation": "تأكيد الموقع",
+  "searchYourLocation": "ابحث عن موقعك",
+    "addNewAddress": "إضافة عنوان جديد",
+  "addNewAddressSubtitle": "أدخل تفاصيل عنوانك لحفظ هذا الموقع",
+  "openMap": "فتح الخريطة",
+  "state": "المحافظة",
+  "city": "المدينة",
+  "address": "العنوان",
+  "title": "الاسم",
+  "phoneNumber": "رقم الهاتف",
+  "optionalPhoneNumber": "رقم هاتف إضافي",
+  "saveAddress": "حفظ العنوان",
+
+  "phoneNumberRequired": "رقم الهاتف مطلوب",
+  "enterValidPhone": "أدخل رقم هاتف صحيح",
+  "addLocationTitle": "إضافة عنوان جديد",
+"addLocationSubtitle": "اختر موقعك على الخريطة وأكمل تفاصيل العنوان"
+
 
 }

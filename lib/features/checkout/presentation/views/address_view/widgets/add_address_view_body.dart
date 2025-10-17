@@ -1,10 +1,15 @@
 import 'package:coffee_app/core/utils/app_router.dart';
+import 'package:coffee_app/core/utils/color_palette.dart';
 import 'package:coffee_app/core/utils/text_styles.dart';
+import 'package:coffee_app/core/widgets/custom_app_bar.dart';
 import 'package:coffee_app/core/widgets/custom_elevated_button.dart';
+import 'package:coffee_app/core/widgets/custom_icon_button.dart';
 import 'package:coffee_app/core/widgets/custom_rounded_images.dart';
 import 'package:coffee_app/core/widgets/prettier_tap.dart';
+import 'package:coffee_app/core/widgets/title_subtitle.dart';
 import 'package:coffee_app/features/checkout/data/models/address_model.dart';
 import 'package:coffee_app/features/checkout/presentation/manager/address/address_cubit.dart';
+import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,10 +34,10 @@ class _AddAddressViewBodyState extends State<AddAddressViewBody> {
   late TextEditingController _optionalPhoneController;
   double? lat;
   double? lng;
+
   @override
   void initState() {
     super.initState();
-
     _stateController = TextEditingController();
     _cityController = TextEditingController();
     _addressController = TextEditingController();
@@ -54,19 +59,19 @@ class _AddAddressViewBodyState extends State<AddAddressViewBody> {
 
   String? _requiredValidator(String? value, String field) {
     if (value == null || value.trim().isEmpty) {
-      return "$field is required";
+      return "$field ${S.current.isRequired}";
     }
     return null;
   }
 
   String? _phoneValidator(String? value, {bool required = true}) {
     if (value == null || value.trim().isEmpty) {
-      if (required) return "Phone number is required";
+      if (required) return S.current.phoneNumberRequired;
       return null;
     }
     final regex = RegExp(r'^[0-9]{7,15}$');
     if (!regex.hasMatch(value.trim())) {
-      return "Enter a valid phone number";
+      return S.current.enterValidPhone;
     }
     return null;
   }
@@ -92,8 +97,24 @@ class _AddAddressViewBodyState extends State<AddAddressViewBody> {
     return Form(
       key: _formKey,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         spacing: 16,
         children: [
+          CustomAppBar(
+            leading: CustomIconButton(
+              padding: 8,
+              onPressed: () => GoRouter.of(context).pop(),
+              child: Icon(
+                Ionicons.chevron_back,
+                color: context.colors.onSecondary,
+              ),
+            ),
+          ),
+          TitleSubtitle(
+            title: S.current.addLocationTitle,
+            subtitle: S.current.addLocationSubtitle,
+          ),
+
           PrettierTap(
             shrink: 1,
             onPressed: () async {
@@ -125,7 +146,7 @@ class _AddAddressViewBodyState extends State<AddAddressViewBody> {
                 Positioned.directional(
                   textDirection: context.isArabic
                       ? TextDirection.rtl
-                      : TextDirection.rtl,
+                      : TextDirection.ltr,
                   bottom: 1,
                   child: Container(
                     margin: const EdgeInsets.all(8),
@@ -134,7 +155,7 @@ class _AddAddressViewBodyState extends State<AddAddressViewBody> {
                       vertical: 6,
                     ),
                     decoration: BoxDecoration(
-                      color: context.colors.surface.withValues(alpha: 0.8),
+                      color: ColorPalette.eerieBlack.withValues(alpha: 0.8),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Row(
@@ -147,7 +168,7 @@ class _AddAddressViewBodyState extends State<AddAddressViewBody> {
                         ),
                         const SizedBox(width: 8),
                         Text(
-                          "Open Map",
+                          S.current.openMap,
                           style: TextStyles.regular15.copyWith(
                             color: context.colors.onPrimary,
                           ),
@@ -166,71 +187,67 @@ class _AddAddressViewBodyState extends State<AddAddressViewBody> {
               Expanded(
                 child: TextFormField(
                   controller: _stateController,
-                  decoration: const InputDecoration(
-                    hintText: "State",
-                    prefixIcon: Icon(Ionicons.map_outline),
+                  decoration: InputDecoration(
+                    hintText: S.current.state,
+                    prefixIcon: const Icon(Ionicons.map_outline),
                   ),
                   autovalidateMode: AutovalidateMode.onUnfocus,
-                  validator: (v) => _requiredValidator(v, "State"),
+                  validator: (v) => _requiredValidator(v, S.current.state),
                 ),
               ),
               Expanded(
                 child: TextFormField(
                   controller: _cityController,
-                  decoration: const InputDecoration(
-                    hintText: "City",
-                    prefixIcon: Icon(Ionicons.business_outline),
+                  decoration: InputDecoration(
+                    hintText: S.current.city,
+                    prefixIcon: const Icon(Ionicons.business_outline),
                   ),
                   autovalidateMode: AutovalidateMode.onUnfocus,
-                  validator: (v) => _requiredValidator(v, "City"),
+                  validator: (v) => _requiredValidator(v, S.current.city),
                 ),
               ),
             ],
           ),
 
-          // --- Address (multiline) ---
           TextFormField(
             controller: _addressController,
-            decoration: const InputDecoration(
-              hintText: "Address",
-              prefixIcon: Icon(Ionicons.location_outline),
+            decoration: InputDecoration(
+              hintText: S.current.address,
+              prefixIcon: const Icon(Ionicons.location_outline),
             ),
             keyboardType: TextInputType.multiline,
             maxLines: null,
             autovalidateMode: AutovalidateMode.onUnfocus,
-            validator: (v) => _requiredValidator(v, "Address"),
+            validator: (v) => _requiredValidator(v, S.current.address),
           ),
 
-          // --- Title ---
           TextFormField(
             controller: _titleController,
-            decoration: const InputDecoration(
-              hintText: "Title",
-              prefixIcon: Icon(Ionicons.home_outline),
+            decoration: InputDecoration(
+              hintText: S.current.title,
+              prefixIcon: const Icon(Ionicons.home_outline),
             ),
             autovalidateMode: AutovalidateMode.onUnfocus,
-            validator: (v) => _requiredValidator(v, "Title"),
+            validator: (v) => _requiredValidator(v, S.current.title),
           ),
 
-          // --- Phone ---
           TextFormField(
             controller: _phoneController,
             keyboardType: TextInputType.phone,
-            decoration: const InputDecoration(
-              hintText: "Phone Number",
-              prefixIcon: Icon(Ionicons.call_outline),
+            decoration: InputDecoration(
+              hintText: S.current.phoneNumber,
+              prefixIcon: const Icon(Ionicons.call_outline),
             ),
             autovalidateMode: AutovalidateMode.onUserInteraction,
             validator: (v) => _phoneValidator(v, required: true),
           ),
 
-          // --- Optional Phone ---
           TextFormField(
             controller: _optionalPhoneController,
             keyboardType: TextInputType.phone,
-            decoration: const InputDecoration(
-              hintText: "Optional Phone Number",
-              prefixIcon: Icon(Ionicons.call_outline),
+            decoration: InputDecoration(
+              hintText: S.current.optionalPhoneNumber,
+              prefixIcon: const Icon(Ionicons.call_outline),
             ),
             autovalidateMode: AutovalidateMode.onUserInteraction,
             validator: (v) => _phoneValidator(v, required: false),
@@ -239,7 +256,7 @@ class _AddAddressViewBodyState extends State<AddAddressViewBody> {
           const SizedBox(height: 20),
           CustomElevatedButton(
             onPressed: _submitForm,
-            child: const Text("Save Address", style: TextStyles.medium20),
+            child: Text(S.current.saveAddress, style: TextStyles.medium20),
           ),
         ],
       ),

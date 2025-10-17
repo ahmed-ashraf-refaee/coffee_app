@@ -1919,6 +1919,161 @@ class S {
   String get addAddress {
     return Intl.message('Add Address', name: 'addAddress', desc: '', args: []);
   }
+
+  /// `Select address on map`
+  String get selectAddressOnMap {
+    return Intl.message(
+      'Select address on map',
+      name: 'selectAddressOnMap',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Move and tap to pick your delivery location`
+  String get selectAddressSubtitle {
+    return Intl.message(
+      'Move and tap to pick your delivery location',
+      name: 'selectAddressSubtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm location`
+  String get confirmLocation {
+    return Intl.message(
+      'Confirm location',
+      name: 'confirmLocation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search your location`
+  String get searchYourLocation {
+    return Intl.message(
+      'Search your location',
+      name: 'searchYourLocation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add New Address`
+  String get addNewAddress {
+    return Intl.message(
+      'Add New Address',
+      name: 'addNewAddress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your address details to save this location`
+  String get addNewAddressSubtitle {
+    return Intl.message(
+      'Enter your address details to save this location',
+      name: 'addNewAddressSubtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Open Map`
+  String get openMap {
+    return Intl.message('Open Map', name: 'openMap', desc: '', args: []);
+  }
+
+  /// `State`
+  String get state {
+    return Intl.message('State', name: 'state', desc: '', args: []);
+  }
+
+  /// `City`
+  String get city {
+    return Intl.message('City', name: 'city', desc: '', args: []);
+  }
+
+  /// `Address`
+  String get address {
+    return Intl.message('Address', name: 'address', desc: '', args: []);
+  }
+
+  /// `Title`
+  String get title {
+    return Intl.message('Title', name: 'title', desc: '', args: []);
+  }
+
+  /// `Phone Number`
+  String get phoneNumber {
+    return Intl.message(
+      'Phone Number',
+      name: 'phoneNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Optional Phone Number`
+  String get optionalPhoneNumber {
+    return Intl.message(
+      'Optional Phone Number',
+      name: 'optionalPhoneNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save Address`
+  String get saveAddress {
+    return Intl.message(
+      'Save Address',
+      name: 'saveAddress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Phone number is required`
+  String get phoneNumberRequired {
+    return Intl.message(
+      'Phone number is required',
+      name: 'phoneNumberRequired',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter a valid phone number`
+  String get enterValidPhone {
+    return Intl.message(
+      'Enter a valid phone number',
+      name: 'enterValidPhone',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add New Address`
+  String get addLocationTitle {
+    return Intl.message(
+      'Add New Address',
+      name: 'addLocationTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select your location on the map and fill in your address details`
+  String get addLocationSubtitle {
+    return Intl.message(
+      'Select your location on the map and fill in your address details',
+      name: 'addLocationSubtitle',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
