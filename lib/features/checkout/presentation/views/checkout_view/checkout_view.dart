@@ -47,10 +47,6 @@ class _CheckoutViewState extends State<CheckoutView> {
     final defaultAddress = cardCubit.state.defaultAddress;
 
     if (defaultCard == null || defaultAddress == null) {
-      UiHelpers.showSnackBar(
-        context: context,
-        message: "Please select address and card.",
-      );
       return;
     }
 
@@ -59,6 +55,7 @@ class _CheckoutViewState extends State<CheckoutView> {
       paymentId: defaultCard.id,
       userId: Supabase.instance.client.auth.currentUser!.id,
       totalPrice: widget.checkoutSummery['subTotal']!,
+
       shippingPrice: widget.checkoutSummery['shipping']!,
       status: "pending",
     );
@@ -76,7 +73,8 @@ class _CheckoutViewState extends State<CheckoutView> {
     if (formKey.currentState!.validate()) {
       paymentCubit.payWithCard(
         amount:
-            widget.checkoutSummery['subTotal']! +
+            widget.checkoutSummery['subTotal']! -
+            widget.checkoutSummery['discount']! +
             widget.checkoutSummery['shipping']!,
         paymentMethodId: defaultCard.paymentMethodId!,
         cvc: cvvController.text,
@@ -178,6 +176,7 @@ class _CheckoutBody extends StatelessWidget {
         OrderSummary(
           subTotal: checkoutSummery['subTotal']!,
           shipping: checkoutSummery['shipping']!,
+          discount: checkoutSummery['discount']!,
         ),
         PaymentInfoCard(cvvController: cvvController, formKey: formKey),
         const ShippingInfoCard(),

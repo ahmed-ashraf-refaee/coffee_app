@@ -19,7 +19,7 @@ class PaymentMethodListItemLoading extends StatelessWidget {
           expMonth: 2,
           expYear: 2048,
           last4: 2222,
-          holderName: "Sameh Khalil",
+          holderName: "ashraf",
         ),
         selected: false,
         onSelected: () {},

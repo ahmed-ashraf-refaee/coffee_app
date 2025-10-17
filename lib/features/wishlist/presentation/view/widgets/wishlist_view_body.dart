@@ -2,6 +2,7 @@ import 'package:coffee_app/core/utils/text_styles.dart';
 import 'package:coffee_app/features/navigation/presentation/manager/navigator_cubit/navigator_cubit.dart';
 import 'package:coffee_app/features/wishlist/presentation/manager/wishlist/wishlist_cubit.dart';
 import 'package:coffee_app/features/wishlist/presentation/view/widgets/wishlist_list_item.dart';
+import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -93,7 +94,7 @@ class WishListViewBody extends StatelessWidget {
               return SliverFillRemaining(
                 child: Center(
                   child: Text(
-                    'Something went wrong!',
+                    S.current.something_went_wrong,
                     textAlign: TextAlign.center,
 
                     style: TextStyles.medium20.copyWith(fontSize: 26),

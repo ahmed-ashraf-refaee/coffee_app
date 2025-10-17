@@ -52,8 +52,15 @@ class _AddCardOverlayState extends State<AddCardOverlay> {
     return formIsValid && _cardErrorText.value == null;
   }
 
+  void _resetFields() {
+    holderNameController.clear();
+    _cardErrorText.value = null;
+  }
+
   @override
   Widget build(BuildContext context) {
+    final tr = S.of(context);
+
     return OverlayContainer(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
       child: Padding(
@@ -61,35 +68,58 @@ class _AddCardOverlayState extends State<AddCardOverlay> {
         child: Form(
           key: _formKey,
           child: Column(
+            spacing: 16,
             mainAxisSize: MainAxisSize.min,
             children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    tr.resetFields,
+                    style: TextStyles.regular15.copyWith(
+                      color: Colors.transparent,
+                    ),
+                  ),
+                  Text(tr.addCardTitle, style: TextStyles.bold20),
+                  GestureDetector(
+                    onTap: _resetFields,
+                    child: Text(
+                      tr.reset,
+                      style: TextStyles.regular15.copyWith(
+                        color: context.colors.onSecondary,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+
               TextFormField(
                 controller: holderNameController,
                 decoration: InputDecoration(
-                  hintText: S.current.holderName,
+                  hintText: tr.holderName,
                   prefixIcon: const Icon(Ionicons.person_outline),
                 ),
-                autovalidateMode: AutovalidateMode.onUnfocus,
+
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
-                    return S.current.enterFirstName;
+                    return tr.enterHolderName;
                   } else if (value.trim().length < 3) {
-                    return S.current.tooShort;
+                    return tr.tooShort;
                   } else if (!RegConstants.cardHolderNameRegExp.hasMatch(
                     value.trim(),
                   )) {
-                    return S.current.invalidCharacters;
+                    return tr.invalidCharacters;
                   }
                   return null;
                 },
               ),
-              const SizedBox(height: 16),
+
               ValidatedCardField(
                 cardNotifier: _card,
                 errorNotifier: _cardErrorText,
                 validateCardField: _validateCardField,
               ),
-              const SizedBox(height: 32),
+
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 48),
                 child: BlocConsumer<PaymentCubit, PaymentState>(
@@ -98,7 +128,7 @@ class _AddCardOverlayState extends State<AddCardOverlay> {
                       Navigator.of(context).pop();
                       UiHelpers.showSnackBar(
                         context: context,
-                        message: "Card Added Successfully",
+                        message: tr.cardAddedSuccessfully,
                       );
                     } else if (state is PaymentCardOverlayFailure) {
                       if (!mounted) return;
@@ -120,7 +150,7 @@ class _AddCardOverlayState extends State<AddCardOverlay> {
                           );
                         }
                       },
-                      child: Text(S.current.apply, style: TextStyles.bold16),
+                      child: Text(tr.saveCard, style: TextStyles.bold16),
                     );
                   },
                 ),

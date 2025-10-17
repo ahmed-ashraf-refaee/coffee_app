@@ -1,3 +1,4 @@
+import 'package:coffee_app/core/utils/app_router.dart';
 import 'package:coffee_app/core/widgets/custom_icon_button.dart';
 import 'package:coffee_app/core/widgets/price_text.dart';
 import 'package:coffee_app/core/widgets/product_rating.dart';
@@ -7,6 +8,7 @@ import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
 import '../../../../../core/utils/text_styles.dart';
 import '../../../../../core/widgets/custom_rounded_images.dart';
@@ -78,67 +80,104 @@ class CartListItem extends StatelessWidget {
 
         child: PrettierTap(
           shrink: 1,
-          onPressed: () {},
+          onPressed: () {
+            GoRouter.of(context).push(
+              AppRouter.kDetailsView,
+              extra: {
+                "product": cartItem.product,
+                "tag": "${cartItem.product.id}_cartItem",
+              },
+            );
+          },
           child: Container(
-            height: 164,
+            height: 158,
             width: context.width,
             color: context.colors.secondary,
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Row(
-                spacing: 16,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CustomRoundedImage(
-                    imageUrl: cartItem.product!.imageUrl,
-                    aspectRatio: 3 / 4,
-                    width: 124,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Text(
-                          cartItem.product!.name,
-                          style: TextStyles.regular20,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        ProductRating(
-                          rating: cartItem.product!.rating,
-                          numberOfRatings: cartItem.product!.numberOfRatings,
-                        ),
-                        Text(
-                          cartItem.productVariant!.size,
-                          style: TextStyles.regular15.copyWith(
-                            color: context.colors.onSecondary.withValues(
-                              alpha: 0.6,
-                            ),
-                          ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        const Spacer(),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            padding: const EdgeInsets.all(16),
+            child: Row(
+              spacing: 16,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                CustomRoundedImage(
+                  imageUrl: cartItem.product.imageUrl,
+                  aspectRatio: 3 / 4,
+                  width: 124,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+
+                // Right side content
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      // Product title
+                      Text(
+                        cartItem.product.name,
+                        style: TextStyles.regular20,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(height: 2),
+
+                      // Row for info + quantity
+                      Expanded(
+                        child: Row(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            PriceText(
-                              price: cartItem.productVariant!.price,
-                              discount: cartItem.product!.discount,
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  ProductRating(
+                                    rating: cartItem.product.rating,
+                                    numberOfRatings:
+                                        cartItem.product.numberOfRatings,
+                                  ),
+                                  Text(
+                                    cartItem
+                                        .product
+                                        .productVariants[cartItem
+                                            .selectedVariantIndex]
+                                        .size,
+                                    style: TextStyles.regular15.copyWith(
+                                      color: context.colors.onSecondary
+                                          .withValues(alpha: 0.6),
+                                    ),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  PriceText(
+                                    price: cartItem
+                                        .product
+                                        .productVariants[cartItem
+                                            .selectedVariantIndex]
+                                        .price,
+                                    discount: cartItem.product.discount,
+                                    quantity: cartItem.quantity,
+                                  ),
+                                ],
+                              ),
                             ),
+
+                            const SizedBox(width: 12),
 
                             BlocBuilder<CartCubit, CartState>(
                               builder: (context, state) {
                                 return QuantitySelector(
+                                  vertical: true,
+                                  padding: 0,
                                   isLoading:
                                       state is CartItemLoading &&
                                       state.id == cartItem.id,
                                   backgroundColor: context.colors.surface,
                                   value: cartItem.quantity,
-                                  maxValue: cartItem.productVariant!.quantity,
+                                  maxValue: cartItem
+                                      .product
+                                      .productVariants[cartItem
+                                          .selectedVariantIndex]
+                                      .quantity,
                                   minValue: 1,
                                   onChanged: (v) {
                                     context.read<CartCubit>().updateQuantity(
@@ -147,7 +186,7 @@ class CartListItem extends StatelessWidget {
                                     );
                                   },
                                   contentPadding: const EdgeInsets.symmetric(
-                                    horizontal: 8,
+                                    horizontal: 6,
                                     vertical: 2,
                                   ),
                                 );
@@ -155,11 +194,11 @@ class CartListItem extends StatelessWidget {
                             ),
                           ],
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

@@ -1636,33 +1636,48 @@ class S {
   }
 
   /// `Edit`
-  String get editButton {
-    return Intl.message('Edit', name: 'editButton', desc: '', args: []);
+  String get edit {
+    return Intl.message('Edit', name: 'edit', desc: '', args: []);
   }
 
   /// `Unknown`
-  String get unknownCategory {
-    return Intl.message('Unknown', name: 'unknownCategory', desc: '', args: []);
+  String get unknown {
+    return Intl.message('Unknown', name: 'unknown', desc: '', args: []);
+  }
+
+  /// `Size`
+  String get sizeLabel {
+    return Intl.message('Size', name: 'sizeLabel', desc: '', args: []);
   }
 
   /// `Stock`
-  String get variantStockLabel {
-    return Intl.message('Stock', name: 'variantStockLabel', desc: '', args: []);
+  String get stockLabel {
+    return Intl.message('Stock', name: 'stockLabel', desc: '', args: []);
+  }
+
+  /// `Price`
+  String get priceLabel {
+    return Intl.message('Price', name: 'priceLabel', desc: '', args: []);
   }
 
   /// `In Stock`
-  String get statusInStock {
-    return Intl.message('In Stock', name: 'statusInStock', desc: '', args: []);
+  String get productStatusInStock {
+    return Intl.message(
+      'In Stock',
+      name: 'productStatusInStock',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Low Stock`
-  String get statusLow {
-    return Intl.message('Low Stock', name: 'statusLow', desc: '', args: []);
-  }
-
-  /// `Out of Stock`
-  String get statusOut {
-    return Intl.message('Out of Stock', name: 'statusOut', desc: '', args: []);
+  String get productStatusLow {
+    return Intl.message(
+      'Low Stock',
+      name: 'productStatusLow',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Out of Stock`
@@ -1693,6 +1708,216 @@ class S {
   /// `Discount`
   String get discount {
     return Intl.message('Discount', name: 'discount', desc: '', args: []);
+  }
+
+  /// `Your cart is empty`
+  String get your_cart_is_empty {
+    return Intl.message(
+      'Your cart is empty',
+      name: 'your_cart_is_empty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Something went wrong!`
+  String get something_went_wrong {
+    return Intl.message(
+      'Something went wrong!',
+      name: 'something_went_wrong',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your wishlist is empty`
+  String get yourWishlistIsEmpty {
+    return Intl.message(
+      'Your wishlist is empty',
+      name: 'yourWishlistIsEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Payment Methods`
+  String get paymentMethods {
+    return Intl.message(
+      'Payment Methods',
+      name: 'paymentMethods',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No cards available. Please add a card.`
+  String get noCardsAvailable {
+    return Intl.message(
+      'No cards available. Please add a card.',
+      name: 'noCardsAvailable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Something went wrong. Please try again.`
+  String get somethingWentWrong {
+    return Intl.message(
+      'Something went wrong. Please try again.',
+      name: 'somethingWentWrong',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add card`
+  String get addCard {
+    return Intl.message('Add card', name: 'addCard', desc: '', args: []);
+  }
+
+  /// `Choose your preferred payment option`
+  String get paymentMethodsSubtitle {
+    return Intl.message(
+      'Choose your preferred payment option',
+      name: 'paymentMethodsSubtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cash on Delivery`
+  String get cashOnDelivery {
+    return Intl.message(
+      'Cash on Delivery',
+      name: 'cashOnDelivery',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add Payment Method`
+  String get addCardTitle {
+    return Intl.message(
+      'Add Payment Method',
+      name: 'addCardTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save Card`
+  String get saveCard {
+    return Intl.message('Save Card', name: 'saveCard', desc: '', args: []);
+  }
+
+  /// `Reset`
+  String get resetFields {
+    return Intl.message('Reset', name: 'resetFields', desc: '', args: []);
+  }
+
+  /// `Card added successfully`
+  String get cardAddedSuccessfully {
+    return Intl.message(
+      'Card added successfully',
+      name: 'cardAddedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter holder name`
+  String get enterHolderName {
+    return Intl.message(
+      'Enter holder name',
+      name: 'enterHolderName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit Variations`
+  String get editVariationsTitle {
+    return Intl.message(
+      'Edit Variations',
+      name: 'editVariationsTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Revert`
+  String get revert {
+    return Intl.message('Revert', name: 'revert', desc: '', args: []);
+  }
+
+  /// `Add Variant`
+  String get addVariant {
+    return Intl.message('Add Variant', name: 'addVariant', desc: '', args: []);
+  }
+
+  /// `Update Product`
+  String get updateProduct {
+    return Intl.message(
+      'Update Product',
+      name: 'updateProduct',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remove`
+  String get remove {
+    return Intl.message('Remove', name: 'remove', desc: '', args: []);
+  }
+
+  /// `Error:`
+  String get errorPrefix {
+    return Intl.message('Error:', name: 'errorPrefix', desc: '', args: []);
+  }
+
+  /// `No products found`
+  String get noProductsFound {
+    return Intl.message(
+      'No products found',
+      name: 'noProductsFound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Saved Addresses`
+  String get savedAddresses {
+    return Intl.message(
+      'Saved Addresses',
+      name: 'savedAddresses',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No addresses available. Please add one.`
+  String get noAddressesAvailable {
+    return Intl.message(
+      'No addresses available. Please add one.',
+      name: 'noAddressesAvailable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select an address or add a new one below.`
+  String get savedAddressesSubtitle {
+    return Intl.message(
+      'Select an address or add a new one below.',
+      name: 'savedAddressesSubtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add Address`
+  String get addAddress {
+    return Intl.message('Add Address', name: 'addAddress', desc: '', args: []);
   }
 }
 

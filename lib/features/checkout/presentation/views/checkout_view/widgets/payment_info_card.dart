@@ -64,7 +64,7 @@ class PaymentInfoCard extends StatelessWidget {
                     color: context.colors.onSecondary,
                   ),
                   Text(
-                    "Cash on Delivery",
+                    S.current.cashOnDelivery,
                     style: TextStyles.medium16.copyWith(
                       color: context.colors.onSecondary,
                     ),

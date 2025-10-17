@@ -9,9 +9,11 @@ class OrderSummary extends StatelessWidget {
     super.key,
     required this.subTotal,
     required this.shipping,
+    required this.discount,
   });
   final double subTotal;
   final double shipping;
+  final double discount;
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
@@ -40,6 +42,11 @@ class OrderSummary extends StatelessWidget {
               SummaryLine(
                 label: S.current.sub_total,
                 value: subTotal.toStringAsFixed(2),
+                style: TextStyles.regular16,
+              ),
+              SummaryLine(
+                label: S.current.discount,
+                value: "-${discount.toStringAsFixed(2)}",
                 style: TextStyles.regular16,
               ),
               SummaryLine(

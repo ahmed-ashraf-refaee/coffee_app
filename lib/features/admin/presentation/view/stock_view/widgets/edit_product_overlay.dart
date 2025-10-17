@@ -1,13 +1,13 @@
 import 'package:coffee_app/core/utils/color_palette.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:coffee_app/core/utils/text_styles.dart';
 import 'package:coffee_app/core/widgets/custom_elevated_button.dart';
 import 'package:coffee_app/core/widgets/prettier_tap.dart';
 import 'package:coffee_app/core/widgets/overlay_container.dart';
 import '../../../../../../core/helper/ui_helpers.dart';
 import '../../../../../../core/model/product_variants_model.dart';
+import 'package:coffee_app/generated/l10n.dart';
 
 void editProductOverlay(
   BuildContext context, {
@@ -36,11 +36,13 @@ class EditProductOverlay extends StatefulWidget {
 
 class _EditProductOverlayState extends State<EditProductOverlay> {
   late List<ProductVariantsModel> _variants;
+  late List<ProductVariantsModel> _originalVariants;
 
   @override
   void initState() {
     super.initState();
     _variants = widget.variants.map((v) => v).toList();
+    _originalVariants = widget.variants.map((v) => v).toList();
   }
 
   void _addVariant() {
@@ -67,8 +69,16 @@ class _EditProductOverlayState extends State<EditProductOverlay> {
     }
   }
 
+  void _revertChanges() {
+    setState(() {
+      _variants = _originalVariants.map((v) => v).toList();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    final l10n = S.current;
+
     return OverlayContainer(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
       child: Padding(
@@ -79,13 +89,35 @@ class _EditProductOverlayState extends State<EditProductOverlay> {
             spacing: 16,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const Text(
-                'Edit Variations',
-                style: TextStyles.bold20,
-                textAlign: TextAlign.center,
+              // Title + Revert
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  PrettierTap(
+                    shrink: 1,
+                    onPressed: () {},
+                    child: Text(
+                      l10n.revert,
+                      style: TextStyles.bold14.copyWith(
+                        color: Colors.transparent,
+                      ),
+                    ),
+                  ),
+                  Text(l10n.editVariationsTitle, style: TextStyles.bold20),
+                  PrettierTap(
+                    shrink: 1,
+                    onPressed: _revertChanges,
+                    child: Text(
+                      l10n.revert,
+                      style: TextStyles.bold14.copyWith(
+                        color: context.colors.onSecondary,
+                      ),
+                    ),
+                  ),
+                ],
               ),
 
-              // everything scrollable, including Add Variant
+              // Scrollable content
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(
@@ -94,10 +126,9 @@ class _EditProductOverlayState extends State<EditProductOverlay> {
                     children: [
                       ...List.generate(_variants.length, (index) {
                         final variant = _variants[index];
-                        return _buildVariantCard(context, variant, index);
+                        return _buildVariantCard(context, variant, index, l10n);
                       }),
 
-                      // move "Add Variant" here
                       if (_variants.length < 3)
                         PrettierTap(
                           onPressed: _addVariant,
@@ -106,8 +137,9 @@ class _EditProductOverlayState extends State<EditProductOverlay> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(12),
                             ),
+                            alignment: Alignment.center,
                             child: Text(
-                              "Add Variant",
+                              l10n.addVariant,
                               style: TextStyles.bold14.copyWith(
                                 color: context.colors.primary,
                               ),
@@ -119,7 +151,7 @@ class _EditProductOverlayState extends State<EditProductOverlay> {
                 ),
               ),
 
-              // keep this fixed
+              // Bottom button row
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 48),
                 child: CustomElevatedButton(
@@ -129,7 +161,7 @@ class _EditProductOverlayState extends State<EditProductOverlay> {
                     widget.onSave();
                     Navigator.pop(context);
                   },
-                  child: const Text("Update product", style: TextStyles.bold16),
+                  child: Text(l10n.updateProduct, style: TextStyles.bold16),
                 ),
               ),
             ],
@@ -143,6 +175,7 @@ class _EditProductOverlayState extends State<EditProductOverlay> {
     BuildContext context,
     ProductVariantsModel variant,
     int index,
+    S l10n,
   ) {
     final isLow = variant.quantity < 20 && variant.quantity > 0;
     final isOut = variant.quantity == 0;
@@ -158,12 +191,13 @@ class _EditProductOverlayState extends State<EditProductOverlay> {
       ),
       child: Column(
         spacing: 8,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Variant ${index + 1}",
+                '${l10n.variantLabel} ${index + 1}',
                 style: TextStyles.bold16.copyWith(
                   color: context.colors.onSurface,
                 ),
@@ -172,10 +206,11 @@ class _EditProductOverlayState extends State<EditProductOverlay> {
                 PrettierTap(
                   shrink: 1,
                   onPressed: () => _removeVariant(index),
-                  child: Icon(
-                    Ionicons.trash_bin_outline,
-                    size: 20,
-                    color: context.colors.primary,
+                  child: Text(
+                    l10n.remove,
+                    style: TextStyles.bold14.copyWith(
+                      color: context.colors.primary,
+                    ),
                   ),
                 ),
             ],
@@ -185,7 +220,7 @@ class _EditProductOverlayState extends State<EditProductOverlay> {
             children: [
               Expanded(
                 child: _buildTextField(
-                  label: "Size",
+                  label: l10n.variantSizeLabel,
                   initialValue: variant.size,
                   onChanged: (v) => _variants[index] = _variants[index],
                 ),
@@ -193,7 +228,7 @@ class _EditProductOverlayState extends State<EditProductOverlay> {
               const SizedBox(width: 8),
               Expanded(
                 child: _buildTextField(
-                  label: "Price",
+                  label: l10n.variantPriceLabel,
                   initialValue: variant.price.toString(),
                   inputType: TextInputType.number,
                   onChanged: (v) => _variants[index] = _variants[index],
@@ -202,7 +237,7 @@ class _EditProductOverlayState extends State<EditProductOverlay> {
               const SizedBox(width: 8),
               Expanded(
                 child: _buildTextField(
-                  label: "Stock",
+                  label: l10n.stockLabel,
                   initialValue: variant.quantity.toString(),
                   inputType: TextInputType.number,
                   onChanged: (v) => _variants[index] = _variants[index],
@@ -211,12 +246,11 @@ class _EditProductOverlayState extends State<EditProductOverlay> {
             ],
           ),
           const SizedBox(height: 6),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              isOut ? "Out of Stock" : (isLow ? "Low Stock" : "In Stock"),
-              style: TextStyles.regular12.copyWith(color: color),
-            ),
+          Text(
+            isOut
+                ? l10n.productStatusOut
+                : (isLow ? l10n.productStatusLow : l10n.productStatusInStock),
+            style: TextStyles.regular12.copyWith(color: color),
           ),
         ],
       ),

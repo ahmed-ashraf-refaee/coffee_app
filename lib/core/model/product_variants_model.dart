@@ -14,13 +14,24 @@ class ProductVariantsModel {
     required this.quantity,
     required this.productId,
   });
+
   factory ProductVariantsModel.fromJson(Map<String, dynamic> json) {
     return ProductVariantsModel(
       id: json['id'] as int,
-      size: json['size_${AppLocale.current.languageCode}'] as String, 
+      size: json['size_${AppLocale.current.languageCode}'] as String,
       price: (json['price'] as num).toDouble(),
       quantity: (json['quantity'] as num).toInt(),
       productId: json['product_id'] as int,
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'size_${AppLocale.current.languageCode}': size,
+      'price': price,
+      'quantity': quantity,
+      'product_id': productId,
+    };
   }
 }

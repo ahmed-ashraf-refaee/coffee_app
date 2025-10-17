@@ -9,13 +9,38 @@ class ProductRating extends StatelessWidget {
     required this.rating,
     required this.numberOfRatings,
     this.size = 14,
+    this.showFiveStars = true,
   });
 
   final double rating;
   final int numberOfRatings;
   final double size;
+  final bool showFiveStars;
+
   @override
   Widget build(BuildContext context) {
+    final stars = List.generate(5, (index) {
+      final starIndex = index + 1;
+      if (rating >= starIndex) {
+        return Icon(Ionicons.star, color: context.colors.primary, size: size);
+      } else if (rating >= starIndex - 0.5) {
+        return Transform.flip(
+          flipX: context.isArabic,
+          child: Icon(
+            Ionicons.star_half,
+            color: context.colors.primary,
+            size: size,
+          ),
+        );
+      } else {
+        return Icon(
+          Ionicons.star_outline,
+          color: context.colors.primary,
+          size: size,
+        );
+      }
+    });
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       spacing: 4,
@@ -24,7 +49,10 @@ class ProductRating extends StatelessWidget {
           rating.toStringAsFixed(1),
           style: TextStyles.bold14.copyWith(fontSize: size),
         ),
-        Icon(Ionicons.star, color: context.colors.primary, size: size),
+        if (showFiveStars)
+          Row(spacing: 2, children: stars)
+        else
+          Icon(Ionicons.star, color: context.colors.primary, size: size),
         Text(
           '(${numberOfRatings.toString()})',
           style: TextStyles.regular12.copyWith(

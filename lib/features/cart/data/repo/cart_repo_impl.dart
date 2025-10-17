@@ -22,21 +22,20 @@ class CartRepoImpl extends CartRepo {
       final items = result.map((json) => CartItemModel.fromJson(json)).toList();
 
       _updateCache(items);
-
       return items;
     });
   }
 
   @override
   Future<Either<Failure, void>> addItemToCart({
-    required int productVariantId,
+    required int selectedVariantIndex,
     required int productId,
     int quantity = 1,
   }) {
     return guard(() async {
       final json = await _cartService.addToCart(
         userId: userId,
-        productVariantId: productVariantId,
+        selectedVariantIndex: selectedVariantIndex,
         quantity: quantity,
         productId: productId,
       );

@@ -207,10 +207,9 @@
   "productsSold": "المنتجات المباعة",
   "growth": "النمو"
   ,
-
-"abbreviationK": "ألف",
-"abbreviationM": "مليون",
- "edit": "تعديل",
+ "abbreviationK": "ألف",
+  "abbreviationM": "مليون",
+  "edit": "تعديل",
   "unknown": "غير معروف",
   "sizeLabel": "الحجم",
   "stockLabel": "المخزون",
@@ -218,24 +217,37 @@
   "productStatusInStock": "متوفر",
   "productStatusLow": "مخزون منخفض",
   "productStatusOut": "غير متوفر",
-   "soldOut": "نفد المخزون",
-    "quantity": "الكمية",
-     "addToCart": "أضف إلى السلة"
-     ,"discount": "خصم"
+  "soldOut": "نفد المخزون",
+  "quantity": "الكمية",
+  "addToCart": "أضف إلى السلة",
+  "discount": "خصم",
+  "your_cart_is_empty": "سلة التسوق فارغة",
+  "something_went_wrong": "حدث خطأ ما!",
+  "yourWishlistIsEmpty": "قائمة رغباتك فارغة",
+    "bankCards": "بطاقات البنك",
+  "noCardsAvailable": "لا توجد بطاقات. الرجاء إضافة بطاقة.",
+  "somethingWentWrong": "حدث خطأ ما. حاول مرة أخرى.",
+  "addCard": "أضف بطاقة",
+  "otherMethods": "طرق أخرى",
+  "cashOnDelivery": "الدفع عند الاستلام",
+  "paymentMethodsSubtitle": "اختر طريقة الدفع المفضلة لديك",
+  "paymentMethods": "طرق الدفع",
+  "addCardTitle": "إضافة طريقة دفع",
+"saveCard": "حفظ البطاقة",
+"resetFields": "إعادة التعيين",
+"cardAddedSuccessfully": "تمت إضافة البطاقة بنجاح",
+"enterHolderName": "أدخل اسم صاحب البطاقة",
+"editVariationsTitle": "تعديل المتغيرات",
+"revert": "تراجع",
+"addVariant": "إضافة متغير",
+"updateProduct": "تحديث المنتج",
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+"remove": "إزالة",
+"errorPrefix": "خطأ:",
+"noProductsFound": "لم يتم العثور على منتجات",
+"savedAddressesSubtitle": "اختر عنوانًا أو أضف عنوانًا جديدًا بالأسفل.",
+"savedAddresses": "العناوين المحفوظة",
+"noAddressesAvailable": "لا توجد عناوين. يرجى إضافة عنوان جديد.",
+"addAddress": "إضافة عنوان"
 
 }

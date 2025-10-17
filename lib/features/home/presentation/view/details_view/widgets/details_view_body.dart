@@ -12,7 +12,6 @@ import 'package:coffee_app/core/widgets/product_rating.dart';
 import 'package:coffee_app/features/cart/presentation/manager/cart_cubit/cart_cubit.dart';
 import 'package:coffee_app/features/home/presentation/view/details_view/widgets/custom_chip.dart';
 import 'package:coffee_app/features/home/presentation/view/details_view/widgets/quantity_selector.dart';
-import 'package:coffee_app/features/profile/presentation/manager/theme_cubit/theme_cubit.dart';
 import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
@@ -93,55 +92,20 @@ class _DetailsViewBodyState extends State<DetailsViewBody> {
           ),
         ),
         const SizedBox(height: 16),
-        Stack(
-          children: [
-            PrettierTap(
-              shrink: 1,
-              onPressed: () => UiHelpers.showOverlay(
-                context: context,
-                child: ProductImageOverlay(widget: widget),
-              ),
-              child: Hero(
-                tag: widget.tag,
-                child: CustomRoundedImage(
-                  imageUrl: product.imageUrl,
-                  aspectRatio: 6 / 4,
-                  width: context.width,
-                ),
-              ),
+        PrettierTap(
+          shrink: 1,
+          onPressed: () => UiHelpers.showOverlay(
+            context: context,
+            child: ProductImageOverlay(widget: widget),
+          ),
+          child: Hero(
+            tag: widget.tag,
+            child: CustomRoundedImage(
+              imageUrl: product.imageUrl,
+              aspectRatio: 6 / 4,
+              width: context.width,
             ),
-
-            // 🔹 Discount Overlay (slightly bigger version)
-            if (product.discount > 0)
-              Positioned(
-                top: 8,
-                left: context.isArabic ? null : 8,
-                right: context.isArabic ? 8 : null,
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Transform.flip(
-                      flipX: !context.isArabic,
-                      child: Icon(
-                        Ionicons.pricetag,
-                        size: 64, // slightly larger
-                        color: context.colors.primary,
-                      ),
-                    ),
-                    Transform.rotate(
-                      angle: context.isArabic ? -0.785398 : 0.785398,
-                      child: Text(
-                        '${product.discount.toStringAsFixed(0)}%',
-                        style: TextStyles.bold16.copyWith(
-                          color: context.colors.onPrimary,
-                          letterSpacing: 1.2,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-          ],
+          ),
         ),
         const SizedBox(height: 8),
         Text(product.name, style: TextStyles.medium32),
@@ -154,23 +118,28 @@ class _DetailsViewBodyState extends State<DetailsViewBody> {
         Expanded(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 16),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    product.description,
-                    style: TextStyles.regular16.copyWith(
-                      height: 1.2,
-                      color: context.colors.onSecondary,
+            child: Scrollbar(
+              thumbVisibility: true,
+              radius: const Radius.circular(12),
+              thickness: 4,
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      product.description,
+                      style: TextStyles.regular16.copyWith(
+                        height: 1.2,
+                        color: context.colors.onSecondary,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
         ),
+
         _buildVariantsChips(context),
         const SizedBox(height: 24),
         Row(
@@ -183,6 +152,7 @@ class _DetailsViewBodyState extends State<DetailsViewBody> {
               fontSize: 32,
               oldPriceSize: 14,
               quantity: quantity,
+              discountSize: 16,
             ),
             Container(
               decoration: BoxDecoration(
@@ -221,16 +191,24 @@ class _DetailsViewBodyState extends State<DetailsViewBody> {
         BlocBuilder<CartCubit, CartState>(
           builder: (context, state) {
             return CustomElevatedButton(
+              disabled:
+                  widget.product.productVariants[selectedIndex].quantity == 0,
               isLoading:
                   state is CartAddItemLoading && state.productId == product.id,
               onPressed: () {
                 BlocProvider.of<CartCubit>(context).addItem(
-                  productVariantId: product.productVariants[selectedIndex].id,
+                  selectedVariantIndex: selectedIndex,
                   quantity: quantity,
                   productId: product.id,
                 );
               },
-              child: Text(S.current.addToCart, style: TextStyles.medium20),
+              child: Text(
+                widget.product.productVariants[selectedIndex].quantity == 0
+                    ? S.current.productStatusOut
+                    : S.current.addToCart,
+
+                style: TextStyles.medium20,
+              ),
             );
           },
         ),

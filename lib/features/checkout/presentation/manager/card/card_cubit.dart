@@ -20,6 +20,7 @@ class CardCubit extends Cubit<CardState> {
 
     if (jsonCardData != null) {
       final card = PaymentMethodModel.fromJson(jsonDecode(jsonCardData));
+
       emit(state.copyWith(defaultCard: card));
     }
   }

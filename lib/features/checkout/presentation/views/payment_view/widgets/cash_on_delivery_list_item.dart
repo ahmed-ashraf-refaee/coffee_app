@@ -1,6 +1,7 @@
 import 'package:coffee_app/core/utils/text_styles.dart';
 import 'package:coffee_app/core/widgets/prettier_tap.dart';
 import 'package:coffee_app/features/profile/presentation/manager/theme_cubit/theme_cubit.dart';
+import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,7 +50,7 @@ class CashOnDeliveryListItem extends StatelessWidget {
           spacing: 16,
           children: [
             Text(
-              "Cash on Delivery",
+              S.current.cashOnDelivery,
               style: TextStyles.bold20.copyWith(
                 color: selected
                     ? context.colors.onPrimary
