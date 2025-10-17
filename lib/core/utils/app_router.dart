@@ -12,7 +12,6 @@ import 'package:coffee_app/features/splash/presentation/view/splash_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../features/authentication/data/model/user_profile_model.dart';
 import '../../features/checkout/data/repo/order/order_repo_impl.dart';
 import '../../features/checkout/presentation/manager/order/order_cubit.dart';
 import '../../features/maps/presentation/view/map_view.dart';
@@ -54,7 +53,7 @@ abstract class AppRouter {
       GoRoute(
         path: kEditProfileView,
         builder: (context, state) {
-          return EditProfileView(user: state.extra as UserProfileModel);
+          return const EditProfileView();
         },
       ),
       GoRoute(

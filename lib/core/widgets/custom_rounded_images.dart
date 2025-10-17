@@ -46,7 +46,10 @@ class CustomRoundedImage extends StatelessWidget {
             child: isAsset
                 ? Padding(
                     padding: const EdgeInsets.all(12.0),
-                    child: Image.asset(imageUrl),
+                    child: Image.asset(
+                      imageUrl,
+                      color: context.colors.onSecondary,
+                    ),
                   )
                 : CachedNetworkImage(
                     imageUrl: imageUrl,

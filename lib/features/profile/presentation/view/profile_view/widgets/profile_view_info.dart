@@ -69,14 +69,7 @@ class ProfileViewBodyInfoSection extends StatelessWidget {
               ),
             );
           } else {
-            return Center(
-              child: Text(
-                "No user data available",
-                style: TextStyles.bold14.copyWith(
-                  color: context.colors.onSecondary,
-                ),
-              ),
-            );
+            return const SizedBox();
           }
         },
       ),

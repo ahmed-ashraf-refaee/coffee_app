@@ -11,7 +11,6 @@ import 'package:ionicons/ionicons.dart';
 import '../../../../../../core/widgets/prettier_tap.dart';
 import '../../../../../../generated/l10n.dart';
 import '../../../../../admin/presentation/manager/admin_role_cubit/admin_role_cubit.dart';
-import '../../../manager/edit_profile/edit_profile_cubit.dart';
 import 'profile_container.dart';
 import 'profile_divider.dart';
 import 'profile_tile.dart';
@@ -32,25 +31,16 @@ class ProfileViewBodySettings extends StatelessWidget {
         ProfileContainer(
           child: Column(
             children: [
-              BlocBuilder<EditProfileCubit, EditProfileState>(
-                builder: (context, state) {
-                  return PrettierTap(
-                    shrink: 1,
-                    onPressed: () {
-                      GoRouter.of(context).push(
-                        AppRouter.kEditProfileView,
-                        extra: state is FetchProfileSuccessState
-                            ? state.userProfileModel
-                            : null,
-                      );
-                    },
-                    child: ProfileTile(
-                      prefixIcon: "assets/icons/user_icon.png",
-                      title: S.current.profile_edit_profile,
-                      suffixWidget: arrowIcon(),
-                    ),
-                  );
+              PrettierTap(
+                shrink: 1,
+                onPressed: () {
+                  GoRouter.of(context).push(AppRouter.kEditProfileView);
                 },
+                child: ProfileTile(
+                  prefixIcon: "assets/icons/user_icon.png",
+                  title: S.current.profile_edit_profile,
+                  suffixWidget: arrowIcon(),
+                ),
               ),
               const ProfileDivider(),
               PrettierTap(
