@@ -22,6 +22,7 @@ import 'package:ionicons/ionicons.dart';
 
 import '../../../../../../core/model/product_model.dart';
 import '../../../../../wishlist/presentation/manager/wishlist/wishlist_cubit.dart';
+import '../../../manager/home_products_cubit/home_product_cubit.dart';
 
 enum DetailsState { reviews, description }
 
@@ -113,11 +114,34 @@ class _DetailsViewBodyState extends State<DetailsViewBody> {
         const SizedBox(height: 8),
         Text(product.name, style: TextStyles.medium32),
         const SizedBox(height: 8),
-        ProductRating(
-          rating: product.rating,
-          numberOfRatings: product.numberOfRatings,
-          size: 16,
+        BlocBuilder<HomeProductCubit, HomeProductState>(
+          buildWhen: (previous, current) {
+            if (current is HomeProductsDataSuccess) {
+              return current.products.any((p) => p.id == widget.product.id);
+            }
+            return false;
+          },
+          builder: (context, state) {
+            double rating = widget.product.rating;
+            int numRatings = widget.product.numberOfRatings;
+
+            if (state is HomeProductsDataSuccess) {
+              final updated = state.products.firstWhere(
+                (p) => p.id == widget.product.id,
+                orElse: () => widget.product,
+              );
+              rating = updated.rating;
+              numRatings = updated.numberOfRatings;
+            }
+
+            return ProductRating(
+              rating: rating,
+              numberOfRatings: numRatings,
+              size: 16,
+            );
+          },
         ),
+
         const SizedBox(height: 8),
         Row(
           spacing: 16,

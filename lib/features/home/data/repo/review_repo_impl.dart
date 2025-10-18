@@ -1,5 +1,6 @@
 import 'package:coffee_app/core/errors/error_handler.dart';
 import 'package:coffee_app/core/errors/failures.dart';
+import 'package:coffee_app/core/model/product_model.dart';
 import 'package:coffee_app/features/home/data/data/review_model.dart';
 import 'package:coffee_app/features/home/data/service/review_service.dart';
 
@@ -13,12 +14,10 @@ class ReviewRepoImpl extends ReviewRepo {
   @override
   Future<Either<Failure, List<ReviewModel>>> fetchReviews(int productId) {
     return guard(() async {
-      final List<Map<String, dynamic>> reviewList =
-          await _reviewService.getReviewsByProduct(productId);
+      final List<Map<String, dynamic>> reviewList = await _reviewService
+          .getReviewsByProduct(productId);
 
-      return reviewList
-          .map((review) => ReviewModel.fromJson(review))
-          .toList();
+      return reviewList.map((review) => ReviewModel.fromJson(review)).toList();
     });
   }
 
@@ -27,7 +26,7 @@ class ReviewRepoImpl extends ReviewRepo {
     required int productId,
     required String userId,
     required double rating,
-     required String comment,
+    required String comment,
   }) {
     return guard(() async {
       await _reviewService.addReview(
@@ -36,6 +35,17 @@ class ReviewRepoImpl extends ReviewRepo {
         rating: rating,
         comment: comment,
       );
+    });
+  }
+
+  @override
+  Future<Either<Failure, ProductModel>> fetchUpdatedProduct(
+    int productId,
+  ) async {
+    return guard(() async {
+      final Map<String, dynamic> productJson = await _reviewService
+          .fetchUpdatedProduct(productId);
+      return ProductModel.fromJson(productJson);
     });
   }
 }

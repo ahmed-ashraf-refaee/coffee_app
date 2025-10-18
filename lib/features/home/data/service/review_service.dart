@@ -25,4 +25,13 @@ class ReviewService {
       'comment': comment,
     });
   }
+
+  Future<Map<String, dynamic>> fetchUpdatedProduct(int productId) async {
+    final response = await _client
+        .from('products')
+        .select('rating,num_ratings')
+        .eq('id', productId)
+        .single();
+    return response;
+  }
 }

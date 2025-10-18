@@ -10,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../../../../../core/helper/ui_helpers.dart';
+import '../../../manager/home_products_cubit/home_product_cubit.dart';
 
 void reviewOverlay(BuildContext context, {required int productId}) =>
     UiHelpers.showOverlay(
@@ -52,6 +53,10 @@ class _ReviewOverlayState extends State<ReviewOverlay> {
           UiHelpers.showSnackBar(context: context, message: state.error);
         } else if (state is ReviewSubmitted) {
           context.read<ReviewCubit>().getReviews(widget.productId);
+          context.read<HomeProductCubit>().updateProductRating(
+            widget.productId,
+          );
+
           Navigator.of(context).pop();
           UiHelpers.showSnackBar(
             context: context,

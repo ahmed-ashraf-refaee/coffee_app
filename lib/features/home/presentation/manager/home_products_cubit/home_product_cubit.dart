@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:coffee_app/core/model/product_model.dart';
 import 'package:coffee_app/features/home/data/repo/home_repo_impl.dart';
+import 'package:coffee_app/features/home/data/repo/review_repo_impl.dart';
 import 'package:coffee_app/features/home/data/service/filters/filter_service.dart';
 import 'package:coffee_app/features/home/presentation/manager/home_filter_cubit/home_filter_cubit.dart';
 import 'package:meta/meta.dart';
@@ -31,6 +32,29 @@ class HomeProductCubit extends Cubit<HomeProductState> {
       (failure) => emit(HomeProductsDataFailure(error: failure.error)),
       (response) {
         _allProducts = response;
+        _emitFiltered();
+      },
+    );
+  }
+
+  Future<void> updateProductRating(int productId) async {
+    final currentState = state;
+
+    if (currentState is! HomeProductsDataSuccess) return;
+
+    final result = await ReviewRepoImpl().fetchUpdatedProduct(productId);
+    result.fold(
+      (failure) {
+        emit(HomeProductsDataFailure(error: failure.error));
+      },
+      (updatedProduct) {
+        final index = _allProducts.indexWhere((p) => p.id == productId);
+        if (index != -1) {
+          _allProducts[index] = _allProducts[index].copyWith(
+            rating: updatedProduct.rating,
+            numberOfRatings: updatedProduct.numberOfRatings,
+          );
+        }
         _emitFiltered();
       },
     );

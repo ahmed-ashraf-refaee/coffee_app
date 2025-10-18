@@ -446,10 +446,12 @@ class _MapsViewState extends State<MapsView> {
                         _pickedPosition = position;
                       });
                     } catch (e) {
-                      UiHelpers.showSnackBar(
-                        context: context,
-                        message: Failure.fromException(e).error,
-                      );
+                      if (mounted) {
+                        UiHelpers.showSnackBar(
+                          context: context,
+                          message: Failure.fromException(e).error,
+                        );
+                      }
                     }
                   },
                   child: Icon(Ionicons.locate, color: context.colors.primary),
