@@ -6,7 +6,6 @@ import 'package:coffee_app/features/checkout/presentation/manager/payment/paymen
 import 'package:coffee_app/features/checkout/presentation/views/payment_view/widgets/add_card_overlay.dart';
 import 'package:coffee_app/features/checkout/presentation/views/payment_view/widgets/payment_method_list_item.dart';
 import 'package:coffee_app/features/checkout/presentation/views/payment_view/widgets/payment_method_list_item_loading.dart';
-import 'package:coffee_app/core/widgets/price_text.dart';
 import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';

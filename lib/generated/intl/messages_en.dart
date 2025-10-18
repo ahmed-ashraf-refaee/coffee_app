@@ -82,11 +82,14 @@ class MessageLookup extends MessageLookupByLibrary {
       "Please select a category",
     ),
     "change": MessageLookupByLibrary.simpleMessage("change"),
+    "changeEmail": MessageLookupByLibrary.simpleMessage("Change Email"),
+    "changePassword": MessageLookupByLibrary.simpleMessage("Change Password"),
     "checkout": MessageLookupByLibrary.simpleMessage("Checkout"),
     "city": MessageLookupByLibrary.simpleMessage("City"),
     "codeMustBeSixDigits": MessageLookupByLibrary.simpleMessage(
       "Code must be 6 digits",
     ),
+    "coffee": MessageLookupByLibrary.simpleMessage("Coffee"),
     "confirmLocation": MessageLookupByLibrary.simpleMessage("Confirm location"),
     "confirmPassword": MessageLookupByLibrary.simpleMessage("Confirm password"),
     "confirm_password": MessageLookupByLibrary.simpleMessage(
@@ -102,6 +105,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Continue with payment",
     ),
     "create_account": MessageLookupByLibrary.simpleMessage("Create an Account"),
+    "currentPassword": MessageLookupByLibrary.simpleMessage("Current Password"),
     "customers": MessageLookupByLibrary.simpleMessage("Customers"),
     "cvv": MessageLookupByLibrary.simpleMessage("CVV"),
     "databaseError": MessageLookupByLibrary.simpleMessage(
@@ -111,6 +115,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "dont_have_account": MessageLookupByLibrary.simpleMessage(
       "Don\'t have an account?",
     ),
+    "drop": MessageLookupByLibrary.simpleMessage("Drop"),
     "duplicateRecord": MessageLookupByLibrary.simpleMessage(
       "This record already exists.",
     ),
@@ -202,6 +207,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "minPassword": MessageLookupByLibrary.simpleMessage(
       "At least 8 characters",
     ),
+    "minUsername": MessageLookupByLibrary.simpleMessage(
+      "Username must be at least 3 characters",
+    ),
     "month_apr": MessageLookupByLibrary.simpleMessage("Apr"),
     "month_aug": MessageLookupByLibrary.simpleMessage("Aug"),
     "month_dec": MessageLookupByLibrary.simpleMessage("Dec"),
@@ -220,6 +228,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "newCodeSent": MessageLookupByLibrary.simpleMessage(
       "New code sent. Please check your inbox.",
     ),
+    "newPassword": MessageLookupByLibrary.simpleMessage("New Password"),
     "noAddressesAvailable": MessageLookupByLibrary.simpleMessage(
       "No addresses available. Please add one.",
     ),
@@ -242,11 +251,31 @@ class MessageLookup extends MessageLookupByLibrary {
     "nullValueError": MessageLookupByLibrary.simpleMessage(
       "A required field was left empty.",
     ),
+    "onboarding_app_name": MessageLookupByLibrary.simpleMessage("Coffee Shot"),
+    "onboarding_done": MessageLookupByLibrary.simpleMessage("Done"),
+    "onboarding_next": MessageLookupByLibrary.simpleMessage("Next"),
+    "onboarding_subtitle_1": MessageLookupByLibrary.simpleMessage(
+      "Discover the best coffee around you and enjoy the experience.",
+    ),
+    "onboarding_subtitle_2": MessageLookupByLibrary.simpleMessage(
+      "Get your coffee delivered to your doorstep quickly and safely.",
+    ),
+    "onboarding_subtitle_3": MessageLookupByLibrary.simpleMessage(
+      "Easily order your favorite coffee from anywhere, anytime.",
+    ),
+    "onboarding_title_1": MessageLookupByLibrary.simpleMessage("Welcome to"),
+    "onboarding_title_2": MessageLookupByLibrary.simpleMessage("Fast Delivery"),
+    "onboarding_title_3": MessageLookupByLibrary.simpleMessage(
+      "Order Your Coffee",
+    ),
     "openMap": MessageLookupByLibrary.simpleMessage("Open Map"),
     "optionalPhoneNumber": MessageLookupByLibrary.simpleMessage(
       "Optional Phone Number",
     ),
     "or": MessageLookupByLibrary.simpleMessage("or"),
+    "orderPlacedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "Order placed successfully",
+    ),
     "order_summary": MessageLookupByLibrary.simpleMessage("Order Summary"),
     "otpExpired": MessageLookupByLibrary.simpleMessage(
       "This reset link has expired",
@@ -266,6 +295,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "paymentMethodsSubtitle": MessageLookupByLibrary.simpleMessage(
       "Choose your preferred payment option",
     ),
+    "paymentSuccess": MessageLookupByLibrary.simpleMessage("Successfully paid"),
     "phoneNumber": MessageLookupByLibrary.simpleMessage("Phone Number"),
     "phoneNumberRequired": MessageLookupByLibrary.simpleMessage(
       "Phone number is required",
@@ -301,6 +331,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "productStatusLow": MessageLookupByLibrary.simpleMessage("Low Stock"),
     "productStatusOut": MessageLookupByLibrary.simpleMessage("Out of Stock"),
     "productsSold": MessageLookupByLibrary.simpleMessage("Products Sold"),
+    "profileUpdatedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "Profile updated successfully",
+    ),
     "profile_dark_mode": MessageLookupByLibrary.simpleMessage("Dark Mode"),
     "profile_edit_profile": MessageLookupByLibrary.simpleMessage(
       "Edit Profile",
@@ -412,6 +445,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "sort_newest": MessageLookupByLibrary.simpleMessage("Newest"),
     "sort_oldest": MessageLookupByLibrary.simpleMessage("Oldest"),
     "sort_topRated": MessageLookupByLibrary.simpleMessage("Top Rated"),
+    "splashSubtitle": MessageLookupByLibrary.simpleMessage(
+      "your perfect pour at your door",
+    ),
     "state": MessageLookupByLibrary.simpleMessage("State"),
     "stockLabel": MessageLookupByLibrary.simpleMessage("Stock"),
     "stockManagerSubtitle": MessageLookupByLibrary.simpleMessage(

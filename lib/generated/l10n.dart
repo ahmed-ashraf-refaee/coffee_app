@@ -89,6 +89,26 @@ class S {
     return Intl.message('Password', name: 'password', desc: '', args: []);
   }
 
+  /// `Current Password`
+  String get currentPassword {
+    return Intl.message(
+      'Current Password',
+      name: 'currentPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New Password`
+  String get newPassword {
+    return Intl.message(
+      'New Password',
+      name: 'newPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Confirm Password`
   String get confirm_password {
     return Intl.message(
@@ -684,6 +704,16 @@ class S {
     );
   }
 
+  /// `Username must be at least 3 characters`
+  String get minUsername {
+    return Intl.message(
+      'Username must be at least 3 characters',
+      name: 'minUsername',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Your account has been created successfully.`
   String get registrationSuccess {
     return Intl.message(
@@ -831,6 +861,36 @@ class S {
       name: 'resendAfterSeconds',
       desc: '',
       args: [seconds],
+    );
+  }
+
+  /// `Profile updated successfully`
+  String get profileUpdatedSuccessfully {
+    return Intl.message(
+      'Profile updated successfully',
+      name: 'profileUpdatedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change Email`
+  String get changeEmail {
+    return Intl.message(
+      'Change Email',
+      name: 'changeEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change Password`
+  String get changePassword {
+    return Intl.message(
+      'Change Password',
+      name: 'changePassword',
+      desc: '',
+      args: [],
     );
   }
 
@@ -2069,6 +2129,126 @@ class S {
     return Intl.message(
       'Select your location on the map and fill in your address details',
       name: 'addLocationSubtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Welcome to`
+  String get onboarding_title_1 {
+    return Intl.message(
+      'Welcome to',
+      name: 'onboarding_title_1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Discover the best coffee around you and enjoy the experience.`
+  String get onboarding_subtitle_1 {
+    return Intl.message(
+      'Discover the best coffee around you and enjoy the experience.',
+      name: 'onboarding_subtitle_1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fast Delivery`
+  String get onboarding_title_2 {
+    return Intl.message(
+      'Fast Delivery',
+      name: 'onboarding_title_2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Get your coffee delivered to your doorstep quickly and safely.`
+  String get onboarding_subtitle_2 {
+    return Intl.message(
+      'Get your coffee delivered to your doorstep quickly and safely.',
+      name: 'onboarding_subtitle_2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order Your Coffee`
+  String get onboarding_title_3 {
+    return Intl.message(
+      'Order Your Coffee',
+      name: 'onboarding_title_3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Easily order your favorite coffee from anywhere, anytime.`
+  String get onboarding_subtitle_3 {
+    return Intl.message(
+      'Easily order your favorite coffee from anywhere, anytime.',
+      name: 'onboarding_subtitle_3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Coffee Shot`
+  String get onboarding_app_name {
+    return Intl.message(
+      'Coffee Shot',
+      name: 'onboarding_app_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Next`
+  String get onboarding_next {
+    return Intl.message('Next', name: 'onboarding_next', desc: '', args: []);
+  }
+
+  /// `Done`
+  String get onboarding_done {
+    return Intl.message('Done', name: 'onboarding_done', desc: '', args: []);
+  }
+
+  /// `Successfully paid`
+  String get paymentSuccess {
+    return Intl.message(
+      'Successfully paid',
+      name: 'paymentSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order placed successfully`
+  String get orderPlacedSuccessfully {
+    return Intl.message(
+      'Order placed successfully',
+      name: 'orderPlacedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Coffee`
+  String get coffee {
+    return Intl.message('Coffee', name: 'coffee', desc: '', args: []);
+  }
+
+  /// `Drop`
+  String get drop {
+    return Intl.message('Drop', name: 'drop', desc: '', args: []);
+  }
+
+  /// `your perfect pour at your door`
+  String get splashSubtitle {
+    return Intl.message(
+      'your perfect pour at your door',
+      name: 'splashSubtitle',
       desc: '',
       args: [],
     );

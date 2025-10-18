@@ -1,5 +1,6 @@
 import 'package:coffee_app/core/utils/text_styles.dart';
 import 'package:coffee_app/core/widgets/custom_elevated_button.dart';
+import 'package:coffee_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
@@ -61,9 +62,9 @@ class _ChangeEmailViewBodyState extends State<ChangeEmailViewBody> {
           ),
           const SizedBox(height: 32),
 
-          const TitleSubtitle(
-            title: 'Change Email',
-            subtitle: 'Change Your Email account.',
+          TitleSubtitle(
+            title: S.current.profile_edit_profile,
+            subtitle: S.current.email,
           ),
           const SizedBox(height: 48),
 
@@ -74,20 +75,20 @@ class _ChangeEmailViewBodyState extends State<ChangeEmailViewBody> {
               children: [
                 TextFormField(
                   controller: emailController,
-                  decoration: const InputDecoration(
-                    hintText: 'email',
-                    prefixIcon: Icon(Ionicons.person_outline),
+                  decoration: InputDecoration(
+                    hintText: S.current.email,
+                    prefixIcon: const Icon(Ionicons.person_outline),
                   ),
                   keyboardType: TextInputType.emailAddress,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter your email';
+                      return S.current.enterEmail;
                     }
                     if (!RegExp(
                       r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}$',
                     ).hasMatch(value)) {
-                      return 'Enter a valid email address';
+                      return S.current.invalidEmail;
                     }
                     return null;
                   },
@@ -99,7 +100,7 @@ class _ChangeEmailViewBodyState extends State<ChangeEmailViewBody> {
                       controller: passwordController,
                       obscureText: !value,
                       decoration: InputDecoration(
-                        hintText: 'password',
+                        hintText: S.current.password,
                         prefixIcon: const Icon(Ionicons.lock_closed_outline),
                         suffixIcon: IconButton(
                           onPressed: () => _isPasswordVisible.value =
@@ -112,7 +113,7 @@ class _ChangeEmailViewBodyState extends State<ChangeEmailViewBody> {
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter your password';
+                          return S.current.enterPassword;
                         }
                         return null;
                       },
@@ -133,14 +134,12 @@ class _ChangeEmailViewBodyState extends State<ChangeEmailViewBody> {
               } else if (state is AuthSuccess) {
                 UiHelpers.showSnackBar(
                   context: context,
-                  message: 'Email updated successfully!',
+                  message: S.current.registrationSuccess,
                 );
                 context.read<EditProfileCubit>().fetchUserData();
 
                 GoRouter.of(context).pushReplacement(AppRouter.kNavigationView);
                 context.read<AppNavigatorCubit>().setCurrentIndex(3);
-
-                // GoRouter.of(context).pop();
               }
             },
             builder: (context, state) {
@@ -156,7 +155,10 @@ class _ChangeEmailViewBodyState extends State<ChangeEmailViewBody> {
                     );
                   }
                 },
-                child: const Text('Update Email', style: TextStyles.medium20),
+                child: Text(
+                  S.current.updateProduct, // using existing localized key
+                  style: TextStyles.medium20,
+                ),
               );
             },
           ),

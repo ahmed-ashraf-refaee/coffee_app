@@ -1,9 +1,12 @@
 import 'package:coffee_app/core/utils/text_styles.dart';
 import 'package:coffee_app/core/widgets/custom_icon_button.dart';
+import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
 
+import '../../../../core/utils/app_router.dart';
 import '../../../../core/utils/color_palette.dart';
 
 class OnboardingView extends StatefulWidget {
@@ -17,23 +20,21 @@ class _OnboardingViewState extends State<OnboardingView> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
 
-  final List<Map<String, String>> onboardingData = [
+  List<Map<String, String>> get onboardingData => [
     {
       'image': 'assets/images/onboarding_images/1.png',
-      'title': 'Welcome to',
-      'subtitle':
-          'Discover the best coffee around you and enjoy the experience.',
+      'title': S.current.onboarding_title_1,
+      'subtitle': S.current.onboarding_subtitle_1,
     },
     {
       'image': 'assets/images/onboarding_images/2.jpg',
-      'title': 'Fast Delivery',
-      'subtitle':
-          'Get your coffee delivered to your doorstep quickly and safely.',
+      'title': S.current.onboarding_title_2,
+      'subtitle': S.current.onboarding_subtitle_2,
     },
     {
       'image': 'assets/images/onboarding_images/4.png',
-      'title': 'Order Your Coffee',
-      'subtitle': 'Easily order your favorite coffee from anywhere, anytime.',
+      'title': S.current.onboarding_title_3,
+      'subtitle': S.current.onboarding_subtitle_3,
     },
   ];
 
@@ -67,7 +68,9 @@ class _OnboardingViewState extends State<OnboardingView> {
                     curve: Curves.easeInOut,
                   );
                 } else {
-                  // Navigate to the next screen or perform any action
+                  if (mounted) {
+                    GoRouter.of(context).pushReplacement(AppRouter.kAuthView);
+                  }
                 }
               },
               backgroundColor: ColorPalette.raisinBlack,
@@ -132,7 +135,6 @@ class _OnboardingViewState extends State<OnboardingView> {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         onboardingData[index]['title']!,
-
                         style: TextStyles.bold28.copyWith(
                           color: context.colors.onPrimary,
                         ),
@@ -141,7 +143,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'Coffee Shot',
+                        S.current.onboarding_app_name,
                         style: TextStyles.bold48.copyWith(
                           color: context.colors.primary,
                         ),
@@ -184,12 +186,13 @@ class _OnboardingViewState extends State<OnboardingView> {
                   ],
                 ),
               ),
+
         // Left edge blur gradient
         Positioned(
           left: 0,
           top: 0,
           bottom: 0,
-          width: 70,
+          width: 65,
           child: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -209,7 +212,7 @@ class _OnboardingViewState extends State<OnboardingView> {
           right: 0,
           top: 0,
           bottom: 0,
-          width: 70,
+          width: 65,
           child: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(

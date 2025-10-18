@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -7,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../../../core/helper/ui_helpers.dart';
 import '../../../../../../core/utils/text_styles.dart';
 import '../../../../../../core/widgets/custom_elevated_button.dart';
+import '../../../../../../generated/l10n.dart';
 import '../../../manager/edit_profile/edit_profile_cubit.dart';
 
 class SaveProfileButton extends StatelessWidget {
@@ -34,7 +34,7 @@ class SaveProfileButton extends StatelessWidget {
         } else if (state is EditProfileSuccess) {
           UiHelpers.showSnackBar(
             context: context,
-            message: "Profile updated successfully",
+            message: S.current.profileUpdatedSuccessfully,
           );
           context.read<EditProfileCubit>().fetchUserData();
           GoRouter.of(context).pop();
@@ -45,7 +45,7 @@ class SaveProfileButton extends StatelessWidget {
           disabled: state is FetchProfileLoadingState,
           isLoading: state is EditProfileLoading,
           onPressed: () => _onTapSave(context),
-          child: const Text("Save", style: TextStyles.medium20),
+          child: Text(S.current.save, style: TextStyles.medium20),
         );
       },
     );

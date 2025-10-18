@@ -4,7 +4,6 @@ import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import '../../../../../../core/utils/text_styles.dart';
-import '../../../../../../core/widgets/custom_icon_button.dart';
 import '../add_product_view.dart';
 
 class VariantsSection extends StatelessWidget {

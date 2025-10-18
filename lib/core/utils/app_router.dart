@@ -16,6 +16,7 @@ import '../../features/checkout/data/repo/order/order_repo_impl.dart';
 import '../../features/checkout/presentation/manager/order/order_cubit.dart';
 import '../../features/maps/presentation/view/map_view.dart';
 import '../../features/navigation/presentation/view/app_navigation.dart';
+import '../../features/onboarding/presentation/view/onboarding_view.dart';
 import '../../features/profile/presentation/view/edit_profile_view/change_email_view.dart';
 import '../../features/profile/presentation/view/edit_profile_view/change_password_view.dart';
 import '../../features/profile/presentation/view/edit_profile_view/edit_profile_view.dart';
@@ -38,10 +39,15 @@ abstract class AppRouter {
   static const kEditProfileView = "/editProfileView";
   static const kChangeEmailView = "/changeEmailView";
   static const kChangePassword = "/changeChangeView";
+  static const kOnboardingView = "/onboardingView";
 
   static final router = GoRouter(
     routes: [
       GoRoute(path: '/', builder: (context, state) => const SplashView()),
+      GoRoute(
+        path: kOnboardingView,
+        builder: (context, state) => const OnboardingView(),
+      ),
       GoRoute(
         path: kLanguageSelect,
         builder: (context, state) => const LanguageSelectView(),

@@ -7,6 +7,8 @@
   "username": "Username",
   "email": "Email",
   "password": "Password",
+  "currentPassword": "Current Password",
+  "newPassword": "New Password",
   "confirm_password": "Confirm Password",
   "sign_up": "Sign Up",
   "log_in": "Log In",
@@ -73,6 +75,7 @@
   "syntaxError": "There is a problem with the database query.",
   "databaseError": "A database error occurred. Please try again.",
   "usernameTaken": "That username isn't available. Choose a different one.",
+  "minUsername": "Username must be at least 3 characters",
   "registrationSuccess": "Your account has been created successfully.",
   "resetPasswordEmailSent": "We've sent a password reset link to your email.",
   "samePasswordError": "New password must be different from the old password.",
@@ -95,6 +98,9 @@
       }
     }
   },
+    "profileUpdatedSuccessfully": "Profile updated successfully",
+  "changeEmail": "Change Email",
+  "changePassword": "Change Password",
   "resendCode": "Resend Code",
   "verificationSuccessful": "Verification successful. You can now set a new password.",
   "newCodeSent": "New code sent. Please check your inbox.",
@@ -268,10 +274,23 @@
   "phoneNumberRequired": "Phone number is required",
   "enterValidPhone": "Enter a valid phone number",
   "addLocationTitle": "Add New Address",
-"addLocationSubtitle": "Select your location on the map and fill in your address details"
+"addLocationSubtitle": "Select your location on the map and fill in your address details",
 
+ "onboarding_title_1": "Welcome to",
+  "onboarding_subtitle_1": "Discover the best coffee around you and enjoy the experience.",
+  "onboarding_title_2": "Fast Delivery",
+  "onboarding_subtitle_2": "Get your coffee delivered to your doorstep quickly and safely.",
+  "onboarding_title_3": "Order Your Coffee",
+  "onboarding_subtitle_3": "Easily order your favorite coffee from anywhere, anytime.",
+  "onboarding_app_name": "Coffee Shot",
+  "onboarding_next": "Next",
+  "onboarding_done": "Done",
 
-
+  "paymentSuccess": "Successfully paid",
+  "orderPlacedSuccessfully": "Order placed successfully",
+   "coffee": "Coffee",
+  "drop": "Drop",
+  "splashSubtitle": "your perfect pour at your door"
 
 
 

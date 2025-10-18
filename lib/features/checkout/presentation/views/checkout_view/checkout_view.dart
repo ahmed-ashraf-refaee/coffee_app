@@ -99,7 +99,7 @@ class _CheckoutViewState extends State<CheckoutView> {
                   if (state is PaymentCompletedSuccess) {
                     UiHelpers.showSnackBar(
                       context: context,
-                      message: "Successfully paid",
+                      message: S.current.paymentSuccess,
                     );
                   } else if (state is PaymentFailure) {
                     UiHelpers.showSnackBar(
@@ -114,7 +114,7 @@ class _CheckoutViewState extends State<CheckoutView> {
                   if (state is OrderCreated) {
                     UiHelpers.showSnackBar(
                       context: context,
-                      message: "تم الأخذ",
+                      message: S.current.orderPlacedSuccessfully,
                     );
                     cvvController.clear();
                     context.read<CartCubit>().clearCart();

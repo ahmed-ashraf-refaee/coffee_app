@@ -13,6 +13,7 @@ import '../../../../../../core/widgets/custom_app_bar.dart';
 import '../../../../../../core/widgets/custom_icon_button.dart';
 import '../../../../../../core/widgets/prettier_tap.dart';
 import '../../../../../../core/widgets/title_subtitle.dart';
+import '../../../../../../generated/l10n.dart';
 import '../../../../../../main.dart';
 import '../../../../../authentication/presentation/manager/auth_bloc/auth_bloc.dart';
 
@@ -70,9 +71,9 @@ class _ChangePasswordViewBodyState extends State<ChangePasswordViewBody> {
           const SizedBox(height: 32),
 
           /// --- Title ---
-          const TitleSubtitle(
-            title: 'Change Password',
-            subtitle: 'Create a new password for your account.',
+          TitleSubtitle(
+            title: S.current.resetPassword,
+            subtitle: S.current.setPasswordSubtitle,
           ),
           const SizedBox(height: 48),
 
@@ -90,7 +91,7 @@ class _ChangePasswordViewBodyState extends State<ChangePasswordViewBody> {
                       controller: currentPasswordController,
                       obscureText: !value,
                       decoration: InputDecoration(
-                        hintText: 'current password',
+                        hintText: S.current.currentPassword,
                         prefixIcon: const Icon(Ionicons.lock_closed_outline),
                         suffixIcon: IconButton(
                           onPressed: () => _isCurrentVisible.value =
@@ -102,7 +103,7 @@ class _ChangePasswordViewBodyState extends State<ChangePasswordViewBody> {
                       ),
                       validator: (v) {
                         if (v == null || v.isEmpty) {
-                          return 'Please enter your current password';
+                          return S.current.enterPassword;
                         }
                         return null;
                       },
@@ -118,7 +119,7 @@ class _ChangePasswordViewBodyState extends State<ChangePasswordViewBody> {
                       controller: newPasswordController,
                       obscureText: !value,
                       decoration: InputDecoration(
-                        hintText: 'password',
+                        hintText: S.current.newPassword,
                         prefixIcon: const Icon(Ionicons.lock_closed_outline),
                         suffixIcon: IconButton(
                           onPressed: () =>
@@ -130,13 +131,13 @@ class _ChangePasswordViewBodyState extends State<ChangePasswordViewBody> {
                       ),
                       validator: (v) {
                         if (v == null || v.isEmpty) {
-                          return 'Please enter a new password';
+                          return S.current.enterPassword;
                         }
                         if (v.length < 8) {
-                          return 'Password must be at least 8 characters';
+                          return S.current.minPassword;
                         }
                         if (!RegConstants.passwordRegExp.hasMatch(v)) {
-                          return 'Password must contain letters and numbers';
+                          return S.current.passwordRequirement;
                         }
                         return null;
                       },
@@ -147,16 +148,16 @@ class _ChangePasswordViewBodyState extends State<ChangePasswordViewBody> {
                 TextFormField(
                   controller: confirmPasswordController,
                   obscureText: true,
-                  decoration: const InputDecoration(
-                    hintText: 'confirm password',
-                    prefixIcon: Icon(Ionicons.lock_closed_outline),
+                  decoration: InputDecoration(
+                    hintText: S.current.confirm_password,
+                    prefixIcon: const Icon(Ionicons.lock_closed_outline),
                   ),
                   validator: (v) {
                     if (v == null || v.isEmpty) {
-                      return 'Please confirm your password';
+                      return S.current.confirmPassword;
                     }
                     if (v != newPasswordController.text) {
-                      return 'Passwords do not match';
+                      return S.current.passwordsDontMatch;
                     }
                     return null;
                   },
@@ -175,11 +176,10 @@ class _ChangePasswordViewBodyState extends State<ChangePasswordViewBody> {
               } else if (state is AuthSuccess) {
                 UiHelpers.showSnackBar(
                   context: context,
-                  message: 'Password updated successfully!',
+                  message: S.current.passwordUpdatedSuccessfully,
                 );
                 GoRouter.of(context).pushReplacement(AppRouter.kNavigationView);
                 context.read<AppNavigatorCubit>().setCurrentIndex(3);
-                // GoRouter.of(context).pop();
               }
             },
             builder: (context, state) {
@@ -195,8 +195,8 @@ class _ChangePasswordViewBodyState extends State<ChangePasswordViewBody> {
                     );
                   }
                 },
-                child: const Text(
-                  'Update password',
+                child: Text(
+                  S.current.setPasswordButton,
                   style: TextStyles.medium20,
                 ),
               );

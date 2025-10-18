@@ -8,6 +8,8 @@
   "email": "البريد الإلكتروني",
   "password": "كلمة المرور",
   "confirm_password": "تأكيد كلمة المرور",
+   "currentPassword": "كلمة المرور الحالية",
+  "newPassword": "كلمة المرور الجديدة",
   "sign_up": "إنشاء حساب",
   "log_in": "تسجيل الدخول",
   "forgot_password": "هل نسيت كلمة المرور؟",
@@ -73,6 +75,7 @@
   "syntaxError": "هناك مشكلة في استعلام قاعدة البيانات.",
   "databaseError": "حدث خطأ في قاعدة البيانات. حاول مرة أخرى.",
   "usernameTaken":"هذا الاسم غير متوفر، من فضلك اختر اسمًا آخر.",
+  "minUsername": "يجب أن يكون اسم المستخدم 3 أحرف على الأقل",
   "registrationSuccess": "تم إنشاء حسابك بنجاح.",
   "resetPasswordEmailSent": "لقد أرسلنا رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني.",
   "resetPasswordSuccess": "تمت إعادة تعيين كلمة المرور بنجاح.",
@@ -95,6 +98,9 @@
       }
     }
   },
+    "profileUpdatedSuccessfully": "تم تحديث الملف الشخصي بنجاح",
+  "changeEmail": "تغيير البريد الإلكتروني",
+  "changePassword": "تغيير كلمة المرور",
   "resendCode": "إعادة إرسال الرمز",
   "verificationSuccessful": "تم التحقق بنجاح. يمكنك الآن تعيين كلمة مرور جديدة.",
   "newCodeSent": "تم إرسال رمز جديد. يرجى التحقق من صندوق الوارد.",
@@ -267,7 +273,20 @@
   "phoneNumberRequired": "رقم الهاتف مطلوب",
   "enterValidPhone": "أدخل رقم هاتف صحيح",
   "addLocationTitle": "إضافة عنوان جديد",
-"addLocationSubtitle": "اختر موقعك على الخريطة وأكمل تفاصيل العنوان"
+  "addLocationSubtitle": "اختر موقعك على الخريطة وأكمل تفاصيل العنوان",
 
-
+  "onboarding_title_1": "مرحبًا بك في",
+  "onboarding_subtitle_1": "اكتشف أفضل أنواع القهوة من حولك واستمتع بالتجربة.",
+  "onboarding_title_2": "توصيل سريع",
+  "onboarding_subtitle_2": "احصل على قهوتك بسرعة وأمان حتى باب منزلك.",
+  "onboarding_title_3": "اطلب قهوتك",
+  "onboarding_subtitle_3": "اطلب قهوتك المفضلة بسهولة من أي مكان وفي أي وقت.",
+  "onboarding_app_name": "كوفي شوت",
+  "onboarding_next": "التالي",
+  "onboarding_done": "تم",
+   "paymentSuccess": "تم الدفع بنجاح",
+  "orderPlacedSuccessfully": "تم تقديم الطلب بنجاح",
+   "coffee": "كوفي",
+  "drop": "دروب",
+  "splashSubtitle": "قهوتك المثالية تصل إلى بابك"
 }

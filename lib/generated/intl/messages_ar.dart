@@ -78,11 +78,16 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "categoryRequired": MessageLookupByLibrary.simpleMessage("يرجى اختيار فئة"),
     "change": MessageLookupByLibrary.simpleMessage("تغيير"),
+    "changeEmail": MessageLookupByLibrary.simpleMessage(
+      "تغيير البريد الإلكتروني",
+    ),
+    "changePassword": MessageLookupByLibrary.simpleMessage("تغيير كلمة المرور"),
     "checkout": MessageLookupByLibrary.simpleMessage("الدفع"),
     "city": MessageLookupByLibrary.simpleMessage("المدينة"),
     "codeMustBeSixDigits": MessageLookupByLibrary.simpleMessage(
       "يجب أن يكون الرمز مكون من 6 أرقام",
     ),
+    "coffee": MessageLookupByLibrary.simpleMessage("كوفي"),
     "confirmLocation": MessageLookupByLibrary.simpleMessage("تأكيد الموقع"),
     "confirmPassword": MessageLookupByLibrary.simpleMessage("أكد كلمة المرور"),
     "confirm_password": MessageLookupByLibrary.simpleMessage(
@@ -98,6 +103,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "متابعة للدفع",
     ),
     "create_account": MessageLookupByLibrary.simpleMessage("إنشاء حساب جديد"),
+    "currentPassword": MessageLookupByLibrary.simpleMessage(
+      "كلمة المرور الحالية",
+    ),
     "customers": MessageLookupByLibrary.simpleMessage("العملاء"),
     "cvv": MessageLookupByLibrary.simpleMessage("الرمز الأمني (CVV)"),
     "databaseError": MessageLookupByLibrary.simpleMessage(
@@ -105,6 +113,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "discount": MessageLookupByLibrary.simpleMessage("خصم"),
     "dont_have_account": MessageLookupByLibrary.simpleMessage("ليس لديك حساب؟"),
+    "drop": MessageLookupByLibrary.simpleMessage("دروب"),
     "duplicateRecord": MessageLookupByLibrary.simpleMessage(
       "هذا السجل موجود بالفعل.",
     ),
@@ -196,6 +205,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "الحد الأقصى هو ٣ خيارات فقط",
     ),
     "minPassword": MessageLookupByLibrary.simpleMessage("على الأقل ٨ أحرف"),
+    "minUsername": MessageLookupByLibrary.simpleMessage(
+      "يجب أن يكون اسم المستخدم 3 أحرف على الأقل",
+    ),
     "month_apr": MessageLookupByLibrary.simpleMessage("أبريل"),
     "month_aug": MessageLookupByLibrary.simpleMessage("أغسطس"),
     "month_dec": MessageLookupByLibrary.simpleMessage("ديسمبر"),
@@ -214,6 +226,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "newCodeSent": MessageLookupByLibrary.simpleMessage(
       "تم إرسال رمز جديد. يرجى التحقق من صندوق الوارد.",
     ),
+    "newPassword": MessageLookupByLibrary.simpleMessage("كلمة المرور الجديدة"),
     "noAddressesAvailable": MessageLookupByLibrary.simpleMessage(
       "لا توجد عناوين. يرجى إضافة عنوان جديد.",
     ),
@@ -234,11 +247,29 @@ class MessageLookup extends MessageLookupByLibrary {
     "nullValueError": MessageLookupByLibrary.simpleMessage(
       "تم ترك حقل مطلوب فارغًا.",
     ),
+    "onboarding_app_name": MessageLookupByLibrary.simpleMessage("كوفي شوت"),
+    "onboarding_done": MessageLookupByLibrary.simpleMessage("تم"),
+    "onboarding_next": MessageLookupByLibrary.simpleMessage("التالي"),
+    "onboarding_subtitle_1": MessageLookupByLibrary.simpleMessage(
+      "اكتشف أفضل أنواع القهوة من حولك واستمتع بالتجربة.",
+    ),
+    "onboarding_subtitle_2": MessageLookupByLibrary.simpleMessage(
+      "احصل على قهوتك بسرعة وأمان حتى باب منزلك.",
+    ),
+    "onboarding_subtitle_3": MessageLookupByLibrary.simpleMessage(
+      "اطلب قهوتك المفضلة بسهولة من أي مكان وفي أي وقت.",
+    ),
+    "onboarding_title_1": MessageLookupByLibrary.simpleMessage("مرحبًا بك في"),
+    "onboarding_title_2": MessageLookupByLibrary.simpleMessage("توصيل سريع"),
+    "onboarding_title_3": MessageLookupByLibrary.simpleMessage("اطلب قهوتك"),
     "openMap": MessageLookupByLibrary.simpleMessage("فتح الخريطة"),
     "optionalPhoneNumber": MessageLookupByLibrary.simpleMessage(
       "رقم هاتف إضافي",
     ),
     "or": MessageLookupByLibrary.simpleMessage("أو"),
+    "orderPlacedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "تم تقديم الطلب بنجاح",
+    ),
     "order_summary": MessageLookupByLibrary.simpleMessage("ملخص الطلب"),
     "otpExpired": MessageLookupByLibrary.simpleMessage(
       "انتهت صلاحية رابط إعادة التعيين",
@@ -258,6 +289,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "paymentMethodsSubtitle": MessageLookupByLibrary.simpleMessage(
       "اختر طريقة الدفع المفضلة لديك",
     ),
+    "paymentSuccess": MessageLookupByLibrary.simpleMessage("تم الدفع بنجاح"),
     "phoneNumber": MessageLookupByLibrary.simpleMessage("رقم الهاتف"),
     "phoneNumberRequired": MessageLookupByLibrary.simpleMessage(
       "رقم الهاتف مطلوب",
@@ -285,6 +317,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "productStatusLow": MessageLookupByLibrary.simpleMessage("مخزون منخفض"),
     "productStatusOut": MessageLookupByLibrary.simpleMessage("غير متوفر"),
     "productsSold": MessageLookupByLibrary.simpleMessage("المنتجات المباعة"),
+    "profileUpdatedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "تم تحديث الملف الشخصي بنجاح",
+    ),
     "profile_dark_mode": MessageLookupByLibrary.simpleMessage("الوضع الداكن"),
     "profile_edit_profile": MessageLookupByLibrary.simpleMessage(
       "تعديل الملف الشخصي",
@@ -392,6 +427,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "sort_newest": MessageLookupByLibrary.simpleMessage("الأحدث"),
     "sort_oldest": MessageLookupByLibrary.simpleMessage("الأقدم"),
     "sort_topRated": MessageLookupByLibrary.simpleMessage("الأعلى تقييمًا"),
+    "splashSubtitle": MessageLookupByLibrary.simpleMessage(
+      "قهوتك المثالية تصل إلى بابك",
+    ),
     "state": MessageLookupByLibrary.simpleMessage("المحافظة"),
     "stockLabel": MessageLookupByLibrary.simpleMessage("المخزون"),
     "stockManagerSubtitle": MessageLookupByLibrary.simpleMessage(

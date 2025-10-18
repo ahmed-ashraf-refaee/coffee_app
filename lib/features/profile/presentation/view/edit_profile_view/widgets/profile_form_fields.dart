@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import '../../../../../../generated/l10n.dart';
 import 'profile_text_field.dart';
 
 class ProfileFormFields extends StatelessWidget {
@@ -23,7 +24,7 @@ class ProfileFormFields extends StatelessWidget {
           children: [
             Expanded(
               child: ProfileTextField(
-                label: 'First Name',
+                label: S.current.first_name,
                 controller: firstNameController,
                 validator: _validateFirstName,
                 icon: const Icon(Ionicons.person_outline),
@@ -31,7 +32,7 @@ class ProfileFormFields extends StatelessWidget {
             ),
             Expanded(
               child: ProfileTextField(
-                label: 'Last Name',
+                label: S.current.last_name,
                 controller: lastNameController,
                 validator: _validateLastName,
                 icon: const Icon(Ionicons.person_outline),
@@ -41,7 +42,7 @@ class ProfileFormFields extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         ProfileTextField(
-          label: 'Username',
+          label: S.current.username,
           controller: usernameController,
           validator: _validateUsername,
           icon: const Icon(Ionicons.person_outline),
@@ -51,18 +52,18 @@ class ProfileFormFields extends StatelessWidget {
   }
 
   String? _validateFirstName(String? value) {
-    if (value == null || value.isEmpty) return 'Please enter first name';
+    if (value == null || value.isEmpty) return S.current.enterFirstName;
     return null;
   }
 
   String? _validateLastName(String? value) {
-    if (value == null || value.isEmpty) return 'Please enter last name';
+    if (value == null || value.isEmpty) return S.current.enterLastName;
     return null;
   }
 
   String? _validateUsername(String? value) {
-    if (value == null || value.isEmpty) return 'Please enter username';
-    if (value.length < 3) return 'Username must be at least 3 characters';
+    if (value == null || value.isEmpty) return S.current.enterUsername;
+    if (value.length < 3) return S.current.minUsername;
     return null;
   }
 }

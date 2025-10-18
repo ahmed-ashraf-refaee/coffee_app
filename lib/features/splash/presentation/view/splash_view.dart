@@ -1,3 +1,4 @@
+import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -34,7 +35,14 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
     Future.delayed(const Duration(milliseconds: 5000), () async {
       final prefs = await SharedPreferences.getInstance();
       final remember = prefs.getBool("remember_me") ?? true;
-
+      final seenOnboarding = prefs.getBool('seen_onboarding') ?? false;
+      if (!seenOnboarding) {
+        await prefs.setBool('seen_onboarding', true);
+        if (mounted) {
+          GoRouter.of(context).pushReplacement(AppRouter.kOnboardingView);
+        }
+        return;
+      }
       if (remember) {
         final user = Supabase.instance.client.auth.currentSession?.user;
         if (user != null) {
@@ -117,7 +125,6 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
             height: 250,
             child: Lottie.asset('assets/icons/coffee_icon.json', repeat: false),
           ),
-
           Row(
             spacing: 16,
             textDirection: TextDirection.ltr,
@@ -125,28 +132,23 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
             children: [
               FadeTransition(
                 opacity: _animation,
-                child: const Text("Coffee", style: TextStyles.bold48),
+                child: Text(S.current.coffee, style: TextStyles.bold48),
               ),
               RotationTransition(
                 alignment: Alignment.centerLeft,
                 turns: _rotationAnimation,
-
                 child: FadeTransition(
                   opacity: _animation,
-                  child: const Text("Drop", style: TextStyles.bold48),
+                  child: Text(S.current.drop, style: TextStyles.bold48),
                 ),
               ),
             ],
           ),
-
           Padding(
             padding: const EdgeInsets.only(top: 8.0),
             child: FadeTransition(
               opacity: _descriptionAnimation,
-              child: const Text(
-                "your perfect pour at your door",
-                style: TextStyles.bold14,
-              ),
+              child: Text(S.current.splashSubtitle, style: TextStyles.bold14),
             ),
           ),
           const Spacer(flex: 3),
