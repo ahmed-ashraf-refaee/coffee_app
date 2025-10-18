@@ -12,7 +12,7 @@ class OrderCubit extends Cubit<OrderState> {
 
   OrderCubit(this._orderRepo) : super(OrderInitial());
 
-  Future<void> createOrder(OrderModel order, List<OrderItemModel> items) async {
+  void createOrder(OrderModel order, List<OrderItemModel> items) async {
     emit(OrderLoading());
     final result = await _orderRepo.createOrder(order, items);
     result.fold(
@@ -21,7 +21,7 @@ class OrderCubit extends Cubit<OrderState> {
     );
   }
 
-  Future<void> fetchUserOrders() async {
+  void fetchUserOrders() async {
     emit(OrderLoading());
     final result = await _orderRepo.fetchUserOrders();
     result.fold(
@@ -30,7 +30,7 @@ class OrderCubit extends Cubit<OrderState> {
     );
   }
 
-  Future<void> fetchOrderDetails(int orderId) async {
+  void fetchOrderDetails(int orderId) async {
     emit(OrderLoading());
     final result = await _orderRepo.fetchOrderDetails(orderId);
     result.fold((failure) => emit(OrderError(failure.error)), (data) {
@@ -40,7 +40,7 @@ class OrderCubit extends Cubit<OrderState> {
     });
   }
 
-  Future<void> updateOrderStatus(int orderId, String status) async {
+  void updateOrderStatus(int orderId, String status) async {
     emit(OrderUpdating());
     final result = await _orderRepo.updateOrderStatus(orderId, status);
     result.fold(
@@ -49,7 +49,7 @@ class OrderCubit extends Cubit<OrderState> {
     );
   }
 
-  Future<void> deleteOrder(int orderId) async {
+  void deleteOrder(int orderId) async {
     emit(OrderLoading());
     final result = await _orderRepo.deleteOrder(orderId);
     result.fold(

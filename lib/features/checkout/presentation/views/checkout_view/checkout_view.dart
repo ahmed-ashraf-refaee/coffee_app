@@ -62,10 +62,7 @@ class _CheckoutViewState extends State<CheckoutView> {
 
     // Cash on Delivery
     if (defaultCard.id == -1) {
-      await orderCubit.createOrder(
-        order,
-        cartCubit.getOrderItemsFromCachedCart(),
-      );
+      orderCubit.createOrder(order, cartCubit.getOrderItemsFromCachedCart());
       return;
     }
 
@@ -79,10 +76,7 @@ class _CheckoutViewState extends State<CheckoutView> {
         paymentMethodId: defaultCard.paymentMethodId!,
         cvc: cvvController.text,
       );
-      await orderCubit.createOrder(
-        order,
-        cartCubit.getOrderItemsFromCachedCart(),
-      );
+      orderCubit.createOrder(order, cartCubit.getOrderItemsFromCachedCart());
     }
   }
 
@@ -94,31 +88,32 @@ class _CheckoutViewState extends State<CheckoutView> {
           padding: const EdgeInsets.all(16),
           child: MultiBlocListener(
             listeners: [
-              BlocListener<PaymentCubit, PaymentState>(
-                listener: (context, state) {
-                  if (state is PaymentCompletedSuccess) {
-                    UiHelpers.showSnackBar(
-                      context: context,
-                      message: S.current.paymentSuccess,
-                    );
-                  } else if (state is PaymentFailure) {
-                    UiHelpers.showSnackBar(
-                      context: context,
-                      message: state.error,
-                    );
-                  }
-                },
-              ),
+              // BlocListener<PaymentCubit, PaymentState>(
+              //   listener: (context, state) {
+              //     if (state is PaymentCompletedSuccess) {
+              //       UiHelpers.showSnackBar(
+              //         context: context,
+              //         message: S.current.paymentSuccess,
+              //       );
+              //     } else if (state is PaymentFailure) {
+              //       UiHelpers.showSnackBar(
+              //         context: context,
+              //         message: state.error,
+              //       );
+              //     }
+              //   },
+              // ),
               BlocListener<OrderCubit, OrderState>(
                 listener: (context, state) {
+                  GoRouter.of(context).pop();
                   if (state is OrderCreated) {
                     UiHelpers.showSnackBar(
                       context: context,
                       message: S.current.orderPlacedSuccessfully,
                     );
+
                     cvvController.clear();
                     context.read<CartCubit>().clearCart();
-                    GoRouter.of(context).pop();
                   } else if (state is OrderError) {
                     UiHelpers.showSnackBar(
                       context: context,

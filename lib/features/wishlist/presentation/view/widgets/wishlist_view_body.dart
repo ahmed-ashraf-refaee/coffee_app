@@ -62,9 +62,8 @@ class WishListViewBody extends StatelessWidget {
                 return SliverFillRemaining(
                   child: Center(
                     child: Text(
-                      'Your wishlist is empty',
+                      S.current.yourWishlistIsEmpty,
                       textAlign: TextAlign.center,
-
                       style: TextStyles.medium20.copyWith(fontSize: 26),
                     ),
                   ),
