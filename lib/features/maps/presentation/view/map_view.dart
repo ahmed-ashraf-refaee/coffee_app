@@ -146,10 +146,12 @@ class _MapsViewState extends State<MapsView> {
         }
       }
     } catch (e) {
-      UiHelpers.showSnackBar(
-        context: context,
-        message: Failure.fromException(e).error,
-      );
+      if (mounted) {
+        UiHelpers.showSnackBar(
+          context: context,
+          message: Failure.fromException(e).error,
+        );
+      }
     }
   }
 
@@ -226,12 +228,16 @@ class _MapsViewState extends State<MapsView> {
       try {
         final results = await _geocodingService.searchLocations(value);
         setState(() => _searchOptions = results);
-        if (_searchOptions.isNotEmpty) _showOverlay(context);
+        if (mounted) {
+          if (_searchOptions.isNotEmpty) _showOverlay(context);
+        }
       } catch (e) {
-        UiHelpers.showSnackBar(
-          context: context,
-          message: Failure.fromException(e).error,
-        );
+        if (mounted) {
+          UiHelpers.showSnackBar(
+            context: context,
+            message: Failure.fromException(e).error,
+          );
+        }
       }
     });
   }
