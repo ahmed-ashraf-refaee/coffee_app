@@ -267,7 +267,22 @@
   "phoneNumberRequired": "رقم الهاتف مطلوب",
   "enterValidPhone": "أدخل رقم هاتف صحيح",
   "addLocationTitle": "إضافة عنوان جديد",
-"addLocationSubtitle": "اختر موقعك على الخريطة وأكمل تفاصيل العنوان"
+"addLocationSubtitle": "اختر موقعك على الخريطة وأكمل تفاصيل العنوان",
+  "description": "الوصف",
+  "reviews": "المراجعات",
+    "leaveReview": "اترك مراجعة",
+  "writeReviewHint": "شارك تجربتك (اختياري)...",
+  
+ 
+  "reviewSubmittedSuccessfully": "تم إرسال تقييمك بنجاح!",
+  "writeAReview": "اكتب تقييمًا",
+   "noReviewsYet": "لا توجد تقييمات بعد كن أول من يشارك رأيه!",
+
+ 
+  "submit": "إرسال",
+  "cancel": "إلغاء",
+  "noComment": "لم يتم إضافة تعليق"
+
 
 
 }

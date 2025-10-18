@@ -2074,6 +2074,86 @@ class S {
       args: [],
     );
   }
+
+  /// `Description`
+  String get description {
+    return Intl.message('Description', name: 'description', desc: '', args: []);
+  }
+
+  /// `Reviews`
+  String get reviews {
+    return Intl.message('Reviews', name: 'reviews', desc: '', args: []);
+  }
+
+  /// `Leave a Review`
+  String get leaveReview {
+    return Intl.message(
+      'Leave a Review',
+      name: 'leaveReview',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Share your experience (optional)...`
+  String get writeReviewHint {
+    return Intl.message(
+      'Share your experience (optional)...',
+      name: 'writeReviewHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your review has been submitted successfully!`
+  String get reviewSubmittedSuccessfully {
+    return Intl.message(
+      'Your review has been submitted successfully!',
+      name: 'reviewSubmittedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No reviews yet be the first to share your thoughts!`
+  String get noReviewsYet {
+    return Intl.message(
+      'No reviews yet be the first to share your thoughts!',
+      name: 'noReviewsYet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Write a review`
+  String get writeAReview {
+    return Intl.message(
+      'Write a review',
+      name: 'writeAReview',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Submit`
+  String get submit {
+    return Intl.message('Submit', name: 'submit', desc: '', args: []);
+  }
+
+  /// `Cancel`
+  String get cancel {
+    return Intl.message('Cancel', name: 'cancel', desc: '', args: []);
+  }
+
+  /// `No comment provided`
+  String get noComment {
+    return Intl.message(
+      'No comment provided',
+      name: 'noComment',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

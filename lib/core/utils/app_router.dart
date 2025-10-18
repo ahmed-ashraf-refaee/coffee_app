@@ -5,6 +5,7 @@ import 'package:coffee_app/features/checkout/presentation/views/address_view/add
 import 'package:coffee_app/features/checkout/presentation/views/address_view/address_view.dart';
 import 'package:coffee_app/features/checkout/presentation/views/checkout_view/checkout_view.dart';
 import 'package:coffee_app/features/checkout/presentation/views/payment_view/payment_view.dart';
+import 'package:coffee_app/features/home/presentation/manager/review_cubit/review_cubit.dart';
 import 'package:coffee_app/features/home/presentation/view/details_view/details_view.dart';
 import 'package:coffee_app/features/navigation/presentation/manager/navigator_cubit/navigator_cubit.dart';
 import 'package:coffee_app/features/profile/presentation/view/language_view/language_select_view.dart';
@@ -80,6 +81,7 @@ abstract class AppRouter {
               state.extra as Map<String, dynamic>;
           final String tag = extra['tag'] as String;
           final ProductModel product = extra['product'] as ProductModel;
+
           return DetailsView(product: product, tag: tag);
         },
       ),

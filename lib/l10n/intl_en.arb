@@ -268,7 +268,17 @@
   "phoneNumberRequired": "Phone number is required",
   "enterValidPhone": "Enter a valid phone number",
   "addLocationTitle": "Add New Address",
-"addLocationSubtitle": "Select your location on the map and fill in your address details"
+"addLocationSubtitle": "Select your location on the map and fill in your address details",
+  "description": "Description",
+  "reviews": "Reviews",
+    "leaveReview": "Leave a Review",
+  "writeReviewHint": "Share your experience (optional)...",
+   "reviewSubmittedSuccessfully": "Your review has been submitted successfully!",
+   "noReviewsYet": "No reviews yet be the first to share your thoughts!",
+   "writeAReview": "Write a review",
+  "submit": "Submit",
+  "cancel": "Cancel",
+  "noComment": "No comment provided"
 
 
 

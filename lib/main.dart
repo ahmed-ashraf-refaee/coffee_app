@@ -7,6 +7,7 @@ import 'package:coffee_app/features/admin/presentation/manager/admin_product_man
 import 'package:coffee_app/features/cart/presentation/manager/cart_cubit/cart_cubit.dart';
 import 'package:coffee_app/features/checkout/presentation/manager/address/address_cubit.dart';
 import 'package:coffee_app/features/checkout/presentation/manager/card/card_cubit.dart';
+import 'package:coffee_app/features/home/presentation/manager/review_cubit/review_cubit.dart';
 import 'package:coffee_app/features/profile/presentation/manager/locale_cubit/locale_cubit.dart';
 import 'package:coffee_app/features/profile/presentation/manager/theme_cubit/theme_cubit.dart';
 import 'package:flutter/material.dart';
@@ -58,6 +59,7 @@ class CoffeeApp extends StatelessWidget {
         BlocProvider(create: (context) => CardCubit()),
         BlocProvider(create: (context) => AdminProductManagerCubit()),
         BlocProvider(create: (context) => AdminRoleCubit()..loadRole()),
+        BlocProvider(create: (context) => ReviewCubit()),
         BlocProvider(
           create: (context) =>
               HomeProductCubit(context.read<HomeFilterCubit>())..getProducts(),
