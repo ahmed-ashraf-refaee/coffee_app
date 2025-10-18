@@ -10,8 +10,10 @@ import 'package:coffee_app/core/widgets/prettier_tap.dart';
 import 'package:coffee_app/core/widgets/price_text.dart';
 import 'package:coffee_app/core/widgets/product_rating.dart';
 import 'package:coffee_app/features/cart/presentation/manager/cart_cubit/cart_cubit.dart';
+import 'package:coffee_app/features/home/presentation/manager/review_cubit/review_cubit.dart';
 import 'package:coffee_app/features/home/presentation/view/details_view/widgets/custom_chip.dart';
 import 'package:coffee_app/features/home/presentation/view/details_view/widgets/quantity_selector.dart';
+import 'package:coffee_app/features/home/presentation/view/reviews_view/review_view.dart';
 import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +23,8 @@ import 'package:ionicons/ionicons.dart';
 
 import '../../../../../../core/model/product_model.dart';
 import '../../../../../wishlist/presentation/manager/wishlist/wishlist_cubit.dart';
+
+enum DetailsState { reviews, description }
 
 class DetailsViewBody extends StatefulWidget {
   final ProductModel product;
@@ -35,7 +39,7 @@ class DetailsViewBody extends StatefulWidget {
 class _DetailsViewBodyState extends State<DetailsViewBody> {
   int selectedIndex = 0;
   int quantity = 1;
-
+  DetailsState detailsState = DetailsState.description;
   void onSelected(index) {
     setState(() {
       selectedIndex = index;
@@ -115,103 +119,142 @@ class _DetailsViewBodyState extends State<DetailsViewBody> {
           numberOfRatings: product.numberOfRatings,
           size: 16,
         ),
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            child: Scrollbar(
-              thumbVisibility: true,
-              radius: const Radius.circular(12),
-              thickness: 4,
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      product.description,
-                      style: TextStyles.regular16.copyWith(
-                        height: 1.2,
-                        color: context.colors.onSecondary,
+        const SizedBox(height: 8),
+        Row(
+          spacing: 16,
+          children: [
+            PrettierTap(
+              child: Text(
+                S.current.description,
+                style: TextStyles.medium16.copyWith(
+                  color: detailsState == DetailsState.description
+                      ? context.colors.onSurface
+                      : context.colors.onSecondary,
+                ),
+              ),
+              onPressed: () {
+                setState(() {
+                  detailsState = DetailsState.description;
+                });
+              },
+            ),
+            PrettierTap(
+              child: Text(
+                S.current.reviews,
+                style: TextStyles.medium16.copyWith(
+                  color: detailsState == DetailsState.reviews
+                      ? context.colors.onSurface
+                      : context.colors.onSecondary,
+                ),
+              ),
+              onPressed: () {
+                setState(() {
+                  detailsState = DetailsState.reviews;
+                });
+              },
+            ),
+          ],
+        ),
+        Divider(color: context.colors.onSecondary),
+        if (detailsState == DetailsState.description) ...[
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              child: Scrollbar(
+                thumbVisibility: true,
+                radius: const Radius.circular(12),
+                thickness: 4,
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        product.description,
+                        style: TextStyles.regular16.copyWith(
+                          height: 1.2,
+                          color: context.colors.onSecondary,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-
-        _buildVariantsChips(context),
-        const SizedBox(height: 24),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            PriceText(
-              price: product.productVariants[selectedIndex].price,
-              discount: product.discount,
-              fontSize: 32,
-              oldPriceSize: 14,
-              quantity: quantity,
-              discountSize: 16,
-            ),
-            Container(
-              decoration: BoxDecoration(
-                color: context.colors.secondary,
-                borderRadius: BorderRadius.circular(12),
+          _buildVariantsChips(context),
+          const SizedBox(height: 24),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              PriceText(
+                price: product.productVariants[selectedIndex].price,
+                discount: product.discount,
+                fontSize: 32,
+                oldPriceSize: 14,
+                quantity: quantity,
+                discountSize: 16,
               ),
-              height: 56,
-              child: Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(12),
-                    child: Text(S.current.quantity, style: TextStyles.semi16),
-                  ),
-                  Container(
-                    height: 24,
-                    width: 1,
-                    color: context.colors.onSecondary.withValues(alpha: 0.6),
-                  ),
-                  QuantitySelector(
-                    value: quantity,
-                    maxValue: product.productVariants[selectedIndex].quantity,
-                    minValue: 1,
-                    onChanged: (value) {
-                      setState(() {
-                        quantity = value;
-                      });
-                    },
-                    contentPadding: const EdgeInsets.all(8),
-                  ),
-                ],
+              Container(
+                decoration: BoxDecoration(
+                  color: context.colors.secondary,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                height: 56,
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: Text(S.current.quantity, style: TextStyles.semi16),
+                    ),
+                    Container(
+                      height: 24,
+                      width: 1,
+                      color: context.colors.onSecondary.withValues(alpha: 0.6),
+                    ),
+                    QuantitySelector(
+                      value: quantity,
+                      maxValue: product.productVariants[selectedIndex].quantity,
+                      minValue: 1,
+                      onChanged: (value) {
+                        setState(() {
+                          quantity = value;
+                        });
+                      },
+                      contentPadding: const EdgeInsets.all(8),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 24),
-        BlocBuilder<CartCubit, CartState>(
-          builder: (context, state) {
-            return CustomElevatedButton(
-              disabled:
-                  widget.product.productVariants[selectedIndex].quantity == 0,
-              isLoading:
-                  state is CartAddItemLoading && state.productId == product.id,
-              onPressed: () {
-                BlocProvider.of<CartCubit>(context).addItem(
-                  selectedVariantIndex: selectedIndex,
-                  quantity: quantity,
-                  productId: product.id,
-                );
-              },
-              child: Text(
-                widget.product.productVariants[selectedIndex].quantity == 0
-                    ? S.current.productStatusOut
-                    : S.current.addToCart,
-
-                style: TextStyles.medium20,
-              ),
-            );
-          },
-        ),
+            ],
+          ),
+          const SizedBox(height: 24),
+          BlocBuilder<CartCubit, CartState>(
+            builder: (context, state) {
+              return CustomElevatedButton(
+                disabled:
+                    widget.product.productVariants[selectedIndex].quantity == 0,
+                isLoading:
+                    state is CartAddItemLoading &&
+                    state.productId == product.id,
+                onPressed: () {
+                  BlocProvider.of<CartCubit>(context).addItem(
+                    selectedVariantIndex: selectedIndex,
+                    quantity: quantity,
+                    productId: product.id,
+                  );
+                },
+                child: Text(
+                  widget.product.productVariants[selectedIndex].quantity == 0
+                      ? S.current.productStatusOut
+                      : S.current.addToCart,
+                  style: TextStyles.medium20,
+                ),
+              );
+            },
+          ),
+        ] else
+          Expanded(child: ReviewView(productId: product.id)),
       ],
     );
   }

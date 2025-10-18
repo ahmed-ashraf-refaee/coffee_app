@@ -70,6 +70,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "badCertificate": MessageLookupByLibrary.simpleMessage(
       "شهادة غير صالحة (شهادة غير صحيحة).",
     ),
+    "cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
     "cardAddedSuccessfully": MessageLookupByLibrary.simpleMessage(
       "تمت إضافة البطاقة بنجاح",
     ),
@@ -111,6 +112,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "databaseError": MessageLookupByLibrary.simpleMessage(
       "حدث خطأ في قاعدة البيانات. حاول مرة أخرى.",
     ),
+    "description": MessageLookupByLibrary.simpleMessage("الوصف"),
     "discount": MessageLookupByLibrary.simpleMessage("خصم"),
     "dont_have_account": MessageLookupByLibrary.simpleMessage("ليس لديك حساب؟"),
     "drop": MessageLookupByLibrary.simpleMessage("دروب"),
@@ -197,6 +199,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "languageTitle": MessageLookupByLibrary.simpleMessage("إعدادات اللغة"),
     "last_name": MessageLookupByLibrary.simpleMessage("اسم العائلة"),
+    "leaveReview": MessageLookupByLibrary.simpleMessage("اترك مراجعة"),
     "linkExpired": MessageLookupByLibrary.simpleMessage(
       "انتهت صلاحية رابط إعادة التعيين. يرجى طلب رابط جديد.",
     ),
@@ -233,11 +236,15 @@ class MessageLookup extends MessageLookupByLibrary {
     "noCardsAvailable": MessageLookupByLibrary.simpleMessage(
       "لا توجد بطاقات. الرجاء إضافة بطاقة.",
     ),
+    "noComment": MessageLookupByLibrary.simpleMessage("لم يتم إضافة تعليق"),
     "noInternetConnection": MessageLookupByLibrary.simpleMessage(
       "لا يوجد اتصال بالإنترنت.",
     ),
     "noProductsFound": MessageLookupByLibrary.simpleMessage(
       "لم يتم العثور على منتجات",
+    ),
+    "noReviewsYet": MessageLookupByLibrary.simpleMessage(
+      "لا توجد تقييمات بعد كن أول من يشارك رأيه!",
     ),
     "noSalesData": MessageLookupByLibrary.simpleMessage(
       "لا توجد بيانات مبيعات متاحة",
@@ -320,6 +327,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "profileUpdatedSuccessfully": MessageLookupByLibrary.simpleMessage(
       "تم تحديث الملف الشخصي بنجاح",
     ),
+    "profile_admin_mode": MessageLookupByLibrary.simpleMessage("وضع المسؤول"),
     "profile_dark_mode": MessageLookupByLibrary.simpleMessage("الوضع الداكن"),
     "profile_edit_profile": MessageLookupByLibrary.simpleMessage(
       "تعديل الملف الشخصي",
@@ -368,6 +376,10 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "revenue": MessageLookupByLibrary.simpleMessage("الإيرادات"),
     "revert": MessageLookupByLibrary.simpleMessage("تراجع"),
+    "reviewSubmittedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "تم إرسال تقييمك بنجاح!",
+    ),
+    "reviews": MessageLookupByLibrary.simpleMessage("المراجعات"),
     "salesTrend": MessageLookupByLibrary.simpleMessage("اتجاه المبيعات"),
     "samePasswordError": MessageLookupByLibrary.simpleMessage(
       "لا يمكنك استخدام نفس كلمة المرور القديمة مرة أخرى.",
@@ -437,6 +449,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "stockManagerTitle": MessageLookupByLibrary.simpleMessage("إدارة المخزون"),
     "sub_total": MessageLookupByLibrary.simpleMessage("المجموع الفرعي:"),
+    "submit": MessageLookupByLibrary.simpleMessage("إرسال"),
     "syntaxError": MessageLookupByLibrary.simpleMessage(
       "هناك مشكلة في استعلام قاعدة البيانات.",
     ),
@@ -501,6 +514,10 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "welcome_back_title": MessageLookupByLibrary.simpleMessage(
       "مرحباً بعودتك!",
+    ),
+    "writeAReview": MessageLookupByLibrary.simpleMessage("اكتب تقييمًا"),
+    "writeReviewHint": MessageLookupByLibrary.simpleMessage(
+      "شارك تجربتك (اختياري)...",
     ),
     "yourWishlistIsEmpty": MessageLookupByLibrary.simpleMessage(
       "قائمة رغباتك فارغة",

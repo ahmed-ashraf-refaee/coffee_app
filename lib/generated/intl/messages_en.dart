@@ -74,6 +74,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "badCertificate": MessageLookupByLibrary.simpleMessage(
       "Bad certificate (incorrect certificate).",
     ),
+    "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
     "cardAddedSuccessfully": MessageLookupByLibrary.simpleMessage(
       "Card added successfully",
     ),
@@ -111,6 +112,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "databaseError": MessageLookupByLibrary.simpleMessage(
       "A database error occurred. Please try again.",
     ),
+    "description": MessageLookupByLibrary.simpleMessage("Description"),
     "discount": MessageLookupByLibrary.simpleMessage("Discount"),
     "dont_have_account": MessageLookupByLibrary.simpleMessage(
       "Don\'t have an account?",
@@ -197,6 +199,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "languageTitle": MessageLookupByLibrary.simpleMessage("Language Settings"),
     "last_name": MessageLookupByLibrary.simpleMessage("Last Name"),
+    "leaveReview": MessageLookupByLibrary.simpleMessage("Leave a Review"),
     "linkExpired": MessageLookupByLibrary.simpleMessage(
       "This reset link has expired. Please request a new one.",
     ),
@@ -235,11 +238,15 @@ class MessageLookup extends MessageLookupByLibrary {
     "noCardsAvailable": MessageLookupByLibrary.simpleMessage(
       "No cards available. Please add a card.",
     ),
+    "noComment": MessageLookupByLibrary.simpleMessage("No comment provided"),
     "noInternetConnection": MessageLookupByLibrary.simpleMessage(
       "No internet connection.",
     ),
     "noProductsFound": MessageLookupByLibrary.simpleMessage(
       "No products found",
+    ),
+    "noReviewsYet": MessageLookupByLibrary.simpleMessage(
+      "No reviews yet be the first to share your thoughts!",
     ),
     "noSalesData": MessageLookupByLibrary.simpleMessage(
       "No sales data available",
@@ -334,6 +341,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "profileUpdatedSuccessfully": MessageLookupByLibrary.simpleMessage(
       "Profile updated successfully",
     ),
+    "profile_admin_mode": MessageLookupByLibrary.simpleMessage("Admin Mode"),
     "profile_dark_mode": MessageLookupByLibrary.simpleMessage("Dark Mode"),
     "profile_edit_profile": MessageLookupByLibrary.simpleMessage(
       "Edit Profile",
@@ -384,6 +392,10 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "revenue": MessageLookupByLibrary.simpleMessage("Revenue"),
     "revert": MessageLookupByLibrary.simpleMessage("Revert"),
+    "reviewSubmittedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "Your review has been submitted successfully!",
+    ),
+    "reviews": MessageLookupByLibrary.simpleMessage("Reviews"),
     "salesTrend": MessageLookupByLibrary.simpleMessage("Sales Trend"),
     "samePasswordError": MessageLookupByLibrary.simpleMessage(
       "New password must be different from the old password.",
@@ -455,6 +467,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "stockManagerTitle": MessageLookupByLibrary.simpleMessage("Stock Manager"),
     "sub_total": MessageLookupByLibrary.simpleMessage("Sub Total:"),
+    "submit": MessageLookupByLibrary.simpleMessage("Submit"),
     "syntaxError": MessageLookupByLibrary.simpleMessage(
       "There is a problem with the database query.",
     ),
@@ -516,6 +529,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "Log in to access your account",
     ),
     "welcome_back_title": MessageLookupByLibrary.simpleMessage("Welcome Back!"),
+    "writeAReview": MessageLookupByLibrary.simpleMessage("Write a review"),
+    "writeReviewHint": MessageLookupByLibrary.simpleMessage(
+      "Share your experience (optional)...",
+    ),
     "yourWishlistIsEmpty": MessageLookupByLibrary.simpleMessage(
       "Your wishlist is empty",
     ),

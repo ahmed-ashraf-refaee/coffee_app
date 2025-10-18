@@ -19,6 +19,38 @@ class ProductRating extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      spacing: 4,
+      children: [
+        Text(
+          rating.toStringAsFixed(1),
+          style: TextStyles.bold14.copyWith(fontSize: size),
+        ),
+        if (showFiveStars)
+          RatingStars(rating: rating, size: size)
+        else
+          Icon(Ionicons.star, color: context.colors.primary, size: size),
+        Text(
+          '(${numberOfRatings.toString()})',
+          style: TextStyles.regular12.copyWith(
+            fontSize: size - 2,
+            color: context.colors.onSecondary.withValues(alpha: 0.6),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class RatingStars extends StatelessWidget {
+  const RatingStars({super.key, required this.rating, this.size = 14});
+
+  final double rating;
+  final double size;
+
+  @override
+  Widget build(BuildContext context) {
     final stars = List.generate(5, (index) {
       final starIndex = index + 1;
       if (rating >= starIndex) {
@@ -41,26 +73,6 @@ class ProductRating extends StatelessWidget {
       }
     });
 
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      spacing: 4,
-      children: [
-        Text(
-          rating.toStringAsFixed(1),
-          style: TextStyles.bold14.copyWith(fontSize: size),
-        ),
-        if (showFiveStars)
-          Row(spacing: 2, children: stars)
-        else
-          Icon(Ionicons.star, color: context.colors.primary, size: size),
-        Text(
-          '(${numberOfRatings.toString()})',
-          style: TextStyles.regular12.copyWith(
-            fontSize: size - 2,
-            color: context.colors.onSecondary.withValues(alpha: 0.6),
-          ),
-        ),
-      ],
-    );
+    return Row(spacing: 2, children: stars);
   }
 }

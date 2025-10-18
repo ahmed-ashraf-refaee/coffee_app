@@ -26,6 +26,7 @@
   "facebook": "فيسبوك",
   "google": "جوجل",
   "search": "ابحث عن قهوتك المفضلة",
+  "profile_admin_mode": "وضع المسؤول",
   "profile_edit_profile": "تعديل الملف الشخصي",
   "profile_payment_details": "بيانات الدفع",
   "profile_languages": "اللغات",
@@ -273,7 +274,23 @@
   "phoneNumberRequired": "رقم الهاتف مطلوب",
   "enterValidPhone": "أدخل رقم هاتف صحيح",
   "addLocationTitle": "إضافة عنوان جديد",
-  "addLocationSubtitle": "اختر موقعك على الخريطة وأكمل تفاصيل العنوان",
+"addLocationSubtitle": "اختر موقعك على الخريطة وأكمل تفاصيل العنوان",
+  "description": "الوصف",
+  "reviews": "المراجعات",
+    "leaveReview": "اترك مراجعة",
+  "writeReviewHint": "شارك تجربتك (اختياري)...",
+  
+ 
+  "reviewSubmittedSuccessfully": "تم إرسال تقييمك بنجاح!",
+  "writeAReview": "اكتب تقييمًا",
+   "noReviewsYet": "لا توجد تقييمات بعد كن أول من يشارك رأيه!",
+
+ 
+  "submit": "إرسال",
+  "cancel": "إلغاء",
+  "noComment": "لم يتم إضافة تعليق",
+
+
 
   "onboarding_title_1": "مرحبًا بك في",
   "onboarding_subtitle_1": "اكتشف أفضل أنواع القهوة من حولك واستمتع بالتجربة.",
