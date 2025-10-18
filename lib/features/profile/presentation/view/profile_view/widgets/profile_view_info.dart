@@ -6,6 +6,7 @@ import '../../../../../../core/utils/text_styles.dart';
 import '../../../../../../core/widgets/custom_rounded_images.dart';
 import '../../../manager/edit_profile/edit_profile_cubit.dart';
 import 'profile_container.dart';
+import 'profile_info_loading.dart';
 
 class ProfileViewBodyInfoSection extends StatelessWidget {
   const ProfileViewBodyInfoSection({super.key});
@@ -16,7 +17,7 @@ class ProfileViewBodyInfoSection extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           if (state is FetchProfileLoadingState) {
-            return const Center(child: CircularProgressIndicator());
+            return const ProfileInfoLoading();
           } else if (state is FetchProfileSuccessState) {
             final userProfile = state.userProfileModel;
             return Row(

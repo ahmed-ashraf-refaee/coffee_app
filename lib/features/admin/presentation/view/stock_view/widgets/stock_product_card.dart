@@ -65,11 +65,7 @@ class StockProductCard extends StatelessWidget {
               const SizedBox(width: 12),
               PrettierTap(
                 onPressed: () {
-                  editProductOverlay(
-                    context,
-                    variants: product.productVariants,
-                    onSave: () {},
-                  );
+                  editProductOverlay(context, product: product);
                 },
                 child: Text(
                   l10n.edit,

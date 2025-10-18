@@ -1,34 +1,29 @@
 import 'package:coffee_app/core/utils/color_palette.dart';
+import 'package:coffee_app/features/admin/presentation/manager/admin_product_manager/admin_product_manager_cubit.dart';
+import 'package:coffee_app/features/home/presentation/manager/home_products_cubit/home_product_cubit.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:coffee_app/core/utils/text_styles.dart';
 import 'package:coffee_app/core/widgets/custom_elevated_button.dart';
 import 'package:coffee_app/core/widgets/prettier_tap.dart';
 import 'package:coffee_app/core/widgets/overlay_container.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../../core/helper/ui_helpers.dart';
+import '../../../../../../core/model/product_model.dart';
 import '../../../../../../core/model/product_variants_model.dart';
 import 'package:coffee_app/generated/l10n.dart';
 
-void editProductOverlay(
-  BuildContext context, {
-  required List<ProductVariantsModel> variants,
-  required VoidCallback onSave,
-}) {
+void editProductOverlay(BuildContext context, {required ProductModel product}) {
   UiHelpers.showOverlay(
     context: context,
-    child: EditProductOverlay(variants: variants, onSave: onSave),
+    child: EditProductOverlay(product: product),
   );
 }
 
 class EditProductOverlay extends StatefulWidget {
-  final List<ProductVariantsModel> variants;
-  final VoidCallback onSave;
+  final ProductModel product;
 
-  const EditProductOverlay({
-    super.key,
-    required this.variants,
-    required this.onSave,
-  });
+  const EditProductOverlay({super.key, required this.product});
 
   @override
   State<EditProductOverlay> createState() => _EditProductOverlayState();
@@ -41,8 +36,8 @@ class _EditProductOverlayState extends State<EditProductOverlay> {
   @override
   void initState() {
     super.initState();
-    _variants = widget.variants.map((v) => v).toList();
-    _originalVariants = widget.variants.map((v) => v).toList();
+    _variants = widget.product.productVariants.toList();
+    _originalVariants = widget.product.productVariants.toList();
   }
 
   void _addVariant() {
@@ -154,15 +149,47 @@ class _EditProductOverlayState extends State<EditProductOverlay> {
               // Bottom button row
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 48),
-                child: CustomElevatedButton(
-                  height: 52,
-                  contentPadding: const EdgeInsets.all(8),
-                  onPressed: () {
-                    widget.onSave();
-                    Navigator.pop(context);
-                  },
-                  child: Text(l10n.updateProduct, style: TextStyles.bold16),
-                ),
+                child:
+                    BlocConsumer<
+                      AdminProductManagerCubit,
+                      AdminProductManagerState
+                    >(
+                      listener: (context, state) {
+                        if (state is AdminProductSuccess) {
+                          UiHelpers.showSnackBar(
+                            context: context,
+                            message: S.current.updateProduct,
+                          );
+                          context.read<HomeProductCubit>().getProducts();
+                          Navigator.pop(context);
+                        } else if (state is AdminProductFailure) {
+                          UiHelpers.showSnackBar(
+                            context: context,
+                            message: state.error,
+                          );
+                        }
+                      },
+                      builder: (context, state) {
+                        return CustomElevatedButton(
+                          height: 52,
+                          isLoading: state is AdminProductLoading,
+                          contentPadding: const EdgeInsets.all(8),
+                          onPressed: () {
+                            context
+                                .read<AdminProductManagerCubit>()
+                                .updateProduct(
+                                  widget.product.copyWith(
+                                    productVariants: _variants,
+                                  ),
+                                );
+                          },
+                          child: Text(
+                            l10n.updateProduct,
+                            style: TextStyles.bold16,
+                          ),
+                        );
+                      },
+                    ),
               ),
             ],
           ),
@@ -222,7 +249,11 @@ class _EditProductOverlayState extends State<EditProductOverlay> {
                 child: _buildTextField(
                   label: l10n.variantSizeLabel,
                   initialValue: variant.size,
-                  onChanged: (v) => _variants[index] = _variants[index],
+                  onChanged: (v) {
+                    setState(() {
+                      _variants[index] = _variants[index].copyWith(size: v);
+                    });
+                  },
                 ),
               ),
               const SizedBox(width: 8),
@@ -231,7 +262,14 @@ class _EditProductOverlayState extends State<EditProductOverlay> {
                   label: l10n.variantPriceLabel,
                   initialValue: variant.price.toString(),
                   inputType: TextInputType.number,
-                  onChanged: (v) => _variants[index] = _variants[index],
+                  onChanged: (v) {
+                    final parsedPrice = double.tryParse(v) ?? 0;
+                    setState(() {
+                      _variants[index] = _variants[index].copyWith(
+                        price: parsedPrice,
+                      );
+                    });
+                  },
                 ),
               ),
               const SizedBox(width: 8),
@@ -240,7 +278,14 @@ class _EditProductOverlayState extends State<EditProductOverlay> {
                   label: l10n.stockLabel,
                   initialValue: variant.quantity.toString(),
                   inputType: TextInputType.number,
-                  onChanged: (v) => _variants[index] = _variants[index],
+                  onChanged: (v) {
+                    final parsedQuantity = int.tryParse(v) ?? 0;
+                    setState(() {
+                      _variants[index] = _variants[index].copyWith(
+                        quantity: parsedQuantity,
+                      );
+                    });
+                  },
                 ),
               ),
             ],

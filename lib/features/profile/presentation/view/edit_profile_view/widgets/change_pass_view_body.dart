@@ -60,9 +60,7 @@ class _ChangePasswordViewBodyState extends State<ChangePasswordViewBody> {
                 padding: 8,
                 onPressed: () => GoRouter.of(context).pop(),
                 child: Icon(
-                  context.isArabic
-                      ? Ionicons.chevron_forward
-                      : Ionicons.chevron_back,
+                  Ionicons.chevron_back,
                   color: context.colors.onSecondary,
                 ),
               ),

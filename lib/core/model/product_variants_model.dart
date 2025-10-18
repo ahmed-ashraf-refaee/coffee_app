@@ -34,4 +34,20 @@ class ProductVariantsModel {
       'product_id': productId,
     };
   }
+
+  ProductVariantsModel copyWith({
+    int? id,
+    String? size,
+    double? price,
+    int? quantity,
+    int? productId,
+  }) {
+    return ProductVariantsModel(
+      id: id ?? this.id,
+      size: size ?? this.size,
+      price: price ?? this.price,
+      quantity: quantity ?? this.quantity,
+      productId: productId ?? this.productId,
+    );
+  }
 }
