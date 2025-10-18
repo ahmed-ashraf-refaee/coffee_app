@@ -292,6 +292,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "productStatusLow": MessageLookupByLibrary.simpleMessage("مخزون منخفض"),
     "productStatusOut": MessageLookupByLibrary.simpleMessage("غير متوفر"),
     "productsSold": MessageLookupByLibrary.simpleMessage("المنتجات المباعة"),
+    "profile_admin_mode": MessageLookupByLibrary.simpleMessage("وضع المسؤول"),
     "profile_dark_mode": MessageLookupByLibrary.simpleMessage("الوضع الداكن"),
     "profile_edit_profile": MessageLookupByLibrary.simpleMessage(
       "تعديل الملف الشخصي",

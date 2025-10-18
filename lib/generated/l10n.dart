@@ -28,10 +28,9 @@ class S {
   static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
 
   static Future<S> load(Locale locale) {
-    final name =
-        (locale.countryCode?.isEmpty ?? false)
-            ? locale.languageCode
-            : locale.toString();
+    final name = (locale.countryCode?.isEmpty ?? false)
+        ? locale.languageCode
+        : locale.toString();
     final localeName = Intl.canonicalizedLocale(name);
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
@@ -225,6 +224,16 @@ class S {
     return Intl.message(
       'Find your favorite coffee',
       name: 'search',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Admin Mode`
+  String get profile_admin_mode {
+    return Intl.message(
+      'Admin Mode',
+      name: 'profile_admin_mode',
       desc: '',
       args: [],
     );

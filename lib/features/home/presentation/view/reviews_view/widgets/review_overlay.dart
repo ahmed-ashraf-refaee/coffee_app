@@ -42,7 +42,6 @@ class _ReviewOverlayState extends State<ReviewOverlay> {
       rating: rating,
       comment: reviewController.text,
     );
-    context.read<ReviewCubit>().getReviews(widget.productId);
   }
 
   @override
@@ -52,6 +51,7 @@ class _ReviewOverlayState extends State<ReviewOverlay> {
         if (state is ReviewFailure) {
           UiHelpers.showSnackBar(context: context, message: state.error);
         } else if (state is ReviewSubmitted) {
+          context.read<ReviewCubit>().getReviews(widget.productId);
           Navigator.of(context).pop();
           UiHelpers.showSnackBar(
             context: context,
@@ -170,7 +170,7 @@ class _RatingSelector extends StatelessWidget {
             onChanged(newRating);
           },
           child: Transform.flip(
-            flipX: halfFilled,
+            flipX: context.isArabic,
             child: Icon(
               filled
                   ? Ionicons.star

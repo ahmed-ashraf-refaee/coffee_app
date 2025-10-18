@@ -106,7 +106,7 @@ class ProfileViewBodySettings extends StatelessWidget {
                           shrink: 1,
                           child: ProfileTile(
                             prefixIcon: "assets/icons/admin.png",
-                            title: "Admin Mode",
+                            title: S.current.profile_admin_mode,
                             suffixWidget: SizedBox(
                               height: 42,
                               child: FittedBox(

@@ -308,6 +308,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "productStatusLow": MessageLookupByLibrary.simpleMessage("Low Stock"),
     "productStatusOut": MessageLookupByLibrary.simpleMessage("Out of Stock"),
     "productsSold": MessageLookupByLibrary.simpleMessage("Products Sold"),
+    "profile_admin_mode": MessageLookupByLibrary.simpleMessage("Admin Mode"),
     "profile_dark_mode": MessageLookupByLibrary.simpleMessage("Dark Mode"),
     "profile_edit_profile": MessageLookupByLibrary.simpleMessage(
       "Edit Profile",
