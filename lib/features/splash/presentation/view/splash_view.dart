@@ -30,12 +30,13 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     titleAnimation();
-    rotationAnimation();
     secondTitleAnimation();
+
     Future.delayed(const Duration(milliseconds: 5000), () async {
       final prefs = await SharedPreferences.getInstance();
       final remember = prefs.getBool("remember_me") ?? true;
       final seenOnboarding = prefs.getBool('seen_onboarding') ?? false;
+
       if (!seenOnboarding) {
         await prefs.setBool('seen_onboarding', true);
         if (mounted) {
@@ -43,6 +44,7 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
         }
         return;
       }
+
       if (remember) {
         final user = Supabase.instance.client.auth.currentSession?.user;
         if (user != null) {
@@ -62,15 +64,28 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
     });
   }
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    rotationAnimation();
+  }
+
   void rotationAnimation() {
     _rotationAnimationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 500),
     );
-    _rotationAnimation = Tween<double>(
-      begin: 0,
-      end: 0.025,
-    ).animate(_rotationAnimationController);
+
+    _rotationAnimation = context.isArabic
+        ? Tween<double>(
+            begin: 0,
+            end: -0.025,
+          ).animate(_rotationAnimationController)
+        : Tween<double>(
+            begin: 0,
+            end: 0.025,
+          ).animate(_rotationAnimationController);
+
     Future.delayed(const Duration(milliseconds: 3500), () {
       if (mounted) {
         _rotationAnimationController.forward();
@@ -99,6 +114,7 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
       begin: 0.00,
       end: 0.5,
     ).animate(_descriptionAnimationController);
+
     Future.delayed(const Duration(milliseconds: 1500), () {
       if (mounted) {
         _descriptionAnimationController.forward();
@@ -127,7 +143,6 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
           ),
           Row(
             spacing: 16,
-            textDirection: TextDirection.ltr,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               FadeTransition(
@@ -135,7 +150,9 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
                 child: Text(S.current.coffee, style: TextStyles.bold48),
               ),
               RotationTransition(
-                alignment: Alignment.centerLeft,
+                alignment: context.isArabic
+                    ? Alignment.centerRight
+                    : Alignment.centerLeft,
                 turns: _rotationAnimation,
                 child: FadeTransition(
                   opacity: _animation,

@@ -5,7 +5,6 @@ import 'package:coffee_app/features/checkout/presentation/views/address_view/add
 import 'package:coffee_app/features/checkout/presentation/views/address_view/address_view.dart';
 import 'package:coffee_app/features/checkout/presentation/views/checkout_view/checkout_view.dart';
 import 'package:coffee_app/features/checkout/presentation/views/payment_view/payment_view.dart';
-import 'package:coffee_app/features/home/presentation/manager/review_cubit/review_cubit.dart';
 import 'package:coffee_app/features/home/presentation/view/details_view/details_view.dart';
 import 'package:coffee_app/features/profile/presentation/view/language_view/language_select_view.dart';
 import 'package:coffee_app/features/splash/presentation/view/splash_view.dart';
@@ -43,8 +42,12 @@ abstract class AppRouter {
   static const kOnboardingView = "/onboardingView";
 
   static final router = GoRouter(
+    initialLocation: kSplashView,
     routes: [
-      GoRoute(path: '/', builder: (context, state) => const SplashView()),
+      GoRoute(
+        path: kSplashView,
+        builder: (context, state) => const SplashView(),
+      ),
       GoRoute(
         path: kOnboardingView,
         builder: (context, state) => const OnboardingView(),

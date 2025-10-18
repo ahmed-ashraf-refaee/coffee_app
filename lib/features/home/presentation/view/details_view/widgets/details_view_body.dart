@@ -10,7 +10,6 @@ import 'package:coffee_app/core/widgets/prettier_tap.dart';
 import 'package:coffee_app/core/widgets/price_text.dart';
 import 'package:coffee_app/core/widgets/product_rating.dart';
 import 'package:coffee_app/features/cart/presentation/manager/cart_cubit/cart_cubit.dart';
-import 'package:coffee_app/features/home/presentation/manager/review_cubit/review_cubit.dart';
 import 'package:coffee_app/features/home/presentation/view/details_view/widgets/custom_chip.dart';
 import 'package:coffee_app/features/home/presentation/view/details_view/widgets/quantity_selector.dart';
 import 'package:coffee_app/features/home/presentation/view/reviews_view/review_view.dart';
