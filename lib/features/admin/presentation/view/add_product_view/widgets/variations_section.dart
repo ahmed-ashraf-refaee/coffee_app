@@ -1,3 +1,4 @@
+import 'package:coffee_app/core/widgets/prettier_tap.dart';
 import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
@@ -54,13 +55,13 @@ class VariantsSection extends StatelessWidget {
                       ),
                     ),
                     if (variants.length > 1)
-                      CustomIconButton(
+                      PrettierTap(
                         onPressed: () => removeVariant(index),
-                        backgroundColor: Colors.transparent,
-                        borderRadius: BorderRadius.circular(10),
-                        child: Icon(
-                          Ionicons.trash_bin_outline,
-                          color: context.colors.primary,
+                        child: Text(
+                          S.current.remove,
+                          style: TextStyles.bold14.copyWith(
+                            color: context.colors.primary,
+                          ),
                         ),
                       ),
                   ],
@@ -76,8 +77,9 @@ class VariantsSection extends StatelessWidget {
                 ),
                 TextFormField(
                   controller: variant.priceController,
-                  keyboardType:
-                      const TextInputType.numberWithOptions(decimal: true),
+                  keyboardType: const TextInputType.numberWithOptions(
+                    decimal: true,
+                  ),
                   decoration: InputDecoration(
                     hintText: l10n.variantPriceHint,
                     prefixIcon: const Icon(Ionicons.cash_outline),
@@ -93,7 +95,8 @@ class VariantsSection extends StatelessWidget {
                     prefixIcon: const Icon(Ionicons.cube_outline),
                     fillColor: context.colors.surface,
                   ),
-                  validator: (v) => doubleValidator(v, l10n.variantQuantityLabel),
+                  validator: (v) =>
+                      doubleValidator(v, l10n.variantQuantityLabel),
                 ),
               ],
             ),

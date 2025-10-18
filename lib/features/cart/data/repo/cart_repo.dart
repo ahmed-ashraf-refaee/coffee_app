@@ -5,7 +5,7 @@ import 'package:dartz/dartz.dart';
 abstract class CartRepo {
   Future<Either<Failure, List<CartItemModel>>> getCartItem();
   Future<Either<Failure, void>> addItemToCart({
-    required int productVariantId,
+    required int selectedVariantIndex,
     required int productId,
 
     required int quantity,

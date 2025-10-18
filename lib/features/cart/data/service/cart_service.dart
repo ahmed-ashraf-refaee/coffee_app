@@ -27,34 +27,30 @@ class CartService {
     required String userId,
   }) async {
     final cart = await getOrCreateCart(userId: userId);
-
     final response = await _supabaseClient
         .from('cart_item')
         .select('''
+        *,
+        products(
           *,
-          product_variants(
-            *,
-            products(
-              *,
-              products_translation!inner(name, description),
-              categories(id, name_${AppLocale.current.languageCode})
-            )
-          )
-        ''')
+          products_translation!inner(name, description),
+          product_variants(id,quantity,price,product_id,size_${AppLocale.current.languageCode}),
+          categories(id, name_${AppLocale.current.languageCode})
+        )
+      ''') // Removed comma after categories
         .eq('cart_id', cart['id'])
         .eq(
-          'product_variants.products.products_translation.language_code',
+          'products.products_translation.language_code',
           AppLocale.current.languageCode,
         )
         .order('created_at', ascending: false);
-
     return List<Map<String, dynamic>>.from(response);
   }
 
   Future<Map<String, dynamic>> addToCart({
     required String userId,
     required int productId,
-    required int productVariantId,
+    required int selectedVariantIndex,
     int quantity = 1,
   }) async {
     final cart = await getOrCreateCart(userId: userId);
@@ -63,7 +59,8 @@ class CartService {
         .from('cart_item')
         .select()
         .eq('cart_id', cart['id'])
-        .eq('product_variant_id', productVariantId)
+        .eq('product_id', productId)
+        .eq('variant_index', selectedVariantIndex)
         .maybeSingle();
 
     if (existing != null) {
@@ -77,32 +74,29 @@ class CartService {
           .from('cart_item')
           .insert({
             'cart_id': cart['id'],
-            'product_variant_id': productVariantId,
+            'product_id': productId,
+            'variant_index': selectedVariantIndex,
             'quantity': quantity,
             'created_at': DateTime.now().toIso8601String(),
-            'product_id': productId,
           })
           .select('id')
           .single();
-
       final cartItemId = inserted['id'];
 
       final newItem = await _supabaseClient
           .from('cart_item')
           .select('''
-          *,
-          product_variants(
             *,
             products(
               *,
               products_translation!inner(name, description),
-              categories(id, name_${AppLocale.current.languageCode})
+              categories(id, name_${AppLocale.current.languageCode}),
+              product_variants(*)
             )
-          )
-        ''')
+          ''')
           .eq('id', cartItemId)
           .eq(
-            'product_variants.products.products_translation.language_code',
+            'products.products_translation.language_code',
             AppLocale.current.languageCode,
           )
           .single();
@@ -113,36 +107,28 @@ class CartService {
 
   Future<Map<String, dynamic>> updateQuantity({
     required String userId,
-    required int productVariantId,
+    required int cartItemId,
     required int newQuantity,
   }) async {
-    final cart = await getOrCreateCart(userId: userId);
-
-    // First update
     await _supabaseClient
         .from('cart_item')
         .update({'quantity': newQuantity})
-        .eq('cart_id', cart['id'])
-        .eq('product_variant_id', productVariantId);
+        .eq('id', cartItemId);
 
-    // Then fetch with localization
     final updated = await _supabaseClient
         .from('cart_item')
         .select('''
-        *,
-        product_variants(
           *,
           products(
             *,
             products_translation!inner(name, description),
-            categories(id, name_${AppLocale.current.languageCode})
+            categories(id, name_${AppLocale.current.languageCode}),
+            product_variants(*)
           )
-        )
-      ''')
-        .eq('cart_id', cart['id'])
-        .eq('product_variant_id', productVariantId)
+        ''')
+        .eq('id', cartItemId)
         .eq(
-          'product_variants.products.products_translation.language_code',
+          'products.products_translation.language_code',
           AppLocale.current.languageCode,
         )
         .single();
@@ -154,29 +140,25 @@ class CartService {
     required int cartItemId,
     required int newQuantity,
   }) async {
-    // First, just update
     await _supabaseClient
         .from('cart_item')
         .update({'quantity': newQuantity})
         .eq('id', cartItemId);
 
-    // Then, fetch with localization
     final updated = await _supabaseClient
         .from('cart_item')
         .select('''
-        *,
-        product_variants(
           *,
           products(
             *,
             products_translation!inner(name, description),
-            categories(id, name_${AppLocale.current.languageCode})
+            categories(id, name_${AppLocale.current.languageCode}),
+            product_variants(*)
           )
-        )
-      ''')
+        ''')
         .eq('id', cartItemId)
         .eq(
-          'product_variants.products.products_translation.language_code',
+          'products.products_translation.language_code',
           AppLocale.current.languageCode,
         )
         .single();

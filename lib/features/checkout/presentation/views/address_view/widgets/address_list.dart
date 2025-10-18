@@ -1,11 +1,13 @@
 import 'package:coffee_app/core/utils/app_router.dart';
 import 'package:coffee_app/core/utils/text_styles.dart';
 import 'package:coffee_app/core/widgets/custom_elevated_button.dart';
+import 'package:coffee_app/core/widgets/title_subtitle.dart';
 import 'package:coffee_app/features/checkout/presentation/manager/address/address_cubit.dart';
 import 'package:coffee_app/features/checkout/presentation/manager/address/address_state.dart';
 import 'package:coffee_app/features/checkout/presentation/manager/card/card_cubit.dart';
 import 'package:coffee_app/features/checkout/presentation/views/address_view/widgets/address_list_item.dart';
 import 'package:coffee_app/features/checkout/presentation/views/address_view/widgets/address_list_item_loading.dart';
+import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,13 +24,17 @@ class AddressList extends StatefulWidget {
 class _AddressListState extends State<AddressList> {
   @override
   Widget build(BuildContext context) {
+    final tr = S.of(context);
     final cardCubit = context.watch<CardCubit>();
+
     return Column(
       spacing: 16,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const Text("saved addresses", style: TextStyles.bold20),
-
+        TitleSubtitle(
+          title: tr.savedAddresses,
+          subtitle: tr.savedAddressesSubtitle,
+        ),
         BlocBuilder<AddressCubit, AddressState>(
           builder: (context, state) {
             if (state is AddressLoading) {
@@ -48,8 +54,8 @@ class _AddressListState extends State<AddressList> {
             } else if (state is AddressLoaded) {
               final addressesList = state.addresses;
               if (addressesList.isEmpty) {
-                return const Text(
-                  "No cards available. Please add an address.",
+                return Text(
+                  tr.noAddressesAvailable,
                   style: TextStyles.medium16,
                   textAlign: TextAlign.center,
                 );
@@ -73,7 +79,7 @@ class _AddressListState extends State<AddressList> {
               );
             } else {
               return Text(
-                "Something went wrong. Please try again.",
+                tr.somethingWentWrong,
                 style: TextStyles.medium16.copyWith(
                   color: context.colors.error,
                 ),
@@ -82,18 +88,17 @@ class _AddressListState extends State<AddressList> {
             }
           },
         ),
-
         CustomElevatedButton(
           onPressed: () {
             GoRouter.of(context).push(AppRouter.kAddAddressView);
           },
           backgroundColor: context.colors.secondary,
-          child: const Row(
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             spacing: 16,
             children: [
-              Text('Add address', style: TextStyles.medium20),
-              Icon(Ionicons.add),
+              Text(tr.addAddress, style: TextStyles.medium20),
+              const Icon(Ionicons.add),
             ],
           ),
         ),

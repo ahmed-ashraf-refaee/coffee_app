@@ -1,44 +1,33 @@
+import 'package:coffee_app/core/model/product_variants_model.dart';
+
 import '../../../../core/model/product_model.dart';
-import '../../../../core/model/product_variants_model.dart';
 import '../../../checkout/data/models/order_item.dart';
 
 class CartItemModel {
   final int id;
   final int cartId;
-  final int productVariantId;
+  final int selectedVariantIndex;
   final int quantity;
-  final ProductVariantsModel? productVariant;
-  final ProductModel? product;
+  final ProductModel product;
 
-  CartItemModel({
+  const CartItemModel({
     required this.id,
     required this.cartId,
-    required this.productVariantId,
+    required this.product,
+    required this.selectedVariantIndex,
     required this.quantity,
-    this.productVariant,
-    this.product,
   });
 
+  ProductVariantsModel get selectedVariant =>
+      product.productVariants[selectedVariantIndex];
+
   factory CartItemModel.fromJson(Map<String, dynamic> json) {
-    final productJson = json['product_variants']['products'];
-    final variantJson = json['product_variants'];
-
-    final Map<String, dynamic> fullProductJson = {
-      ...productJson ?? {},
-      'product_variants': [variantJson],
-    };
-
     return CartItemModel(
       id: json['id'],
       cartId: json['cart_id'],
-      productVariantId: json['product_variant_id'],
+      selectedVariantIndex: json['variant_index'] ?? 0,
       quantity: json['quantity'],
-      productVariant: variantJson != null
-          ? ProductVariantsModel.fromJson(variantJson)
-          : null,
-      product: productJson != null
-          ? ProductModel.fromJson(fullProductJson)
-          : null,
+      product: ProductModel.fromJson(json['products']),
     );
   }
 
@@ -46,39 +35,36 @@ class CartItemModel {
     return {
       'id': id,
       'cart_id': cartId,
-      'product_variant_id': productVariantId,
+      'selected_variant_index': selectedVariantIndex,
       'quantity': quantity,
-      "product_variants": productVariant!.size,
-      "product": product!.imageUrl,
+      'product': product.toJson(),
     };
   }
 
   CartItemModel copyWith({
     int? id,
     int? cartId,
-    int? productVariantId,
+    int? selectedVariantIndex,
     int? quantity,
-    DateTime? createdAt,
-    ProductVariantsModel? productVariant,
     ProductModel? product,
   }) {
     return CartItemModel(
       id: id ?? this.id,
       cartId: cartId ?? this.cartId,
-      productVariantId: productVariantId ?? this.productVariantId,
+      selectedVariantIndex: selectedVariantIndex ?? this.selectedVariantIndex,
       quantity: quantity ?? this.quantity,
-      productVariant: productVariant ?? this.productVariant,
       product: product ?? this.product,
     );
   }
 
   OrderItemModel toOrderItem() {
+    final variant = selectedVariant;
     return OrderItemModel(
-      variantId: productVariantId,
+      variantId: variant.id,
       quantity: quantity,
-      unitPrice: productVariant?.price.toDouble() ?? 0.0,
-      productName: product?.name ?? '',
-      categoryId: product?.category?.id ?? 0,
+      unitPrice: variant.price.toDouble(),
+      productName: product.name,
+      categoryId: product.category?.id ?? 0,
     );
   }
 }

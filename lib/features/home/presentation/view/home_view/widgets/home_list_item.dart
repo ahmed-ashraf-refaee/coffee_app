@@ -107,6 +107,7 @@ class HomeListItem extends StatelessWidget {
                     ),
                     const SizedBox(height: 2),
                     ProductRating(
+                      showFiveStars: false,
                       rating: product.rating,
                       numberOfRatings: product.numberOfRatings,
                     ),
@@ -120,37 +121,7 @@ class HomeListItem extends StatelessWidget {
               ),
             ),
           ),
-          if (product.discount > 0)
-            Align(
-              alignment: context.isArabic
-                  ? Alignment.topRight
-                  : Alignment.topLeft,
-              child: Padding(
-                padding: const EdgeInsets.all(8),
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Transform.flip(
-                      flipX: !context.isArabic,
-                      child: Icon(
-                        Ionicons.pricetag,
-                        size: 48,
-                        color: context.colors.primary,
-                      ),
-                    ),
-                    Transform.rotate(
-                      angle: context.isArabic ? -0.785398 : 0.785398,
-                      child: Text(
-                        '${product.discount.toStringAsFixed(0)}%',
-                        style: TextStyles.bold14.copyWith(
-                          color: context.colors.onPrimary,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+
           Align(
             alignment: context.isArabic
                 ? Alignment.bottomLeft

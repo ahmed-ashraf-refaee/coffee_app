@@ -70,7 +70,7 @@ class CartViewBody extends StatelessWidget {
                       return SliverFillRemaining(
                         child: Center(
                           child: Text(
-                            'Your Cart is empty',
+                            S.current.your_cart_is_empty,
                             textAlign: TextAlign.center,
 
                             style: TextStyles.medium20.copyWith(fontSize: 26),
@@ -124,7 +124,7 @@ class CartViewBody extends StatelessWidget {
                     return SliverFillRemaining(
                       child: Center(
                         child: Text(
-                          'Something went wrong!',
+                          S.current.something_went_wrong,
                           textAlign: TextAlign.center,
 
                           style: TextStyles.medium20.copyWith(fontSize: 26),
@@ -158,11 +158,28 @@ class CartSummary extends StatelessWidget {
         if (state is CartSuccess) {
           subTotal = state.cartItems.fold<double>(
             0,
-            (sum, e) => sum + (e.quantity * e.productVariant!.price),
+            (sum, e) =>
+                sum +
+                (e.quantity *
+                    e.product.productVariants[e.selectedVariantIndex].price),
           );
+
+          // Calculate discount if the product has one
+          discount = state.cartItems.fold<double>(0, (sum, e) {
+            final d = e.product.discount;
+            return sum +
+                ((e.quantity *
+                        e
+                            .product
+                            .productVariants[e.selectedVariantIndex]
+                            .price) *
+                    (d / 100));
+          });
+
           shipping = subTotal * 0.1;
-          total = (subTotal + shipping);
+          total = (subTotal - discount + shipping);
         }
+
         return Container(
           padding: const EdgeInsets.only(top: 16),
           color: context.colors.surface,
@@ -177,13 +194,13 @@ class CartSummary extends StatelessWidget {
                 style: TextStyles.regular16,
               ),
               SummaryLine(
-                value: shipping.toStringAsFixed(2),
                 label: S.current.discount,
-                style: TextStyles.regular16,
+                value: '-${discount.toStringAsFixed(2)}',
+                style: TextStyles.regular16.copyWith(),
               ),
               SummaryLine(
-                value: shipping.toStringAsFixed(2),
                 label: S.current.shipping,
+                value: shipping.toStringAsFixed(2),
                 style: TextStyles.regular16,
               ),
               Divider(color: context.colors.onSecondary, thickness: 1),
@@ -192,13 +209,16 @@ class CartSummary extends StatelessWidget {
                 value: total.toStringAsFixed(2),
                 style: TextStyles.regular16,
               ),
-
               CustomElevatedButton(
                 disabled: state is! CartSuccess || state.cartItems.isEmpty,
                 onPressed: () {
                   GoRouter.of(context).push(
                     AppRouter.kCheckoutView,
-                    extra: {"subTotal": subTotal, "shipping": shipping},
+                    extra: {
+                      "subTotal": subTotal,
+                      "shipping": shipping,
+                      "discount": discount,
+                    },
                   );
                 },
                 child: Text(

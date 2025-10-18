@@ -13,6 +13,7 @@ class ProductModel {
   final DateTime createdAt;
   final List<ProductVariantsModel> productVariants;
   final CategoriesModel? category;
+
   ProductModel({
     required this.createdAt,
     required this.id,
@@ -26,26 +27,52 @@ class ProductModel {
     required this.productVariants,
     required this.category,
   });
+
   factory ProductModel.fromJson(Map<String, dynamic> json) {
-    var variantsList = json['product_variants'] as List;
-    List<ProductVariantsModel> productVariantsList = variantsList
+    final variantsList = (json['product_variants'] as List?) ?? [];
+    final productVariantsList = variantsList
         .map((variant) => ProductVariantsModel.fromJson(variant))
         .toList();
-    final translation = (json['products_translation'] as List).first;
+
+    final translationList = (json['products_translation'] as List?) ?? [];
+    final translation =
+        translationList.isNotEmpty ? translationList.first : {};
+
     return ProductModel(
       id: json['id'] as int,
-      name: translation['name'] as String,
-      description: translation['description'] as String,
-      discount: (json['discount'] as num).toDouble(),
-      rating: (json['rating'] as num).toDouble(),
-      numberOfRatings: json['num_ratings'] as int,
-      categoryId: json['category_id'],
-      imageUrl: json['image_url'],
-      createdAt: DateTime.parse(json['created_at'] ?? DateTime.now()),
+      name: translation['name'] ?? '',
+      description: translation['description'] ?? '',
+      discount: (json['discount'] as num?)?.toDouble() ?? 0.0,
+      rating: (json['rating'] as num?)?.toDouble() ?? 0.0,
+      numberOfRatings: json['num_ratings'] ?? 0,
+      categoryId: json['category_id'] ?? 0,
+      imageUrl: json['image_url'] ?? '',
+      createdAt:
+          DateTime.tryParse(json['created_at'] ?? '') ?? DateTime.now(),
       productVariants: productVariantsList,
       category: json['categories'] != null
           ? CategoriesModel.fromJson(json['categories'])
           : null,
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'description': description,
+      'discount': discount,
+      'rating': rating,
+      'num_ratings': numberOfRatings,
+      'category_id': categoryId,
+      'image_url': imageUrl,
+      'created_at': createdAt.toIso8601String(),
+      'product_variants':
+          productVariants.map((variant) => variant.toJson()).toList(),
+      if (category != null) 'categories': category!.toJson(),
+      'products_translation': [
+        {'name': name, 'description': description}
+      ],
+    };
   }
 }

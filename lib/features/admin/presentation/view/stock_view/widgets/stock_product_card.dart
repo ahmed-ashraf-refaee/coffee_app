@@ -31,6 +31,7 @@ class StockProductCard extends StatelessWidget {
             children: [
               Expanded(
                 child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CustomRoundedImage(
                       imageUrl: product.imageUrl,
@@ -50,7 +51,7 @@ class StockProductCard extends StatelessWidget {
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            product.category?.name ?? l10n.unknownCategory,
+                            product.category?.name ?? l10n.unknown,
                             style: TextStyles.regular12.copyWith(
                               color: context.colors.onSecondary,
                             ),
@@ -71,7 +72,7 @@ class StockProductCard extends StatelessWidget {
                   );
                 },
                 child: Text(
-                  l10n.editButton,
+                  l10n.edit,
                   style: TextStyles.bold14.copyWith(
                     color: context.colors.primary,
                   ),
@@ -130,7 +131,7 @@ class StockProductCard extends StatelessWidget {
                             Expanded(
                               child: _buildInfoColumn(
                                 context,
-                                l10n.variantStockLabel,
+                                l10n.stockLabel,
                                 '${variant.quantity}',
                               ),
                             ),
@@ -186,15 +187,15 @@ class StockProductCard extends StatelessWidget {
     switch (status) {
       case ProductStatus.inStock:
         color = ColorPalette.darkGreen;
-        label = l10n.statusInStock;
+        label = l10n.productStatusInStock;
         break;
       case ProductStatus.low:
         color = ColorPalette.orangeCrayola;
-        label = l10n.statusLow;
+        label = l10n.productStatusLow;
         break;
       case ProductStatus.out:
         color = ColorPalette.errorLuxurious;
-        label = l10n.statusOut;
+        label = l10n.productStatusOut;
         break;
     }
 

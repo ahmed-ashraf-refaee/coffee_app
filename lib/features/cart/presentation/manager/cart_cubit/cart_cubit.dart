@@ -20,13 +20,13 @@ class CartCubit extends Cubit<CartState> {
   }
 
   Future<void> addItem({
-    required int productVariantId,
+    required int selectedVariantIndex,
     required int productId,
     int quantity = 1,
   }) async {
     emit(CartAddItemLoading(productId: productId));
     final result = await cartRepo.addItemToCart(
-      productVariantId: productVariantId,
+      selectedVariantIndex: selectedVariantIndex,
       quantity: quantity,
       productId: productId,
     );
