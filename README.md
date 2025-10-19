@@ -1,4 +1,4 @@
-# ☕ Coffee Ordering App
+# ☕ Coffee Drop App
 
 A comprehensive full-stack coffee ordering application with customer-facing features, profile management, and a powerful administrative dashboard built with Supabase backend.
 
@@ -14,16 +14,16 @@ The project addresses the modern demand for seamless mobile ordering experiences
 
 ## ✨ Key Features
 
+- **Admin Dashboard:** Comprehensive analytics with revenue tracking, sales trends, and growth metrics.
 - **Secure Authentication:** Multi-provider login support (Email/Password, Google, Facebook) powered by Supabase Auth with email verification workflows.
 - **Smart Product Catalog:** Dynamic search and filtering across categories with real-time product availability status.
 - **Advanced Customization:** Size variants, quantity controls, and personalized order configurations stored as JSON.
+- **Profile Management:** User profile customization with avatar upload, email/password updates, and preference settings.
 - **Payment Integration:** Secure Stripe tokenization for card payments with Cash on Delivery (COD) option.
 - **Location Services:** Interactive map-based address selection with coordinate capture and multiple saved addresses.
-- **Real-time Notifications:** Non-intrusive snackbar feedback for all user actions and system events.
+- **Real-time Notifications:** Non-intrusive feedback for all user actions and system events.
 - **Multi-language Support:** Built-in localization for English, العربية, Español, Français, and Italiano.
-- **Admin Dashboard:** Comprehensive analytics with revenue tracking, sales trends, and growth metrics.
 - **Inventory Management:** Real-time stock monitoring with color-coded status indicators and bulk variant editing.
-- **Profile Management:** User profile customization with avatar upload, email/password updates, and preference settings.
 
 ---
 
