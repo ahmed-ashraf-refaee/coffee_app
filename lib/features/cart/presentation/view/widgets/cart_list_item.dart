@@ -130,10 +130,12 @@ class CartListItem extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  ProductRating(
-                                    rating: cartItem.product.rating,
-                                    numberOfRatings:
-                                        cartItem.product.numberOfRatings,
+                                  Flexible(
+                                    child: ProductRating(
+                                      rating: cartItem.product.rating,
+                                      numberOfRatings:
+                                          cartItem.product.numberOfRatings,
+                                    ),
                                   ),
                                   Text(
                                     cartItem
@@ -161,8 +163,6 @@ class CartListItem extends StatelessWidget {
                               ),
                             ),
 
-                            const SizedBox(width: 12),
-
                             BlocBuilder<CartCubit, CartState>(
                               builder: (context, state) {
                                 return QuantitySelector(
@@ -186,7 +186,7 @@ class CartListItem extends StatelessWidget {
                                     );
                                   },
                                   contentPadding: const EdgeInsets.symmetric(
-                                    horizontal: 6,
+                                    horizontal: 4,
                                     vertical: 2,
                                   ),
                                 );

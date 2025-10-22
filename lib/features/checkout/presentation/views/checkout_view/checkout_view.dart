@@ -105,15 +105,14 @@ class _CheckoutViewState extends State<CheckoutView> {
               // ),
               BlocListener<OrderCubit, OrderState>(
                 listener: (context, state) {
-                  GoRouter.of(context).pop();
                   if (state is OrderCreated) {
                     UiHelpers.showSnackBar(
                       context: context,
                       message: S.current.orderPlacedSuccessfully,
                     );
-
-                    cvvController.clear();
                     context.read<CartCubit>().clearCart();
+                    cvvController.clear();
+                    GoRouter.of(context).pop();
                   } else if (state is OrderError) {
                     UiHelpers.showSnackBar(
                       context: context,
@@ -155,27 +154,34 @@ class _CheckoutBody extends StatelessWidget {
     final state = context.watch<PaymentCubit>().state;
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      spacing: 16,
       children: [
-        CustomAppBar(
-          leading: CustomIconButton(
-            padding: 8,
-            onPressed: () => GoRouter.of(context).pop(),
-            child: Icon(
-              Ionicons.chevron_back,
-              color: context.colors.onSecondary,
+        Expanded(
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              spacing: 16,
+              children: [
+                CustomAppBar(
+                  leading: CustomIconButton(
+                    padding: 8,
+                    onPressed: () => GoRouter.of(context).pop(),
+                    child: Icon(
+                      Ionicons.chevron_back,
+                      color: context.colors.onSecondary,
+                    ),
+                  ),
+                ),
+                OrderSummary(
+                  subTotal: checkoutSummery['subTotal']!,
+                  shipping: checkoutSummery['shipping']!,
+                  discount: checkoutSummery['discount']!,
+                ),
+                PaymentInfoCard(cvvController: cvvController, formKey: formKey),
+                const ShippingInfoCard(),
+              ],
             ),
           ),
         ),
-        OrderSummary(
-          subTotal: checkoutSummery['subTotal']!,
-          shipping: checkoutSummery['shipping']!,
-          discount: checkoutSummery['discount']!,
-        ),
-        PaymentInfoCard(cvvController: cvvController, formKey: formKey),
-        const ShippingInfoCard(),
-        const Spacer(),
         CustomElevatedButton(
           isLoading: state is PaymentLoading,
           disabled:
