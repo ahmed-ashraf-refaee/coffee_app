@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
@@ -6,8 +8,10 @@ import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../../../core/helper/ui_helpers.dart';
 import '../../../../core/utils/app_router.dart';
 import '../../../../core/utils/text_styles.dart';
+import '../../../authentication/data/services/auth_service.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -18,6 +22,7 @@ class SplashView extends StatefulWidget {
 
 class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
   late Animation<double> _animation;
+
   late AnimationController _animationController;
 
   late Animation<double> _descriptionAnimation;
@@ -26,17 +31,43 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
   late Animation<double> _rotationAnimation;
   late AnimationController _rotationAnimationController;
 
+  final AuthService _authService = AuthService();
+  late final StreamSubscription<AuthState> _authSubscription;
+
   @override
   void initState() {
     super.initState();
     titleAnimation();
     secondTitleAnimation();
+    _authStateListener();
 
+    _checkAuth();
+  }
+
+  void _authStateListener() {
+    _authSubscription = Supabase.instance.client.auth.onAuthStateChange.listen((
+      event,
+    ) async {
+      final type = event.event;
+      if (type == AuthChangeEvent.signedIn) {
+        final session = event.session;
+        if (session == null) {
+          return;
+        }
+        await _authService.handleFacebookLoginCallback();
+        if (mounted) {
+          GoRouter.of(context).go(AppRouter.kNavigationView);
+          UiHelpers.showSnackBar(context: context, message: S.current.log_in);
+        }
+      }
+    });
+  }
+
+  void _checkAuth() {
     Future.delayed(const Duration(milliseconds: 5000), () async {
       final prefs = await SharedPreferences.getInstance();
       final remember = prefs.getBool("remember_me") ?? true;
       final seenOnboarding = prefs.getBool('seen_onboarding') ?? false;
-
       if (!seenOnboarding) {
         await prefs.setBool('seen_onboarding', true);
         if (mounted) {
@@ -44,7 +75,6 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
         }
         return;
       }
-
       if (remember) {
         final user = Supabase.instance.client.auth.currentSession?.user;
         if (user != null) {
@@ -127,6 +157,8 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
     _animationController.dispose();
     _descriptionAnimationController.dispose();
     _rotationAnimationController.dispose();
+    _authSubscription.cancel();
+
     super.dispose();
   }
 

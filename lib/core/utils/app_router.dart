@@ -42,12 +42,8 @@ abstract class AppRouter {
   static const kOnboardingView = "/onboardingView";
 
   static final router = GoRouter(
-    initialLocation: kSplashView,
     routes: [
-      GoRoute(
-        path: kSplashView,
-        builder: (context, state) => const SplashView(),
-      ),
+      GoRoute(path: "/", builder: (context, state) => const SplashView()),
       GoRoute(
         path: kOnboardingView,
         builder: (context, state) => const OnboardingView(),

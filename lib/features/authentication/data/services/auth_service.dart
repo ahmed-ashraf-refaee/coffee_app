@@ -74,15 +74,21 @@ class AuthService {
     required String firstName,
     required String lastName,
     required String createdAt,
+    String? profileImageUrl,
   }) async {
-    await _supabaseClient.from("users").insert({
+    final Map<String, dynamic> userData = {
       'id': userId,
       'email': email,
       'username': username,
       'first_name': firstName,
       'last_name': lastName,
       'created_at': createdAt,
-    });
+    };
+    if (profileImageUrl != null && profileImageUrl.isNotEmpty) {
+      userData['profile_image_url'] = profileImageUrl;
+    }
+
+    await _supabaseClient.from("users").insert(userData);
   }
 
   Future<String?> fetchCustomerId() async {
@@ -98,7 +104,9 @@ class AuthService {
   Future<void> logout() async {
     await _supabaseClient.auth.signOut();
     final prefs = await SharedPreferences.getInstance();
-    await prefs.clear();
+    await prefs.remove("isAdminMode");
+    await prefs.remove("isAdminUser");
+    await prefs.remove("remember_me");
   }
 
   Future<bool> usernameTaken(String username) async {
@@ -125,6 +133,78 @@ class AuthService {
       email,
       redirectTo: 'io.supabase.flutterapp://reset-password',
     );
+  }
+
+  Future<void> loginWithFacebook({required bool rememberMe}) async {
+    await _supabaseClient.auth.signInWithOAuth(
+      OAuthProvider.facebook,
+      redirectTo: 'io.supabase.flutterapp://login-callback',
+      authScreenLaunchMode: LaunchMode.externalApplication,
+    );
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool("remember_me", rememberMe);
+  }
+
+  Future<void> handleFacebookLoginCallback() async {
+    final user = _supabaseClient.auth.currentUser;
+
+    if (user == null) {
+      throw Exception("Facebook login failed - no user session.");
+    }
+    final prefs = await SharedPreferences.getInstance();
+
+    final adminLoggedIn = await isAdmin();
+
+    await prefs.setBool("isAdminUser", adminLoggedIn);
+    await prefs.setBool("isAdminMode", adminLoggedIn);
+    final existingUser = await _supabaseClient
+        .from('users')
+        .select()
+        .eq('id', user.id)
+        .maybeSingle();
+
+    if (existingUser == null) {
+      final metadata = user.userMetadata ?? {};
+      String firstName = '';
+      String lastName = '';
+
+      if (metadata['full_name'] != null) {
+        final nameParts = metadata['full_name'].toString().split(' ');
+        firstName = nameParts.first;
+        lastName = nameParts.length > 1 ? nameParts.sublist(1).join(' ') : '';
+      }
+
+      firstName = firstName.isEmpty
+          ? (metadata['first_name']?.toString() ?? '')
+          : firstName;
+      lastName = lastName.isEmpty
+          ? (metadata['last_name']?.toString() ?? '')
+          : lastName;
+
+      String username =
+          metadata['name']?.toString() ??
+          metadata['nickname']?.toString() ??
+          user.email?.split('@')[0] ??
+          'user_${user.id.substring(0, 8)}';
+
+      int counter = 1;
+      String finalUsername = username.replaceAll(' ', '_').toLowerCase();
+      while (await usernameTaken(finalUsername)) {
+        finalUsername =
+            '${username.replaceAll(' ', '_').toLowerCase()}_$counter';
+        counter++;
+      }
+
+      await insertUserData(
+        userId: user.id,
+        email: user.email ?? '',
+        username: finalUsername,
+        firstName: firstName,
+        lastName: lastName,
+        profileImageUrl: user.userMetadata?['avatar_url'],
+        createdAt: user.createdAt,
+      );
+    }
   }
 
   Future<AuthResponse> verify(String token, String email) async {

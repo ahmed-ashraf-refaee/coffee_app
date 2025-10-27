@@ -11,6 +11,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../../../core/helper/ui_helpers.dart';
 import '../../../../../admin/presentation/manager/admin_role_cubit/admin_role_cubit.dart';
+import '../../../../data/services/auth_service.dart';
 import '../../../manager/auth_bloc/auth_bloc.dart';
 import 'auth_suggestion.dart';
 import '../../../../../../core/widgets/title_subtitle.dart';
@@ -73,9 +74,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                   child: Checkbox(
                     value: rememberMe.value,
                     onChanged: (value) {
-                      setState(() {
-                        rememberMe.value = value!;
-                      });
+                      rememberMe.value = value!;
                     },
                   ),
                 );
@@ -154,7 +153,12 @@ class _LoginViewBodyState extends State<LoginViewBody> {
           spacing: 76,
           children: [
             SocialButton(
-              onPressed: () {},
+              onPressed: () async {
+                final authService = AuthService();
+                await authService.loginWithFacebook(
+                  rememberMe: rememberMe.value,
+                );
+              },
               imageAsset: "assets/icons/facebook.png",
               title: S.current.facebook,
             ),
