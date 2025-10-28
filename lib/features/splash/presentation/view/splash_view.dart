@@ -1,8 +1,10 @@
 import 'dart:async';
 
+import 'package:coffee_app/features/authentication/presentation/manager/auth_bloc/auth_bloc.dart';
 import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -11,7 +13,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../../../core/helper/ui_helpers.dart';
 import '../../../../core/utils/app_router.dart';
 import '../../../../core/utils/text_styles.dart';
-import '../../../authentication/data/services/auth_service.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -31,8 +32,7 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
   late Animation<double> _rotationAnimation;
   late AnimationController _rotationAnimationController;
 
-  final AuthService _authService = AuthService();
-  late final StreamSubscription<AuthState> _authSubscription;
+  late final StreamSubscription _authSubscription;
 
   @override
   void initState() {
@@ -54,9 +54,10 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
         if (session == null) {
           return;
         }
-        await _authService.handleFacebookLoginCallback();
+
         if (mounted) {
-          GoRouter.of(context).go(AppRouter.kNavigationView);
+          BlocProvider.of<AuthBloc>(context).add(HandleLoginCallBack());
+          GoRouter.of(context).go(AppRouter.kAuthView);
           UiHelpers.showSnackBar(context: context, message: S.current.log_in);
         }
       }

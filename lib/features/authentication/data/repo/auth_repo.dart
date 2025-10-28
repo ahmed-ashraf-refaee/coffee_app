@@ -19,6 +19,9 @@ abstract class AuthRepo {
     required String password,
     required bool rememberMe,
   });
+  Future<Either<Failure, void>> loginWithFacebook({required bool rememberMe});
+  Future<Either<Failure, void>> loginWithGoogle({required bool rememberMe});
+  Future<Either<Failure, void>> handleLoginCallback();
   Future<Either<Failure, AuthResponse>> signupUser({
     required String email,
     required String password,

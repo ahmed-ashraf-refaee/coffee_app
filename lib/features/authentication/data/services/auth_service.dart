@@ -141,22 +141,29 @@ class AuthService {
       redirectTo: 'io.supabase.flutterapp://login-callback',
       authScreenLaunchMode: LaunchMode.externalApplication,
     );
+
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool("remember_me", rememberMe);
   }
 
-  Future<void> handleFacebookLoginCallback() async {
+  Future<void> loginWithGoogle({required bool rememberMe}) async {
+    await _supabaseClient.auth.signInWithOAuth(
+      OAuthProvider.google,
+      redirectTo: 'io.supabase.flutterapp://login-callback',
+      authScreenLaunchMode: LaunchMode.externalApplication,
+    );
+
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool("remember_me", rememberMe);
+  }
+
+  Future<void> handleOAuthCallback() async {
     final user = _supabaseClient.auth.currentUser;
 
     if (user == null) {
       throw Exception("Facebook login failed - no user session.");
     }
-    final prefs = await SharedPreferences.getInstance();
 
-    final adminLoggedIn = await isAdmin();
-
-    await prefs.setBool("isAdminUser", adminLoggedIn);
-    await prefs.setBool("isAdminMode", adminLoggedIn);
     final existingUser = await _supabaseClient
         .from('users')
         .select()

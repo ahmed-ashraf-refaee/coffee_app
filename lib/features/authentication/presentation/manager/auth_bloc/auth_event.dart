@@ -29,6 +29,18 @@ class LoginEvent extends AuthEvent {
   });
 }
 
+class LoginWithFacebookEvent extends AuthEvent {
+  final bool rememberMe;
+  LoginWithFacebookEvent({required this.rememberMe});
+}
+
+class LoginWithGoogleEvent extends AuthEvent {
+  final bool rememberMe;
+  LoginWithGoogleEvent({required this.rememberMe});
+}
+
+class HandleLoginCallBack extends AuthEvent {}
+
 class UsernameCheckEvent extends AuthEvent {
   final String username;
 

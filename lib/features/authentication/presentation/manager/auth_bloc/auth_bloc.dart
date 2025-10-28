@@ -35,6 +35,34 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       );
     });
 
+    on<LoginWithFacebookEvent>((event, emit) async {
+      emit(AuthLoading());
+      var result = await _authRepoImpl.loginWithFacebook(
+        rememberMe: event.rememberMe,
+      );
+      result.fold((failure) => emit(AuthFailure(error: failure.error)), (_) {
+        emit(AuthInitial());
+      });
+    });
+
+    on<LoginWithGoogleEvent>((event, emit) async {
+      emit(AuthLoading());
+      var result = await _authRepoImpl.loginWithGoogle(
+        rememberMe: event.rememberMe,
+      );
+      result.fold((failure) => emit(AuthFailure(error: failure.error)), (_) {
+        emit(AuthInitial());
+      });
+    });
+
+    on<HandleLoginCallBack>((event, emit) async {
+      emit(AuthLoading());
+      var result = await _authRepoImpl.handleLoginCallback();
+      result.fold(
+        (failure) => emit(AuthFailure(error: failure.error)),
+        (_) => emit(AuthSuccess()),
+      );
+    });
     on<UsernameCheckEvent>((event, emit) async {
       emit(AuthLoading());
       var result = await _authRepoImpl.checkUsername(username: event.username);
