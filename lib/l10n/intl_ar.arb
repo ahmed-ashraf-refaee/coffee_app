@@ -12,6 +12,9 @@
   "newPassword": "كلمة المرور الجديدة",
   "sign_up": "إنشاء حساب",
   "log_in": "تسجيل الدخول",
+  "login_success": "تم تسجيل الدخول بنجاح!",
+  "login_failed": "فشل تسجيل الدخول. يرجى المحاولة مرة أخرى.",
+  "login_cancelled": "تم إلغاء تسجيل الدخول.",
   "forgot_password": "هل نسيت كلمة المرور؟",
   "already_have_account": "هل لديك حساب بالفعل؟",
   "dont_have_account": "ليس لديك حساب؟",
@@ -305,5 +308,13 @@
   "orderPlacedSuccessfully": "تم تقديم الطلب بنجاح",
    "coffee": "كوفي",
   "drop": "دروب",
-  "splashSubtitle": "قهوتك المثالية تصل إلى بابك"
+  "splashSubtitle": "قهوتك المثالية تصل إلى بابك",
+  "fileNotFound": "الملف غير موجود.",
+  "fileTooLarge": "حجم الملف كبير جداً.",
+  "invalidFileType": "نوع الملف غير صالح.",
+  "storageAccessDenied": "تم رفض الوصول إلى التخزين.",
+  "storageBucketNotFound": "مجلد التخزين غير موجود.",
+  "fileUploadFailed": "فشل رفع الملف.",
+  "fileDownloadFailed": "فشل تنزيل الملف.",
+  "storageError": "حدث خطأ في التخزين."
 }

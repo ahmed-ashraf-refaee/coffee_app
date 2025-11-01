@@ -158,6 +158,14 @@ class MessageLookup extends MessageLookupByLibrary {
       "تاريخ الانتهاء (شهر/سنة)",
     ),
     "facebook": MessageLookupByLibrary.simpleMessage("فيسبوك"),
+    "fileDownloadFailed": MessageLookupByLibrary.simpleMessage(
+      "فشل تنزيل الملف.",
+    ),
+    "fileNotFound": MessageLookupByLibrary.simpleMessage("الملف غير موجود."),
+    "fileTooLarge": MessageLookupByLibrary.simpleMessage(
+      "حجم الملف كبير جداً.",
+    ),
+    "fileUploadFailed": MessageLookupByLibrary.simpleMessage("فشل رفع الملف."),
     "filters": MessageLookupByLibrary.simpleMessage("الفلاتر"),
     "first_name": MessageLookupByLibrary.simpleMessage("الاسم الأول"),
     "foreignKeyError": MessageLookupByLibrary.simpleMessage(
@@ -187,6 +195,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "invalidEmail": MessageLookupByLibrary.simpleMessage(
       "بريد إلكتروني غير صالح",
     ),
+    "invalidFileType": MessageLookupByLibrary.simpleMessage(
+      "نوع الملف غير صالح.",
+    ),
     "invalidInputSyntax": MessageLookupByLibrary.simpleMessage(
       "تنسيق الإدخال غير صالح.",
     ),
@@ -204,6 +215,15 @@ class MessageLookup extends MessageLookupByLibrary {
       "انتهت صلاحية رابط إعادة التعيين. يرجى طلب رابط جديد.",
     ),
     "log_in": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
+    "login_cancelled": MessageLookupByLibrary.simpleMessage(
+      "تم إلغاء تسجيل الدخول.",
+    ),
+    "login_failed": MessageLookupByLibrary.simpleMessage(
+      "فشل تسجيل الدخول. يرجى المحاولة مرة أخرى.",
+    ),
+    "login_success": MessageLookupByLibrary.simpleMessage(
+      "تم تسجيل الدخول بنجاح!",
+    ),
     "maxVariantsReached": MessageLookupByLibrary.simpleMessage(
       "الحد الأقصى هو ٣ خيارات فقط",
     ),
@@ -448,6 +468,13 @@ class MessageLookup extends MessageLookupByLibrary {
       "تتبع المخزون وحدّث توافر المنتجات",
     ),
     "stockManagerTitle": MessageLookupByLibrary.simpleMessage("إدارة المخزون"),
+    "storageAccessDenied": MessageLookupByLibrary.simpleMessage(
+      "تم رفض الوصول إلى التخزين.",
+    ),
+    "storageBucketNotFound": MessageLookupByLibrary.simpleMessage(
+      "مجلد التخزين غير موجود.",
+    ),
+    "storageError": MessageLookupByLibrary.simpleMessage("حدث خطأ في التخزين."),
     "sub_total": MessageLookupByLibrary.simpleMessage("المجموع الفرعي:"),
     "submit": MessageLookupByLibrary.simpleMessage("إرسال"),
     "syntaxError": MessageLookupByLibrary.simpleMessage(

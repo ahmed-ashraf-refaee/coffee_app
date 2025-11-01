@@ -129,6 +129,36 @@ class S {
     return Intl.message('Log In', name: 'log_in', desc: '', args: []);
   }
 
+  /// `Logged in successfully!`
+  String get login_success {
+    return Intl.message(
+      'Logged in successfully!',
+      name: 'login_success',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login failed. Please try again.`
+  String get login_failed {
+    return Intl.message(
+      'Login failed. Please try again.',
+      name: 'login_failed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login was cancelled.`
+  String get login_cancelled {
+    return Intl.message(
+      'Login was cancelled.',
+      name: 'login_cancelled',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Forgot Password?`
   String get forgot_password {
     return Intl.message(
@@ -2343,6 +2373,86 @@ class S {
       args: [],
     );
   }
+
+  /// `File not found.`
+  String get fileNotFound {
+    return Intl.message(
+      'File not found.',
+      name: 'fileNotFound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `File is too large.`
+  String get fileTooLarge {
+    return Intl.message(
+      'File is too large.',
+      name: 'fileTooLarge',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid file type.`
+  String get invalidFileType {
+    return Intl.message(
+      'Invalid file type.',
+      name: 'invalidFileType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Access denied to storage.`
+  String get storageAccessDenied {
+    return Intl.message(
+      'Access denied to storage.',
+      name: 'storageAccessDenied',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Storage bucket not found.`
+  String get storageBucketNotFound {
+    return Intl.message(
+      'Storage bucket not found.',
+      name: 'storageBucketNotFound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `File upload failed.`
+  String get fileUploadFailed {
+    return Intl.message(
+      'File upload failed.',
+      name: 'fileUploadFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `File download failed.`
+  String get fileDownloadFailed {
+    return Intl.message(
+      'File download failed.',
+      name: 'fileDownloadFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Storage error occurred.`
+  String get storageError {
+    return Intl.message(
+      'Storage error occurred.',
+      name: 'storageError',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
@@ -2352,6 +2462,9 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'en'),
       Locale.fromSubtags(languageCode: 'ar'),
+      Locale.fromSubtags(languageCode: 'es'),
+      Locale.fromSubtags(languageCode: 'fr'),
+      Locale.fromSubtags(languageCode: 'it'),
     ];
   }
 
