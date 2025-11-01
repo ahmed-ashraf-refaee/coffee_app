@@ -7,7 +7,9 @@
     <application
         android:label="CoffeeDrop"
         android:name="${applicationName}"
-        android:icon="@mipmap/launcher_icon">
+        android:icon="@mipmap/ic_launcher">
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+        <meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -33,14 +35,23 @@
       <data
     android:scheme="io.supabase.flutterapp"
     android:host="reset-password"/>
-
       </intent-filter>
+            <intent-filter android:autoVerify="true">
+    <action android:name="android.intent.action.VIEW" />
+    <category android:name="android.intent.category.DEFAULT" />
+    <category android:name="android.intent.category.BROWSABLE" />
+    <data
+        android:scheme="io.supabase.flutterapp"
+        android:host="login-callback" />
+</intent-filter>
+
 
 
         </activity>
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <meta-data android:name="flutter_deeplinking_enabled" android:value="true" />
     </application>
     <queries>
         <intent>
@@ -48,7 +59,9 @@
             <data android:mimeType="text/plain"/>
         </intent>
     </queries>
-    <!-- Provide required visibility configuration for API level 30 and above -->
+    <queries>
+        <provider android:authorities="com.facebook.katana.provider.PlatformProvider" />
+    </queries>
     <queries>
       <!-- If your app checks for SMS support -->
       <intent>

@@ -152,4 +152,25 @@ class AuthRepoImpl extends AuthRepo {
       await _authService.updatePassword(newPassword, currentPassword);
     });
   }
+
+  @override
+  Future<Either<Failure, void>> loginWithFacebook({required bool rememberMe}) {
+    return guard(() async {
+      await _authService.loginWithFacebook(rememberMe: rememberMe);
+    });
+  }
+
+  @override
+  Future<Either<Failure, void>> handleLoginCallback() {
+    return guard(() async {
+      await _authService.handleOAuthCallback();
+    });
+  }
+
+  @override
+  Future<Either<Failure, void>> loginWithGoogle({required bool rememberMe}) {
+    return guard(() async {
+      await _authService.loginWithGoogle(rememberMe: rememberMe);
+    });
+  }
 }

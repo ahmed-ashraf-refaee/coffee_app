@@ -1,13 +1,20 @@
+import 'dart:async';
+
+import 'package:coffee_app/features/authentication/presentation/manager/auth_bloc/auth_bloc.dart';
 import 'package:coffee_app/generated/l10n.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../../../core/errors/failures.dart';
+import '../../../../core/helper/ui_helpers.dart';
 import '../../../../core/utils/app_router.dart';
 import '../../../../core/utils/text_styles.dart';
+import '../../../profile/presentation/manager/edit_profile/edit_profile_cubit.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -18,6 +25,7 @@ class SplashView extends StatefulWidget {
 
 class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
   late Animation<double> _animation;
+
   late AnimationController _animationController;
 
   late Animation<double> _descriptionAnimation;
@@ -26,17 +34,55 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
   late Animation<double> _rotationAnimation;
   late AnimationController _rotationAnimationController;
 
+  late final StreamSubscription _authSubscription;
+
   @override
   void initState() {
     super.initState();
     titleAnimation();
     secondTitleAnimation();
+    _authStateListener();
 
+    _checkAuth();
+  }
+
+  void _authStateListener() {
+    _authSubscription = Supabase.instance.client.auth.onAuthStateChange.listen(
+      (event) async {
+        final type = event.event;
+
+        if (type == AuthChangeEvent.signedIn) {
+          final session = event.session;
+          if (session == null) {
+            return;
+          }
+
+          if (mounted) {
+            BlocProvider.of<AuthBloc>(context).add(HandleLoginCallBack());
+            context.read<EditProfileCubit>().fetchUserData();
+
+            GoRouter.of(context).go(AppRouter.kAuthView);
+            UiHelpers.showSnackBar(
+              context: context,
+              message: S.current.login_success,
+            );
+          }
+        }
+      },
+      onError: (error) {
+        if (!mounted) return;
+        final failure = Failure.fromException(error);
+
+        UiHelpers.showSnackBar(context: context, message: failure.error);
+      },
+    );
+  }
+
+  void _checkAuth() {
     Future.delayed(const Duration(milliseconds: 5000), () async {
       final prefs = await SharedPreferences.getInstance();
       final remember = prefs.getBool("remember_me") ?? true;
       final seenOnboarding = prefs.getBool('seen_onboarding') ?? false;
-
       if (!seenOnboarding) {
         await prefs.setBool('seen_onboarding', true);
         if (mounted) {
@@ -44,7 +90,6 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
         }
         return;
       }
-
       if (remember) {
         final user = Supabase.instance.client.auth.currentSession?.user;
         if (user != null) {
@@ -127,6 +172,8 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
     _animationController.dispose();
     _descriptionAnimationController.dispose();
     _rotationAnimationController.dispose();
+    _authSubscription.cancel();
+
     super.dispose();
   }
 

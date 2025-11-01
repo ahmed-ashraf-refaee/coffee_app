@@ -156,6 +156,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "errorPrefix": MessageLookupByLibrary.simpleMessage("Error:"),
     "expiryDate": MessageLookupByLibrary.simpleMessage("MM/YY"),
     "facebook": MessageLookupByLibrary.simpleMessage("Facebook"),
+    "fileDownloadFailed": MessageLookupByLibrary.simpleMessage(
+      "File download failed.",
+    ),
+    "fileNotFound": MessageLookupByLibrary.simpleMessage("File not found."),
+    "fileTooLarge": MessageLookupByLibrary.simpleMessage("File is too large."),
+    "fileUploadFailed": MessageLookupByLibrary.simpleMessage(
+      "File upload failed.",
+    ),
     "filters": MessageLookupByLibrary.simpleMessage("Filters"),
     "first_name": MessageLookupByLibrary.simpleMessage("First Name"),
     "foreignKeyError": MessageLookupByLibrary.simpleMessage(
@@ -187,6 +195,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Invalid email or password.",
     ),
     "invalidEmail": MessageLookupByLibrary.simpleMessage("Invalid email"),
+    "invalidFileType": MessageLookupByLibrary.simpleMessage(
+      "Invalid file type.",
+    ),
     "invalidInputSyntax": MessageLookupByLibrary.simpleMessage(
       "Invalid input format.",
     ),
@@ -204,6 +215,15 @@ class MessageLookup extends MessageLookupByLibrary {
       "This reset link has expired. Please request a new one.",
     ),
     "log_in": MessageLookupByLibrary.simpleMessage("Log In"),
+    "login_cancelled": MessageLookupByLibrary.simpleMessage(
+      "Login was cancelled.",
+    ),
+    "login_failed": MessageLookupByLibrary.simpleMessage(
+      "Login failed. Please try again.",
+    ),
+    "login_success": MessageLookupByLibrary.simpleMessage(
+      "Logged in successfully!",
+    ),
     "maxVariantsReached": MessageLookupByLibrary.simpleMessage(
       "Maximum of 3 variants allowed",
     ),
@@ -466,6 +486,15 @@ class MessageLookup extends MessageLookupByLibrary {
       "Track inventory and update product availability",
     ),
     "stockManagerTitle": MessageLookupByLibrary.simpleMessage("Stock Manager"),
+    "storageAccessDenied": MessageLookupByLibrary.simpleMessage(
+      "Access denied to storage.",
+    ),
+    "storageBucketNotFound": MessageLookupByLibrary.simpleMessage(
+      "Storage bucket not found.",
+    ),
+    "storageError": MessageLookupByLibrary.simpleMessage(
+      "Storage error occurred.",
+    ),
     "sub_total": MessageLookupByLibrary.simpleMessage("Sub Total:"),
     "submit": MessageLookupByLibrary.simpleMessage("Submit"),
     "syntaxError": MessageLookupByLibrary.simpleMessage(

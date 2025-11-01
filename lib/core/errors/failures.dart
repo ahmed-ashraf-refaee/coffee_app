@@ -88,21 +88,33 @@ class Failure {
     final message = exception.message.toLowerCase();
     final code = exception.code;
 
-    // Handle specific codes and messages for AuthException
-    if (code == 'access_denied' && message.contains('expired')) {
-      return Failure(error: S.current.linkExpired);
-    } else if (code == 'otp_expired' ||
+    // Handle OAuth errors
+    if (code == 'access_denied') {
+      if (message.contains('permissions error')) {
+        return Failure(error: S.current.login_cancelled);
+      } else if (message.contains('expired')) {
+        return Failure(error: S.current.linkExpired);
+      } else {
+        return Failure(error: S.current.login_cancelled);
+      }
+    }
+    // Handle OTP errors
+    else if (code == 'otp_expired' ||
         message.contains('expired') ||
         message.contains('invalid') && message.contains('link')) {
       return Failure(error: S.current.linkExpired);
     } else if (code == 'otp_invalid' ||
         message.contains('invalid') && message.contains('otp')) {
       return Failure(error: S.current.invalidOTP);
-    } else if (code == 'same_password' ||
+    }
+    // Handle password errors
+    else if (code == 'same_password' ||
         message.contains('new password should be different') ||
         message.contains('same password')) {
       return Failure(error: S.current.samePasswordError);
-    } else if (message.contains("invalid login credentials")) {
+    }
+    // Handle credential errors
+    else if (message.contains("invalid login credentials")) {
       return Failure(error: S.current.invalidCredentials);
     } else if (message.contains("email not confirmed")) {
       return Failure(error: S.current.emailNotConfirmed);
@@ -136,6 +148,30 @@ class Failure {
     }
   }
 
+  factory Failure.fromStorageException(StorageException exception) {
+    final message = exception.message.toLowerCase();
+    final statusCode = exception.statusCode;
+
+    // Handle common storage errors
+    if (statusCode == '404' || message.contains('not found')) {
+      return Failure(error: S.current.fileNotFound);
+    } else if (statusCode == '413' || message.contains('too large')) {
+      return Failure(error: S.current.fileTooLarge);
+    } else if (statusCode == '415' || message.contains('invalid file type')) {
+      return Failure(error: S.current.invalidFileType);
+    } else if (statusCode == '403' || message.contains('forbidden')) {
+      return Failure(error: S.current.storageAccessDenied);
+    } else if (message.contains('bucket') && message.contains('not found')) {
+      return Failure(error: S.current.storageBucketNotFound);
+    } else if (message.contains('upload')) {
+      return Failure(error: S.current.fileUploadFailed);
+    } else if (message.contains('download')) {
+      return Failure(error: S.current.fileDownloadFailed);
+    } else {
+      return Failure(error: S.current.storageError);
+    }
+  }
+
   factory Failure.fromStringException(String errorMessage) {
     final message = errorMessage.toLowerCase();
 
@@ -153,6 +189,8 @@ class Failure {
       return Failure.fromAuthApiException(exception);
     } else if (exception is PostgrestException) {
       return Failure.fromSqlException(exception);
+    } else if (exception is StorageException) {
+      return Failure.fromStorageException(exception);
     } else if (exception is DioException) {
       return Failure.fromDioError(exception);
     } else if (exception is String) {

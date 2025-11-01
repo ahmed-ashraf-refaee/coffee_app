@@ -36,13 +36,38 @@
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>
-	<string>location</string>
+		<string>location</string>
 	</array>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
-	<string>sms</string>
-	<string>tel</string>
+		<string>sms</string>
+		<string>tel</string>
+		<string>fbapi</string>
+		<string>fb-messenger-share-api</string>
 	</array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>io.supabase.flutterapp</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb842403511676455</string>
+			</array>
+		</dict>
+	</array>
+	<key>FacebookAppID</key>
+	<string>842403511676455</string>
+	<key>FacebookClientToken</key>
+	<string>71cb04b66d3a3271c8a8cad53175f0c8</string>
+	<key>FacebookDisplayName</key>
+	<string>Coffee App</string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -54,8 +79,6 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
-	<key>NSCameraUsageDescription</key>
-	<string>Scan your card to add it automatically</string>
 	<key>NSCameraUsageDescription</key>
 	<string>To scan cards</string>
 </dict>

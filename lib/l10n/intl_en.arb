@@ -12,6 +12,9 @@
   "confirm_password": "Confirm Password",
   "sign_up": "Sign Up",
   "log_in": "Log In",
+  "login_success": "Logged in successfully!",
+   "login_failed": "Login failed. Please try again.",
+  "login_cancelled": "Login was cancelled.",
   "forgot_password": "Forgot Password?",
   "already_have_account": "Already have an account?",
   "dont_have_account": "Don't have an account?",
@@ -302,9 +305,16 @@
   "orderPlacedSuccessfully": "Order placed successfully",
    "coffee": "Coffee",
   "drop": "Drop",
-  "splashSubtitle": "your perfect pour at your door"
+  "splashSubtitle": "your perfect pour at your door",
 
-
+  "fileNotFound": "File not found.",
+  "fileTooLarge": "File is too large.",
+  "invalidFileType": "Invalid file type.",
+  "storageAccessDenied": "Access denied to storage.",
+  "storageBucketNotFound": "Storage bucket not found.",
+  "fileUploadFailed": "File upload failed.",
+  "fileDownloadFailed": "File download failed.",
+  "storageError": "Storage error occurred."
 
 
 
