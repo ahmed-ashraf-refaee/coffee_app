@@ -314,8 +314,17 @@
   "storageBucketNotFound": "Storage bucket not found.",
   "fileUploadFailed": "File upload failed.",
   "fileDownloadFailed": "File download failed.",
-  "storageError": "Storage error occurred."
+  "storageError": "Storage error occurred.",
 
+
+  "imageTooLarge": "Image is too large. Maximum size is {maxSize}MB.",
+  "@imageTooLarge": {
+    "placeholders": {
+      "maxSize": {
+        "type": "int"
+      }
+    }
+  }
 
 
 

@@ -11,6 +11,7 @@ part 'edit_profile_state.dart';
 
 class EditProfileCubit extends Cubit<EditProfileState> {
   EditProfileCubit() : super(EditProfileInitial());
+  final ProfileRepoImpl _profileRepo = ProfileRepoImpl();
 
   void editProfileData({
     required String firstName,
@@ -19,7 +20,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
     required File? imageFile,
   }) async {
     emit(EditProfileLoading());
-    var result = await ProfileRepoImpl().editProfileData(
+    var result = await _profileRepo.editProfileData(
       firstName: firstName,
       lastName: lastName,
       userName: userName,
@@ -38,5 +39,9 @@ class EditProfileCubit extends Cubit<EditProfileState> {
       (failure) => emit(FetchProfileFailureState(error: failure.error)),
       (user) => emit(FetchProfileSuccessState(userProfileModel: user)),
     );
+  }
+
+  bool isEmailPasswordAuth() {
+    return _profileRepo.isEmailPasswordAuth();
   }
 }

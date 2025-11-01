@@ -109,6 +109,8 @@ class _LoginViewBodyState extends State<LoginViewBody> {
               UiHelpers.showSnackBar(context: context, message: state.error);
             }
             if (state is AuthSuccess) {
+              context.read<EditProfileCubit>().fetchUserData();
+
               context.read<AdminRoleCubit>().loadRole();
               UiHelpers.showSnackBar(
                 context: context,
@@ -130,7 +132,6 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                       rememberMe: rememberMe.value,
                     ),
                   );
-                  context.read<EditProfileCubit>().fetchUserData();
                 }
               },
               child: Text(S.current.log_in, style: TextStyles.medium20),

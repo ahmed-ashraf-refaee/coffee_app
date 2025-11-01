@@ -316,5 +316,15 @@
   "storageBucketNotFound": "مجلد التخزين غير موجود.",
   "fileUploadFailed": "فشل رفع الملف.",
   "fileDownloadFailed": "فشل تنزيل الملف.",
-  "storageError": "حدث خطأ في التخزين."
+  "storageError": "حدث خطأ في التخزين.",
+  
+  "imageTooLarge": "حجم الصورة كبير جداً. الحد الأقصى {maxSize} ميجابايت.",
+  "@imageTooLarge": {
+    "placeholders": {
+      "maxSize": {
+        "type": "int"
+      }
+    }
+  }
+
 }

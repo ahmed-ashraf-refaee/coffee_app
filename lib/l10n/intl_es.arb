@@ -296,5 +296,13 @@
   "storageBucketNotFound": "Cubo de almacenamiento no encontrado.",
   "fileUploadFailed": "Error al cargar el archivo.",
   "fileDownloadFailed": "Error al descargar el archivo.",
-  "storageError": "Ocurrió un error de almacenamiento."
+  "storageError": "Ocurrió un error de almacenamiento.",
+  "imageTooLarge": "La imagen es demasiado grande. El tamaño máximo es {maxSize}MB.",
+  "@imageTooLarge": {
+    "placeholders": {
+      "maxSize": {
+        "type": "int"
+      }
+    }
+  }
 }

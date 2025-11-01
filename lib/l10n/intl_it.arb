@@ -296,5 +296,13 @@
   "storageBucketNotFound": "Bucket di archiviazione non trovato.",
   "fileUploadFailed": "Caricamento file fallito.",
   "fileDownloadFailed": "Download file fallito.",
-  "storageError": "Si è verificato un errore di archiviazione."
+  "storageError": "Si è verificato un errore di archiviazione.",
+  "imageTooLarge": "L'immagine è troppo grande. La dimensione massima è {maxSize}MB.",
+  "@imageTooLarge": {
+    "placeholders": {
+      "maxSize": {
+        "type": "int"
+      }
+    }
+  }
 }

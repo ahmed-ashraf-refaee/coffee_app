@@ -20,7 +20,10 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'es';
 
-  static String m0(seconds) => "Reenviar después de ${seconds} segundos";
+  static String m0(maxSize) =>
+      "La imagen es demasiado grande. El tamaño máximo es ${maxSize}MB.";
+
+  static String m1(seconds) => "Reenviar después de ${seconds} segundos";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -217,6 +220,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "imageRequired": MessageLookupByLibrary.simpleMessage(
       "Por favor, seleccione una imagen",
     ),
+    "imageTooLarge": m0,
     "internalServerError": MessageLookupByLibrary.simpleMessage(
       "Error interno del servidor. Por favor, inténtelo de nuevo.",
     ),
@@ -443,7 +447,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "requestCanceled": MessageLookupByLibrary.simpleMessage(
       "Solicitud cancelada.",
     ),
-    "resendAfterSeconds": m0,
+    "resendAfterSeconds": m1,
     "resendCode": MessageLookupByLibrary.simpleMessage("Reenviar Código"),
     "reset": MessageLookupByLibrary.simpleMessage("Restablecer"),
     "resetFields": MessageLookupByLibrary.simpleMessage("Restablecer"),

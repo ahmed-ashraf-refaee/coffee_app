@@ -2453,6 +2453,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Image is too large. Maximum size is {maxSize}MB.`
+  String imageTooLarge(int maxSize) {
+    return Intl.message(
+      'Image is too large. Maximum size is ${maxSize}MB.',
+      name: 'imageTooLarge',
+      desc: '',
+      args: [maxSize],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

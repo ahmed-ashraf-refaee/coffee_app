@@ -2,11 +2,13 @@ import 'dart:io';
 
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
 import '../../../../../core/widgets/custom_app_bar.dart';
 import '../../../../../core/widgets/custom_icon_button.dart';
 import '../../../../../core/widgets/prettier_tap.dart';
+import '../../manager/edit_profile/edit_profile_cubit.dart';
 import '../profile_view/widgets/profile_divider.dart';
 import 'widgets/edit_profile_form.dart';
 import 'widgets/edit_profile_tiles.dart';
@@ -53,17 +55,28 @@ class _EditProfileViewState extends State<EditProfileView> {
                     spacing: 16,
                     children: [
                       CustomAppBar(
-                        leading: PrettierTap(
-                          onPressed: () {},
-                          child: CustomIconButton(
-                            padding: 8,
-                            onPressed: () => GoRouter.of(context).pop(),
-                            child: Icon(
-                              Ionicons.chevron_back,
-                              color: context.colors.onSecondary,
+                        leading:
+                            BlocBuilder<EditProfileCubit, EditProfileState>(
+                              builder: (context, state) {
+                                final isLoading = state is EditProfileLoading;
+                                return PrettierTap(
+                                  shrink: isLoading ? 0 : 3,
+                                  onPressed: () {},
+                                  child: CustomIconButton(
+                                    padding: 8,
+                                    onPressed: () {
+                                      if (!isLoading) {
+                                        GoRouter.of(context).pop();
+                                      }
+                                    },
+                                    child: Icon(
+                                      Ionicons.chevron_back,
+                                      color: context.colors.onSecondary,
+                                    ),
+                                  ),
+                                );
+                              },
                             ),
-                          ),
-                        ),
                       ),
                       EditProfileForm(
                         formKey: _formKey,
@@ -77,9 +90,13 @@ class _EditProfileViewState extends State<EditProfileView> {
                           });
                         },
                       ),
-                      const ProfileDivider(intend: 0),
-                      const ChangeEmailTile(),
-                      const ChangePasswordTile(),
+                      if (context
+                          .read<EditProfileCubit>()
+                          .isEmailPasswordAuth()) ...[
+                        const ProfileDivider(intend: 0),
+                        const ChangeEmailTile(),
+                        const ChangePasswordTile(),
+                      ],
                     ],
                   ),
                 ),

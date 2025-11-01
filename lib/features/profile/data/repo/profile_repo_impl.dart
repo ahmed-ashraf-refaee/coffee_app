@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:coffee_app/features/authentication/data/services/auth_service.dart';
 import 'package:coffee_app/features/profile/data/services/settings_service.dart';
 import 'package:dartz/dartz.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../../core/errors/error_handler.dart';
 import '../../../../core/errors/failures.dart';
@@ -53,5 +54,16 @@ class ProfileRepoImpl extends ProfileRepo {
         imageFile: imageFile,
       );
     });
+  }
+
+  @override
+  bool isEmailPasswordAuth() {
+    final user = Supabase.instance.client.auth.currentUser;
+    if (user == null) return false;
+    final identities = user.identities;
+    if (identities == null || identities.isEmpty) {
+      return true;
+    }
+    return identities.first.provider == 'email';
   }
 }

@@ -20,7 +20,10 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ar';
 
-  static String m0(seconds) => "إعادة الإرسال بعد ${seconds} ثانية";
+  static String m0(maxSize) =>
+      "حجم الصورة كبير جداً. الحد الأقصى ${maxSize} ميجابايت.";
+
+  static String m1(seconds) => "إعادة الإرسال بعد ${seconds} ثانية";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -185,6 +188,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "growth": MessageLookupByLibrary.simpleMessage("النمو"),
     "holderName": MessageLookupByLibrary.simpleMessage("اسم حامل البطاقة"),
     "imageRequired": MessageLookupByLibrary.simpleMessage("يرجى اختيار صورة"),
+    "imageTooLarge": m0,
     "internalServerError": MessageLookupByLibrary.simpleMessage(
       "خطأ داخلي في الخادم. حاول مرة أخرى.",
     ),
@@ -375,7 +379,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "remember_me": MessageLookupByLibrary.simpleMessage("تذكرني"),
     "remove": MessageLookupByLibrary.simpleMessage("إزالة"),
     "requestCanceled": MessageLookupByLibrary.simpleMessage("تم إلغاء الطلب."),
-    "resendAfterSeconds": m0,
+    "resendAfterSeconds": m1,
     "resendCode": MessageLookupByLibrary.simpleMessage("إعادة إرسال الرمز"),
     "reset": MessageLookupByLibrary.simpleMessage("إعادة تعيين"),
     "resetFields": MessageLookupByLibrary.simpleMessage("إعادة التعيين"),

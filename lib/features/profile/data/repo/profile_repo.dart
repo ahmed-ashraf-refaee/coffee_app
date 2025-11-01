@@ -14,4 +14,5 @@ abstract class ProfileRepo {
     required String userName,
     required File? imageFile,
   });
+  bool isEmailPasswordAuth();
 }

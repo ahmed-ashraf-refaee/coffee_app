@@ -296,5 +296,13 @@
   "storageBucketNotFound": "Bucket de stockage non trouvé.",
   "fileUploadFailed": "Échec du téléchargement du fichier.",
   "fileDownloadFailed": "Échec du téléchargement du fichier.",
-  "storageError": "Une erreur de stockage s'est produite."
+  "storageError": "Une erreur de stockage s'est produite.",
+  "imageTooLarge": "L'image est trop volumineuse. La taille maximale est de {maxSize}Mo.",
+  "@imageTooLarge": {
+    "placeholders": {
+      "maxSize": {
+        "type": "int"
+      }
+    }
+  }
 }

@@ -13,8 +13,12 @@ class ProfileViewBodyInfoSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ProfileContainer(
-      child: BlocConsumer<EditProfileCubit, EditProfileState>(
-        listener: (context, state) {},
+      child: BlocBuilder<EditProfileCubit, EditProfileState>(
+        buildWhen: (previous, current) {
+          return current is FetchProfileLoadingState ||
+              current is FetchProfileSuccessState ||
+              current is FetchProfileFailureState;
+        },
         builder: (context, state) {
           if (state is FetchProfileLoadingState) {
             return const ProfileInfoLoading();

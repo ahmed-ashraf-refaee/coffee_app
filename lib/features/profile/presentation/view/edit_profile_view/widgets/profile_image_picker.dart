@@ -4,20 +4,24 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ionicons/ionicons.dart';
 
+import '../../../../../../core/helper/ui_helpers.dart';
 import '../../../../../../core/widgets/custom_icon_button.dart';
 import '../../../../../../core/widgets/custom_rounded_images.dart';
+import '../../../../../../generated/l10n.dart';
 import '../../../../../../main.dart';
 
 class ProfileImagePicker extends StatelessWidget {
   final File? imageFile;
   final String? profileImageUrl;
   final ValueChanged<File?> onImagePicked;
+  final int maxFileSizeInMB; // Maximum file size in MB
 
   const ProfileImagePicker({
     super.key,
     required this.imageFile,
     required this.profileImageUrl,
     required this.onImagePicked,
+    this.maxFileSizeInMB = 2, // Default 2MB
   });
 
   @override
@@ -75,8 +79,27 @@ class ProfileImagePicker extends StatelessWidget {
     final pickedFile = await ImagePicker().pickImage(
       source: ImageSource.gallery,
     );
+
     if (pickedFile != null) {
-      onImagePicked(File(pickedFile.path));
+      final file = File(pickedFile.path);
+
+      // Check file size
+      final fileSizeInBytes = await file.length();
+      final fileSizeInMB = fileSizeInBytes / (1024 * 1024);
+
+      if (fileSizeInMB > maxFileSizeInMB) {
+        // Show error message if file is too large
+        if (context.mounted) {
+          UiHelpers.showSnackBar(
+            context: context,
+            message: S.current.imageTooLarge(maxFileSizeInMB),
+          );
+        }
+        return; // Don't update the image
+      }
+
+      // File size is acceptable, update the image
+      onImagePicked(file);
     }
   }
 }
