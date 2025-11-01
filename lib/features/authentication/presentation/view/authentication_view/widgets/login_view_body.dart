@@ -11,6 +11,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../../../core/helper/ui_helpers.dart';
 import '../../../../../admin/presentation/manager/admin_role_cubit/admin_role_cubit.dart';
+import '../../../../../profile/presentation/manager/edit_profile/edit_profile_cubit.dart';
 import '../../../manager/auth_bloc/auth_bloc.dart';
 import 'auth_suggestion.dart';
 import '../../../../../../core/widgets/title_subtitle.dart';
@@ -109,6 +110,11 @@ class _LoginViewBodyState extends State<LoginViewBody> {
             }
             if (state is AuthSuccess) {
               context.read<AdminRoleCubit>().loadRole();
+              UiHelpers.showSnackBar(
+                context: context,
+                message: S.current.login_success,
+              );
+
               GoRouter.of(context).pushReplacement(AppRouter.kNavigationView);
             }
           },
@@ -124,6 +130,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                       rememberMe: rememberMe.value,
                     ),
                   );
+                  context.read<EditProfileCubit>().fetchUserData();
                 }
               },
               child: Text(S.current.log_in, style: TextStyles.medium20),

@@ -10,9 +10,11 @@ import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../../../core/errors/failures.dart';
 import '../../../../core/helper/ui_helpers.dart';
 import '../../../../core/utils/app_router.dart';
 import '../../../../core/utils/text_styles.dart';
+import '../../../profile/presentation/manager/edit_profile/edit_profile_cubit.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -45,23 +47,35 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
   }
 
   void _authStateListener() {
-    _authSubscription = Supabase.instance.client.auth.onAuthStateChange.listen((
-      event,
-    ) async {
-      final type = event.event;
-      if (type == AuthChangeEvent.signedIn) {
-        final session = event.session;
-        if (session == null) {
-          return;
-        }
+    _authSubscription = Supabase.instance.client.auth.onAuthStateChange.listen(
+      (event) async {
+        final type = event.event;
 
-        if (mounted) {
-          BlocProvider.of<AuthBloc>(context).add(HandleLoginCallBack());
-          GoRouter.of(context).go(AppRouter.kAuthView);
-          UiHelpers.showSnackBar(context: context, message: S.current.log_in);
+        if (type == AuthChangeEvent.signedIn) {
+          final session = event.session;
+          if (session == null) {
+            return;
+          }
+
+          if (mounted) {
+            BlocProvider.of<AuthBloc>(context).add(HandleLoginCallBack());
+            context.read<EditProfileCubit>().fetchUserData();
+
+            GoRouter.of(context).go(AppRouter.kAuthView);
+            UiHelpers.showSnackBar(
+              context: context,
+              message: S.current.login_success,
+            );
+          }
         }
-      }
-    });
+      },
+      onError: (error) {
+        if (!mounted) return;
+        final failure = Failure.fromException(error);
+
+        UiHelpers.showSnackBar(context: context, message: failure.error);
+      },
+    );
   }
 
   void _checkAuth() {
