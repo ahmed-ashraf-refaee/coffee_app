@@ -3,6 +3,9 @@
 A comprehensive full-stack coffee ordering application with customer-facing features, profile management, and a powerful administrative dashboard built with Supabase backend.
 
 ---
+<img width="1024" height="768" alt="Slide 4_3 - 1" src="https://github.com/user-attachments/assets/826782bd-9959-4f45-933a-029380ba3d35" />
+
+<img width="1920" height="1080" alt="Slide 16_9 - 1" src="https://github.com/user-attachments/assets/d66bc7d6-4220-41d3-8120-f063f6fb1560" />
 
 ## 📋 Project Overview
 
