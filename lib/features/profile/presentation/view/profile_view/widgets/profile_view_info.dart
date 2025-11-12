@@ -1,9 +1,14 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:coffee_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ionicons/ionicons.dart';
 
+import '../../../../../../core/helper/ui_helpers.dart';
 import '../../../../../../core/utils/text_styles.dart';
 import '../../../../../../core/widgets/custom_rounded_images.dart';
+import '../../../../../../core/widgets/prettier_tap.dart';
+import '../../../../../home/presentation/view/details_view/widgets/details_view_body.dart';
 import '../../../manager/edit_profile/edit_profile_cubit.dart';
 import 'profile_container.dart';
 import 'profile_info_loading.dart';
@@ -29,13 +34,30 @@ class ProfileViewBodyInfoSection extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8),
                   child: userProfile.profileImageUrl != null
-                      ? Hero(
-                          tag: userProfile.profileImageUrl!,
-                          child: CustomRoundedImage(
-                            imageUrl: userProfile.profileImageUrl!,
-                            aspectRatio: 1,
-                            width: 80,
-                            borderRadius: BorderRadius.circular(8),
+                      ? PrettierTap(
+                          shrink: 1,
+                          onPressed: () => UiHelpers.showOverlay(
+                            context: context,
+                            child: Hero(
+                              tag: userProfile.profileImageUrl!,
+                              child: CachedNetworkImage(
+                                imageUrl: userProfile.profileImageUrl!,
+                                errorWidget: (context, url, error) =>
+                                    const Icon(
+                                      Ionicons.warning_outline,
+                                      size: 30,
+                                    ),
+                              ),
+                            ),
+                          ),
+                          child: Hero(
+                            tag: userProfile.profileImageUrl!,
+                            child: CustomRoundedImage(
+                              imageUrl: userProfile.profileImageUrl!,
+                              aspectRatio: 1,
+                              width: 80,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
                           ),
                         )
                       : CustomRoundedImage(
